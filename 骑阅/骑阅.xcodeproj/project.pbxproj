@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA55BFE61E4F37D600F1027B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFE51E4F37D600F1027B /* main.m */; };
-		BA55BFE91E4F37D600F1027B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFE81E4F37D600F1027B /* AppDelegate.m */; };
 		BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF01E4F37D600F1027B /* Assets.xcassets */; };
 		BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF21E4F37D600F1027B /* LaunchScreen.storyboard */; };
 		BA55BFFF1E4F37D600F1027B /* __Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFFE1E4F37D600F1027B /* __Tests.m */; };
@@ -48,6 +47,9 @@
 		BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8541E50780F00D2E848 /* YYBasicTableView.m */; };
 		BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8561E50780F00D2E848 /* YYFMPromptView.m */; };
 		BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */; };
+		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
+		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
+		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +73,6 @@
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
 		BA55BFE11E4F37D600F1027B /* 骑阅.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "骑阅.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA55BFE51E4F37D600F1027B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BA55BFE71E4F37D600F1027B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
-		BA55BFE81E4F37D600F1027B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
 		BA55BFF01E4F37D600F1027B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA55BFF31E4F37D600F1027B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA55BFF51E4F37D600F1027B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -152,6 +152,12 @@
 		BACBA85B1E507A2B00D2E848 /* MBProgressHUD+LLHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+LLHud.h"; sourceTree = "<group>"; };
 		BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+LLHud.m"; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
+		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
+		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
+		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
+		EC94C2511E50851500F2454F /* QYLoginApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginApiManager.m; sourceTree = "<group>"; };
+		EC94C2531E508D2900F2454F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "骑阅/Other/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		EC94C2541E508D2900F2454F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "骑阅/Other/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods___.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -214,6 +220,7 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				EC94C2461E5084D700F2454F /* Account */,
 				BACBA8501E50771700D2E848 /* Category */,
 				BAA0012E1E50725A0067A894 /* QYNetWorking */,
 				BAA0012C1E50700F0067A894 /* Other */,
@@ -279,8 +286,8 @@
 		BAA0012C1E50700F0067A894 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				BA55BFE71E4F37D600F1027B /* AppDelegate.h */,
-				BA55BFE81E4F37D600F1027B /* AppDelegate.m */,
+				EC94C2531E508D2900F2454F /* AppDelegate.h */,
+				EC94C2541E508D2900F2454F /* AppDelegate.m */,
 				BACBA85A1E5078F400D2E848 /* define.h */,
 			);
 			name = Other;
@@ -508,6 +515,65 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EC94C2461E5084D700F2454F /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				EC94C2471E5084D700F2454F /* ApiManager */,
+				EC94C2481E5084D700F2454F /* Command */,
+				EC94C2491E5084D700F2454F /* Controller */,
+				EC94C24A1E5084D700F2454F /* Logic */,
+				EC94C24B1E5084D700F2454F /* Model */,
+				EC94C24C1E5084D700F2454F /* View */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		EC94C2471E5084D700F2454F /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				EC94C2501E50851500F2454F /* QYLoginApiManager.h */,
+				EC94C2511E50851500F2454F /* QYLoginApiManager.m */,
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		EC94C2481E5084D700F2454F /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		EC94C2491E5084D700F2454F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EC94C24D1E5084F400F2454F /* QYLoginViewController.h */,
+				EC94C24E1E5084F400F2454F /* QYLoginViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EC94C24A1E5084D700F2454F /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		EC94C24B1E5084D700F2454F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EC94C24C1E5084D700F2454F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -707,7 +773,6 @@
 				BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */,
 				BAA0017D1E50725B0067A894 /* NSArray+AXNetworkingMethods.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
-				BA55BFE91E4F37D600F1027B /* AppDelegate.m in Sources */,
 				BAA001811E50725B0067A894 /* NSString+AXNetworkingMethods.m in Sources */,
 				BAA0017F1E50725B0067A894 /* NSMutableString+AXNetworkingMethods.m in Sources */,
 				BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */,
@@ -717,12 +782,15 @@
 				BAA001871E50725B0067A894 /* CTServiceFactory.m in Sources */,
 				BAA001931E50725B0067A894 /* CTCommonParamsGenerator.m in Sources */,
 				BAA001801E50725B0067A894 /* NSObject+AXNetworkingMethods.m in Sources */,
+				EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */,
 				BAA0018A1E50725B0067A894 /* CLURLResponse.m in Sources */,
+				EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */,
 				BAA0017E1E50725B0067A894 /* NSDictionary+AXNetworkingMethods.m in Sources */,
 				BAA001851E50725B0067A894 /* CLCommands.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
+				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
 				BA55BFE61E4F37D600F1027B /* main.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
