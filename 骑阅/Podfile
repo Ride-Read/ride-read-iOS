@@ -1,0 +1,13 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target '骑阅' do
+pod 'MBProgressHUD'
+pod 'SDWebImage'
+pod 'MJRefresh'
+pod 'Masonry'
+pod 'AFNetworking'
+
+end
+
+
