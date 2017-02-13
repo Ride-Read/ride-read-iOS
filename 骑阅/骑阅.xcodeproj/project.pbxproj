@@ -47,6 +47,7 @@
 		BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8541E50780F00D2E848 /* YYBasicTableView.m */; };
 		BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8561E50780F00D2E848 /* YYFMPromptView.m */; };
 		BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */; };
+		BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
@@ -151,6 +152,9 @@
 		BACBA85A1E5078F400D2E848 /* define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = define.h; sourceTree = "<group>"; };
 		BACBA85B1E507A2B00D2E848 /* MBProgressHUD+LLHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+LLHud.h"; sourceTree = "<group>"; };
 		BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+LLHud.m"; sourceTree = "<group>"; };
+		BACBA8631E50C90100D2E848 /* QYLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginHeaderView.h; sourceTree = "<group>"; };
+		BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginHeaderView.m; sourceTree = "<group>"; };
+		BACBA8691E50C9BF00D2E848 /* QYViewClickProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYViewClickProtocol.h; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
@@ -262,6 +266,7 @@
 		BAA0012A1E506FFD0067A894 /* Compoents */ = {
 			isa = PBXGroup;
 			children = (
+				BACBA8681E50C9BF00D2E848 /* Protocol */,
 				BAA0012D1E5070990067A894 /* Controolers */,
 				BAA0012B1E506FFD0067A894 /* View */,
 			);
@@ -506,6 +511,31 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		BACBA8611E50C8B200D2E848 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		BACBA8621E50C8D800D2E848 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BACBA8631E50C90100D2E848 /* QYLoginHeaderView.h */,
+				BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BACBA8681E50C9BF00D2E848 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				BACBA8691E50C9BF00D2E848 /* QYViewClickProtocol.h */,
+			);
+			name = Protocol;
+			path = "骑阅/Compoents/Protocol";
+			sourceTree = SOURCE_ROOT;
+		};
 		EB82BA38347459AD24D7B13E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,12 +548,12 @@
 		EC94C2461E5084D700F2454F /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				BACBA8621E50C8D800D2E848 /* View */,
+				BACBA8611E50C8B200D2E848 /* Command */,
 				EC94C2471E5084D700F2454F /* ApiManager */,
-				EC94C2481E5084D700F2454F /* Command */,
 				EC94C2491E5084D700F2454F /* Controller */,
 				EC94C24A1E5084D700F2454F /* Logic */,
 				EC94C24B1E5084D700F2454F /* Model */,
-				EC94C24C1E5084D700F2454F /* View */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -535,13 +565,6 @@
 				EC94C2511E50851500F2454F /* QYLoginApiManager.m */,
 			);
 			path = ApiManager;
-			sourceTree = "<group>";
-		};
-		EC94C2481E5084D700F2454F /* Command */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Command;
 			sourceTree = "<group>";
 		};
 		EC94C2491E5084D700F2454F /* Controller */ = {
@@ -565,13 +588,6 @@
 			children = (
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		EC94C24C1E5084D700F2454F /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -766,6 +782,7 @@
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */,
 				BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */,
+				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,

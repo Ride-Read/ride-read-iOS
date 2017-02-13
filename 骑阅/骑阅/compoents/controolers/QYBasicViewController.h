@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 /**
  BasicController do nothting
  Suggest all controller inherit this
