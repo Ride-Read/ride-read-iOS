@@ -41,7 +41,7 @@
 }
 
 
-+(void)showMessageAutoHid:(NSString *)text view:(UIView *)view {
++(void)showMessageAutoHide:(NSString *)text view:(UIView *)view {
     
     
     [self show:text icon:nil view:view];

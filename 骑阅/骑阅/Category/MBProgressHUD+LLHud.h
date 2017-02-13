@@ -11,5 +11,5 @@
 @interface MBProgressHUD (LLHud)
 
 +(instancetype )showMessage:(NSString *)message toView:(UIView *)view;
-+(void)showMessageAutoHid:(NSString *)text view:(UIView *)view;
++(void)showMessageAutoHide:(NSString *)text view:(UIView *)view;
 @end
