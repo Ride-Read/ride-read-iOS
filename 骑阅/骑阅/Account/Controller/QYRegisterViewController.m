@@ -1,24 +1,24 @@
 //
-//  QYLoginViewController.m
+//  QYRegisterViewController.m
 //  骑阅
 //
-//  Created by 亮 on 2017/2/12.
+//  Created by 亮 on 2017/2/14.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYLoginViewController.h"
-#import "QYLoginHeaderView.h"
+#import "QYRegisterViewController.h"
 #import "define.h"
 
-@interface QYLoginViewController ()
+@interface QYRegisterViewController ()
 
 @end
 
-@implementation QYLoginViewController
+@implementation QYRegisterViewController
 
-#pragma mark - life cycle
+#pragma mark life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor redColor];
     // Do any additional setup after loading the view.
 }
 

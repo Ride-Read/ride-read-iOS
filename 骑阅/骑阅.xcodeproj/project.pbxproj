@@ -51,6 +51,11 @@
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
+		EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C25A1E5155F900F2454F /* QYLoginOrRegisterFatherController.m */; };
+		EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C25D1E51741900F2454F /* QYOtherLoginView.m */; };
+		EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2611E51EE8200F2454F /* QYCustomPresentDelegate.m */; };
+		EC94C2651E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2641E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m */; };
+		ECA4B42E1E52EE9E00D06D35 /* QYRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA4B42D1E52EE9E00D06D35 /* QYRegisterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +167,16 @@
 		EC94C2511E50851500F2454F /* QYLoginApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginApiManager.m; sourceTree = "<group>"; };
 		EC94C2531E508D2900F2454F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "骑阅/Other/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		EC94C2541E508D2900F2454F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "骑阅/Other/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		EC94C2591E5155F900F2454F /* QYLoginOrRegisterFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginOrRegisterFatherController.h; sourceTree = "<group>"; };
+		EC94C25A1E5155F900F2454F /* QYLoginOrRegisterFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginOrRegisterFatherController.m; sourceTree = "<group>"; };
+		EC94C25C1E51741900F2454F /* QYOtherLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYOtherLoginView.h; sourceTree = "<group>"; };
+		EC94C25D1E51741900F2454F /* QYOtherLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYOtherLoginView.m; sourceTree = "<group>"; };
+		EC94C2601E51EE8200F2454F /* QYCustomPresentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCustomPresentDelegate.h; sourceTree = "<group>"; };
+		EC94C2611E51EE8200F2454F /* QYCustomPresentDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCustomPresentDelegate.m; sourceTree = "<group>"; };
+		EC94C2631E51EF4000F2454F /* QYCustomPresentAnimationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCustomPresentAnimationDelegate.h; sourceTree = "<group>"; };
+		EC94C2641E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCustomPresentAnimationDelegate.m; sourceTree = "<group>"; };
+		ECA4B42C1E52EE9E00D06D35 /* QYRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRegisterViewController.h; sourceTree = "<group>"; };
+		ECA4B42D1E52EE9E00D06D35 /* QYRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRegisterViewController.m; sourceTree = "<group>"; };
 		FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods___.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -523,6 +538,8 @@
 			children = (
 				BACBA8631E50C90100D2E848 /* QYLoginHeaderView.h */,
 				BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */,
+				EC94C25C1E51741900F2454F /* QYOtherLoginView.h */,
+				EC94C25D1E51741900F2454F /* QYOtherLoginView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -548,6 +565,7 @@
 		EC94C2461E5084D700F2454F /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				EC94C25F1E51EE6700F2454F /* Tool */,
 				BACBA8621E50C8D800D2E848 /* View */,
 				BACBA8611E50C8B200D2E848 /* Command */,
 				EC94C2471E5084D700F2454F /* ApiManager */,
@@ -572,6 +590,10 @@
 			children = (
 				EC94C24D1E5084F400F2454F /* QYLoginViewController.h */,
 				EC94C24E1E5084F400F2454F /* QYLoginViewController.m */,
+				EC94C2591E5155F900F2454F /* QYLoginOrRegisterFatherController.h */,
+				EC94C25A1E5155F900F2454F /* QYLoginOrRegisterFatherController.m */,
+				ECA4B42C1E52EE9E00D06D35 /* QYRegisterViewController.h */,
+				ECA4B42D1E52EE9E00D06D35 /* QYRegisterViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -588,6 +610,17 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EC94C25F1E51EE6700F2454F /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				EC94C2601E51EE8200F2454F /* QYCustomPresentDelegate.h */,
+				EC94C2611E51EE8200F2454F /* QYCustomPresentDelegate.m */,
+				EC94C2631E51EF4000F2454F /* QYCustomPresentAnimationDelegate.h */,
+				EC94C2641E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m */,
+			);
+			path = Tool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -782,6 +815,7 @@
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */,
 				BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */,
+				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
@@ -790,11 +824,14 @@
 				BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */,
 				BAA0017D1E50725B0067A894 /* NSArray+AXNetworkingMethods.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
+				EC94C2651E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m in Sources */,
 				BAA001811E50725B0067A894 /* NSString+AXNetworkingMethods.m in Sources */,
 				BAA0017F1E50725B0067A894 /* NSMutableString+AXNetworkingMethods.m in Sources */,
+				ECA4B42E1E52EE9E00D06D35 /* QYRegisterViewController.m in Sources */,
 				BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */,
 				BAA001981E5072B20067A894 /* QYBasicViewController.m in Sources */,
 				BAA001951E50725B0067A894 /* CTUDIDGenerator.m in Sources */,
+				EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */,
 				BAA001831E50725B0067A894 /* UIDevice+IdentifierAddition.m in Sources */,
 				BAA001871E50725B0067A894 /* CTServiceFactory.m in Sources */,
 				BAA001931E50725B0067A894 /* CTCommonParamsGenerator.m in Sources */,
@@ -805,6 +842,7 @@
 				BAA0017E1E50725B0067A894 /* NSDictionary+AXNetworkingMethods.m in Sources */,
 				BAA001851E50725B0067A894 /* CLCommands.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
+				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,

@@ -10,6 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @protocol QYViewClickProtocol <NSObject>
-
+@optional;
 -(void)clickCustomView:(UIView *)customView index:(NSInteger)index;
 @end
