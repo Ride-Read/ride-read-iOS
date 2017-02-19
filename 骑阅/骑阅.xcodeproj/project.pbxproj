@@ -48,6 +48,9 @@
 		BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8561E50780F00D2E848 /* YYFMPromptView.m */; };
 		BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */; };
 		BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */; };
+		EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */; };
+		EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */; };
+		EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
@@ -161,6 +164,12 @@
 		BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginHeaderView.m; sourceTree = "<group>"; };
 		BACBA8691E50C9BF00D2E848 /* QYViewClickProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYViewClickProtocol.h; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
+		EC43E7BC1E59C26F00DCCBB9 /* QYLoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginTextField.h; sourceTree = "<group>"; };
+		EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginTextField.m; sourceTree = "<group>"; };
+		EC43E7BF1E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+QYHexStringColor.h"; sourceTree = "<group>"; };
+		EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+QYHexStringColor.m"; sourceTree = "<group>"; };
+		EC43E7C21E59D32300DCCBB9 /* QYLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginView.h; sourceTree = "<group>"; };
+		EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginView.m; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
 		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
@@ -540,6 +549,10 @@
 				BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */,
 				EC94C25C1E51741900F2454F /* QYOtherLoginView.h */,
 				EC94C25D1E51741900F2454F /* QYOtherLoginView.m */,
+				EC43E7BC1E59C26F00DCCBB9 /* QYLoginTextField.h */,
+				EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */,
+				EC43E7C21E59D32300DCCBB9 /* QYLoginView.h */,
+				EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -619,6 +632,8 @@
 				EC94C2611E51EE8200F2454F /* QYCustomPresentDelegate.m */,
 				EC94C2631E51EF4000F2454F /* QYCustomPresentAnimationDelegate.h */,
 				EC94C2641E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m */,
+				EC43E7BF1E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.h */,
+				EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -694,6 +709,7 @@
 				TargetAttributes = {
 					BA55BFE01E4F37D600F1027B = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = TST4LEUS93;
 						ProvisioningStyle = Automatic;
 					};
 					BA55BFF91E4F37D600F1027B = {
@@ -811,6 +827,7 @@
 				BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
 				BAA001891E50725B0067A894 /* CTLogger.m in Sources */,
+				EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */,
@@ -821,6 +838,7 @@
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,
 				BACBA8571E50780F00D2E848 /* YYBaiscTableViewCell.m in Sources */,
+				EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */,
 				BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */,
 				BAA0017D1E50725B0067A894 /* NSArray+AXNetworkingMethods.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
@@ -840,6 +858,7 @@
 				BAA0018A1E50725B0067A894 /* CLURLResponse.m in Sources */,
 				EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */,
 				BAA0017E1E50725B0067A894 /* NSDictionary+AXNetworkingMethods.m in Sources */,
+				EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */,
 				BAA001851E50725B0067A894 /* CLCommands.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
@@ -995,6 +1014,7 @@
 			baseConfigurationReference = DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = TST4LEUS93;
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1008,6 +1028,7 @@
 			baseConfigurationReference = 9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = TST4LEUS93;
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

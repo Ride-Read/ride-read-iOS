@@ -35,7 +35,7 @@
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.top.and.left.and.right.mas_equalTo(0);
-        make.height.mas_equalTo(163);
+        make.height.mas_equalTo(cl_caculation_y(163 * 2));
     }];
     [self.otherLoginView mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -56,7 +56,7 @@
     [self.logController willMoveToParentViewController:self];
     [self addChildViewController:self.logController];
     [self.view addSubview:self.logController.view];
-    self.logController.view.frame = CGRectMake(0, 163, kScreenWidth, CGRectGetHeight(self.contentView.frame));
+    self.logController.view.frame = CGRectMake(0, cl_caculation_y(163 * 2), kScreenWidth, CGRectGetHeight(self.contentView.frame));
     [self.logController didMoveToParentViewController:self];
 
 }
@@ -67,7 +67,7 @@
     [self addChildViewController:self.logController];
     [self.view addSubview:self.logController.view];
     self.logController.view.frame = CGRectMake(-kScreenWidth, CGRectGetMaxY(self.headerView.frame), kScreenWidth, CGRectGetHeight(self.contentView.frame));
-    [UIView animateWithDuration:0.15 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         
         self.logController.view.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), kScreenWidth, CGRectGetHeight(self.contentView.frame));
         
@@ -80,7 +80,7 @@
     
     [self.logController willMoveToParentViewController:nil];
     [self.logController removeFromParentViewController];
-    [UIView animateWithDuration:0.15 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         
         self.logController.view.frame = CGRectMake(-kScreenWidth, CGRectGetMaxY(self.headerView.frame), kScreenWidth, CGRectGetHeight(self.contentView.frame));
         
@@ -100,7 +100,7 @@
     [self addChildViewController:self.registerController];
     [self.view addSubview:self.registerController.view];
     self.registerController.view.frame = CGRectMake(kScreenWidth, CGRectGetMaxY(self.headerView.frame), kScreenWidth, CGRectGetHeight(self.contentView.frame));
-    [UIView animateWithDuration:0.15 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         
         self.registerController.view.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), kScreenWidth, CGRectGetHeight(self.contentView.frame));
         
@@ -165,10 +165,8 @@
         
         _contentView = [[UIScrollView alloc] init];
         _contentView.backgroundColor = [UIColor whiteColor];
-        //_contentView.contentSize = CGSizeMake(kScreenWidth * 2, kScreenHeight - 163 -  cl_caculation_y(180));
-        _contentView.frame = CGRectMake(0, 163, kScreenWidth, kScreenHeight - cl_caculation_y(180) - 163);
-        //_contentView.showsHorizontalScrollIndicator = NO;
-        //_contentView.showsVerticalScrollIndicator = NO;
+        _contentView.frame = CGRectMake(0, cl_caculation_y(163 * 2), kScreenWidth, kScreenHeight - cl_caculation_y(180) - cl_caculation_y(163 * 2));
+       
     }
     return _contentView;
 }
