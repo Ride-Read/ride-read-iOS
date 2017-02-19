@@ -51,6 +51,7 @@
 		EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */; };
 		EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */; };
 		EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */; };
+		EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C61E59EEB400DCCBB9 /* QYRegisterView.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
@@ -170,6 +171,8 @@
 		EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+QYHexStringColor.m"; sourceTree = "<group>"; };
 		EC43E7C21E59D32300DCCBB9 /* QYLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginView.h; sourceTree = "<group>"; };
 		EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginView.m; sourceTree = "<group>"; };
+		EC43E7C51E59EEB400DCCBB9 /* QYRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRegisterView.h; sourceTree = "<group>"; };
+		EC43E7C61E59EEB400DCCBB9 /* QYRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRegisterView.m; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
 		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
@@ -553,6 +556,8 @@
 				EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */,
 				EC43E7C21E59D32300DCCBB9 /* QYLoginView.h */,
 				EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */,
+				EC43E7C51E59EEB400DCCBB9 /* QYRegisterView.h */,
+				EC43E7C61E59EEB400DCCBB9 /* QYRegisterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */,
 				BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
 				BAA001891E50725B0067A894 /* CTLogger.m in Sources */,
