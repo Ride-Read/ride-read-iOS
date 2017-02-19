@@ -8,6 +8,7 @@
 
 #import "QYLoginHeaderView.h"
 #import "Masonry.h"
+#import "define.h"
 
 @interface QYLoginHeaderView ()
 @property (nonatomic, strong) CAShapeLayer *logTriangle;
@@ -68,7 +69,7 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.centerX.equalTo(self.mas_centerX);
-        make.top.mas_equalTo(57);
+        make.top.mas_equalTo(cl_caculation_y(57 * 2));
     }];
     
     [self.logButton mas_makeConstraints:^(MASConstraintMaker *make) {
