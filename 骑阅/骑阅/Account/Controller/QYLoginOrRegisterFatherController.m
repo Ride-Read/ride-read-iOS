@@ -13,6 +13,7 @@
 #import "QYOtherLoginView.h"
 #import "QYLoginViewController.h"
 #import "QYRegisterViewController.h"
+#import "QYForgertPwdController.h"
 
 @interface QYLoginOrRegisterFatherController ()<QYViewClickProtocol>
 @property (nonatomic, strong) QYLoginHeaderView *headerView;
@@ -21,6 +22,17 @@
 
 @property (nonatomic, strong) QYLoginViewController *logController;
 @property (nonatomic, strong) QYRegisterViewController *registerController;
+@property (nonatomic, strong) QYForgertPwdController *forgertController;
+
+/**
+ 
+ 忘记密码相关
+ */
+@property (nonatomic, assign) BOOL isOnForgertSendCode;
+@property (nonatomic, assign) BOOL isOnForgertResetPwd;
+@property (nonatomic, copy) NSString *forgertCode;
+@property (nonatomic, copy) NSString *forgertPwd;
+@property (nonatomic, copy) NSString *confirmForgertPwd;
 
 @end
 
@@ -45,12 +57,13 @@
     [self createLogController];
 
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - private method
--(void)createLogController {
+- (void)createLogController {
     
     self.logController = [[QYLoginViewController alloc] init];
     [self.logController willMoveToParentViewController:self];
@@ -60,7 +73,7 @@
     [self.logController didMoveToParentViewController:self];
 
 }
--(void)backCreateController {
+- (void)backCreateController {
     
     self.logController = [[QYLoginViewController alloc] init];
     [self.logController willMoveToParentViewController:self];
@@ -76,7 +89,7 @@
 
 }
 
--(void)removeLogControoler {
+- (void)removeLogControoler {
     
     [self.logController willMoveToParentViewController:nil];
     [self.logController removeFromParentViewController];
@@ -92,7 +105,7 @@
     
 }
 
--(void)createRegisterController {
+- (void)createRegisterController {
     
     
     self.registerController = [[QYRegisterViewController alloc] init];
@@ -109,7 +122,7 @@
 
 }
 
--(void)removeRegisterController {
+- (void)removeRegisterController {
     
     
     [self.registerController willMoveToParentViewController:nil];
@@ -117,6 +130,31 @@
     [self.registerController.view removeFromSuperview];
     [self.registerController didMoveToParentViewController:nil];
     self.registerController = nil;
+}
+
+- (void)createForgertController {
+    
+    self.forgertController = [[QYForgertPwdController alloc] init];
+    [self.forgertController willMoveToParentViewController:self];
+    [self addChildViewController:self.forgertController];
+    [self.view addSubview:self.forgertController.view];
+    self.forgertController.view.frame = CGRectMake(0, CGRectGetMaxY(self.contentView.frame), kScreenWidth, CGRectGetHeight(self.contentView.frame));
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.forgertController.view.frame = CGRectMake(0, cl_caculation_y(163 * 2), kScreenWidth, CGRectGetHeight(self.contentView.frame));
+        
+    } completion:nil];
+    [self.forgertController didMoveToParentViewController:self];
+}
+
+- (void)removeForgertController {
+    
+    [self.forgertController willMoveToParentViewController:nil];
+    [self.forgertController removeFromParentViewController];
+    [self.forgertController.view removeFromSuperview];
+    [self.forgertController didMoveToParentViewController:nil];
+    self.forgertController = nil;
+
 }
 
 #pragma mark - QYViewClickProtocol
@@ -133,7 +171,10 @@
             return;
         }
         if (index == 1) {
-            
+            if (self.presentedViewController) {
+                
+                [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+            }
             [self removeLogControoler];
             [self createRegisterController];
         }

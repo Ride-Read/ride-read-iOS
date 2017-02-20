@@ -7,7 +7,19 @@
 //
 
 #import "QYCustomPresentDelegate.h"
+#import "QYCustomPresentAnimationDelegate.h"
 
 @implementation QYCustomPresentDelegate
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    
+    QYCustomPresentAnimationDelegate *animation = [[QYCustomPresentAnimationDelegate alloc] init];
+    return animation;
+}
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    
+    QYCustomPresentAnimationDelegate *animation = [[QYCustomPresentAnimationDelegate alloc] init];
+    return animation;
+
+}
 
 @end

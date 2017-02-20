@@ -9,5 +9,6 @@
 #import "QYBasicViewController.h"
 
 @interface QYLoginViewController : QYBasicViewController
+@property (nonatomic, assign) BOOL presented;
 
 @end

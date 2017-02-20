@@ -13,9 +13,12 @@
 /**
  该距离修改为距离中线左边的距离
  */
+@property (nonatomic, assign) CGFloat textFieldCenterLeft;
 @property (nonatomic, assign) CGFloat textFieldLeft;
 @property (nonatomic, assign) CGFloat textFieldBottom;
+@property (nonatomic, strong, readonly) UITextField *textField;
 @property (nonatomic, copy, readonly) NSString *text;
 @property (nonatomic, copy) NSString *placeHolder;
+@property (nonatomic, assign) UIKeyboardType type;
 
 @end

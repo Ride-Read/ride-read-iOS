@@ -79,7 +79,7 @@
         
         _phoneTextField = [[QYLoginTextField alloc] init];
         _phoneTextField.placeHolder = @"手机 / 骑阅号";
-        _phoneTextField.textFieldLeft = 15 * 3;
+        _phoneTextField.textFieldCenterLeft = 15 * 3;
         _phoneTextField.textFieldBottom = 0;
     }
     return _phoneTextField;
@@ -91,9 +91,15 @@
         
         _passwordTextField = [[QYLoginTextField alloc] init];
         _passwordTextField.placeHolder = @"输入密码";
-        _passwordTextField.textFieldLeft = 15 * 2;
-        _passwordTextField.textFieldBottom = 9;
- 
+        _passwordTextField.textFieldCenterLeft = 15 * 2;
+        if (kScreenHeight < 560) {
+            
+            _passwordTextField.textFieldBottom = 7;
+        } else {
+            
+            _passwordTextField.textFieldBottom = 9;
+        }
+
     }
     return _passwordTextField;
 }

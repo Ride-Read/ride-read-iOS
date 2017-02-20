@@ -52,6 +52,10 @@
 		EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */; };
 		EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */; };
 		EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C61E59EEB400DCCBB9 /* QYRegisterView.m */; };
+		EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047ED1E5A919100FB92D8 /* QYForgertPwdController.m */; };
+		EC7047F11E5AC89100FB92D8 /* QYResetOrSetPwdView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F01E5AC89100FB92D8 /* QYResetOrSetPwdView.m */; };
+		EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F31E5AD4D300FB92D8 /* QYRideReadAccountView.m */; };
+		EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F61E5AE1B200FB92D8 /* QYInviteView.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
@@ -173,6 +177,14 @@
 		EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginView.m; sourceTree = "<group>"; };
 		EC43E7C51E59EEB400DCCBB9 /* QYRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRegisterView.h; sourceTree = "<group>"; };
 		EC43E7C61E59EEB400DCCBB9 /* QYRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRegisterView.m; sourceTree = "<group>"; };
+		EC7047EC1E5A919100FB92D8 /* QYForgertPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYForgertPwdController.h; sourceTree = "<group>"; };
+		EC7047ED1E5A919100FB92D8 /* QYForgertPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYForgertPwdController.m; sourceTree = "<group>"; };
+		EC7047EF1E5AC89100FB92D8 /* QYResetOrSetPwdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYResetOrSetPwdView.h; sourceTree = "<group>"; };
+		EC7047F01E5AC89100FB92D8 /* QYResetOrSetPwdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYResetOrSetPwdView.m; sourceTree = "<group>"; };
+		EC7047F21E5AD4D300FB92D8 /* QYRideReadAccountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRideReadAccountView.h; sourceTree = "<group>"; };
+		EC7047F31E5AD4D300FB92D8 /* QYRideReadAccountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRideReadAccountView.m; sourceTree = "<group>"; };
+		EC7047F51E5AE1B200FB92D8 /* QYInviteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYInviteView.h; sourceTree = "<group>"; };
+		EC7047F61E5AE1B200FB92D8 /* QYInviteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYInviteView.m; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
 		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
@@ -558,6 +570,12 @@
 				EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */,
 				EC43E7C51E59EEB400DCCBB9 /* QYRegisterView.h */,
 				EC43E7C61E59EEB400DCCBB9 /* QYRegisterView.m */,
+				EC7047EF1E5AC89100FB92D8 /* QYResetOrSetPwdView.h */,
+				EC7047F01E5AC89100FB92D8 /* QYResetOrSetPwdView.m */,
+				EC7047F21E5AD4D300FB92D8 /* QYRideReadAccountView.h */,
+				EC7047F31E5AD4D300FB92D8 /* QYRideReadAccountView.m */,
+				EC7047F51E5AE1B200FB92D8 /* QYInviteView.h */,
+				EC7047F61E5AE1B200FB92D8 /* QYInviteView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -608,6 +626,8 @@
 			children = (
 				EC94C24D1E5084F400F2454F /* QYLoginViewController.h */,
 				EC94C24E1E5084F400F2454F /* QYLoginViewController.m */,
+				EC7047EC1E5A919100FB92D8 /* QYForgertPwdController.h */,
+				EC7047ED1E5A919100FB92D8 /* QYForgertPwdController.m */,
 				EC94C2591E5155F900F2454F /* QYLoginOrRegisterFatherController.h */,
 				EC94C25A1E5155F900F2454F /* QYLoginOrRegisterFatherController.m */,
 				ECA4B42C1E52EE9E00D06D35 /* QYRegisterViewController.h */,
@@ -829,16 +849,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC7047F11E5AC89100FB92D8 /* QYResetOrSetPwdView.m in Sources */,
 				EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */,
 				BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
 				BAA001891E50725B0067A894 /* CTLogger.m in Sources */,
 				EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */,
+				EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */,
+				EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */,
 				BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */,
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
+				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,

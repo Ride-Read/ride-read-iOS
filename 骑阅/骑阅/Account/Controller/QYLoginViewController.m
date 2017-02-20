@@ -10,6 +10,8 @@
 #import "QYLoginHeaderView.h"
 #import "define.h"
 #import "QYLoginView.h"
+#import "QYForgertPwdController.h"
+#import "QYCustomPresentDelegate.h"
 
 
 @interface QYLoginViewController ()<QYViewClickProtocol>
@@ -51,6 +53,12 @@
         }
         if (index == 1) {
             
+            self.presented = YES;
+            QYForgertPwdController *forgert = [[QYForgertPwdController alloc] init];
+            forgert.modalPresentationStyle = UIModalPresentationCustom;
+            QYCustomPresentDelegate *delegate = [[QYCustomPresentDelegate alloc] init];
+            forgert.transitioningDelegate = delegate;
+            [self presentViewController:forgert animated:YES completion:nil];
             MyLog(@"click forgert");
             return;
         }

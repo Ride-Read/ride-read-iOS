@@ -9,10 +9,11 @@
 #import "QYLoginTextField.h"
 #import "UIColor+QYHexStringColor.h"
 #import "Masonry.h"
+#import "define.h"
 
 @interface QYLoginTextField ()
 @property (nonatomic, strong) CAShapeLayer *bottomLine;
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong,readwrite) UITextField *textField;
 
 @end
 @implementation QYLoginTextField
@@ -74,6 +75,12 @@
     return _bottomLine;
 }
 
+-(void)setType:(UIKeyboardType)type {
+    
+    _type = type;
+    self.textField.keyboardType = type;
+    
+}
 -(void)setPlaceHolder:(NSString *)placeHolder {
     
     self.textField.placeholder = placeHolder;
@@ -83,13 +90,13 @@
     
     return self.textField.text;
 }
--(void)setTextFieldLeft:(CGFloat)textFieldLeft {
+-(void)setTextFieldCenterLeft:(CGFloat)textFieldCenterLeft {
     
-    _textFieldLeft = textFieldLeft;
+    _textFieldCenterLeft = textFieldCenterLeft;
     [self.textField mas_remakeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.mas_equalTo(self.mas_centerX).offset(-_textFieldLeft);
-        make.bottom.mas_equalTo(-self.textFieldBottom);
+        make.left.mas_equalTo(self.mas_centerX).offset(-_textFieldCenterLeft);
+        make.bottom.mas_equalTo(-cl_caculation_y(self.textFieldBottom * 2));
         make.height.mas_equalTo(45);
         make.right.mas_equalTo(0);
     }];
@@ -99,8 +106,19 @@
     _textFieldBottom = textFieldBottom;
     [self.textField mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-       make.left.mas_equalTo(self.mas_centerX).offset(-_textFieldLeft);
-        make.bottom.mas_equalTo(-self.textFieldBottom);
+        make.left.mas_equalTo(self.mas_centerX).offset(-_textFieldCenterLeft);
+        make.bottom.mas_equalTo(-cl_caculation_y(self.textFieldBottom * 2));
+        make.height.mas_equalTo(45);
+        make.right.mas_equalTo(0);
+    }];
+}
+-(void)setTextFieldLeft:(CGFloat)textFieldLeft {
+    
+    _textFieldLeft = textFieldLeft;
+    [self.textField mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(-_textFieldLeft);
+        make.bottom.mas_equalTo(-cl_caculation_y(self.textFieldBottom * 2));
         make.height.mas_equalTo(45);
         make.right.mas_equalTo(0);
     }];
