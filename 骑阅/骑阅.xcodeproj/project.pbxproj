@@ -58,6 +58,11 @@
 		EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F61E5AE1B200FB92D8 /* QYInviteView.m */; };
 		EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */; };
 		EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1341E5C3DDB00EA54AA /* NSString+QYMD5.m */; };
+		EC7AA1411E5C882D00EA54AA /* QYHomeTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1401E5C882D00EA54AA /* QYHomeTabBarViewController.m */; };
+		EC7AA1591E5C8CFF00EA54AA /* QYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1581E5C8CFF00EA54AA /* QYNavigationController.m */; };
+		EC7AA15F1E5C8E1F00EA54AA /* QYReadCycleController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */; };
+		EC7AA1621E5C8E3400EA54AA /* QYReadMeController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */; };
+		EC7AA1791E5C90E500EA54AA /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1781E5C90E500EA54AA /* QYReadMapController.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.mm */; };
@@ -191,6 +196,16 @@
 		EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYVerifyCodeApiManager.m; sourceTree = "<group>"; };
 		EC7AA1331E5C3DDB00EA54AA /* NSString+QYMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+QYMD5.h"; sourceTree = "<group>"; };
 		EC7AA1341E5C3DDB00EA54AA /* NSString+QYMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+QYMD5.m"; sourceTree = "<group>"; };
+		EC7AA13F1E5C882D00EA54AA /* QYHomeTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYHomeTabBarViewController.h; sourceTree = "<group>"; };
+		EC7AA1401E5C882D00EA54AA /* QYHomeTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYHomeTabBarViewController.m; sourceTree = "<group>"; };
+		EC7AA1571E5C8CFF00EA54AA /* QYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYNavigationController.h; sourceTree = "<group>"; };
+		EC7AA1581E5C8CFF00EA54AA /* QYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYNavigationController.m; sourceTree = "<group>"; };
+		EC7AA15D1E5C8E1F00EA54AA /* QYReadCycleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadCycleController.h; sourceTree = "<group>"; };
+		EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadCycleController.m; sourceTree = "<group>"; };
+		EC7AA1601E5C8E3400EA54AA /* QYReadMeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadMeController.h; sourceTree = "<group>"; };
+		EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadMeController.m; sourceTree = "<group>"; };
+		EC7AA1771E5C90E500EA54AA /* QYReadMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadMapController.h; sourceTree = "<group>"; };
+		EC7AA1781E5C90E500EA54AA /* QYReadMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadMapController.m; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
 		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
@@ -269,6 +284,10 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				EC7AA16D1E5C90B400EA54AA /* ReadMap */,
+				EC7AA1491E5C8B4A00EA54AA /* ReadCycle */,
+				EC7AA1421E5C8B4200EA54AA /* Me */,
+				EC7AA1361E5C858200EA54AA /* HomeTabbar */,
 				EC94C2461E5084D700F2454F /* Account */,
 				BACBA8501E50771700D2E848 /* Category */,
 				BAA0012E1E50725A0067A894 /* QYNetWorking */,
@@ -606,6 +625,228 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EC7AA1361E5C858200EA54AA /* HomeTabbar */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA1371E5C858200EA54AA /* ApiManager */,
+				EC7AA1381E5C858200EA54AA /* Controller */,
+				EC7AA1391E5C858200EA54AA /* Model */,
+				EC7AA13A1E5C858200EA54AA /* Tool */,
+				EC7AA13B1E5C858200EA54AA /* View */,
+			);
+			path = HomeTabbar;
+			sourceTree = "<group>";
+		};
+		EC7AA1371E5C858200EA54AA /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		EC7AA1381E5C858200EA54AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA13F1E5C882D00EA54AA /* QYHomeTabBarViewController.h */,
+				EC7AA1401E5C882D00EA54AA /* QYHomeTabBarViewController.m */,
+				EC7AA1571E5C8CFF00EA54AA /* QYNavigationController.h */,
+				EC7AA1581E5C8CFF00EA54AA /* QYNavigationController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EC7AA1391E5C858200EA54AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EC7AA13A1E5C858200EA54AA /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		EC7AA13B1E5C858200EA54AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EC7AA1421E5C8B4200EA54AA /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA1431E5C8B4200EA54AA /* ApiManager */,
+				EC7AA1441E5C8B4200EA54AA /* Command */,
+				EC7AA1451E5C8B4200EA54AA /* Controller */,
+				EC7AA1461E5C8B4200EA54AA /* Model */,
+				EC7AA1471E5C8B4200EA54AA /* Tool */,
+				EC7AA1481E5C8B4200EA54AA /* View */,
+			);
+			path = Me;
+			sourceTree = "<group>";
+		};
+		EC7AA1431E5C8B4200EA54AA /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		EC7AA1441E5C8B4200EA54AA /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		EC7AA1451E5C8B4200EA54AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA1601E5C8E3400EA54AA /* QYReadMeController.h */,
+				EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EC7AA1461E5C8B4200EA54AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EC7AA1471E5C8B4200EA54AA /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		EC7AA1481E5C8B4200EA54AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EC7AA1491E5C8B4A00EA54AA /* ReadCycle */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA14A1E5C8B4A00EA54AA /* ApiManager */,
+				EC7AA14B1E5C8B4A00EA54AA /* Command */,
+				EC7AA14C1E5C8B4A00EA54AA /* Controller */,
+				EC7AA14D1E5C8B4A00EA54AA /* Model */,
+				EC7AA14E1E5C8B4A00EA54AA /* Tool */,
+				EC7AA14F1E5C8B4A00EA54AA /* View */,
+			);
+			path = ReadCycle;
+			sourceTree = "<group>";
+		};
+		EC7AA14A1E5C8B4A00EA54AA /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		EC7AA14B1E5C8B4A00EA54AA /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		EC7AA14C1E5C8B4A00EA54AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA15D1E5C8E1F00EA54AA /* QYReadCycleController.h */,
+				EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EC7AA14D1E5C8B4A00EA54AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EC7AA14E1E5C8B4A00EA54AA /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		EC7AA14F1E5C8B4A00EA54AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EC7AA16D1E5C90B400EA54AA /* ReadMap */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA16E1E5C90B400EA54AA /* ApiManager */,
+				EC7AA16F1E5C90B400EA54AA /* Command */,
+				EC7AA1701E5C90B400EA54AA /* Controller */,
+				EC7AA1711E5C90B400EA54AA /* Model */,
+				EC7AA1721E5C90B400EA54AA /* Tool */,
+				EC7AA1731E5C90B400EA54AA /* View */,
+			);
+			path = ReadMap;
+			sourceTree = "<group>";
+		};
+		EC7AA16E1E5C90B400EA54AA /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		EC7AA16F1E5C90B400EA54AA /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		EC7AA1701E5C90B400EA54AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EC7AA1771E5C90E500EA54AA /* QYReadMapController.h */,
+				EC7AA1781E5C90E500EA54AA /* QYReadMapController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EC7AA1711E5C90B400EA54AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EC7AA1721E5C90B400EA54AA /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		EC7AA1731E5C90B400EA54AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EC94C2461E5084D700F2454F /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -865,6 +1106,7 @@
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
 				BAA001891E50725B0067A894 /* CTLogger.m in Sources */,
 				EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */,
+				EC7AA1591E5C8CFF00EA54AA /* QYNavigationController.m in Sources */,
 				EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */,
 				EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
@@ -884,12 +1126,16 @@
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
 				EC94C2651E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m in Sources */,
 				BAA001811E50725B0067A894 /* NSString+AXNetworkingMethods.m in Sources */,
+				EC7AA1621E5C8E3400EA54AA /* QYReadMeController.m in Sources */,
 				BAA0017F1E50725B0067A894 /* NSMutableString+AXNetworkingMethods.m in Sources */,
 				ECA4B42E1E52EE9E00D06D35 /* QYRegisterViewController.m in Sources */,
+				EC7AA15F1E5C8E1F00EA54AA /* QYReadCycleController.m in Sources */,
 				BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */,
 				BAA001981E5072B20067A894 /* QYBasicViewController.m in Sources */,
 				BAA001951E50725B0067A894 /* CTUDIDGenerator.m in Sources */,
 				EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */,
+				EC7AA1791E5C90E500EA54AA /* QYReadMapController.m in Sources */,
+				EC7AA1411E5C882D00EA54AA /* QYHomeTabBarViewController.m in Sources */,
 				BAA001831E50725B0067A894 /* UIDevice+IdentifierAddition.m in Sources */,
 				BAA001871E50725B0067A894 /* CTServiceFactory.m in Sources */,
 				BAA001931E50725B0067A894 /* CTCommonParamsGenerator.m in Sources */,

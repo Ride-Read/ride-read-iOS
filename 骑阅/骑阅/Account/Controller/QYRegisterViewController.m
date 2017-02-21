@@ -29,11 +29,6 @@
 @property (nonatomic, strong) MBProgressHUD *hud;
 
 
-/**
- 用来标记是否通过邀请人骑阅号的验证 default NO,在对应API进行设置
- */
-@property (nonatomic, getter=isCorrectInviteCode) BOOL correctInviteCode;
-
 
 /**
  标记是否通过手机验证的验证 default NO ,在对应API进行设置

@@ -14,6 +14,7 @@
 #import "QYCustomPresentDelegate.h"
 #import "QYLoginApiManager.h"
 #import "MBProgressHUD+LLHud.h"
+#import "QYHomeTabBarViewController.h"
 
 
 @interface QYLoginViewController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
@@ -90,6 +91,9 @@
 }
 -(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
+#warning goto main controller for test
+    
+    [self gotoMainController];
     if (manager == self.loginApiManager) {
         
         //参数不能通过验证，具体可以看对应的Api
@@ -109,6 +113,13 @@
        
     }
     
+}
+
+#pragma mark - Private method
+-(void)gotoMainController {
+    
+    QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
+    [UIApplication sharedApplication].keyWindow.rootViewController = tab;
 }
 
 #pragma mark - Targart action
