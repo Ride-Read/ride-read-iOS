@@ -28,6 +28,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.forgertView];
+    [self.preViews addObject:self.forgertView];
+    self.currentView = self.forgertView;
+    [self addPanGesture];
     // Do any additional setup after loading the view.
 }
 
@@ -46,96 +49,161 @@
 }
 
 #pragma mark - target action
--(void)panAction:(UIPanGestureRecognizer *)sender {
+
+-(void)panAction:(UIScreenEdgePanGestureRecognizer *) gesture {
     
     if (self.preViews.count == 1) {
         
-        return;
-    }
-    CGPoint translation = [sender translationInView:self.view];
-    CGFloat translactionBase = self.view.bounds.size.width/3;
-    CGFloat translactionAbs = translation.x > 0?translation.x:-translation.x;
-    CGFloat precent = translactionAbs > translactionBase ? 1.0:translactionAbs/translactionBase;
-    UIView *preView = self.preViews[self.preViews.count - 1];
-    CGRect preFrame = preView.frame;
-    CGRect currentFrame = self.currentView.frame;
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        
-        self.startPoint = translation;
-        NSLog(@"began");
-    }
-    if (sender.state == UIGestureRecognizerStateChanged) {
-        /*
-         if (precent > 0.5) {
-         
-         [UIView animateWithDuration:0.3 animations:^{
-         
-         preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-         } completion:nil];
-         
-         [UIView animateWithDuration:0.3 animations:^{
-         
-         self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
-         } completion:^(BOOL finished) {
-         
-         [self.currentView removeFromSuperview];
-         self.currentView = nil;
-         }];
-         self.currentView = [self.preViews objectAtIndex:self.preViews.count -1];
-         [self.preViews removeObjectAtIndex:self.preViews.count - 1];
-         [sender setTranslation:CGPointZero inView:self.view];
-         
-         } else {
-         
-         [UIView animateWithDuration:0.3 animations:^{
-         
-         preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth * precent, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-         } completion:^(BOOL finished) {
-         
-         preView.frame = CGRectMake(-kScreenWidth,preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-         
-         }];
-         
-         [UIView animateWithDuration:0.3 animations:^{
-         
-         self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
-         } completion:^(BOOL finished) {
-         
-         self.currentView.frame = CGRectMake(0,preFrame.origin.y, preFrame.size.width, preFrame.size.height);;
-         }];
-         
-         }
-         NSLog(@"change");
-         */
-    }
-    if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
-        
-        if (precent > 0.5) {
+        CGPoint translation = [gesture translationInView:self.view];
+        CGFloat translactionBase = self.view.bounds.size.width/3;
+        CGFloat translactionAbs = translation.x > 0?translation.x:-translation.x;
+        CGFloat precent = translactionAbs > translactionBase ? 1.0:translactionAbs/translactionBase;
+        if (gesture.state == UIGestureRecognizerStateBegan) {
             
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-            } completion:nil];
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth , currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
-            } completion:^(BOOL finished) {
-                
-                [self.currentView removeFromSuperview];
-                self.currentView = nil;
-                self.currentView = [self.preViews objectAtIndex:self.preViews.count - 1];
-                [self.preViews removeObjectAtIndex:self.preViews.count - 1];
-                
-            }];
-            
-            
+            //self.startPoint = translation;
+            MyLog(@"began");
         }
-        NSLog(@"end");
+        if (gesture.state == UIGestureRecognizerStateChanged) {
+            /*
+             if (precent > 0.5) {
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+             } completion:nil];
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
+             } completion:^(BOOL finished) {
+             
+             [self.currentView removeFromSuperview];
+             self.currentView = nil;
+             }];
+             self.currentView = [self.preViews objectAtIndex:self.preViews.count -1];
+             [self.preViews removeObjectAtIndex:self.preViews.count - 1];
+             [sender setTranslation:CGPointZero inView:self.view];
+             
+             } else {
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth * precent, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+             } completion:^(BOOL finished) {
+             
+             preView.frame = CGRectMake(-kScreenWidth,preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+             
+             }];
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
+             } completion:^(BOOL finished) {
+             
+             self.currentView.frame = CGRectMake(0,preFrame.origin.y, preFrame.size.width, preFrame.size.height);;
+             }];
+             
+             }
+             NSLog(@"change");
+             */
+        }
+        if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+            
+            if (precent > 0.5) {
+                
+                [self.preViews removeAllObjects];
+                [self dismissViewControllerAnimated:YES completion:nil];
+                
+            }
+            MyLog(@"end");
+        }
+
+    } else {
+        
+        CGPoint translation = [gesture translationInView:self.view];
+        CGFloat translactionBase = self.view.bounds.size.width/3;
+        CGFloat translactionAbs = translation.x > 0?translation.x:-translation.x;
+        CGFloat precent = translactionAbs > translactionBase ? 1.0:translactionAbs/translactionBase;
+        UIView *preView = self.preViews[self.preViews.count - 1];
+        CGRect preFrame = preView.frame;
+        CGRect currentFrame = self.currentView.frame;
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            
+            //self.startPoint = translation;
+            MyLog(@"began");
+        }
+        if (gesture.state == UIGestureRecognizerStateChanged) {
+            /*
+             if (precent > 0.5) {
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+             } completion:nil];
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
+             } completion:^(BOOL finished) {
+             
+             [self.currentView removeFromSuperview];
+             self.currentView = nil;
+             }];
+             self.currentView = [self.preViews objectAtIndex:self.preViews.count -1];
+             [self.preViews removeObjectAtIndex:self.preViews.count - 1];
+             [sender setTranslation:CGPointZero inView:self.view];
+             
+             } else {
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth * precent, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+             } completion:^(BOOL finished) {
+             
+             preView.frame = CGRectMake(-kScreenWidth,preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+             
+             }];
+             
+             [UIView animateWithDuration:0.3 animations:^{
+             
+             self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
+             } completion:^(BOOL finished) {
+             
+             self.currentView.frame = CGRectMake(0,preFrame.origin.y, preFrame.size.width, preFrame.size.height);;
+             }];
+             
+             }
+             NSLog(@"change");
+             */
+        }
+        if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+            
+            if (precent > 0.5) {
+                
+                
+                [UIView animateWithDuration:0.3 animations:^{
+                    
+                    preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
+                } completion:nil];
+                
+                [UIView animateWithDuration:0.3 animations:^{
+                    
+                    self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth , currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
+                } completion:^(BOOL finished) {
+                    
+                    [self.currentView removeFromSuperview];
+                    self.currentView = nil;
+                    self.currentView = [self.preViews objectAtIndex:self.preViews.count - 1];
+                    [self.preViews removeObjectAtIndex:self.preViews.count - 1];
+                    
+                }];
+                
+                
+            }
+            MyLog(@"end");
+        }
+
     }
-    
-    
 }
 
 
@@ -162,10 +230,15 @@
 
 -(void)addPanGesture {
     
-    UIScreenEdgePanGestureRecognizer *pan = [[UIScreenEdgePanGestureRecognizer alloc] init];
-    pan.edges = UIRectEdgeLeft;
-    [pan addTarget:self action:@selector(panAction:)];
-    [self.view addGestureRecognizer:pan];
+    UIScreenEdgePanGestureRecognizer *leftPan = [[UIScreenEdgePanGestureRecognizer alloc] init];
+    leftPan.edges = UIRectEdgeLeft;
+    [leftPan addTarget:self action:@selector(panAction:)];
+    [self.view addGestureRecognizer:leftPan];
+    
+    UIScreenEdgePanGestureRecognizer *dismissLeft = [[UIScreenEdgePanGestureRecognizer alloc] init];
+    dismissLeft.edges = UIRectEdgeLeft;
+    [dismissLeft addTarget:self action:@selector(panAction:)];
+    [self.view addGestureRecognizer:dismissLeft];
     
 }
 - (void)presentResetView {
@@ -184,6 +257,8 @@
         self.resetView.frame = CGRectMake(resetFrame.origin.x - kScreenWidth, resetFrame.origin.y, resetFrame.size.width, resetFrame.size.height);
         
     } completion:nil];
+    [self.preViews addObject:self.forgertView];
+    self.currentView = self.resetView;
 }
 
 #pragma mark - Targart action
@@ -214,6 +289,14 @@
         _resetView.delegate = self;
     }
     return _resetView;
+}
+-(NSMutableArray *)preViews {
+    
+    if (!_preViews) {
+        
+        _preViews = [NSMutableArray array];
+    }
+    return _preViews;
 }
 
 /*
