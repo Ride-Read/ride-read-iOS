@@ -1,19 +1,19 @@
 //
-//  QYLoginApiManager.m
+//  QYVerifyCodeApiManager.m
 //  骑阅
 //
-//  Created by 亮 on 2017/2/12.
+//  Created by 亮 on 2017/2/21.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYLoginApiManager.h"
+#import "QYVerifyCodeApiManager.h"
 #import "define.h"
-#import "NSString+QYMD5.h"
 
-@interface QYLoginApiManager ()<CTAPIManagerValidator>
+
+@interface QYVerifyCodeApiManager ()<CTAPIManagerValidator>
 
 @end
-@implementation QYLoginApiManager
+@implementation QYVerifyCodeApiManager
 
 #pragma mark - life cycle
 -(instancetype)init {
@@ -28,7 +28,7 @@
 #pragma mark -APIManager
 -(NSString *)methodName {
     
-    return @"users/login";
+    return @"users/verify_code";
 }
 
 -(NSString *)serviceType {
@@ -45,33 +45,12 @@
     
     return NO;
 }
--(NSDictionary *)reformParams:(NSDictionary *)params {
-    
-    NSString *userName = params[kusername];
-    NSString *password = params[kpassword];
-    NSDictionary *dict;
-    if (password.length > 0) {
-        
-        password = [NSString getBase64String:password];
-        password = [NSString getMD5String:password];
-        
-    }
-    dict = @{kusername:userName,kpassword:password};
-    
-    return dict;
-}
-
 
 #pragma mark - APIManagerValidator
 -(BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
     
-    NSString *userName = data[kusername];
-    NSString *password = data[kpassword];
-    if (!userName||userName.length <= 0) {
-        
-        return NO;
-    }
-    if (password.length <= 0) {
+    NSString *code = data[kcode];
+    if (!code||code.length < 3) {
         
         return NO;
     }
@@ -87,5 +66,4 @@
     }
     return NO;
 }
-
 @end

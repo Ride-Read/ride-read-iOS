@@ -12,8 +12,10 @@
 #import "QYResetOrSetPwdView.h"
 #import "QYInviteView.h"
 #import "QYRideReadAccountView.h"
+#import "MBProgressHUD+LLHud.h"
+#import "QYVerifyCodeApiManager.h"
 
-@interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate>
+@interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYRegisterView *registerView;
 @property (nonatomic, strong) QYResetOrSetPwdView *setView;
 @property (nonatomic, strong) QYInviteView *invitePeopleView;
@@ -21,8 +23,22 @@
 @property (nonatomic, assign) CGPoint startPoint;
 
 
-@property (nonatomic, strong) NSMutableArray *preViews;//记录前一个所处的view；
+@property (nonatomic, strong) NSMutableArray *preViews;//前面添加View所在的栈
 @property (nonatomic, weak) UIView *currentView;//记录当前所处的viw;
+@property (nonatomic, strong) QYVerifyCodeApiManager *verifyInviteCodeApiManager;
+@property (nonatomic, strong) MBProgressHUD *hud;
+
+
+/**
+ 用来标记是否通过邀请人骑阅号的验证 default NO,在对应API进行设置
+ */
+@property (nonatomic, getter=isCorrectInviteCode) BOOL correctInviteCode;
+
+
+/**
+ 标记是否通过手机验证的验证 default NO ,在对应API进行设置
+ */
+@property (nonatomic, getter=isCorrectSMSCode) BOOL correctSMSCode;
 
 @end
 
@@ -32,9 +48,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.registerView];
+    [self.view addSubview:self.invitePeopleView];
     [self.preViews addObject:self.view];
-    self.currentView = self.registerView;
+    self.currentView = self.invitePeopleView;
     [self addPanGesture];
     // Do any additional setup after loading the view.
 }
@@ -46,7 +62,7 @@
 -(void)viewDidLayoutSubviews {
     
     [super viewDidLayoutSubviews];
-    self.registerView.frame = self.view.bounds;
+    self.invitePeopleView.frame = self.view.bounds;
 }
 -(void)dealloc {
     
@@ -64,7 +80,15 @@
         }
         if (index == 1) {
             MyLog(@"click next setup");
-            [self presentSetView];
+            if (self.isCorrectSMSCode)
+            {
+                
+                [self presentSetView];
+            } else
+            {
+                [MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:self.view];
+            }
+
             return;
         }
         if (index == 2) {
@@ -78,17 +102,65 @@
         
         if (index == 0) {
             
-            [self presendtInvitPeopleView];
+            [self presentSetInvitCodeView];
         }
     }
     
     if ([customView isKindOfClass:[QYInviteView class]]) {
         
         if (index == 0) {
-            
-            [self presentSetInvitCodeView];
+           
+            [self.verifyInviteCodeApiManager loadData];
+            self.hud = [MBProgressHUD showMessage:@"验证中..." toView:self.view];
         }
     }
+}
+
+#pragma mark - CTAPIParamSource
+-(NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.verifyInviteCodeApiManager) {
+        
+        NSString * code = self.invitePeopleView.invitePeople.text;
+        return @{kcode:code?:@""};
+    }
+    return nil;
+}
+
+#pragma mark - CTAPIManagerCallback
+-(void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    
+    if (manager == self.verifyInviteCodeApiManager) {
+        
+        [self.hud hideAnimated:YES];
+        self.hud = nil;
+        [self presentRegisterView];
+        return;
+    }
+}
+
+-(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.verifyInviteCodeApiManager) {
+        
+        [self.hud hideAnimated:YES];
+        self.hud = nil;
+        if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
+            
+            [MBProgressHUD showMessageAutoHide:@"邀请码错误" view:self.view];
+            return;
+        }
+        
+        if (manager.errorType == CTAPIBaseManagerErrorTypeNoContent) {
+            
+            [MBProgressHUD showMessageAutoHide:@"邀请码不存在" view:self.view];
+            return;
+        }
+        [MBProgressHUD showMessageAutoHide:@"认证失败" view:self.view];
+        
+    }
+    
 }
 
 #pragma mark - target action
@@ -193,6 +265,31 @@
     [self.view addGestureRecognizer:pan];
 
 }
+
+-(void)presentRegisterView {
+    
+    [self.view addSubview:self.registerView];
+    CGRect registerFrame = self.invitePeopleView.frame;
+    registerFrame.origin.x = kScreenWidth;
+    self.registerView.frame = registerFrame;
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.invitePeopleView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
+        
+    } completion:^(BOOL finished) {
+        
+        self.invitePeopleView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
+    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.registerView.frame = CGRectMake(registerFrame.origin.x - kScreenWidth, registerFrame.origin.y, registerFrame.size.width, registerFrame.size.height);
+        
+    } completion:nil];
+    [self.preViews addObject:self.invitePeopleView];
+    self.currentView = self.registerView;
+
+}
+
 - (void)presentSetView {
     
     [self.view addSubview:self.setView];
@@ -205,7 +302,7 @@
         
     } completion:^(BOOL finished) {
         
-        self.registerView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
+        //self.registerView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
     }];
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -216,12 +313,33 @@
     self.currentView = self.setView;
 }
 
--(void)presendtInvitPeopleView {
+//-(void)presendtInvitPeopleView {
+//    
+//    [self.view addSubview:self.invitePeopleView];
+//    CGRect inviteFrame = self.setView.frame;
+//    inviteFrame.origin.x = kScreenWidth;
+//    self.invitePeopleView.frame = inviteFrame;
+//    [UIView animateWithDuration:0.3 animations:^{
+//        
+//        self.setView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
+//        
+//    } completion:nil];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        
+//        self.invitePeopleView.frame = CGRectMake(inviteFrame.origin.x - kScreenWidth, inviteFrame.origin.y, inviteFrame.size.width, inviteFrame.size.height);
+//        
+//    } completion:nil];
+//    [self.preViews addObject:self.setView];
+//    self.currentView = self.invitePeopleView;
+//}
+
+- (void)presentSetInvitCodeView {
     
-    [self.view addSubview:self.invitePeopleView];
-    CGRect inviteFrame = self.setView.frame;
-    inviteFrame.origin.x = kScreenWidth;
-    self.invitePeopleView.frame = inviteFrame;
+    
+    [self.view addSubview:self.rideInviteCodeView];
+    CGRect setInviteViewFrame = self.setView.frame;
+    setInviteViewFrame.origin.x = kScreenWidth;
+    self.rideInviteCodeView.frame = setInviteViewFrame;
     [UIView animateWithDuration:0.3 animations:^{
         
         self.setView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
@@ -229,31 +347,10 @@
     } completion:nil];
     [UIView animateWithDuration:0.3 animations:^{
         
-        self.invitePeopleView.frame = CGRectMake(inviteFrame.origin.x - kScreenWidth, inviteFrame.origin.y, inviteFrame.size.width, inviteFrame.size.height);
-        
-    } completion:nil];
-    [self.preViews addObject:self.setView];
-    self.currentView = self.invitePeopleView;
-}
-
-- (void)presentSetInvitCodeView {
-    
-    
-    [self.view addSubview:self.rideInviteCodeView];
-    CGRect setInviteViewFrame = self.invitePeopleView.frame;
-    setInviteViewFrame.origin.x = kScreenWidth;
-    self.rideInviteCodeView.frame = setInviteViewFrame;
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        self.invitePeopleView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
-        
-    } completion:nil];
-    [UIView animateWithDuration:0.3 animations:^{
-        
         self.rideInviteCodeView.frame = CGRectMake(setInviteViewFrame.origin.x - kScreenWidth, setInviteViewFrame.origin.y, setInviteViewFrame.size.width, setInviteViewFrame.size.height);
         
     } completion:nil];
-    [self.preViews addObject:self.invitePeopleView];
+    [self.preViews addObject:self.setView];
     self.currentView = self.rideInviteCodeView;
 
 }
@@ -311,6 +408,16 @@
         _preViews = [NSMutableArray array];
     }
     return _preViews;
+}
+-(QYVerifyCodeApiManager *)verifyInviteCodeApiManager {
+    
+    if (!_verifyInviteCodeApiManager) {
+        
+        _verifyInviteCodeApiManager = [[QYVerifyCodeApiManager alloc] init];
+        _verifyInviteCodeApiManager.delegate = self;
+        _verifyInviteCodeApiManager.paramSource = self;
+    }
+    return _verifyInviteCodeApiManager;
 }
 
 /*

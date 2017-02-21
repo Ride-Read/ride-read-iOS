@@ -12,10 +12,13 @@
 #import "QYLoginView.h"
 #import "QYForgertPwdController.h"
 #import "QYCustomPresentDelegate.h"
+#import "QYLoginApiManager.h"
+#import "MBProgressHUD+LLHud.h"
 
 
-@interface QYLoginViewController ()<QYViewClickProtocol>
+@interface QYLoginViewController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYLoginView *loginView;
+@property (nonatomic, strong) QYLoginApiManager *loginApiManager;
 
 @end
 
@@ -49,6 +52,7 @@
         
         if (index == 0) {
             MyLog(@"click next setup");
+            [self.loginApiManager loadData];
             return;
         }
         if (index == 1) {
@@ -63,6 +67,48 @@
             return;
         }
     }
+}
+
+#pragma mark - CTAPIParamSource
+-(NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.loginApiManager) {
+        
+        NSString *username = self.loginView.phoneTextField.text;
+        NSString *password = self.loginView.passwordTextField.text;
+        return @{kusername:username?:@"",kpassword:password?:@""};
+    }
+    return nil;
+}
+
+#pragma mark - CTAPIManagerCallback
+-(void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.loginApiManager) {
+        //do something
+    }
+}
+-(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.loginApiManager) {
+        
+        //参数不能通过验证，具体可以看对应的Api
+        if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
+            
+            [MBProgressHUD showMessageAutoHide:@"请输入正确的用户名或密码" view:self.view];
+            return;
+        }
+        //请求已经发出，但服务器给了错误码
+        if (manager.errorType == CTAPIBaseManagerErrorTypeNoContent) {
+            
+             [MBProgressHUD showMessageAutoHide:@"用户名或密码错误" view:self.view];
+            return;
+        }
+        //其他情况
+        [MBProgressHUD showMessageAutoHide:@"登录失败" view:self.view];
+       
+    }
+    
 }
 
 #pragma mark - Targart action
@@ -83,6 +129,17 @@
        
     }
     return _loginView;
+}
+
+-(QYLoginApiManager *)loginApiManager {
+    
+    if (!_loginApiManager) {
+        
+        _loginApiManager = [[QYLoginApiManager alloc] init];
+        _loginApiManager.delegate = self;
+        _loginApiManager.paramSource = self;
+    }
+    return _loginApiManager;
 }
 /*
 #pragma mark - Navigation

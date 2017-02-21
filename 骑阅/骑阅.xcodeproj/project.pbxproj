@@ -56,9 +56,11 @@
 		EC7047F11E5AC89100FB92D8 /* QYResetOrSetPwdView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F01E5AC89100FB92D8 /* QYResetOrSetPwdView.m */; };
 		EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F31E5AD4D300FB92D8 /* QYRideReadAccountView.m */; };
 		EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7047F61E5AE1B200FB92D8 /* QYInviteView.m */; };
+		EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */; };
+		EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1341E5C3DDB00EA54AA /* NSString+QYMD5.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
-		EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.m */; };
+		EC94C2551E508D2900F2454F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.mm */; };
 		EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C25A1E5155F900F2454F /* QYLoginOrRegisterFatherController.m */; };
 		EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C25D1E51741900F2454F /* QYOtherLoginView.m */; };
 		EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2611E51EE8200F2454F /* QYCustomPresentDelegate.m */; };
@@ -162,7 +164,6 @@
 		BACBA8541E50780F00D2E848 /* YYBasicTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YYBasicTableView.m; path = "骑阅/Compoents/view/YYBasicTableView.m"; sourceTree = SOURCE_ROOT; };
 		BACBA8551E50780F00D2E848 /* YYFMPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYFMPromptView.h; path = "骑阅/Compoents/view/YYFMPromptView.h"; sourceTree = SOURCE_ROOT; };
 		BACBA8561E50780F00D2E848 /* YYFMPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YYFMPromptView.m; path = "骑阅/Compoents/view/YYFMPromptView.m"; sourceTree = SOURCE_ROOT; };
-		BACBA85A1E5078F400D2E848 /* define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = define.h; sourceTree = "<group>"; };
 		BACBA85B1E507A2B00D2E848 /* MBProgressHUD+LLHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+LLHud.h"; sourceTree = "<group>"; };
 		BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+LLHud.m"; sourceTree = "<group>"; };
 		BACBA8631E50C90100D2E848 /* QYLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginHeaderView.h; sourceTree = "<group>"; };
@@ -185,12 +186,17 @@
 		EC7047F31E5AD4D300FB92D8 /* QYRideReadAccountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRideReadAccountView.m; sourceTree = "<group>"; };
 		EC7047F51E5AE1B200FB92D8 /* QYInviteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYInviteView.h; sourceTree = "<group>"; };
 		EC7047F61E5AE1B200FB92D8 /* QYInviteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYInviteView.m; sourceTree = "<group>"; };
+		EC7AA12E1E5C337B00EA54AA /* define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = define.h; path = "骑阅/Other/define.h"; sourceTree = SOURCE_ROOT; };
+		EC7AA1301E5C3C0500EA54AA /* QYVerifyCodeApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYVerifyCodeApiManager.h; sourceTree = "<group>"; };
+		EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYVerifyCodeApiManager.m; sourceTree = "<group>"; };
+		EC7AA1331E5C3DDB00EA54AA /* NSString+QYMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+QYMD5.h"; sourceTree = "<group>"; };
+		EC7AA1341E5C3DDB00EA54AA /* NSString+QYMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+QYMD5.m"; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
 		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
 		EC94C2511E50851500F2454F /* QYLoginApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginApiManager.m; sourceTree = "<group>"; };
 		EC94C2531E508D2900F2454F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "骑阅/Other/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
-		EC94C2541E508D2900F2454F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "骑阅/Other/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		EC94C2541E508D2900F2454F /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "骑阅/Other/AppDelegate.mm"; sourceTree = SOURCE_ROOT; };
 		EC94C2591E5155F900F2454F /* QYLoginOrRegisterFatherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginOrRegisterFatherController.h; sourceTree = "<group>"; };
 		EC94C25A1E5155F900F2454F /* QYLoginOrRegisterFatherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginOrRegisterFatherController.m; sourceTree = "<group>"; };
 		EC94C25C1E51741900F2454F /* QYOtherLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYOtherLoginView.h; sourceTree = "<group>"; };
@@ -331,8 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				EC94C2531E508D2900F2454F /* AppDelegate.h */,
-				EC94C2541E508D2900F2454F /* AppDelegate.m */,
-				BACBA85A1E5078F400D2E848 /* define.h */,
+				EC94C2541E508D2900F2454F /* AppDelegate.mm */,
+				EC7AA12E1E5C337B00EA54AA /* define.h */,
 			);
 			name = Other;
 			path = other;
@@ -546,6 +552,8 @@
 			children = (
 				BACBA85B1E507A2B00D2E848 /* MBProgressHUD+LLHud.h */,
 				BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */,
+				EC7AA1331E5C3DDB00EA54AA /* NSString+QYMD5.h */,
+				EC7AA1341E5C3DDB00EA54AA /* NSString+QYMD5.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -617,6 +625,8 @@
 			children = (
 				EC94C2501E50851500F2454F /* QYLoginApiManager.h */,
 				EC94C2511E50851500F2454F /* QYLoginApiManager.m */,
+				EC7AA1301E5C3C0500EA54AA /* QYVerifyCodeApiManager.h */,
+				EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -886,11 +896,13 @@
 				BAA001801E50725B0067A894 /* NSObject+AXNetworkingMethods.m in Sources */,
 				EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */,
 				BAA0018A1E50725B0067A894 /* CLURLResponse.m in Sources */,
-				EC94C2551E508D2900F2454F /* AppDelegate.m in Sources */,
+				EC94C2551E508D2900F2454F /* AppDelegate.mm in Sources */,
 				BAA0017E1E50725B0067A894 /* NSDictionary+AXNetworkingMethods.m in Sources */,
 				EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */,
 				BAA001851E50725B0067A894 /* CLCommands.m in Sources */,
+				EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
+				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,

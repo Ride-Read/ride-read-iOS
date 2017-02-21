@@ -29,12 +29,12 @@
 
 -(NSString *)offlineApiBaseUrl {
     
-    return @"http://app.api.autohome.com.cn/autov5.0.0";
+    return @"http://121.42.195.113/rideread";
 }
 
 -(NSString *)onlineApiBaseUrl {
     
-    return @"http://app.api.autohome.com.cn/autov5.0.0";
+    return @"http://121.42.195.113/rideread";
 }
 
 //version
