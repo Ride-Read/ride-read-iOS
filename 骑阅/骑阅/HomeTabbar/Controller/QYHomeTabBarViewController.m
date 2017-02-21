@@ -25,9 +25,9 @@
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addChildController:self.readCycleController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"阅图" needNavc:YES];
+    [self addChildController:self.readMapController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"阅图" needNavc:YES];
     [self addChildController:self.readCycleController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"阅圈" needNavc:YES];
-    [self addChildController:self.readCycleController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"我的" needNavc:YES];
+    [self addChildController:self.readMeController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"我的" needNavc:YES];
     // Do any additional setup after loading the view.
 }
 
