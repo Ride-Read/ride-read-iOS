@@ -67,6 +67,15 @@
 
 -(void)clickCustomView:(UIView *)customView index:(NSInteger)index {
     
+    if ([customView isKindOfClass:[QYInviteView class]]) {
+        
+        if (index == 0) {
+            
+            [self.verifyInviteCodeApiManager loadData];
+            self.hud = [MBProgressHUD showMessage:@"验证中..." toView:self.view];
+        }
+    }
+    
     if ([customView isKindOfClass:[QYRegisterView class]]) {
         
         if (index == 0) {
@@ -101,14 +110,6 @@
         }
     }
     
-    if ([customView isKindOfClass:[QYInviteView class]]) {
-        
-        if (index == 0) {
-           
-            [self.verifyInviteCodeApiManager loadData];
-            self.hud = [MBProgressHUD showMessage:@"验证中..." toView:self.view];
-        }
-    }
 }
 
 #pragma mark - CTAPIParamSource

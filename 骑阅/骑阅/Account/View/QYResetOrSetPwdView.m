@@ -107,6 +107,7 @@
         
         _pwd = [[QYLoginTextField alloc] init];
         _pwd.placeHolder = @"6~16个字符";
+        _pwd.textField.secureTextEntry = YES;
         _pwd.textFieldCenterLeft = 15 * 2.5;
         if (kScreenHeight < 560) {
             
@@ -125,6 +126,7 @@
         
         _confirmPwd = [[QYLoginTextField alloc] init];
         _confirmPwd.placeHolder = @"确认密码";
+        _confirmPwd.textField.secureTextEntry = YES;
         _confirmPwd.textFieldCenterLeft = 15 * 2;
         if (kScreenHeight < 560) {
             

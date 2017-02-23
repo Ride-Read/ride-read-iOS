@@ -92,6 +92,7 @@
         _passwordTextField = [[QYLoginTextField alloc] init];
         _passwordTextField.placeHolder = @"输入密码";
         _passwordTextField.textFieldCenterLeft = 15 * 2;
+        _passwordTextField.textField.secureTextEntry = YES;
         if (kScreenHeight < 560) {
             
             _passwordTextField.textFieldBottom = 7;

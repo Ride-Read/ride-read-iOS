@@ -15,11 +15,6 @@
     QYCustomPresentAnimationDelegate *animation = [[QYCustomPresentAnimationDelegate alloc] init];
     return animation;
 }
--(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    
-    QYCustomPresentAnimationDelegate *animation = [[QYCustomPresentAnimationDelegate alloc] init];
-    return animation;
 
-}
 
 @end

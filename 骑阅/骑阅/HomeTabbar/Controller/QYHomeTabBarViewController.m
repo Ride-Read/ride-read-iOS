@@ -25,9 +25,9 @@
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addChildController:self.readMapController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"阅图" needNavc:YES];
-    [self addChildController:self.readCycleController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"阅圈" needNavc:YES];
-    [self addChildController:self.readMeController image:[UIImage imageNamed:@""] selectImage:[UIImage imageNamed:@""] title:@"我的" needNavc:YES];
+    [self addChildController:self.readMapController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"阅图" needNavc:YES];
+    [self addChildController:self.readCycleController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"阅圈" needNavc:YES];
+    [self addChildController:self.readMeController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"我的" needNavc:YES];
     // Do any additional setup after loading the view.
 }
 
@@ -39,11 +39,11 @@
 #pragma mark - Private method
 -(void)addChildController:(UIViewController *)controller image:(UIImage *)image selectImage:(UIImage *)selectImage title:(NSString *)title needNavc:(BOOL)needNavc{
     
+    controller.tabBarItem.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    controller.tabBarItem.selectedImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     controller.tabBarItem.title = title;
-    controller.tabBarItem.image = image;
-    controller.tabBarItem.selectedImage = selectImage;
-    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#C1C0C0"]} forState:UIControlStateNormal];
-    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#52CAC1"]} forState:UIControlStateSelected];
+    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#555555"],NSFontAttributeName:[UIFont systemFontOfSize:13]} forState:UIControlStateNormal];
+    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#52CAC1"],NSFontAttributeName:[UIFont systemFontOfSize:13]} forState:UIControlStateSelected];
     if (needNavc) {
         
         QYNavigationController *navc = [[QYNavigationController alloc] initWithRootViewController:controller];
@@ -54,14 +54,7 @@
 }
 
 #pragma mark - Setters and getters
--(QYReadCycleController *)readCycleController {
-    
-    if (!_readCycleController) {
-        
-        _readCycleController = [[QYReadCycleController alloc] init];
-    }
-    return _readCycleController;
-}
+
 -(QYReadMapController *)readMapController {
     
     if (!_readMapController) {
@@ -69,6 +62,14 @@
         _readMapController = [[QYReadMapController alloc] init];
     }
     return _readMapController;
+}
+-(QYReadCycleController *)readCycleController {
+    
+    if (!_readCycleController) {
+        
+        _readCycleController = [[QYReadCycleController alloc] init];
+    }
+    return _readCycleController;
 }
 -(QYReadMeController *)readMeController {
     

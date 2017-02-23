@@ -86,14 +86,12 @@
 -(void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
     if (manager == self.loginApiManager) {
-        //do something
+        
+        [self gotoMainController];
     }
 }
 -(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-#warning goto main controller for test
-    
-    [self gotoMainController];
     if (manager == self.loginApiManager) {
         
         //参数不能通过验证，具体可以看对应的Api
