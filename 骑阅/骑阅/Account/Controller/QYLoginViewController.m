@@ -53,7 +53,10 @@
         
         if (index == 0) {
             MyLog(@"click next setup");
-            [self.loginApiManager loadData];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                
+                [self.loginApiManager loadData];
+            });
             return;
         }
         if (index == 1) {

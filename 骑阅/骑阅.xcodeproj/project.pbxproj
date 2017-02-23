@@ -48,6 +48,9 @@
 		BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8561E50780F00D2E848 /* YYFMPromptView.m */; };
 		BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */; };
 		BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */; };
+		EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */; };
+		EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */; };
+		EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */; };
 		EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */; };
 		EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C01E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m */; };
 		EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43E7C31E59D32300DCCBB9 /* QYLoginView.m */; };
@@ -175,6 +178,12 @@
 		BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginHeaderView.m; sourceTree = "<group>"; };
 		BACBA8691E50C9BF00D2E848 /* QYViewClickProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYViewClickProtocol.h; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
+		EC2026021E5E723A00AE2528 /* QYTabBarControlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTabBarControlerDelegate.h; sourceTree = "<group>"; };
+		EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTabBarControlerDelegate.m; sourceTree = "<group>"; };
+		EC2026051E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSliderTabBarIntercativeTransiton.h; sourceTree = "<group>"; };
+		EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSliderTabBarIntercativeTransiton.m; sourceTree = "<group>"; };
+		EC2026081E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTabBarSliderTransitionAnimation.h; sourceTree = "<group>"; };
+		EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTabBarSliderTransitionAnimation.m; sourceTree = "<group>"; };
 		EC43E7BC1E59C26F00DCCBB9 /* QYLoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginTextField.h; sourceTree = "<group>"; };
 		EC43E7BD1E59C26F00DCCBB9 /* QYLoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginTextField.m; sourceTree = "<group>"; };
 		EC43E7BF1E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+QYHexStringColor.h"; sourceTree = "<group>"; };
@@ -665,6 +674,12 @@
 		EC7AA13A1E5C858200EA54AA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				EC2026021E5E723A00AE2528 /* QYTabBarControlerDelegate.h */,
+				EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */,
+				EC2026051E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.h */,
+				EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */,
+				EC2026081E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.h */,
+				EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1111,6 +1126,7 @@
 				EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
+				EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */,
 				BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */,
 				BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */,
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
@@ -1150,7 +1166,9 @@
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
+				EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
+				EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
 				BA55BFE61E4F37D600F1027B /* main.m in Sources */,

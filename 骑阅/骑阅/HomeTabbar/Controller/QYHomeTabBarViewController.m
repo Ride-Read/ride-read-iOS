@@ -12,11 +12,15 @@
 #import "QYReadCycleController.h"
 #import "QYReadMeController.h"
 #import "UIColor+QYHexStringColor.h"
+#import "QYTabBarControlerDelegate.h"
+#import "QYSliderTabBarIntercativeTransiton.h"
 
-@interface QYHomeTabBarViewController ()
+@interface QYHomeTabBarViewController ()<UINavigationControllerDelegate>
 @property (nonatomic, strong) QYReadCycleController *readCycleController;
 @property (nonatomic, strong) QYReadMapController *readMapController;
 @property (nonatomic, strong) QYReadMeController *readMeController;
+@property (nonatomic, strong) QYTabBarControlerDelegate *tabBarDelegate;
+@property (nonatomic, strong) QYSliderTabBarIntercativeTransiton *trasitonControll;
 
 @end
 
@@ -25,9 +29,14 @@
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self addChildController:self.readMapController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"阅图" needNavc:YES];
     [self addChildController:self.readCycleController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"阅圈" needNavc:YES];
     [self addChildController:self.readMeController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"我的" needNavc:YES];
+    self.delegate = self.tabBarDelegate;
+    QYSliderTabBarIntercativeTransiton *tabBar = [[QYSliderTabBarIntercativeTransiton alloc] init];
+    [tabBar fireToTabBarController:self];
+    self.tabBarDelegate.tabBar = tabBar;
     // Do any additional setup after loading the view.
 }
 
@@ -78,6 +87,22 @@
         _readMeController = [[QYReadMeController alloc] init];
     }
     return _readMeController;
+}
+-(QYTabBarControlerDelegate *)tabBarDelegate {
+    
+    if (!_tabBarDelegate) {
+        
+        _tabBarDelegate = [[QYTabBarControlerDelegate alloc] init];
+    }
+    return _tabBarDelegate;
+}
+-(QYSliderTabBarIntercativeTransiton *)trasitonControll {
+    
+    if (!_trasitonControll) {
+        
+        _trasitonControll = [[QYSliderTabBarIntercativeTransiton alloc] init];
+    }
+    return _trasitonControll;
 }
 /*
 #pragma mark - Navigation
