@@ -26,10 +26,10 @@
     [view addGestureRecognizer:gesture];
 }
 
--(CGFloat)completionSpeed {
-    
-    return 1 - self.percentComplete;
-}
+//-(CGFloat)completionSpeed {
+//    
+//    return 1 - self.percentComplete;
+//}
 
 -(void)handleGesture:(UIPanGestureRecognizer *)gesture {
     
@@ -69,9 +69,11 @@
             self.intercating = NO;
             if (pregress < 0.3) {
                 
+                self.completionSpeed = 0.99;
                 [self cancelInteractiveTransition];
             } else {
                 
+                self.completionSpeed = 0.99;
                 [self finishInteractiveTransition];
             }
             break;

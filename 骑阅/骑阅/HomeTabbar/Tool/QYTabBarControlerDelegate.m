@@ -26,7 +26,9 @@
 }
 -(id<UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController animationControllerForTransitionFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     
-    NSLog(@"================");
+    if (!self.tabBar.intercating) {
+        return nil;
+    }
     NSInteger fromIndex =  [tabBarController.viewControllers indexOfObject:fromVC];
     self.index = fromIndex;
     NSInteger toInex = [tabBarController.viewControllers indexOfObject:toVC];
