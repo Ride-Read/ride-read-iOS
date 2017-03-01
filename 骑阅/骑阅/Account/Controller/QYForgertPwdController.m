@@ -107,12 +107,16 @@
              NSLog(@"change");
              */
         }
-        if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+        if (gesture.state == UIGestureRecognizerStateEnded ) {
             
             if (precent > 0.5) {
                 
                 [self.preViews removeAllObjects];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                self.view.userInteractionEnabled = NO;
+                if ([self.delegate respondsToSelector:@selector(customTransitonDissmiss:)]) {
+                    
+                    [self.delegate customTransitonDissmiss:self];
+                }
                 
             }
             MyLog(@"end");

@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger,QYLogTransitionType) {
+    
+    QYLogTransitionTypePresent,
+    QYLogTransitionTypeDismiss
+};
+
+
 @interface QYCustomPresentAnimationDelegate : NSObject<UIViewControllerAnimatedTransitioning>
++(instancetype)customPresentAnimationWithType:(QYLogTransitionType)type;
 
 @end

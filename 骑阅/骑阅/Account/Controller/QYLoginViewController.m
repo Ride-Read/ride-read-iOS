@@ -17,7 +17,7 @@
 #import "QYHomeTabBarViewController.h"
 
 
-@interface QYLoginViewController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@interface QYLoginViewController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYControllerDismissAciton>
 @property (nonatomic, strong) QYLoginView *loginView;
 @property (nonatomic, strong) QYLoginApiManager *loginApiManager;
 
@@ -66,6 +66,7 @@
             forgert.modalPresentationStyle = UIModalPresentationCustom;
             QYCustomPresentDelegate *delegate = [[QYCustomPresentDelegate alloc] init];
             forgert.transitioningDelegate = delegate;
+            forgert.delegate = self;
             [self presentViewController:forgert animated:YES completion:nil];
             MyLog(@"click forgert");
             return;
@@ -114,6 +115,13 @@
        
     }
     
+}
+
+#pragma mark - CustomTransitonDelegate
+
+-(void)customTransitonDissmiss:(UIViewController *)controller {
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - Private method

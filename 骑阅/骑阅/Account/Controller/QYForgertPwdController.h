@@ -6,8 +6,14 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "QYBasicViewController.h"
 
-@interface QYForgertPwdController : UIViewController
+@protocol QYControllerDismissAciton <NSObject>
+
+-(void)customTransitonDissmiss:(UIViewController *)controller;
+
+@end
+@interface QYForgertPwdController :QYBasicViewController
+@property (nonatomic, assign) id <QYControllerDismissAciton> delegate;
 
 @end
