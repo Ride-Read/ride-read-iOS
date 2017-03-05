@@ -51,6 +51,13 @@
 		BA354D831E6BE4B200EE8189 /* libcurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA354D821E6BE4B200EE8189 /* libcurses.tbd */; };
 		BA354D851E6BE4BC00EE8189 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA354D841E6BE4BC00EE8189 /* libz.tbd */; };
 		BA354D871E6BE4CE00EE8189 /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA354D861E6BE4CE00EE8189 /* libresolv.9.tbd */; };
+		BA354D8C1E6C405900EE8189 /* QYCircleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354D8B1E6C405900EE8189 /* QYCircleViewCell.m */; };
+		BA354D8F1E6C407B00EE8189 /* QYCycleSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354D8E1E6C407B00EE8189 /* QYCycleSelectView.m */; };
+		BA354D921E6C4A8000EE8189 /* QYCycleTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354D911E6C4A8000EE8189 /* QYCycleTableHeaderView.m */; };
+		BA354D951E6C4CEE00EE8189 /* UIButton+QYTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354D941E6C4CEE00EE8189 /* UIButton+QYTitleButton.m */; };
+		BA354D9A1E6C69E000EE8189 /* QYReadFriendCycleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354D991E6C69E000EE8189 /* QYReadFriendCycleApiManager.m */; };
+		BA354D9D1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354D9C1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m */; };
+		BA354DA11E6C6BDF00EE8189 /* QYFrIendStatusMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354DA01E6C6BDF00EE8189 /* QYFrIendStatusMessage.m */; };
 		BA55BFE61E4F37D600F1027B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFE51E4F37D600F1027B /* main.m */; };
 		BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF01E4F37D600F1027B /* Assets.xcassets */; };
 		BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF21E4F37D600F1027B /* LaunchScreen.storyboard */; };
@@ -58,7 +65,6 @@
 		BA55C00A1E4F37D600F1027B /* __UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55C0091E4F37D600F1027B /* __UITests.m */; };
 		BA9AAA601E6700B800D7A5BB /* QYTranslucentYesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA5F1E6700B800D7A5BB /* QYTranslucentYesViewController.m */; };
 		BA9AAA631E6700DC00D7A5BB /* QYTranslucentNoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA621E6700DC00D7A5BB /* QYTranslucentNoViewController.m */; };
-		BA9AAA661E6861A400D7A5BB /* QYCircleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA651E6861A400D7A5BB /* QYCircleViewCell.m */; };
 		BA9AAA9D1E692C7000D7A5BB /* YYTextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA6B1E692C7000D7A5BB /* YYTextContainerView.m */; };
 		BA9AAA9E1E692C7000D7A5BB /* YYTextDebugOption.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA6D1E692C7000D7A5BB /* YYTextDebugOption.m */; };
 		BA9AAA9F1E692C7000D7A5BB /* YYTextEffectWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA6F1E692C7000D7A5BB /* YYTextEffectWindow.m */; };
@@ -256,6 +262,20 @@
 		BA354D821E6BE4B200EE8189 /* libcurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurses.tbd; path = usr/lib/libcurses.tbd; sourceTree = SDKROOT; };
 		BA354D841E6BE4BC00EE8189 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BA354D861E6BE4CE00EE8189 /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = usr/lib/libresolv.9.tbd; sourceTree = SDKROOT; };
+		BA354D8A1E6C405900EE8189 /* QYCircleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCircleViewCell.h; sourceTree = "<group>"; };
+		BA354D8B1E6C405900EE8189 /* QYCircleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCircleViewCell.m; sourceTree = "<group>"; };
+		BA354D8D1E6C407B00EE8189 /* QYCycleSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCycleSelectView.h; sourceTree = "<group>"; };
+		BA354D8E1E6C407B00EE8189 /* QYCycleSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCycleSelectView.m; sourceTree = "<group>"; };
+		BA354D901E6C4A8000EE8189 /* QYCycleTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCycleTableHeaderView.h; sourceTree = "<group>"; };
+		BA354D911E6C4A8000EE8189 /* QYCycleTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCycleTableHeaderView.m; sourceTree = "<group>"; };
+		BA354D931E6C4CEE00EE8189 /* UIButton+QYTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+QYTitleButton.h"; sourceTree = "<group>"; };
+		BA354D941E6C4CEE00EE8189 /* UIButton+QYTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+QYTitleButton.m"; sourceTree = "<group>"; };
+		BA354D981E6C69E000EE8189 /* QYReadFriendCycleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadFriendCycleApiManager.h; sourceTree = "<group>"; };
+		BA354D991E6C69E000EE8189 /* QYReadFriendCycleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadFriendCycleApiManager.m; sourceTree = "<group>"; };
+		BA354D9B1E6C6A0400EE8189 /* QYFriendCycleCellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFriendCycleCellLayout.h; sourceTree = "<group>"; };
+		BA354D9C1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFriendCycleCellLayout.m; sourceTree = "<group>"; };
+		BA354D9F1E6C6BDF00EE8189 /* QYFrIendStatusMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFrIendStatusMessage.h; sourceTree = "<group>"; };
+		BA354DA01E6C6BDF00EE8189 /* QYFrIendStatusMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFrIendStatusMessage.m; sourceTree = "<group>"; };
 		BA55BFE11E4F37D600F1027B /* 骑阅.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "骑阅.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA55BFE51E4F37D600F1027B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BA55BFF01E4F37D600F1027B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -271,8 +291,6 @@
 		BA9AAA5F1E6700B800D7A5BB /* QYTranslucentYesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYTranslucentYesViewController.m; path = "骑阅/Compoents/controolers/QYTranslucentYesViewController.m"; sourceTree = SOURCE_ROOT; };
 		BA9AAA611E6700DC00D7A5BB /* QYTranslucentNoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTranslucentNoViewController.h; sourceTree = "<group>"; };
 		BA9AAA621E6700DC00D7A5BB /* QYTranslucentNoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTranslucentNoViewController.m; sourceTree = "<group>"; };
-		BA9AAA641E6861A400D7A5BB /* QYCircleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYCircleViewCell.h; path = "骑阅/Compoents/controolers/QYCircleViewCell.h"; sourceTree = SOURCE_ROOT; };
-		BA9AAA651E6861A400D7A5BB /* QYCircleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYCircleViewCell.m; path = "骑阅/Compoents/controolers/QYCircleViewCell.m"; sourceTree = SOURCE_ROOT; };
 		BA9AAA6A1E692C7000D7A5BB /* YYTextContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextContainerView.h; sourceTree = "<group>"; };
 		BA9AAA6B1E692C7000D7A5BB /* YYTextContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextContainerView.m; sourceTree = "<group>"; };
 		BA9AAA6C1E692C7000D7A5BB /* YYTextDebugOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextDebugOption.h; sourceTree = "<group>"; };
@@ -660,6 +678,46 @@
 				BA354D6E1E6BE20000EE8189 /* QNIP.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		BA354D891E6C3FF200EE8189 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA354D8A1E6C405900EE8189 /* QYCircleViewCell.h */,
+				BA354D8B1E6C405900EE8189 /* QYCircleViewCell.m */,
+				BA354D8D1E6C407B00EE8189 /* QYCycleSelectView.h */,
+				BA354D8E1E6C407B00EE8189 /* QYCycleSelectView.m */,
+				BA354D901E6C4A8000EE8189 /* QYCycleTableHeaderView.h */,
+				BA354D911E6C4A8000EE8189 /* QYCycleTableHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BA354D961E6C698300EE8189 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				BA354D9B1E6C6A0400EE8189 /* QYFriendCycleCellLayout.h */,
+				BA354D9C1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		BA354D971E6C699E00EE8189 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				BA354D981E6C69E000EE8189 /* QYReadFriendCycleApiManager.h */,
+				BA354D991E6C69E000EE8189 /* QYReadFriendCycleApiManager.m */,
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		BA354D9E1E6C6B9E00EE8189 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA354D9F1E6C6BDF00EE8189 /* QYFrIendStatusMessage.h */,
+				BA354DA01E6C6BDF00EE8189 /* QYFrIendStatusMessage.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BA55BFD81E4F37D600F1027B = {
@@ -1073,6 +1131,8 @@
 				BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */,
 				EC7AA1331E5C3DDB00EA54AA /* NSString+QYMD5.h */,
 				EC7AA1341E5C3DDB00EA54AA /* NSString+QYMD5.m */,
+				BA354D931E6C4CEE00EE8189 /* UIButton+QYTitleButton.h */,
+				BA354D941E6C4CEE00EE8189 /* UIButton+QYTitleButton.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1242,21 +1302,14 @@
 		EC7AA1491E5C8B4A00EA54AA /* ReadCycle */ = {
 			isa = PBXGroup;
 			children = (
-				EC7AA14A1E5C8B4A00EA54AA /* ApiManager */,
+				BA354D9E1E6C6B9E00EE8189 /* Model */,
+				BA354D971E6C699E00EE8189 /* ApiManager */,
+				BA354D961E6C698300EE8189 /* Tool */,
+				BA354D891E6C3FF200EE8189 /* View */,
 				EC7AA14B1E5C8B4A00EA54AA /* Command */,
 				EC7AA14C1E5C8B4A00EA54AA /* Controller */,
-				EC7AA14D1E5C8B4A00EA54AA /* Model */,
-				EC7AA14E1E5C8B4A00EA54AA /* Tool */,
-				EC7AA14F1E5C8B4A00EA54AA /* View */,
 			);
 			path = ReadCycle;
-			sourceTree = "<group>";
-		};
-		EC7AA14A1E5C8B4A00EA54AA /* ApiManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ApiManager;
 			sourceTree = "<group>";
 		};
 		EC7AA14B1E5C8B4A00EA54AA /* Command */ = {
@@ -1273,29 +1326,6 @@
 				EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		EC7AA14D1E5C8B4A00EA54AA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		EC7AA14E1E5C8B4A00EA54AA /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
-		EC7AA14F1E5C8B4A00EA54AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BA9AAA641E6861A400D7A5BB /* QYCircleViewCell.h */,
-				BA9AAA651E6861A400D7A5BB /* QYCircleViewCell.m */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EC7AA16D1E5C90B400EA54AA /* ReadMap */ = {
@@ -1609,6 +1639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC7047F11E5AC89100FB92D8 /* QYResetOrSetPwdView.m in Sources */,
+				BA354D921E6C4A8000EE8189 /* QYCycleTableHeaderView.m in Sources */,
 				EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */,
 				BA9AAAA71E692C7000D7A5BB /* YYTextAttribute.m in Sources */,
 				BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */,
@@ -1617,7 +1648,6 @@
 				BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */,
 				BA9AAAAF1E692C7000D7A5BB /* YYTextAsyncLayer.m in Sources */,
 				BA354D711E6BE20000EE8189 /* QNDnsManager.m in Sources */,
-				BA9AAA661E6861A400D7A5BB /* QYCircleViewCell.m in Sources */,
 				BAA001891E50725B0067A894 /* CTLogger.m in Sources */,
 				BA354D3C1E6BE12A00EE8189 /* QNFormUpload.m in Sources */,
 				EC43E7C11E59C9AE00DCCBB9 /* UIColor+QYHexStringColor.m in Sources */,
@@ -1631,6 +1661,8 @@
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BA9AAAB01E692C7000D7A5BB /* YYTextTransaction.m in Sources */,
 				EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */,
+				BA354DA11E6C6BDF00EE8189 /* QYFrIendStatusMessage.m in Sources */,
+				BA354D9D1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m in Sources */,
 				BA9AAAA41E692C7000D7A5BB /* YYTextMagnifier.m in Sources */,
 				BA354D751E6BE20000EE8189 /* QNRecord.m in Sources */,
 				BA354D811E6BE20000EE8189 /* QNIP.m in Sources */,
@@ -1677,6 +1709,7 @@
 				BA9AAA601E6700B800D7A5BB /* QYTranslucentYesViewController.m in Sources */,
 				BAA001981E5072B20067A894 /* QYBasicViewController.m in Sources */,
 				BAA001951E50725B0067A894 /* CTUDIDGenerator.m in Sources */,
+				BA354D8C1E6C405900EE8189 /* QYCircleViewCell.m in Sources */,
 				EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */,
 				BA354D801E6BE20000EE8189 /* QNHex.m in Sources */,
 				EC7AA1791E5C90E500EA54AA /* QYReadMapController.m in Sources */,
@@ -1709,6 +1742,7 @@
 				EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */,
 				BA354D391E6BE12A00EE8189 /* QNUserAgent.m in Sources */,
 				BA354D7C1E6BE20000EE8189 /* QNTxtResolver.m in Sources */,
+				BA354D8F1E6C407B00EE8189 /* QYCycleSelectView.m in Sources */,
 				BA354D341E6BE12A00EE8189 /* QNPHAssetResource.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
@@ -1729,8 +1763,10 @@
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
 				BA354D7B1E6BE20000EE8189 /* QNResolvUtil.m in Sources */,
 				BA55BFE61E4F37D600F1027B /* main.m in Sources */,
+				BA354D9A1E6C69E000EE8189 /* QYReadFriendCycleApiManager.m in Sources */,
 				BA9AAAAE1E692C7000D7A5BB /* UIView+YYText.m in Sources */,
 				BA354D6F1E6BE20000EE8189 /* QNAssessment.m in Sources */,
+				BA354D951E6C4CEE00EE8189 /* UIButton+QYTitleButton.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,

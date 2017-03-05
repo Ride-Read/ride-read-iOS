@@ -9,6 +9,7 @@
 #ifndef define_h
 #define define_h
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 
 #define RGB(R,G,B) [UIColor colorWithRed:R/255. green:G/255. blue:B/255. alpha:1.0]
 #define IOS10_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)

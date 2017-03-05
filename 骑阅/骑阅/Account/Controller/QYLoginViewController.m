@@ -111,6 +111,7 @@
             return;
         }
         //其他情况
+        [self gotoMainController];
         [MBProgressHUD showMessageAutoHide:@"登录失败" view:self.view];
        
     }

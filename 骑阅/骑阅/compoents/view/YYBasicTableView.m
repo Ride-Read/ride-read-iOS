@@ -33,6 +33,9 @@
             self.cl_footer = [self setRefeshFooter];
         } 
     }
+    self.separatorStyle = UITableViewCellSelectionStyleNone;
+    self.tableFooterView = [UIView new];
+
     return self;
 }
 
