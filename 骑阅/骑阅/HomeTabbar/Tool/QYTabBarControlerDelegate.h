@@ -11,9 +11,6 @@
 #import "QYSliderTabBarIntercativeTransiton.h"
 
 @interface QYTabBarControlerDelegate : NSObject<UITabBarControllerDelegate>
-@property (nonatomic, strong) QYSliderTabBarIntercativeTransiton *readMap;
-@property (nonatomic, strong) QYSliderTabBarIntercativeTransiton *readCycle;
-@property (nonatomic, strong) QYSliderTabBarIntercativeTransiton *readMe;
 @property (nonatomic, strong) QYSliderTabBarIntercativeTransiton *tabBar;
 
 @end

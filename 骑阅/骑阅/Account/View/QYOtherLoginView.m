@@ -9,7 +9,13 @@
 #import "QYOtherLoginView.h"
 #import "define.h"
 #import "Masonry.h"
+#import "UIColor+QYHexStringColor.h"
 
+@interface QYOtherLoginView ()
+@property (nonatomic, strong) UIView *leftLine;
+@property (nonatomic, strong) UIView *rightLine;
+
+@end
 @implementation QYOtherLoginView
 
 #pragma mark - life cycle
@@ -28,6 +34,22 @@
     [self addSubview:self.weixin];
     [self addSubview:self.QQ];
     [self addSubview:self.weibo];
+    [self addSubview:self.leftLine];
+    [self addSubview:self.rightLine];
+    [self.leftLine mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.equalTo(self.weixin.mas_left).offset(cl_caculation_x(-28));
+        make.right.equalTo(self.titleLabel.mas_left).offset(-12);
+        make.centerY.equalTo(self.titleLabel);
+        make.height.mas_equalTo(1);
+    }];
+    [self.rightLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.titleLabel.mas_right).offset(12);
+        make.centerY.equalTo(self.titleLabel);
+        make.right.equalTo(self.weibo.mas_right).offset(cl_caculation_x(28));
+        make.height.mas_equalTo(1);
+    }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.centerX.equalTo(self.mas_centerX);
@@ -37,23 +59,23 @@
         
         make.left.mas_equalTo(65.7);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(22.3);
-        make.width.mas_equalTo(cl_caculation_x(34.3 * 2));
-        make.height.mas_equalTo(cl_caculation_y(27.7 * 2));
+        make.width.mas_equalTo(cl_caculation_x(72));
+        make.height.mas_equalTo(cl_caculation_y(58));
         
     }];
     [self.QQ mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.weixin.mas_top);
         make.centerX.equalTo(self.mas_centerX);
-        make.width.mas_equalTo(cl_caculation_x(27.3 * 2));
-        make.height.mas_equalTo(cl_caculation_y(28 *2));
+        make.width.mas_equalTo(cl_caculation_x(57));
+        make.height.mas_equalTo(cl_caculation_y(59));
         
     }];
     [self.weibo mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.QQ.mas_top);
-        make.width.mas_equalTo(cl_caculation_x(32 * 2));
-        make.height.mas_equalTo(cl_caculation_y(29 *2));
+        make.width.mas_equalTo(cl_caculation_x(67));
+        make.height.mas_equalTo(cl_caculation_y(60));
         make.right.mas_equalTo(-65.7);
     }];
     
@@ -69,14 +91,33 @@
     
 }
 #pragma mark - setters and getters
+-(UIView *)leftLine {
+    
+    if (!_leftLine) {
+        
+        _leftLine = [UIView new];
+        _leftLine.backgroundColor = [UIColor colorWithHexString:@"#C1C0C0"];
+    }
+    return _leftLine;
+}
+
+-(UIView *)rightLine {
+    
+    if (!_rightLine) {
+        
+        _rightLine = [UIView new];
+        _rightLine.backgroundColor = [UIColor colorWithHexString:@"#C1C0C0"];
+    }
+    return _rightLine;
+}
 -(UILabel *)titleLabel {
     
     if (!_titleLabel) {
         
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"----- 其他登录方式 -----";
-        _titleLabel.textColor = RGB(193, 192, 192);
-        _titleLabel.font = [UIFont systemFontOfSize:34 * 0.36];
+        _titleLabel.text = @"其他登录方式";
+        _titleLabel.textColor = [UIColor colorWithHexString:@"#C1C0C0"];
+        _titleLabel.font = [UIFont systemFontOfSize:12];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         
     }

@@ -30,5 +30,20 @@
     }
     return [string copy];
 }
+- (NSString *)sha1 {
+    
+   const char *cstr = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithBytes:cstr length:self.length];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_LONG length = (CC_LONG )data.length;
+    CC_SHA1(data.bytes, length, digest);
+    NSMutableString *output = [NSMutableString new];
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i ++) {
+        
+        [output appendFormat:@"%02x",digest[i]];
+    }
+    
+    return output;
+}
 
 @end

@@ -12,4 +12,5 @@
 
 +(NSString *)getBase64String:(NSString *)string;
 +(NSString *)getMD5String:(NSString *)str;
+-(NSString *)sha1;
 @end

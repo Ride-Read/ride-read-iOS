@@ -38,7 +38,7 @@
 
 -(CTAPIManagerRequestType)requestType {
     
-    return CTAPIBaseManagerRequestTypeGet;
+    return CTAPIBaseManagerRequestTypePost;
 }
 
 -(BOOL)shouldCache {
@@ -52,8 +52,7 @@
     NSDictionary *dict;
     if (password.length > 0) {
         
-        password = [NSString getBase64String:password];
-        password = [NSString getMD5String:password];
+        password = [password sha1];
         
     }
     dict = @{kusername:userName,kpassword:password};
