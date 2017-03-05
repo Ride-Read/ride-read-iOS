@@ -7,6 +7,7 @@
 //
 
 #import "QYReadMapController.h"
+#import "UIBarButtonItem+CreatUIBarButtonItem.h"
 
 @interface QYReadMapController ()
 
@@ -17,8 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
-    // Do any additional setup after loading the view.
+    /** test */
+    UIBarButtonItem * right = [UIBarButtonItem creatItemWithImage:@"read_map_normal" highLightImage:@"read_map_selected" target:self action:@selector(clickItem)];
+    self.navigationItem.rightBarButtonItem = right;
 }
+
+/** test */
+- (void)clickItem {
+    NSLog(@"%s",__func__);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

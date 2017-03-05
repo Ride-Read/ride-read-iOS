@@ -30,9 +30,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addChildController:self.readMapController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"阅图" needNavc:YES];
-    [self addChildController:self.readCycleController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"阅圈" needNavc:YES];
-    [self addChildController:self.readMeController image:[UIImage imageNamed:@"other_login_qq"] selectImage:[UIImage imageNamed:@"other_login_qq"] title:@"我的" needNavc:YES];
+    [self addChildController:self.readMapController image:[UIImage imageNamed:@"read_map_normal"] selectImage:[UIImage imageNamed:@"read_map_selected"] title:@"阅图" needNavc:YES];
+    [self addChildController:self.readCycleController image:[UIImage imageNamed:@"read_circle_normal"] selectImage:[UIImage imageNamed:@"read_circle_selected"] title:@"阅圈" needNavc:YES];
+    [self addChildController:self.readMeController image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
     self.delegate = self.tabBarDelegate;
     QYSliderTabBarIntercativeTransiton *tabBar = [[QYSliderTabBarIntercativeTransiton alloc] init];
     [tabBar fireToTabBarController:self];
@@ -48,9 +48,9 @@
 #pragma mark - Private method
 -(void)addChildController:(UIViewController *)controller image:(UIImage *)image selectImage:(UIImage *)selectImage title:(NSString *)title needNavc:(BOOL)needNavc{
     
+    controller.tabBarItem.title = title;
     controller.tabBarItem.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     controller.tabBarItem.selectedImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    controller.tabBarItem.title = title;
     [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#555555"],NSFontAttributeName:[UIFont systemFontOfSize:13]} forState:UIControlStateNormal];
     [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#52CAC1"],NSFontAttributeName:[UIFont systemFontOfSize:13]} forState:UIControlStateSelected];
     if (needNavc) {

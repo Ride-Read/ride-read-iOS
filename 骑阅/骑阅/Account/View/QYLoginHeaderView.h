@@ -16,4 +16,6 @@
 @property (nonatomic, strong) UIButton *logButton;
 @property (nonatomic, strong) UIButton *registButton;
 
+/** QYLogoImageView */
+@property(nonatomic,strong) UIImageView * QYLogoImageView;
 @end

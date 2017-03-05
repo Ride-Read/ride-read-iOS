@@ -57,23 +57,33 @@
 -(void)setUpUI {
     
     [self addSubview:self.bgView];
-    [self addSubview:self.titleLabel];
+    //    [self addSubview:self.titleLabel];
+    [self addSubview:self.QYLogoImageView];
     [self addSubview:self.logButton];
     [self addSubview:self.registButton];
+    [self addSubview:self.QYLogoImageView];
     [self.logButton.layer addSublayer:self.logTriangle];
     [self.registButton.layer addSublayer:self.registertriangle];
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.and.right.and.top.and.bottom.mas_equalTo(0);
     }];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+    [self.QYLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
         make.centerX.equalTo(self.mas_centerX);
         make.top.mas_equalTo(cl_caculation_y(57 * 2));
+        make.height.mas_equalTo(cl_caculation_y(30 * 2));
+        make.width.mas_equalTo(cl_caculation_x(64 * 2));
     }];
     
+    //    [self.QYLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //        make.centerX.equalTo(self.mas_centerX);
+    //        make.top.mas_equalTo(cl_caculation_y(57 * 2));
+    //    }];
+    
     [self.logButton mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.mas_equalTo(45);
         make.right.equalTo(self.mas_centerX);
         make.bottom.mas_equalTo(0);
@@ -86,7 +96,7 @@
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(45);
     }];
-
+    
     
 }
 #pragma mark - targart action
@@ -137,6 +147,17 @@
         
     }
     return _titleLabel;
+}
+
+-(UIImageView *)QYLogoImageView {
+    
+    if (!_QYLogoImageView) {
+        
+        _QYLogoImageView = [[UIImageView alloc]init];
+        _QYLogoImageView.image = [UIImage imageNamed:@"QYLogo"];
+        
+    }
+    return _QYLogoImageView;
 }
 
 -(UIButton *)logButton {
@@ -193,11 +214,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end
