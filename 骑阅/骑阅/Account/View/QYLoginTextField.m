@@ -12,6 +12,7 @@
 #import "define.h"
 
 @interface QYLoginTextField ()
+
 @property (nonatomic, strong) CAShapeLayer *bottomLine;
 @property (nonatomic, strong,readwrite) UITextField *textField;
 
