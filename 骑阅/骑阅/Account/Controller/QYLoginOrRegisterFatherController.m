@@ -190,6 +190,14 @@
     }
    
 }
+
+#pragma -- <修改状态栏颜色>
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    
+    return 1;
+}
+
+
 #pragma makr - getters and setters
 -(QYLoginHeaderView *)headerView {
     
