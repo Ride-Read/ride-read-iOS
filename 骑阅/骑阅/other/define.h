@@ -48,5 +48,18 @@ static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
 static NSString * const kstatus = @"status";
 static NSString * const kcode = @"code";
+static NSString * const avater = @"avater";
+static NSString * const uid = @"uid";
+
+#pragma mark - cycl
+static NSString * const kuser = @"user";
+static NSString * const kmsg = @"msg";
+static NSString * const kcreated_at = @"created_at";
+static NSString * const kthumbs = @"thumbs";
+static NSString * const kvideo = @"video";
+static NSString * const ktype = @"type";
+static NSString * const kpictures = @"pictures";
+static NSString * const ksite = @"stie";
+static NSString * const ksiteLength = @"siteLength";
 
 #endif /* define_h */

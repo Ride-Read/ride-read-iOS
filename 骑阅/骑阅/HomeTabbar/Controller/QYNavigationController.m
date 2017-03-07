@@ -7,6 +7,7 @@
 //
 
 #import "QYNavigationController.h"
+#import "UIColor+QYHexStringColor.h"
 
 @interface QYNavigationController ()
 
@@ -16,7 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configNavc];
     // Do any additional setup after loading the view.
+}
+- (void)configNavc {
+    
+    self.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationBar.barTintColor = [UIColor colorWithHexString:@"#52CAC1"];
+    self.navigationBar.backgroundColor = [UIColor colorWithHexString:@"#52CAC1"];
+    self.navigationBar.shadowImage = [UIImage new];
 }
 
 - (void)didReceiveMemoryWarning {
