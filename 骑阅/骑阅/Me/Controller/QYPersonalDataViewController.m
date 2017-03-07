@@ -9,6 +9,7 @@
 #import "QYPersonalDataViewController.h"
 #import "UIColor+QYHexStringColor.h"
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
+#import "define.h"
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -42,9 +43,61 @@
 - (void) setupTableView {
     
     self.tableView = [[UITableView alloc]init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.view addSubview:self.tableView];
+    
+    //添加tableView的约束
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(64);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+    }];
     
     
 }
+
+#pragma -- <UITableViewDataSource>
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 3;
+}
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        return 2;
+    } else if (section == 1) {
+        return 3;
+    } else if (section == 2) {
+        return 5;
+    } else {
+        return 0;
+    }
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return 0;
+    } else {
+        return 10;
+    }
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"celll"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"%zd",indexPath.row + 1];
+    return cell;
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
