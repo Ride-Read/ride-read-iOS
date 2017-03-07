@@ -32,7 +32,6 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"#52CAC1"];
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithHexString:@"#52CAC1"];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
-//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStyleDone target:self action:@selector(clickSaveButton:)];
     UIBarButtonItem *saveButton = [UIBarButtonItem creatItemWithImage:nil highLightImage:nil title:@"保存" target:self action:@selector(clickSaveButton:)];
     self.navigationItem.rightBarButtonItem = saveButton;
 }

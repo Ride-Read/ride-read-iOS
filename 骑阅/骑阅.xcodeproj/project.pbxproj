@@ -8,7 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */; };
-		2BBD52E91E6EF278007313E7 /* QYPersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E81E6EF278007313E7 /* QYPersonalDataCell.m */; };
+		2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */; };
+		2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */; };
+		2BBD53061E6EFDB2007313E7 /* QYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53051E6EFDB2007313E7 /* QYUser.m */; };
+		2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530A1E6EFDEE007313E7 /* QYTest1.m */; };
+		2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530D1E6EFDFD007313E7 /* QYTest2.m */; };
+		2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53101E6EFE2E007313E7 /* QYtest3.m */; };
+		2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53131E6EFE41007313E7 /* QYtest4.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */; };
 		BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFD1E6BE12A00EE8189 /* QN_GTM_Base64.m */; };
@@ -143,7 +149,6 @@
 		EC7AA1591E5C8CFF00EA54AA /* QYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1581E5C8CFF00EA54AA /* QYNavigationController.m */; };
 		EC7AA15F1E5C8E1F00EA54AA /* QYReadCycleController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */; };
 		EC7AA1621E5C8E3400EA54AA /* QYReadMeController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */; };
-		EC7AA1791E5C90E500EA54AA /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AA1781E5C90E500EA54AA /* QYReadMapController.m */; };
 		EC94C24F1E5084F400F2454F /* QYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C24E1E5084F400F2454F /* QYLoginViewController.m */; };
 		EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2511E50851500F2454F /* QYLoginApiManager.m */; };
 		EC94C2551E508D2900F2454F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC94C2541E508D2900F2454F /* AppDelegate.mm */; };
@@ -174,8 +179,20 @@
 /* Begin PBXFileReference section */
 		2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonalDataViewController.h; sourceTree = "<group>"; };
 		2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonalDataViewController.m; sourceTree = "<group>"; };
-		2BBD52E71E6EF278007313E7 /* QYPersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYPersonalDataCell.h; path = "骑阅/Me/Controller/QYPersonalDataCell.h"; sourceTree = SOURCE_ROOT; };
-		2BBD52E81E6EF278007313E7 /* QYPersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYPersonalDataCell.m; path = "骑阅/Me/Controller/QYPersonalDataCell.m"; sourceTree = SOURCE_ROOT; };
+		2BBD52F31E6EFBA9007313E7 /* QYReadMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadMapController.h; sourceTree = "<group>"; };
+		2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadMapController.m; sourceTree = "<group>"; };
+		2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonalDataCell.h; sourceTree = "<group>"; };
+		2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonalDataCell.m; sourceTree = "<group>"; };
+		2BBD53041E6EFDB2007313E7 /* QYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUser.h; sourceTree = "<group>"; };
+		2BBD53051E6EFDB2007313E7 /* QYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUser.m; sourceTree = "<group>"; };
+		2BBD53091E6EFDEE007313E7 /* QYTest1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTest1.h; sourceTree = "<group>"; };
+		2BBD530A1E6EFDEE007313E7 /* QYTest1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTest1.m; sourceTree = "<group>"; };
+		2BBD530C1E6EFDFD007313E7 /* QYTest2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTest2.h; sourceTree = "<group>"; };
+		2BBD530D1E6EFDFD007313E7 /* QYTest2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTest2.m; sourceTree = "<group>"; };
+		2BBD530F1E6EFE2E007313E7 /* QYtest3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest3.h; sourceTree = "<group>"; };
+		2BBD53101E6EFE2E007313E7 /* QYtest3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest3.m; sourceTree = "<group>"; };
+		2BBD53121E6EFE41007313E7 /* QYtest4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest4.h; sourceTree = "<group>"; };
+		2BBD53131E6EFE41007313E7 /* QYtest4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest4.m; sourceTree = "<group>"; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
 		BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CreatUIBarButtonItem.h"; sourceTree = "<group>"; };
 		BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CreatUIBarButtonItem.m"; sourceTree = "<group>"; };
@@ -453,8 +470,6 @@
 		EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadCycleController.m; sourceTree = "<group>"; };
 		EC7AA1601E5C8E3400EA54AA /* QYReadMeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadMeController.h; sourceTree = "<group>"; };
 		EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadMeController.m; sourceTree = "<group>"; };
-		EC7AA1771E5C90E500EA54AA /* QYReadMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadMapController.h; sourceTree = "<group>"; };
-		EC7AA1781E5C90E500EA54AA /* QYReadMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadMapController.m; sourceTree = "<group>"; };
 		EC94C24D1E5084F400F2454F /* QYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginViewController.h; sourceTree = "<group>"; };
 		EC94C24E1E5084F400F2454F /* QYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginViewController.m; sourceTree = "<group>"; };
 		EC94C2501E50851500F2454F /* QYLoginApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginApiManager.h; sourceTree = "<group>"; };
@@ -512,6 +527,146 @@
 				FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2BBD52ED1E6EFB83007313E7 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		2BBD52EE1E6EFB83007313E7 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		2BBD52EF1E6EFB83007313E7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD52F31E6EFBA9007313E7 /* QYReadMapController.h */,
+				2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2BBD52F01E6EFB83007313E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2BBD52F11E6EFB83007313E7 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		2BBD52F21E6EFB83007313E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2BBD52F61E6EFC3C007313E7 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		2BBD52F71E6EFCBB007313E7 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		2BBD52F81E6EFCC4007313E7 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		2BBD52F91E6EFCD6007313E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2BBD52FA1E6EFCD6007313E7 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		2BBD52FB1E6EFCD6007313E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */,
+				2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2BBD52FF1E6EFD20007313E7 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		2BBD53001E6EFD48007313E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD53121E6EFE41007313E7 /* QYtest4.h */,
+				2BBD53131E6EFE41007313E7 /* QYtest4.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2BBD53011E6EFD65007313E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD530F1E6EFE2E007313E7 /* QYtest3.h */,
+				2BBD53101E6EFE2E007313E7 /* QYtest3.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2BBD53031E6EFDA4007313E7 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD53041E6EFDB2007313E7 /* QYUser.h */,
+				2BBD53051E6EFDB2007313E7 /* QYUser.m */,
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		2BBD53071E6EFDE2007313E7 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD53091E6EFDEE007313E7 /* QYTest1.h */,
+				2BBD530A1E6EFDEE007313E7 /* QYTest1.m */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		2BBD53081E6EFDE2007313E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2BBD530C1E6EFDFD007313E7 /* QYTest2.h */,
+				2BBD530D1E6EFDFD007313E7 /* QYTest2.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BA354CFA1E6BE12A00EE8189 /* QiniuSDK */ = {
@@ -1143,13 +1298,6 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		BACBA8611E50C8B200D2E848 /* Command */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Command;
-			sourceTree = "<group>";
-		};
 		BACBA8621E50C8D800D2E848 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1194,20 +1342,13 @@
 		EC7AA1361E5C858200EA54AA /* HomeTabbar */ = {
 			isa = PBXGroup;
 			children = (
-				EC7AA1371E5C858200EA54AA /* ApiManager */,
+				2BBD52FF1E6EFD20007313E7 /* ApiManager */,
 				EC7AA1381E5C858200EA54AA /* Controller */,
-				EC7AA1391E5C858200EA54AA /* Model */,
+				2BBD53001E6EFD48007313E7 /* Model */,
 				EC7AA13A1E5C858200EA54AA /* Tool */,
-				EC7AA13B1E5C858200EA54AA /* View */,
+				2BBD53011E6EFD65007313E7 /* View */,
 			);
 			path = HomeTabbar;
-			sourceTree = "<group>";
-		};
-		EC7AA1371E5C858200EA54AA /* ApiManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ApiManager;
 			sourceTree = "<group>";
 		};
 		EC7AA1381E5C858200EA54AA /* Controller */ = {
@@ -1219,13 +1360,6 @@
 				EC7AA1581E5C8CFF00EA54AA /* QYNavigationController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		EC7AA1391E5C858200EA54AA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		EC7AA13A1E5C858200EA54AA /* Tool */ = {
@@ -1241,38 +1375,17 @@
 			path = Tool;
 			sourceTree = "<group>";
 		};
-		EC7AA13B1E5C858200EA54AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EC7AA1421E5C8B4200EA54AA /* Me */ = {
 			isa = PBXGroup;
 			children = (
-				EC7AA1431E5C8B4200EA54AA /* ApiManager */,
-				EC7AA1441E5C8B4200EA54AA /* Command */,
+				2BBD52F71E6EFCBB007313E7 /* ApiManager */,
+				2BBD52F81E6EFCC4007313E7 /* Command */,
 				EC7AA1451E5C8B4200EA54AA /* Controller */,
-				EC7AA1461E5C8B4200EA54AA /* Model */,
-				EC7AA1471E5C8B4200EA54AA /* Tool */,
-				EC7AA1481E5C8B4200EA54AA /* View */,
+				2BBD52F91E6EFCD6007313E7 /* Model */,
+				2BBD52FA1E6EFCD6007313E7 /* Tool */,
+				2BBD52FB1E6EFCD6007313E7 /* View */,
 			);
 			path = Me;
-			sourceTree = "<group>";
-		};
-		EC7AA1431E5C8B4200EA54AA /* ApiManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ApiManager;
-			sourceTree = "<group>";
-		};
-		EC7AA1441E5C8B4200EA54AA /* Command */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Command;
 			sourceTree = "<group>";
 		};
 		EC7AA1451E5C8B4200EA54AA /* Controller */ = {
@@ -1286,47 +1399,17 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		EC7AA1461E5C8B4200EA54AA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		EC7AA1471E5C8B4200EA54AA /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
-		EC7AA1481E5C8B4200EA54AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				2BBD52E71E6EF278007313E7 /* QYPersonalDataCell.h */,
-				2BBD52E81E6EF278007313E7 /* QYPersonalDataCell.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EC7AA1491E5C8B4A00EA54AA /* ReadCycle */ = {
 			isa = PBXGroup;
 			children = (
+				2BBD52F61E6EFC3C007313E7 /* Command */,
 				BA354D9E1E6C6B9E00EE8189 /* Model */,
 				BA354D971E6C699E00EE8189 /* ApiManager */,
 				BA354D961E6C698300EE8189 /* Tool */,
 				BA354D891E6C3FF200EE8189 /* View */,
-				EC7AA14B1E5C8B4A00EA54AA /* Command */,
 				EC7AA14C1E5C8B4A00EA54AA /* Controller */,
 			);
 			path = ReadCycle;
-			sourceTree = "<group>";
-		};
-		EC7AA14B1E5C8B4A00EA54AA /* Command */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Command;
 			sourceTree = "<group>";
 		};
 		EC7AA14C1E5C8B4A00EA54AA /* Controller */ = {
@@ -1341,70 +1424,26 @@
 		EC7AA16D1E5C90B400EA54AA /* ReadMap */ = {
 			isa = PBXGroup;
 			children = (
-				EC7AA16E1E5C90B400EA54AA /* ApiManager */,
-				EC7AA16F1E5C90B400EA54AA /* Command */,
-				EC7AA1701E5C90B400EA54AA /* Controller */,
-				EC7AA1711E5C90B400EA54AA /* Model */,
-				EC7AA1721E5C90B400EA54AA /* Tool */,
-				EC7AA1731E5C90B400EA54AA /* View */,
+				2BBD52ED1E6EFB83007313E7 /* ApiManager */,
+				2BBD52EE1E6EFB83007313E7 /* Command */,
+				2BBD52EF1E6EFB83007313E7 /* Controller */,
+				2BBD52F01E6EFB83007313E7 /* Model */,
+				2BBD52F11E6EFB83007313E7 /* Tool */,
+				2BBD52F21E6EFB83007313E7 /* View */,
 			);
 			path = ReadMap;
-			sourceTree = "<group>";
-		};
-		EC7AA16E1E5C90B400EA54AA /* ApiManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ApiManager;
-			sourceTree = "<group>";
-		};
-		EC7AA16F1E5C90B400EA54AA /* Command */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Command;
-			sourceTree = "<group>";
-		};
-		EC7AA1701E5C90B400EA54AA /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				EC7AA1771E5C90E500EA54AA /* QYReadMapController.h */,
-				EC7AA1781E5C90E500EA54AA /* QYReadMapController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		EC7AA1711E5C90B400EA54AA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		EC7AA1721E5C90B400EA54AA /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
-		EC7AA1731E5C90B400EA54AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EC94C2461E5084D700F2454F /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				EC94C2471E5084D700F2454F /* ApiManager */,
+				2BBD53031E6EFDA4007313E7 /* Command */,
+				EC94C2491E5084D700F2454F /* Controller */,
 				EC94C25F1E51EE6700F2454F /* Tool */,
 				BACBA8621E50C8D800D2E848 /* View */,
-				BACBA8611E50C8B200D2E848 /* Command */,
-				EC94C2471E5084D700F2454F /* ApiManager */,
-				EC94C2491E5084D700F2454F /* Controller */,
-				EC94C24A1E5084D700F2454F /* Logic */,
-				EC94C24B1E5084D700F2454F /* Model */,
+				2BBD53071E6EFDE2007313E7 /* Logic */,
+				2BBD53081E6EFDE2007313E7 /* Model */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1433,20 +1472,6 @@
 				ECA4B42D1E52EE9E00D06D35 /* QYRegisterViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		EC94C24A1E5084D700F2454F /* Logic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Logic;
-			sourceTree = "<group>";
-		};
-		EC94C24B1E5084D700F2454F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		EC94C25F1E51EE6700F2454F /* Tool */ = {
@@ -1653,6 +1678,7 @@
 				EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */,
 				BA9AAAA71E692C7000D7A5BB /* YYTextAttribute.m in Sources */,
 				BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */,
+				2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */,
 				BA354D381E6BE12A00EE8189 /* QNSessionManager.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
 				BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */,
@@ -1664,10 +1690,12 @@
 				BA354D7E1E6BE20000EE8189 /* QNDes.m in Sources */,
 				BA9AAAB21E692C7000D7A5BB /* YYTextWeakProxy.m in Sources */,
 				EC7AA1591E5C8CFF00EA54AA /* QYNavigationController.m in Sources */,
+				2BBD53061E6EFDB2007313E7 /* QYUser.m in Sources */,
 				EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */,
 				BA9AAAA91E692C7000D7A5BB /* YYTextRubyAnnotation.m in Sources */,
 				EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
+				2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */,
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BA9AAAB01E692C7000D7A5BB /* YYTextTransaction.m in Sources */,
 				EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */,
@@ -1689,7 +1717,9 @@
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,
 				BACBA8571E50780F00D2E848 /* YYBaiscTableViewCell.m in Sources */,
 				EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */,
+				2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */,
 				BA9AAAA81E692C7000D7A5BB /* YYTextParser.m in Sources */,
+				2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */,
 				BA9AAA631E6700DC00D7A5BB /* QYTranslucentNoViewController.m in Sources */,
 				BA354D351E6BE12A00EE8189 /* QNSystem.m in Sources */,
 				BA354D331E6BE12A00EE8189 /* QNPHAssetFile.m in Sources */,
@@ -1723,7 +1753,6 @@
 				BA354D8C1E6C405900EE8189 /* QYCircleViewCell.m in Sources */,
 				EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */,
 				BA354D801E6BE20000EE8189 /* QNHex.m in Sources */,
-				EC7AA1791E5C90E500EA54AA /* QYReadMapController.m in Sources */,
 				EC7AA1411E5C882D00EA54AA /* QYHomeTabBarViewController.m in Sources */,
 				BAA001831E50725B0067A894 /* UIDevice+IdentifierAddition.m in Sources */,
 				BA354D371E6BE12A00EE8189 /* QNResponseInfo.m in Sources */,
@@ -1759,8 +1788,9 @@
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
 				BA354D7F1E6BE20000EE8189 /* QNGetAddrInfo.m in Sources */,
 				BA9AAAB11E692C7000D7A5BB /* YYTextUtilities.m in Sources */,
-				2BBD52E91E6EF278007313E7 /* QYPersonalDataCell.m in Sources */,
 				BA354D731E6BE20000EE8189 /* QNLruCache.m in Sources */,
+				2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */,
+				2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BA9AAAAA1E692C7000D7A5BB /* YYTextRunDelegate.m in Sources */,
 				EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */,
