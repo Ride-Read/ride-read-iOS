@@ -67,6 +67,41 @@
 }
 
 @end
+
+@implementation QYCircleViewContent
+
+
+
+@end
+@implementation QYCircleViewImageView
+
+- (instancetype)init {
+    
+    self = [super init];
+    return self;
+}
+
+- (void)initializeView {
+    
+    NSArray *array = _cell.layout.status[kstatus][kthumbs];
+    if (array.count > 0) {
+        
+        
+    } else {
+        
+        NSMutableSet *set = [NSMutableSet setWithArray:self.subviews];
+        UIImageView *pic = [set anyObject];
+        pic.frame = CGRectZero;
+    }
+   
+}
+
+@end
+@implementation QYCircleViewCellContent
+
+
+
+@end
 @implementation QYCircleViewCell
 
 /*

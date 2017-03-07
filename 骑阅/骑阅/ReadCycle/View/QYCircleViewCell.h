@@ -8,6 +8,7 @@
 
 #import "YYBaiscTableViewCell.h"
 #import "YYLabel.h"
+#import "QYFriendCycleCellLayout.h"
 
 @class QYCircleViewCell;
 @interface QYCircleViewPeople : UIView
@@ -33,6 +34,17 @@
 @property (nonatomic, weak) QYCircleViewCell *cell;
 
 @end
+
+@interface QYCircleViewCellContent : UIView
+@property (nonatomic, strong) QYCircleViewPeople *profileView;
+@property (nonatomic, strong) QYCircleViewContent *contentView;
+@property (nonatomic, strong) QYCircleViewImageView *pictureView;
+@property (nonatomic, strong) QYCircleViewBottomView *toolView;
+@property (nonatomic, weak) QYCircleViewCell *cell;
+
+@end
 @interface QYCircleViewCell : YYBaiscTableViewCell
+@property (nonatomic, strong) QYCircleViewCellContent *statuView;
+@property (nonatomic, weak) QYFriendCycleCellLayout *layout;
 
 @end
