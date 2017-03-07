@@ -82,6 +82,7 @@
 //图片
 @property (nonatomic, assign) CGFloat picHeight;
 @property (nonatomic, assign) CGSize picSize;
+@property (nonatomic, strong) NSArray *picFrames;
 
 @property (nonatomic, assign) CGFloat toolHeight;
 @property (nonatomic, strong) YYTextLayout *sizeLayout;
