@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */; };
+		2BBD52E91E6EF278007313E7 /* QYPersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E81E6EF278007313E7 /* QYPersonalDataCell.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */; };
 		BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFD1E6BE12A00EE8189 /* QN_GTM_Base64.m */; };
@@ -170,6 +172,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonalDataViewController.h; sourceTree = "<group>"; };
+		2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonalDataViewController.m; sourceTree = "<group>"; };
+		2BBD52E71E6EF278007313E7 /* QYPersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYPersonalDataCell.h; path = "骑阅/Me/Controller/QYPersonalDataCell.h"; sourceTree = SOURCE_ROOT; };
+		2BBD52E81E6EF278007313E7 /* QYPersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYPersonalDataCell.m; path = "骑阅/Me/Controller/QYPersonalDataCell.m"; sourceTree = SOURCE_ROOT; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
 		BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CreatUIBarButtonItem.h"; sourceTree = "<group>"; };
 		BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CreatUIBarButtonItem.m"; sourceTree = "<group>"; };
@@ -1274,6 +1280,8 @@
 			children = (
 				EC7AA1601E5C8E3400EA54AA /* QYReadMeController.h */,
 				EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */,
+				2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */,
+				2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1295,6 +1303,8 @@
 		EC7AA1481E5C8B4200EA54AA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BBD52E71E6EF278007313E7 /* QYPersonalDataCell.h */,
+				2BBD52E81E6EF278007313E7 /* QYPersonalDataCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1673,6 +1683,7 @@
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
 				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
+				2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,
@@ -1748,6 +1759,7 @@
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
 				BA354D7F1E6BE20000EE8189 /* QNGetAddrInfo.m in Sources */,
 				BA9AAAB11E692C7000D7A5BB /* YYTextUtilities.m in Sources */,
+				2BBD52E91E6EF278007313E7 /* QYPersonalDataCell.m in Sources */,
 				BA354D731E6BE20000EE8189 /* QNLruCache.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BA9AAAAA1E692C7000D7A5BB /* YYTextRunDelegate.m in Sources */,

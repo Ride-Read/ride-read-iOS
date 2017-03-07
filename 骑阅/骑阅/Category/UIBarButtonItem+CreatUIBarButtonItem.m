@@ -11,9 +11,12 @@
 @implementation UIBarButtonItem (CreatUIBarButtonItem)
 
 /** 快速创建BarButtonItme：normal + highLight */
-+(UIBarButtonItem *)creatItemWithImage:(NSString *)imageName highLightImage:(NSString *)highImageName target:(id)target action:(SEL)action {
++(UIBarButtonItem *)creatItemWithImage:(NSString *)imageName highLightImage:(NSString *)highImageName title:(NSString *) title target:(id)target action:(SEL)action {
 
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:highImageName] forState:UIControlStateHighlighted];
     [btn sizeToFit];

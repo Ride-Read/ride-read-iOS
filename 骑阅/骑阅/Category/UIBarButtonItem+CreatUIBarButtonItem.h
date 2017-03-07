@@ -11,6 +11,8 @@
 @interface UIBarButtonItem (CreatUIBarButtonItem)
 
 /** 快速创建BarButtonItem：normal + highLight */
-+(UIBarButtonItem *)creatItemWithImage:(NSString *)imageName highLightImage:(NSString *)highImageName target:(id)target action:(SEL)action;
++(UIBarButtonItem *)creatItemWithImage:(NSString *)imageName highLightImage:(NSString *)highImageName title:(NSString *) title target:(id)target action:(SEL)action;
+
+
 
 @end

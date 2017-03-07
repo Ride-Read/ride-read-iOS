@@ -19,8 +19,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
     /** test */
-    UIBarButtonItem * right = [UIBarButtonItem creatItemWithImage:@"read_map_normal" highLightImage:@"read_map_selected" target:self action:@selector(clickItem)];
-    self.navigationItem.rightBarButtonItem = right;
+//    UIBarButtonItem * right = [UIBarButtonItem creatItemWithImage:@"read_map_normal" highLightImage:@"read_map_selected" target:self action:@selector(clickItem)];
+//    self.navigationItem.rightBarButtonItem = right;
 }
 
 /** test */

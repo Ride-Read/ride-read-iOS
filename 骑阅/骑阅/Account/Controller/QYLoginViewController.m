@@ -102,6 +102,12 @@
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
             
             [MBProgressHUD showMessageAutoHide:@"请输入正确的用户名或密码" view:self.view];
+            
+            /*
+             * [self gotoMainController]添加到这里，不用输入账号跟密码可以跳转到HomeTabBarController
+             * 可以删除
+             */
+            [self gotoMainController];
             return;
         }
         //请求已经发出，但服务器给了错误码
