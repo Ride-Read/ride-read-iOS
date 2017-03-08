@@ -14,6 +14,7 @@
 #import "UIColor+QYHexStringColor.h"
 #import "QYTabBarControlerDelegate.h"
 #import "QYSliderTabBarIntercativeTransiton.h"
+#import "QYPersonalDataViewController.h"
 
 @interface QYHomeTabBarViewController ()<UINavigationControllerDelegate>
 @property (nonatomic, strong) QYReadCycleController *readCycleController;
@@ -32,7 +33,15 @@
     
     [self addChildController:self.readMapController image:[UIImage imageNamed:@"read_map_normal"] selectImage:[UIImage imageNamed:@"read_map_selected"] title:@"阅图" needNavc:YES];
     [self addChildController:self.readCycleController image:[UIImage imageNamed:@"read_circle_normal"] selectImage:[UIImage imageNamed:@"read_circle_selected"] title:@"阅圈" needNavc:YES];
-    [self addChildController:self.readMeController image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
+//    [self addChildController:self.readMeController image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
+    
+    /**
+     *  测试把QYPersonalDataViewController添加到HomeTabBarController
+    **/
+    QYPersonalDataViewController * QYPDVC = [[QYPersonalDataViewController alloc]init];
+    [self addChildController:QYPDVC image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
+    
+    
     self.delegate = self.tabBarDelegate;
     QYSliderTabBarIntercativeTransiton *tabBar = [[QYSliderTabBarIntercativeTransiton alloc] init];
     [tabBar fireToTabBarController:self];

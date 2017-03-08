@@ -28,12 +28,12 @@
 
 -(NSString *)offlineApiBaseUrl {
     
-    return @"http://121.42.195.113:3000/rideread";
+    return @"http://121.42.195.113:3000";
 }
 
 -(NSString *)onlineApiBaseUrl {
     
-    return @"http://121.42.195.113:3000/rideread";
+    return @"http://121.42.195.113:3000";
 }
 
 //version
