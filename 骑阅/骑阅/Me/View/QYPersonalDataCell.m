@@ -113,10 +113,13 @@
     
     [self.subImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_equalTo(65);
-        make.height.mas_equalTo(65);
+//        make.width.mas_equalTo(65);
+//        make.height.mas_equalTo(65);
+        make.top.mas_equalTo(self.contentView.mas_top).mas_equalTo(16);
         make.right.mas_equalTo(self.indicatorView).mas_offset(-16);
-        make.centerY.mas_equalTo(self.contentView.mas_centerY);
+        make.bottom.mas_equalTo(self.contentView.mas_bottom).mas_equalTo(-16);
+        make.width.mas_equalTo(self.subImageView.mas_height).multipliedBy(1.0);
+        
     }];
     
     
