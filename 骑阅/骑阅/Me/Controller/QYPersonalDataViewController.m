@@ -10,6 +10,8 @@
 #import "UIColor+QYHexStringColor.h"
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "define.h"
+#import "QYPersonalDataCell.h"
+
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -46,6 +48,10 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
+    
     [self.view addSubview:self.tableView];
     
     //添加tableView的约束
@@ -86,18 +92,34 @@
     }
 }
 
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"celll"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    if (indexPath.section == 0 && indexPath.row ==0) {
+        return 80.0;
+    } else {
+        return 55.0;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%zd",indexPath.row + 1];
-    return cell;
 }
 
-
-
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        
+        QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellImageView];
+        cell.mainTitleLabel.text = @"头像";
+        cell.subImageView.image = [UIImage imageNamed:@"me"];
+        cell.showBottomLine = YES;
+        return cell;
+        
+    } else {
+        
+        QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
+        cell.mainTitleLabel.text = [NSString stringWithFormat:@"%zd",indexPath.row];
+        cell.subLabel.text= [NSString stringWithFormat:@"%zd",indexPath.row];
+        cell.showBottomLine = YES;
+        return cell;
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
