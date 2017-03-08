@@ -48,6 +48,8 @@
     self.tableView.dataSource = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
+    
     [self.view addSubview:self.tableView];
     
     //添加tableView的约束
