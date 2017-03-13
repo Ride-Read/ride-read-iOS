@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D4FF71E704612003FD8BD /* UIView+Frame.m */; };
 		2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */; };
 		2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */; };
 		2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */; };
@@ -183,6 +184,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B4D4FF61E704612003FD8BD /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		2B4D4FF71E704612003FD8BD /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonalDataViewController.h; sourceTree = "<group>"; };
 		2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonalDataViewController.m; sourceTree = "<group>"; };
 		2BBD52F31E6EFBA9007313E7 /* QYReadMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadMapController.h; sourceTree = "<group>"; };
@@ -1312,6 +1315,8 @@
 		BACBA8501E50771700D2E848 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				2B4D4FF61E704612003FD8BD /* UIView+Frame.h */,
+				2B4D4FF71E704612003FD8BD /* UIView+Frame.m */,
 				BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */,
 				BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */,
 				BACBA85B1E507A2B00D2E848 /* MBProgressHUD+LLHud.h */,
@@ -1835,6 +1840,7 @@
 				BA354D311E6BE12A00EE8189 /* QNEtag.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
 				BA354D721E6BE20000EE8189 /* QNDomain.m in Sources */,
+				2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */,
 				EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */,
 				BA354D3E1E6BE12A00EE8189 /* QNUploadManager.m in Sources */,
 				BA354D7A1E6BE20000EE8189 /* QNResolver.m in Sources */,

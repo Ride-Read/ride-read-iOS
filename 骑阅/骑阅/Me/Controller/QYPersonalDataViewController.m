@@ -17,6 +17,7 @@
 
 /** tableView */
 @property(nonatomic,strong) UITableView * tableView;
+
 @end
 
 @implementation QYPersonalDataViewController
@@ -103,20 +104,60 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == 0) {
         
-        QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellImageView];
-        cell.mainTitleLabel.text = @"头像";
-        cell.subImageView.image = [UIImage imageNamed:@"me"];
-        cell.showBottomLine = YES;
-        return cell;
         
-    } else {
+        if (indexPath.row == 0) {
+            
+            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellImageView];
+            cell.mainTitleLabel.text = @"头像";
+            cell.subImageView.image = [UIImage imageNamed:@"me"];
+            cell.showBottomLine = YES;
+            return cell;
+        } else {
+            
+            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
+            cell.mainTitleLabel.text = @"昵称";
+            cell.subLabel.text = @"建议使用真实姓名";
+            return cell;
+        }
+        
+    } else if (indexPath.section == 1)  {
+        
+        
+        if (indexPath.row == 0) {
+            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
+            cell.mainTitleLabel.text = @"性别";
+            cell.showBottomLine = YES;
+            return cell;
+
+        } else if (indexPath.row == 1) {
+            
+            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
+            cell.mainTitleLabel.text = @"标签";
+            cell.subLabel.text = @"旅游、户外、美食";
+            cell.showBottomLine = YES;
+            return cell;
+        } else {
+            
+            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
+            cell.mainTitleLabel.text = @"个性签名";
+            cell.showBottomLine = YES;
+            return cell;
+        }
+        
+    }
+      else {
+        
+        NSArray * mainTitles = @[@"手机号",@"毕业/在读院校",@"所在地",@"家乡",@"职业"];
+        NSArray * subLabels = @[@"15521337313",@"广东工业大学",@"广州",@"阳春",@"学生"];
         
         QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
-        cell.mainTitleLabel.text = [NSString stringWithFormat:@"%zd",indexPath.row];
-        cell.subLabel.text= [NSString stringWithFormat:@"%zd",indexPath.row];
         cell.showBottomLine = YES;
+        NSString * mainTitle = mainTitles[indexPath.row];
+        NSString * subLabel = subLabels[indexPath.row];
+        cell.mainTitleLabel.text = mainTitle;
+        cell.subLabel.text = subLabel;
         return cell;
     }
 }

@@ -8,7 +8,6 @@
 
 #import "YYBaiscTableViewCell.h"
 
-
 typedef NS_ENUM(NSInteger, QYPersonalDataCellType) {
    
     QYPersonalDataCellDefault,    //* 没有子视图，
