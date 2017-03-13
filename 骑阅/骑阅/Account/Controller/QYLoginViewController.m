@@ -96,6 +96,7 @@
 }
 -(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
+    [self gotoMainController];
     if (manager == self.loginApiManager) {
         
         //参数不能通过验证，具体可以看对应的Api

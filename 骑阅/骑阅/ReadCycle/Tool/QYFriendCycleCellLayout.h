@@ -22,7 +22,7 @@
 #define kQYCellNamePaddingLeft 14 // cell 名字和 avatar 之间留白
 #define kQYCellContentWidth (kScreenWidth - 2 * kQYCellPadding) // cell 内容宽度
 #define kQYCellNameWidth (kScreenWidth - 110) // cell 名字最宽限制
-#define kQYCellContentTextWidth (kScreenWidth - 62)
+#define kQYCellContentTextWidth (kScreenWidth - 63 - 30)
 
 #define kQYCellTagPadding 8         // tag 上下留白
 #define kQYCellTagNormalHeight 16   // 一般 tag 高度
@@ -67,6 +67,8 @@
 #define kQYLinkAtName @"at" //NSString
 
 @interface QYFriendCycleCellLayout : NSObject
+
+@property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) NSDictionary *status;
 
 @property (nonatomic, assign) CGFloat marginTop;
@@ -87,6 +89,8 @@
 @property (nonatomic, assign) CGFloat toolHeight;
 @property (nonatomic, strong) YYTextLayout *sizeLayout;
 @property (nonatomic, strong) YYTextLayout *sizeLengthLayout;
+@property (nonatomic, strong) YYTextLayout *praiseLayout;
+@property (nonatomic, strong) YYTextLayout *commentLayout;
 
 
 + (instancetype)friendStatusCellLayout:(NSDictionary *)status;

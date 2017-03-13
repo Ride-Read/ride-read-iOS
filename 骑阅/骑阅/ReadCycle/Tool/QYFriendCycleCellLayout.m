@@ -63,6 +63,7 @@
     
     self = [super init];
     _status = status;
+    [self layout];
     return self;
 }
 - (void)layout {
@@ -74,12 +75,14 @@
     [self layoutProfile];
     [self layoutContent];
     [self layoutTime];
+    [self layoutPicture];
+    [self layoutPraiseAndCommpent];
     [self layoutTool];
-    
+    _height = _profileHeight +  _contentHeight+ _picHeight+_toolHeight ;
 }
 - (void)layoutProfile {
     
-    NSString *userName = _status[kuser][kusername];
+    NSString *userName = _status[kusername];
     NSMutableAttributedString *nameText = [[NSMutableAttributedString alloc] initWithString:userName];
     nameText.yy_font = [UIFont systemFontOfSize:15];
     nameText.yy_color = [UIColor colorWithHexString:@"#000000"];
@@ -87,38 +90,39 @@
     
     YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kQYCellNameWidth, 999)];
     _nameLayout = [YYTextLayout layoutWithContainer:container text:nameText];
-    _profileHeight = 35;
+    _profileHeight = 35 + kQYCellTopMargin;
 }
 
 - (void)layoutTime {
     
-    NSString *create = _status[kuser][kcreated_at];
+    NSString *create = _status[kcreated_at];
     NSMutableAttributedString *createText = [[NSMutableAttributedString alloc] initWithString:create];
-    createText.yy_font = [UIFont systemFontOfSize:15];
-    createText.yy_color = [UIColor colorWithHexString:@"#000000"];
+    createText.yy_font = [UIFont systemFontOfSize:10];
+    createText.yy_color = [UIColor colorWithHexString:@"#555555"];
     createText.yy_lineBreakMode = NSLineBreakByCharWrapping;
     
     YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kQYCellNameWidth, 999)];
-    _nameLayout = [YYTextLayout layoutWithContainer:container text:createText];
-    _profileHeight = 35;
+    _timeLayout = [YYTextLayout layoutWithContainer:container text:createText];
 
 }
 
 - (void)layoutContent {
     
-    NSString *time = _status[kstatus][kcreated_at];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:time];
-    text.yy_color = [UIColor colorWithHexString:@"#555555"];
-    text.yy_font = [UIFont systemFontOfSize:10];
+    NSString *conent = _status[kmsg];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:conent];
+    text.yy_color = [UIColor colorWithHexString:@"#000000"];
+    text.yy_font = [UIFont systemFontOfSize:16];
     
-    YYTextContainer *container = [YYTextContainer new];
-    container.size = CGSizeMake(kQYCellContentTextWidth, 999);
+    YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kQYCellContentTextWidth, 999)];
+    //container.size = CGSizeMake(kQYCellContentTextWidth, 999);
     
-    _timeLayout = [YYTextLayout layoutWithContainer:container text:text];
+    _contentLayout = [YYTextLayout layoutWithContainer:container text:text];
+    _contentHeight = _contentLayout.textBoundingSize.height + 12.5;
 }
 - (void)layoutPicture {
     
-    NSArray *picturs = _status[kstatus][kthumbs];
+   // CGFloat linePdding = 0.f;
+    NSArray *picturs = _status[kthumbs];
     switch (picturs.count) {
         case 1:
         {
@@ -130,30 +134,34 @@
             
             _picSize = CGSizeMake(105, 105);
             _picHeight = 105;
+            break;
         }
         case 3:{
             
-             _picSize = CGSizeMake(95, 95);
+            _picSize = CGSizeMake(cl_caculation_3x(180),cl_caculation_3x(180));
             _picHeight = 95;
+            break;
         }
         case 4:case 5:case 6:{
             
-            _picSize = CGSizeMake(95, 95);
-            _picHeight = 190;
+            _picSize = CGSizeMake(cl_caculation_3x(180),cl_caculation_3x(180));
+            _picHeight = cl_caculation_3x(180) * 2 + 3.5;
+            break;
         }
             
         default:{
-            _picSize = CGSizeMake(95, 95);
-            _picHeight = 95 * 3;
+            _picSize = CGSizeMake(cl_caculation_3x(180),cl_caculation_3x(180));
+            _picHeight = cl_caculation_3x(180) * 3 + 7;
         }
             break;
     }
+    _picHeight = _picHeight + 14.5;
 }
 
 - (void)layoutTool {
     
-    NSString *site = _status[kstatus][ksite];
-    NSString *sizeLeght = _status[kstatus][ksiteLength];
+    NSString *site = _status[ksite];
+    NSString *sizeLeght = _status[ksiteLength];
     NSMutableAttributedString *siteText = [[NSMutableAttributedString alloc] initWithString:site];
     NSMutableAttributedString *sizeLegthText = [[NSMutableAttributedString alloc] initWithString:sizeLeght];
     siteText.yy_font = [UIFont systemFontOfSize:11];
@@ -166,6 +174,39 @@
     YYTextContainer *siteLengthContainer = [YYTextContainer containerWithSize:CGSizeMake(95, 999)];
     _sizeLayout = [YYTextLayout layoutWithContainer:siteContainer text:siteText];
     _sizeLengthLayout = [YYTextLayout layoutWithContainer:siteLengthContainer text:sizeLegthText];
+    _toolHeight = 75;
+    
+}
+
+- (void)layoutPraiseAndCommpent {
+    
+    NSArray *praiseArray = _status[kpraise];
+    NSArray *commentArray = _status[kcomment];
+    NSString *praise = [NSString stringWithFormat:@"%ld",praiseArray.count];
+    NSString *comment = [NSString stringWithFormat:@"%ld",commentArray.count];
+    if ([praise isEqualToString:@"0"]) {
+        
+        praise = @" ";
+    }
+    if ([comment isEqualToString:@"0"]) {
+        
+        comment = @" ";
+    }
+    
+    NSMutableAttributedString *prasiseText = [[NSMutableAttributedString alloc] initWithString:praise];
+    NSMutableAttributedString *commentText = [[NSMutableAttributedString alloc] initWithString:comment];
+    prasiseText.yy_font = [UIFont systemFontOfSize:12];
+    prasiseText.yy_color = [UIColor colorWithHexString:@"#555555"];
+    
+    commentText.yy_font = [UIFont systemFontOfSize:12];
+    commentText.yy_color = [UIColor colorWithHexString:@"#555555"];
+    
+    YYTextContainer *praiseContainer = [YYTextContainer containerWithSize:CGSizeMake(kScreenWidth, 9999)];
+    YYTextContainer *commentContainer = [YYTextContainer containerWithSize:CGSizeMake(kScreenWidth, 9999)];
+    
+    _praiseLayout = [YYTextLayout layoutWithContainer:praiseContainer text:prasiseText];
+    
+    _commentLayout = [YYTextLayout layoutWithContainer:commentContainer text:commentText];
     
 }
 

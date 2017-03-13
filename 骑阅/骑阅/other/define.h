@@ -40,6 +40,10 @@ static float cl_caculation_x(float x)  {
     return x/2.0/320 * kScreenWidth;
 }
 
+static float cl_caculation_3x(float x)  {
+    
+    return x/2.0/375 * kScreenWidth;
+}
 
 
 
@@ -48,8 +52,8 @@ static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
 static NSString * const kstatus = @"status";
 static NSString * const kcode = @"code";
-static NSString * const avater = @"avater";
-static NSString * const uid = @"uid";
+static NSString * const kavater = @"avater";
+static NSString * const kuid = @"uid";
 
 #pragma mark - cycl
 static NSString * const kuser = @"user";
@@ -61,5 +65,8 @@ static NSString * const ktype = @"type";
 static NSString * const kpictures = @"pictures";
 static NSString * const ksite = @"stie";
 static NSString * const ksiteLength = @"siteLength";
+static NSString * const kpraise = @"praise";
+static NSString * const kcomment = @"comment";
+
 
 #endif /* define_h */

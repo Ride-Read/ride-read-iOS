@@ -8,6 +8,6 @@
 
 #import "CTAPIBaseManager.h"
 
-@interface QYReadFriendCycleApiManager : CTAPIBaseManager
+@interface QYReadFriendCycleApiManager : CTAPIBaseManager<CTAPIManager>
 
 @end

@@ -13,5 +13,6 @@
  Suggest all controller inherit this
  */
 @interface QYBasicViewController : UIViewController
+@property (nonatomic, strong) NSOperationQueue *serialQueue;
 
 @end

@@ -25,6 +25,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - getter and setter
+- (NSOperationQueue *)serialQueue {
+    
+    if (!_serialQueue) {
+        
+        _serialQueue = [[NSOperationQueue alloc] init];
+        _serialQueue.maxConcurrentOperationCount = 1;
+    }
+    return _serialQueue;
+}
 /*
 #pragma mark - Navigation
 

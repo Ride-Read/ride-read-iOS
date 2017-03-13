@@ -13,11 +13,16 @@
 #import "YYBasicTableView.h"
 #import "QYCircleViewCell.h"
 #import "QYCycleTableHeaderView.h"
+#import "QYFriendCycleCellLayout.h"
+#import "QYReadFriendCycleApiManager.h"
+#import "QYFriendCycleDetailController.h"
 
 
-@interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate>
+@interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
+@property (nonatomic, strong) NSMutableArray *layoutArray;
+@property (nonatomic, strong) QYReadFriendCycleApiManager *friendCycleApi;
 
 @end
 
@@ -29,6 +34,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavc];
     [self setUpContentView];
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.friendCycleApi loadData];
+    }];
     
     // Do any additional setup after loading the view.
 }
@@ -38,6 +47,45 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - CTAPIManagParamSource 
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    return nil;
+}
+
+#pragma mark - CTAPIManagerCallback
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    
+    NSDictionary *dic1 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    QYFriendCycleCellLayout *layout1 = [QYFriendCycleCellLayout friendStatusCellLayout:dic1];
+    
+    NSDictionary *dic2 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    QYFriendCycleCellLayout *layout2 = [QYFriendCycleCellLayout friendStatusCellLayout:dic2];
+    
+    NSDictionary *dic3 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    QYFriendCycleCellLayout *layout3 = [QYFriendCycleCellLayout friendStatusCellLayout:dic3];
+    
+    NSDictionary *dic4 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    QYFriendCycleCellLayout *layout4 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
+    
+    NSDictionary *dic5 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],kcomment:@[@{},@{}],kpraise:@[@{},@{}],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian"};
+    QYFriendCycleCellLayout *layout5 = [QYFriendCycleCellLayout friendStatusCellLayout:dic5];
+
+
+    [self.layoutArray addObject:layout1];
+    [self.layoutArray addObject:layout2];
+    [self.layoutArray addObject:layout3];
+    [self.layoutArray addObject:layout4];
+    [self.layoutArray addObject:layout5];
+    [self.tableView reloadData];
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    
+}
 #pragma mark - private method
 
 - (void)setUpContentView {
@@ -89,17 +137,35 @@
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 0;
+    return self.layoutArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    QYCircleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell"];
+    if (!cell) {
+        cell = [[QYCircleViewCell alloc] initWithCycleType:QYFriendCycleTypelist];
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return nil;
+    QYCircleViewCell *cycleCell = (QYCircleViewCell *)cell;
+    QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
+    cycleCell.layout = layout;
 }
 
 #pragma mark - tableView delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    QYFriendCycleDetailController *detail = [[QYFriendCycleDetailController alloc] init];
+    QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
+    detail.layout = layout;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
+    return layout.height;
     
 }
 
@@ -131,9 +197,30 @@
         _tableView.dataSource = self;
         _tableView.refesh = self;
         _tableView.backgroundColor = [UIColor whiteColor];
+       _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
         
     }
     return _tableView;
+}
+- (NSMutableArray *)layoutArray {
+    
+    if (!_layoutArray) {
+        
+        _layoutArray = [NSMutableArray array];
+        
+    }
+    return _layoutArray;
+}
+
+- (QYReadFriendCycleApiManager *)friendCycleApi {
+    
+    if (!_friendCycleApi) {
+        
+        _friendCycleApi = [[QYReadFriendCycleApiManager alloc] init];
+        _friendCycleApi.delegate  = self;
+        _friendCycleApi.paramSource = self;
+    }
+    return _friendCycleApi;
 }
 
 /*
