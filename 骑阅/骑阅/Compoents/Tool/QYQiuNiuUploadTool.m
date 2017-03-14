@@ -56,6 +56,10 @@
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
     NSString *token =  [self.apiManager fetchDataWithReformer:self.reformer];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       
+        [[CTAppContext sharedInstance] configQiuniuToken:token];
+    });
     [self.up putData:self.data key:self.key token:token complete:self.handler option:nil];
 }
 

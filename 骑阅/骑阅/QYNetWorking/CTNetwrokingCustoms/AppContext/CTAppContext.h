@@ -88,5 +88,6 @@
 -(void )configSelectArray;
 -(void )configSelectCycleArray;
 -(void )configSelectFunctionArray;
+- (void)configQiuniuToken:(NSString *)qiuniu;
 
 @end
