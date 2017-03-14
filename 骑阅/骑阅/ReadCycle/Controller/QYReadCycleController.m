@@ -16,7 +16,8 @@
 #import "QYFriendCycleCellLayout.h"
 #import "QYReadFriendCycleApiManager.h"
 #import "QYFriendCycleDetailController.h"
-
+#import "QYDetailCycleLayout.h"
+#import "QYHomeTabBarViewController.h"
 
 @interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;
@@ -32,7 +33,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setNavc];
     [self setUpContentView];
     [self.serialQueue addOperationWithBlock:^{
        
@@ -40,6 +40,10 @@
     }];
     
     // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self setNavc];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,20 +61,21 @@
 #pragma mark - CTAPIManagerCallback
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-    
-    NSDictionary *dic1 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-1000];
+    NSTimeInterval time = [date timeIntervalSince1970] * 1000;
+    NSDictionary *dic1 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
     QYFriendCycleCellLayout *layout1 = [QYFriendCycleCellLayout friendStatusCellLayout:dic1];
     
-    NSDictionary *dic2 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    NSDictionary *dic2 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
     QYFriendCycleCellLayout *layout2 = [QYFriendCycleCellLayout friendStatusCellLayout:dic2];
     
-    NSDictionary *dic3 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    NSDictionary *dic3 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
     QYFriendCycleCellLayout *layout3 = [QYFriendCycleCellLayout friendStatusCellLayout:dic3];
     
-    NSDictionary *dic4 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{},@{}],kpraise:@[@{},@{}]};
+    NSDictionary *dic4 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
     QYFriendCycleCellLayout *layout4 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
     
-    NSDictionary *dic5 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],kcomment:@[@{},@{}],kpraise:@[@{},@{}],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian"};
+    NSDictionary *dic5 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{},@{},@{},@{},@{},@{},@{},@{},@{},@{},@{},@{}],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian"};
     QYFriendCycleCellLayout *layout5 = [QYFriendCycleCellLayout friendStatusCellLayout:dic5];
 
 
@@ -115,6 +120,8 @@
 }
 - (void)setNavc {
     
+    QYHomeTabBarViewController *tab = (QYHomeTabBarViewController *)self.tabBarController;
+    tab.tabBar.hidden = NO;
     self.navigationItem.title = @"阅圈";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStyleDone target:self action:@selector(clickSearchButton:)];
@@ -160,7 +167,8 @@
     
     QYFriendCycleDetailController *detail = [[QYFriendCycleDetailController alloc] init];
     QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
-    detail.layout = layout;
+    QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
+    detail.layout = detailLayout;
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

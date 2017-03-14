@@ -90,7 +90,8 @@
                 [self presentSetView];
             } else
             {
-                [MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:self.view];
+                [self presentSetView];
+                //[MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:self.view];
             }
 
             return;

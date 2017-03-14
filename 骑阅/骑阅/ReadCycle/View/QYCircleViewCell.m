@@ -144,8 +144,17 @@
 - (void)layoutContent {
     
     self.content.textLayout = _cell.layout.contentLayout;
-    self.content.left = 63;
-    self.content.top = kQYCellPaddingText;
+    
+    if (_cell.type == QYFriendCycleTypedetail) {
+        
+        self.content.left = 16;
+        self.content.top = 15;
+    } else {
+        
+        self.content.left = 63;
+        self.content.top = kQYCellPaddingText;
+        
+    }
     self.content.width = _cell.layout.contentLayout.textBoundingSize.width;
     self.content.height = _cell.layout.contentLayout.textBoundingSize.height;
     
@@ -170,6 +179,15 @@
     
     NSArray *array = _cell.layout.status[kthumbs];
     CGSize picSize = _cell.layout.picSize;
+    CGFloat leftMargin;
+    if (_cell.type == QYFriendCycleTypedetail) {
+        
+        leftMargin = 16;
+    } else {
+        
+        leftMargin = 50;
+        
+    }
     NSMutableSet *set = [NSMutableSet setWithArray:self.subviews];
     if (array.count > 0) {
         
@@ -187,18 +205,18 @@
             [set removeObject:pic];
             if (!pre) {
                 
-                pic.frame = CGRectMake(50, 14.5, picSize.width, picSize.height);
+                pic.frame = CGRectMake(leftMargin, 14.5, picSize.width, picSize.height);
             } else {
                 
             
                 pic.frame = CGRectOffset(pre.frame, picSize.width +3.5, 0);
                 if (i == 3) {
                     
-                    pic.frame = CGRectMake(50, pic.frame.origin.y + picSize.height + 3.5, picSize.width, picSize.height);
+                    pic.frame = CGRectMake(leftMargin, pic.frame.origin.y + picSize.height + 3.5, picSize.width, picSize.height);
                 }
                 if (i == 6) {
                     
-                    pic.frame = CGRectMake(50, pic.frame.origin.y + picSize.height + 3.5, picSize.width, picSize.height);
+                    pic.frame = CGRectMake(leftMargin, pic.frame.origin.y + picSize.height + 3.5, picSize.width, picSize.height);
                 }
             }
             pre = pic;
@@ -478,18 +496,20 @@
             button.backgroundColor = [UIColor greenColor];
             if (!pre) {
                 
-                button.frame = CGRectOffset(self.praiseNumber.frame, -24, 0);
+                button.frame = CGRectOffset(self.praiseNumber.frame, -34, 0);
             } else {
                 
-                button.frame = CGRectOffset(pre.frame, -24, 0);
+                button.frame = CGRectOffset(pre.frame, -36, 0);
                 if (button.frame.origin.x <= (42 + 10)) {
                     button.frame = CGRectZero;
                     self.praiseButton.frame = CGRectMake(16, 12.5, 26, 26);
                 } else {
                     
-                    self.praiseButton.frame = CGRectOffset(button.frame, -26, 0);
+                    self.praiseButton.frame = CGRectOffset(button.frame, -36, 0);
                 }
             }
+            button.layer.masksToBounds = YES;
+            button.layer.cornerRadius = 13;
             [self addSubview:button];
             pre = button;
         }
@@ -511,8 +531,8 @@
         
         _praiseNumber = [UIButton buttonTitle:nil font:11 colco:[UIColor whiteColor]];
         [_praiseNumber setBackgroundColor:[UIColor colorWithRed:0.32 green:0.79 blue:0.76 alpha:1.00]];
-        _praiseNumber.frame = CGRectMake(kScreenWidth - 32, 16, 16, 16);
-        _praiseNumber.layer.cornerRadius = 8;
+        _praiseNumber.frame = CGRectMake(kScreenWidth - 32, 16, 26, 26);
+        _praiseNumber.layer.cornerRadius = 13;
     }
     return _praiseNumber;
 }
@@ -624,6 +644,7 @@
         }];
     } else {
         
+        self.showBottomLine = YES;
         [self.contentView addSubview:self.detailView];
         [self.detailView mas_makeConstraints:^(MASConstraintMaker *make) {
             

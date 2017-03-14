@@ -40,7 +40,7 @@
 
 - (void)layoutNikeName {
     
-    NSString *nikeName = self.status[kusername];
+    NSString *nikeName = self.status[knickname];
     NSMutableAttributedString *nickNameText = [[NSMutableAttributedString alloc] initWithString:nikeName];
     nickNameText.yy_font = [UIFont systemFontOfSize:12];
     nickNameText.yy_color = [UIColor colorWithHexString:@"#555555"];
@@ -65,16 +65,21 @@
 
 - (void)layoutComment {
     
-    NSString *comment = self.status[kcomment];
+    NSString *comment = self.status[kmsg];
     NSMutableAttributedString *comentText = [[NSMutableAttributedString alloc] initWithString:comment];
     comentText.yy_color = [UIColor colorWithHexString:@"#555555"];
     comentText.yy_font = [UIFont systemFontOfSize:14];
     NSRange result = [comment regularReply:comment];
     if (result.location != NSNotFound) {
         
-        [comentText addAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#52CAC1"]} range:result];
+       //[comentText addAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#52CAC1"]} range:result];
+        YYTextHighlight *highlight = [YYTextHighlight highlightWithAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];
+        [comentText yy_setTextHighlight:highlight range:result];
+        
+        //[comentText yy_setTextHighlightRange:result color:[UIColor colorWithHexString:@"#52CAC1"] backgroundColor:nil userInfo:@{kuser:self.status[kuser]}];
         
     }
+
         
     YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kScreenWidth - 56, 999)];
     _commentLayout = [YYTextLayout layoutWithContainer:container text:comentText];

@@ -10,9 +10,21 @@
 #import "QYCircleViewCell.h"
 #include "YYBasicTableView.h"
 #import "define.h"
+#import "QYCommpentCellLayout.h"
+#import "QYCommentViewCell.h"
+#import "QYCommentSectionView.h"
+#import "QYSendCommentView.h"
+#import "QYHomeTabBarViewController.h"
+#import "UIBarButtonItem+CreatUIBarButtonItem.h"
+#import "QYButtonSheetPromptView.h"
+#import "UIColor+QYHexStringColor.h"
+
 @interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate>
 @property (nonatomic, strong) QYCircleViewCell *cell;
 @property (nonatomic, strong) YYBasicTableView *tableView;
+@property (nonatomic, strong) NSMutableArray *layoutArray;
+@property (nonatomic, strong) QYCommentSectionView *sectionView;
+@property (nonatomic, strong) QYSendCommentView *sendView;
 
 @end
 
@@ -20,7 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNavc];
     [self setContentView];
+    [self analyseData];
     // Do any additional setup after loading the view.
 }
 
@@ -29,24 +43,98 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark- private method 
+
+- (void)setNavc {
+    
+    QYHomeTabBarViewController *tab = (QYHomeTabBarViewController *)self.tabBarController;
+    tab.tabBar.hidden = YES;
+    self.title = @"详情";
+    UIBarButtonItem *rightItem = [UIBarButtonItem creatItemWithImage:@"navigation_more" highLightImage:nil title:nil target:self action:@selector(clcikRightItem:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
 - (void)setContentView {
     
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.sendView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.top.and.left.and.right.and.bottom.mas_equalTo(0);
+        make.top.and.left.and.right.mas_equalTo(0);
+        make.bottom.equalTo(self.sendView.mas_top);
     }];
+    [self.sendView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.and.right.and.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(50);
+    }];
+}
+
+- (void)analyseData {
+    
+    [self.serialQueue addOperationWithBlock:^{
+       
+        NSArray *array = self.layout.status[kcomment];
+        for (NSDictionary *comment in array) {
+            
+            QYCommpentCellLayout *layout = [QYCommpentCellLayout commentLayout:comment];
+            [self.layoutArray addObject:layout];
+        }
+        if (self.layoutArray.count > 0) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+               
+                [self.tableView reloadData];
+            }];
+        }
+    }];
+}
+
+#pragma mark - traget action
+
+- (void)clcikRightItem:(UIBarButtonItem *)sender {
+    
+    QYButtonSheetPromptView *prompt = [QYButtonSheetPromptView promptWithButtonTitles:@[@"分享",@"收藏"] action:^(UIButton *button) {
+        
+    }];
+    [prompt show];
 }
 #pragma mark - tableView dataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 0;
+    return self.layoutArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return nil;
+    QYCommentViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
+    if (!cell) {
+        
+        cell = [[QYCommentViewCell alloc] init];
+    }
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QYCommentViewCell *commentCell = (QYCommentViewCell *)cell;
+    QYCommpentCellLayout *layout = self.layoutArray[indexPath.row];
+    commentCell.layout = layout;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    return self.sectionView;
+}
+
+#pragma mark - tableView delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QYCommpentCellLayout *layout = self.layoutArray[indexPath.row];
+    return layout.height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 43;
 }
 
 #pragma mark - setter and getter
@@ -55,7 +143,7 @@
     if (!_cell) {
         _cell = [[QYCircleViewCell alloc] initWithCycleType:QYFriendCycleTypedetail];
         _cell.layout = self.layout;
-        _cell.frame = CGRectMake(0, 0, kScreenWidth,self.layout.height + 60 - self.layout.toolHeight);
+        _cell.frame = CGRectMake(0, 0, kScreenWidth,self.layout.height + 55 - self.layout.toolHeight);
     }
     return _cell;
 }
@@ -64,14 +152,47 @@
     
     if (!_tableView) {
         
-        _tableView = [[YYBasicTableView alloc] initWithRefeshSytle:YYTableViewRefeshStyleFooter];
+        _tableView = [[YYBasicTableView alloc] initWithRefeshSytle:YYTableViewRefeshStyleDefault];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.refesh = self;
         _tableView.tableFooterView = [UIView new];
         _tableView.tableHeaderView = self.cell;
+        //_tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
     }
     return _tableView;
+}
+
+- (QYCommentSectionView *)sectionView {
+    
+    if (!_sectionView) {
+        _sectionView = [[QYCommentSectionView alloc] init];
+        NSArray *array = _layout.status[kcomment];
+        NSString *numberString;
+        if (array.count > 0) {
+            
+            numberString = [NSString stringWithFormat:@"评论  %ld",array.count];
+        } else
+            numberString = @"评论";
+        _sectionView.commentNumber.text = numberString;
+    }
+    return _sectionView;
+}
+- (QYSendCommentView *)sendView {
+    
+    if (!_sendView) {
+        
+        _sendView = [[QYSendCommentView alloc] init];
+    }
+    return _sendView;
+}
+
+- (NSMutableArray *)layoutArray {
+    
+    if (!_layoutArray) {
+        _layoutArray = [NSMutableArray array];
+    }
+    return _layoutArray;
 }
 
 /*

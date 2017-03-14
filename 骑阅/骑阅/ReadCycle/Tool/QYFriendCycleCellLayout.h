@@ -68,6 +68,12 @@
 
 @interface QYFriendCycleCellLayout : NSObject
 
+@property (nonatomic, assign) CGFloat contentLayoutWidth;
+@property (nonatomic, assign) CGFloat pictureLayoutOneWidth;
+@property (nonatomic, assign) CGFloat pictureLayoutTwoWidth;
+@property (nonatomic, assign) CGFloat pictureLayoutMoreThanThreeWidth;
+@property (nonatomic, assign) CGFloat contentViewMarginTop;
+
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) NSDictionary *status;
 

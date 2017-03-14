@@ -113,11 +113,11 @@
     text.yy_color = [UIColor colorWithHexString:@"#000000"];
     text.yy_font = [UIFont systemFontOfSize:16];
     
-    YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kQYCellContentTextWidth, 999)];
+    YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(self.contentLayoutWidth, 999)];
     //container.size = CGSizeMake(kQYCellContentTextWidth, 999);
     
     _contentLayout = [YYTextLayout layoutWithContainer:container text:text];
-    _contentHeight = _contentLayout.textBoundingSize.height + 12.5;
+    _contentHeight = _contentLayout.textBoundingSize.height + self.contentViewMarginTop;
 }
 - (void)layoutPicture {
     
@@ -126,32 +126,32 @@
     switch (picturs.count) {
         case 1:
         {
-            _picSize = CGSizeMake(131, 131);
-            _picHeight = 131;
+            _picSize = CGSizeMake(self.pictureLayoutOneWidth, self.pictureLayoutOneWidth);
+            _picHeight = self.pictureLayoutOneWidth;
             break;
         }
         case 2:{
             
-            _picSize = CGSizeMake(105, 105);
-            _picHeight = 105;
+            _picSize = CGSizeMake(self.pictureLayoutTwoWidth, self.pictureLayoutTwoWidth);
+            _picHeight = self.pictureLayoutTwoWidth;
             break;
         }
         case 3:{
             
-            _picSize = CGSizeMake(cl_caculation_3x(180),cl_caculation_3x(180));
-            _picHeight = 95;
+            _picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
+            _picHeight = self.pictureLayoutMoreThanThreeWidth;
             break;
         }
         case 4:case 5:case 6:{
             
-            _picSize = CGSizeMake(cl_caculation_3x(180),cl_caculation_3x(180));
-            _picHeight = cl_caculation_3x(180) * 2 + 3.5;
+            _picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
+            _picHeight =self.pictureLayoutMoreThanThreeWidth * 2 + 3.5;
             break;
         }
             
         default:{
-            _picSize = CGSizeMake(cl_caculation_3x(180),cl_caculation_3x(180));
-            _picHeight = cl_caculation_3x(180) * 3 + 7;
+            _picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
+            _picHeight = self.pictureLayoutMoreThanThreeWidth * 3 + 7;
         }
             break;
     }
@@ -214,5 +214,31 @@
 - (void)updateDate {
     
     [self layoutTime];
+}
+
+#pragma mark - setter and getter
+
+- (CGFloat)contentViewMarginTop {
+    
+    return 12.5;
+}
+- (CGFloat)contentLayoutWidth {
+    
+    return kScreenWidth - 63 - 30;
+}
+
+- (CGFloat)pictureLayoutOneWidth {
+    
+    return 131;
+}
+
+- (CGFloat)pictureLayoutTwoWidth {
+    
+    return 105;
+}
+
+- (CGFloat)pictureLayoutMoreThanThreeWidth {
+    
+    return cl_caculation_3x(180);
 }
 @end

@@ -12,7 +12,7 @@
 
 - (NSRange)regularReply:(NSString *)string {
     
-    NSString *pattern = [NSString stringWithFormat:@" 回复([.\\s\\S]+):"];
+    NSString *pattern = [NSString stringWithFormat:@"回复 ([.\\s\\S]+):"];
     NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
     NSArray *array = [regular matchesInString:string options:0 range:NSMakeRange(0, string.length)];
     

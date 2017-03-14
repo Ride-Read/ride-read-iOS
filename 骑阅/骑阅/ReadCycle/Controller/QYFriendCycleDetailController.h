@@ -10,6 +10,6 @@
 #import "QYFriendCycleCellLayout.h"
 
 @interface QYFriendCycleDetailController : QYBasicViewController
-@property (nonatomic, weak) QYFriendCycleCellLayout *layout;
+@property (nonatomic, strong) QYFriendCycleCellLayout *layout;
 
 @end

@@ -1261,6 +1261,7 @@ return style. _attr_;
 }
 
 - (void)yy_setTextHighlight:(YYTextHighlight *)textHighlight range:(NSRange)range {
+    
     [self yy_setAttribute:YYTextHighlightAttributeName value:textHighlight range:range];
 }
 

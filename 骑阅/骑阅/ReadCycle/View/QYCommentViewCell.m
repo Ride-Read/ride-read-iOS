@@ -9,40 +9,69 @@
 #import "QYCommentViewCell.h"
 #import "define.h"
 #import "UIView+YYAdd.h"
+#import "UIImageView+WebCache.h"
 
 @implementation QYCommentViewCell
 
 - (instancetype)init {
 
     self = [super init];
+    [self setupUI];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     return self;
 }
 
 - (void)setupUI {
     
+    self.showBottomLine = YES;
+    [self addSubview:self.icon];
+    [self addSubview:self.nickName];
+    [self addSubview:self.timeLabel];
+    [self addSubview:self.comment];
     
 }
 
 - (void)layoutIcon {
     
-    
+    self.icon.left = 15;
+    self.icon.top = 11;
+    self.icon.size = CGSizeMake(30, 30);
+    NSString *urlString = _layout.status[kavater];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@""]];
 }
 
 - (void)layoutNikeName {
     
-    
+    self.nickName.top = 13;
+    self.nickName.left = CGRectGetMaxX(self.icon.frame) + 11.5;
+    self.nickName.size = _layout.nikeNameLayout.textBoundingSize;
+    self.nickName.textLayout = _layout.nikeNameLayout;
 }
 
 - (void)layoutTime {
     
-    
+    self.timeLabel.top = CGRectGetMaxY(self.nickName.frame) + 5;
+    self.timeLabel.left = self.nickName.left;
+    self.timeLabel.size = _layout.timeLayout.textBoundingSize;
+    self.timeLabel.textLayout = _layout.timeLayout;
+
 }
 
 - (void)layoutComment {
     
     self.comment.left = 56;
     self.comment.top = CGRectGetMaxY(self.timeLabel.frame) + 14.5;
+    self.comment.size = _layout.commentLayout.textBoundingSize;
+    self.comment.textLayout = _layout.commentLayout;
 
+}
+- (void)setLayout:(QYCommpentCellLayout *)layout {
+    
+    _layout = layout;
+    [self layoutIcon];
+    [self layoutNikeName];
+    [self layoutTime];
+    [self layoutComment];
 }
 
 - (UIImageView *)icon {
@@ -50,6 +79,9 @@
     if (!_icon) {
         
         _icon = [[UIImageView alloc] init];
+        _icon.layer.masksToBounds = YES;
+        _icon.layer.cornerRadius = 15;
+        _icon.backgroundColor = [UIColor greenColor];
     }
     return _icon;
 }
@@ -62,7 +94,7 @@
         _nickName.displaysAsynchronously = YES;
         _nickName.highlightTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect){
             
-            
+            NSLog(@"----------");
         };
     }
     return _nickName;
@@ -86,6 +118,7 @@
         _comment.displaysAsynchronously = YES;
         _comment.highlightTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect){
             
+            NSLog(@"-------");
         };
     }
     return _comment;
