@@ -81,7 +81,7 @@
 #pragma mark
 - (CGFloat)sideMargin {
     
-    return 48;
+    return cl_caculation_3x(96);
 }
 
 @end

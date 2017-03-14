@@ -15,7 +15,7 @@
 - (instancetype)init {
     
     self = [super init];
-    self.layer.cornerRadius = 5;
+    self.layer.cornerRadius = 8;
     return self;
 }
 - (void)dealloc {

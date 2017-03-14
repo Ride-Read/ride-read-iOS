@@ -35,15 +35,44 @@
     [self setNavc];
     [self setContentView];
     [self analyseData];
+    [self addNotifaction];
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self addNotifaction];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    [self removeNotifation];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    MyLog(@"%@",[self class]);
+}
 #pragma mark- private method 
 
+- (void)addNotifaction {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeNotifation {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+}
 - (void)setNavc {
     
     QYHomeTabBarViewController *tab = (QYHomeTabBarViewController *)self.tabBarController;
@@ -89,6 +118,45 @@
 }
 
 #pragma mark - traget action
+
+- (void)keyBoardShow:(NSNotification *)info {
+    // 动画时长
+    CGFloat duration = [info.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger option = [info.userInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
+    // 键盘高度
+    CGFloat keyboardH = [info.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [self.sendView mas_remakeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-keyboardH);
+        make.height.mas_equalTo(50);
+    }];
+    [UIView animateKeyframesWithDuration:duration delay:0 options:option animations:^{
+        
+        [self.view layoutIfNeeded];
+        
+    } completion:nil];
+    
+}
+
+- (void)keyBoardHide:(NSNotification *)info {
+    
+    // 动画时长
+    CGFloat duration = [info.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger option = [info.userInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
+    // 键盘高度
+    [self.sendView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(50);
+    }];
+    [UIView animateKeyframesWithDuration:duration delay:0 options:option animations:^{
+        
+        [self.view layoutIfNeeded];
+        
+    } completion:nil];
+}
 
 - (void)clcikRightItem:(UIBarButtonItem *)sender {
     
@@ -158,6 +226,7 @@
         _tableView.refesh = self;
         _tableView.tableFooterView = [UIView new];
         _tableView.tableHeaderView = self.cell;
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         //_tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
     }
     return _tableView;
