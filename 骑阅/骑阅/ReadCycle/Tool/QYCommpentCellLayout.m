@@ -72,8 +72,9 @@
     NSRange result = [comment regularReply:comment];
     if (result.location != NSNotFound) {
         
-       //[comentText addAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#52CAC1"]} range:result];
-        YYTextHighlight *highlight = [YYTextHighlight highlightWithAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];
+        [comentText yy_setColor:[UIColor colorWithHexString:@"#52CAC1"] range:result];
+        YYTextHighlight *highlight = [YYTextHighlight new];
+        [highlight setColor:[UIColor colorWithHexString:@"#52CAC1"]];
         [comentText yy_setTextHighlight:highlight range:result];
         
         //[comentText yy_setTextHighlightRange:result color:[UIColor colorWithHexString:@"#52CAC1"] backgroundColor:nil userInfo:@{kuser:self.status[kuser]}];
