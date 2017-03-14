@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "QYLoginOrRegisterFatherController.h"
+#import "QYHomeTabBarViewController.h"
+#import "CTAppContext.h"
 
 @interface AppDelegate ()
 
@@ -19,8 +21,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    QYLoginOrRegisterFatherController *logFather = [[QYLoginOrRegisterFatherController alloc] init];
-    self.window.rootViewController = logFather;
+    
+    QYUser *curentUser = [CTAppContext sharedInstance].currentUser;
+    if (!curentUser) {
+        
+        QYLoginOrRegisterFatherController *logFather = [[QYLoginOrRegisterFatherController alloc] init];
+        self.window.rootViewController = logFather;
+    } else {
+        
+        QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
+        self.window.rootViewController = tab;
+    }
+    
     [self.window makeKeyAndVisible];
     
     return YES;

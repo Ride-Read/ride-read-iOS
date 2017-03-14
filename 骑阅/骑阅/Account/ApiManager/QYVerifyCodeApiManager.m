@@ -28,7 +28,7 @@
 #pragma mark -APIManager
 -(NSString *)methodName {
     
-    return @"users/verify_code";
+    return @"users/verify";
 }
 
 -(NSString *)serviceType {
@@ -38,7 +38,7 @@
 
 -(CTAPIManagerRequestType)requestType {
     
-    return CTAPIBaseManagerRequestTypeGet;
+    return CTAPIBaseManagerRequestTypePost;
 }
 
 -(BOOL)shouldCache {
@@ -49,7 +49,7 @@
 #pragma mark - APIManagerValidator
 -(BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
     
-    NSString *code = data[kcode];
+    NSString *code = data[kusername];
     if (!code||code.length < 3) {
         
         return NO;

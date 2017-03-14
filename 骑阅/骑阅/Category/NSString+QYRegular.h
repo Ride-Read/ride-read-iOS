@@ -11,4 +11,12 @@
 @interface NSString (QYRegular)
 
 - (NSRange)regularReply:(NSString *)string;
+
+/**
+ 验证验证码如果正确随机生成一个六位数字
+
+ @param phoneNumber phoneNumber
+ @return resutl
+ */
+- (NSString *)verifyPhoneNumber:(NSString *)phoneNumber;
 @end

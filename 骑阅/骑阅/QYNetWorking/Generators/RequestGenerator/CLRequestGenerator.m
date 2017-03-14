@@ -56,6 +56,9 @@
         
         requestParams = [self setRequetAuthenticaion:requestParams];
         
+    } else {
+        
+        requestParams = [self setRequestTimestamp:requestParams];
     }
     [self.httpRequestSerializer setValue:[[NSUUID UUID] UUIDString] forHTTPHeaderField:@"xxxxxxx"];
     
@@ -82,6 +85,9 @@
     if (service.type == YYServiceTypeRequestAuthen) {
         
        requestParams = [self setRequetAuthenticaion:requestParams];
+    } else {
+        
+        requestParams = [self setRequestTimestamp:requestParams];
     }
     [self.httpRequestSerializer setValue:[[NSUUID UUID] UUIDString] forHTTPHeaderField:@"xxxxxxxx"];
     
@@ -104,6 +110,9 @@
     if (service.type == YYServiceTypeRequestAuthen) {
         
         requestParams = [self setRequetAuthenticaion:requestParams];
+    } else {
+        
+        requestParams = [self setRequestTimestamp:requestParams];
     }
     [self.httpRequestSerializer setValue:[[NSUUID UUID] UUIDString] forHTTPHeaderField:@"xxxxxxxx"];
     
@@ -125,6 +134,9 @@
     if (service.type == YYServiceTypeRequestAuthen) {
         
         requestParams = [self setRequetAuthenticaion:requestParams];
+    } else {
+        
+        requestParams = [self setRequestTimestamp:requestParams];
     }
     [self.httpRequestSerializer setValue:[[NSUUID UUID] UUIDString] forHTTPHeaderField:@"xxxxxxxx"];
     
@@ -157,6 +169,10 @@
     if (service.type == YYServiceTypeRequestAuthen) {
         
         requestParams = [self setRequetAuthenticaion:requestParams];
+        
+    } else {
+        
+        requestParams = [self setRequestTimestamp:requestParams];
     }
     NSString *urlString;
     if (service.apiVersion.length != 0) {
@@ -220,15 +236,24 @@
 //    NSTimeInterval interval = date.timeIntervalSince1970;
   
 //    int rand = arc4random();
-//    NSString *timetamp = [NSString stringWithFormat:@"%lf%d",TimeStamp,rand];
-    NSString *token = [CTAppContext sharedInstance].onec_token;
+    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp];
+    NSString *token = [CTAppContext sharedInstance].currentUser.token;
     //NSString *sign = [NSString stringWithFormat:@"%@%@%@",timetamp,token,SALT];
    // sign = [NSString getMD5String:sign];
     //[dic setObject:timetamp?:@"error" forKey:@"timestamp"];
     [dic setObject:token?:@"error" forKey:@"token"];
+    [dic setObject:timetamp forKey:@"timestamp"];
     //[dic setObject:sign?:@"error" forKey:@"sign"];
     return dic;
     
+}
+- (NSDictionary *)setRequestTimestamp:(NSDictionary *)params {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
+    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp];
+    [dic setObject:timetamp forKey:@"timestamp"];
+    return dic;
+
 }
 
 #pragma mark - getters and setters

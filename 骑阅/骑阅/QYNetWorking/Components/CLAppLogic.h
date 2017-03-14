@@ -10,6 +10,7 @@
 #import "CTAPIBaseManager.h"
 extern dispatch_queue_t url_session_manager_queue();
 extern dispatch_queue_t persistance_session_manager_queue();
+FOUNDATION_EXPORT  NSString *const kApiManagerNetWorkingError;
 
 typedef NS_ENUM(NSUInteger,CLAppLogicDataPolicy) {
     

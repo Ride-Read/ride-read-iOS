@@ -49,6 +49,7 @@ static float cl_caculation_3x(float x)  {
 
 
 #pragma mark - custom keys
+static NSString * const kdata = @"data";
 static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
 static NSString * const kstatus = @"status";
@@ -56,6 +57,9 @@ static NSString * const kcode = @"code";
 static NSString * const kavater = @"avater";
 static NSString * const kuid = @"uid";
 static NSString * const knickname = @"nickname";
+static NSString * const ktoken = @"token";
+static NSString * const kfilename = @"filename";
+
 
 #pragma mark - cycl
 static NSString * const kuser = @"user";

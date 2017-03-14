@@ -120,6 +120,36 @@
     }
     return _userInfo;
 }
+- (NSString *)qiuniu_token {
+    
+    if (!_qiuniu_token) {
+        
+        _qiuniu_token = [[NSUserDefaults standardUserDefaults] objectForKey:@"qiuniu_token"];
+    }
+    return _qiuniu_token;
+}
+- (void)configQiuniuToken:(NSString *)qiuniu {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:qiuniu forKey:@"qiuniu_token"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    _qiuniu_token = qiuniu;
+    
+}
+//- (void)setQiuniu_token:(NSString *)qiuniu_token {
+//    
+//    
+//}
+- (QYUser *)currentUser {
+    
+    if (!_currentUser) {
+        
+        _currentUser = [QYUser userWithDict:self.userInfo];
+        if (self.userInfo == nil) _currentUser = nil;
+    }
+    
+    return _currentUser;
+}
+
 
 - (void)setUserHasFollowings:(BOOL)userHasFollowings
 {
@@ -832,6 +862,9 @@
     return flag;
 
 }
+
+#pragma mark --
+#pragma mark QY
 
 
 @end

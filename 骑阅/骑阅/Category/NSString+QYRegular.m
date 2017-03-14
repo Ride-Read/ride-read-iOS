@@ -23,4 +23,24 @@
     }
     return result;
 }
+
+- (NSString *)verifyPhoneNumber:(NSString *)phoneNumber {
+    
+    NSString *regex = @"^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}";
+    NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL correct = [test evaluateWithObject:self];
+    if (correct) {
+        
+        NSString *strRandom = @"";
+        
+        for(int i=0; i< 6; i++)
+        {
+            strRandom = [ strRandom stringByAppendingFormat:@"%i",(arc4random() % 9)];
+        }
+        return strRandom;
+        
+    } else {
+        return nil;
+    }
+}
 @end

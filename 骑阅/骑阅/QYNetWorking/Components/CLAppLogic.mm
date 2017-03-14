@@ -9,6 +9,7 @@
 #import "CLAppLogic.h"
 #import <objc/runtime.h>
 
+NSString *const kApiManagerNetWorkingError = @"ApiManagerNetWorkingError";
 dispatch_queue_t url_session_manager_queue() {
     
     static dispatch_queue_t cl_url_session_manager_queue;
@@ -76,7 +77,10 @@ dispatch_queue_t persistance_session_manager_queue() {
 
 -(void)loadData {
     
-    [self.apiManager loadData];
+    dispatch_async(self.netQueue, ^{
+        
+        [self.apiManager loadData];
+    });
 }
 
 #pragma mark - CTAPIManagerInterceptor
@@ -104,7 +108,7 @@ dispatch_queue_t persistance_session_manager_queue() {
     
     if ([self.child respondsToSelector:@selector(logic:reformNetWorking:)]) {
 
-        self.data = [self.child logic:self reformNetWorking:@"neterror"];
+        self.data = [self.child logic:self reformNetWorking:kApiManagerNetWorkingError];
         if (!self.data) {
             
             return YES;

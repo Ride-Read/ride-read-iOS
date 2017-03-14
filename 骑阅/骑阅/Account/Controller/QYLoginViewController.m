@@ -15,11 +15,12 @@
 #import "QYLoginApiManager.h"
 #import "MBProgressHUD+LLHud.h"
 #import "QYHomeTabBarViewController.h"
-
+#import "QYUserLogLogic.h"
 
 @interface QYLoginViewController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYControllerDismissAciton>
 @property (nonatomic, strong) QYLoginView *loginView;
 @property (nonatomic, strong) QYLoginApiManager *loginApiManager;
+@property (nonatomic, strong) QYUserLogLogic *logic;
 
 @end
 
@@ -53,10 +54,7 @@
         
         if (index == 0) {
             MyLog(@"click next setup");
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                
-                [self.loginApiManager loadData];
-            });
+            [self.logic loadData];
             return;
         }
         if (index == 1) {
@@ -77,7 +75,7 @@
 #pragma mark - CTAPIParamSource
 -(NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
-    if (manager == self.loginApiManager) {
+    if (manager == self.logic.apiManager) {
         
         NSString *username = self.loginView.phoneTextField.text;
         NSString *password = self.loginView.passwordTextField.text;
@@ -89,7 +87,7 @@
 #pragma mark - CTAPIManagerCallback
 -(void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
-    if (manager == self.loginApiManager) {
+    if (manager == self.logic.apiManager) {
         
         [self gotoMainController];
     }
@@ -97,7 +95,7 @@
 -(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
     [self gotoMainController];
-    if (manager == self.loginApiManager) {
+    if (manager == self.logic.apiManager) {
         
         //参数不能通过验证，具体可以看对应的Api
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
@@ -168,6 +166,16 @@
         _loginApiManager.paramSource = self;
     }
     return _loginApiManager;
+}
+- (QYUserLogLogic *)logic {
+    
+    if (!_logic) {
+        
+        _logic = [[QYUserLogLogic alloc] init];
+        _logic.delegate = self;
+        _logic.paramSource = self;
+    }
+    return _logic;
 }
 /*
 #pragma mark - Navigation

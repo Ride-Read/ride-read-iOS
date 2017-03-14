@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NSURLRequest+CTNetWorkingMethods.h"
 #import "CTAPIBaseManager.h"
+#import "QYUser.h"
 
 @interface CTAppContext : NSObject
 
@@ -45,6 +46,8 @@
 @property (nonatomic, copy) NSDictionary *userInfo;
 @property (nonatomic, copy) NSString *userID;
 @property (nonatomic, readonly) BOOL isLoggedIn;
+@property (nonatomic, strong) QYUser *currentUser;
+@property (nonatomic, strong) NSString *qiuniu_token;
 
 // app信息
 @property (nonatomic, copy, readonly) NSString *sessionId; // 每次启动App时都会新生成

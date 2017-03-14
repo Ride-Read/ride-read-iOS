@@ -14,6 +14,10 @@
 #import "QYRideReadAccountView.h"
 #import "MBProgressHUD+LLHud.h"
 #import "QYVerifyCodeApiManager.h"
+#import "QYGetQiNiuTokenApiManager.h"
+#import "NSString+QYRegular.h"
+#import "QYGetQiNiuTokenApiManager.h"
+#import "QiniuSDK.h"
 
 @interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYRegisterView *registerView;
@@ -47,6 +51,10 @@
     [self.preViews addObject:self.view];
     self.currentView = self.invitePeopleView;
     [self addPanGesture];
+//    QNUploadManager *up = [[QNUploadManager alloc] init];
+//    [up putData:nil key:nil token:nil complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//        
+//    } option:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -71,7 +79,11 @@
         
         if (index == 0) {
             
-            [self.verifyInviteCodeApiManager loadData];
+            [self.serialQueue addOperationWithBlock:^{
+           
+                [self.verifyInviteCodeApiManager loadData];
+                
+            }];
             self.hud = [MBProgressHUD showMessage:@"验证中..." toView:self.view];
         }
     }
@@ -80,6 +92,17 @@
         
         if (index == 0) {
             
+            NSString *string = self.registerView.phoneTextField.text;
+           NSString *code =  [string verifyPhoneNumber:string];
+            if (code) {
+                
+                self.correctSMSCode = YES;
+                self.registerView.verifyTextField.textField.text = code;
+            } else
+            {
+                self.correctSMSCode = NO;
+                [MBProgressHUD showMessageAutoHide:@"获取失败" view:self.view];
+            }
             MyLog(@"code send");
         }
         if (index == 1) {
@@ -90,8 +113,8 @@
                 [self presentSetView];
             } else
             {
-                [self presentSetView];
-                //[MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:self.view];
+                //[self presentSetView];
+                [MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:self.view];
             }
 
             return;
@@ -107,7 +130,16 @@
         
         if (index == 0) {
             
-            [self presentSetInvitCodeView];
+            NSString *pwd = self.setView.pwd.text;
+            NSString *repwd = self.setView.confirmPwd.text;
+            if ([pwd isEqualToString:repwd]) {
+        
+                [self presentSetInvitCodeView];
+            } else {
+                
+                [MBProgressHUD showMessageAutoHide:@"确认密码不相同" view:self.view];
+            }
+            
         }
     }
     
@@ -118,8 +150,8 @@
     
     if (manager == self.verifyInviteCodeApiManager) {
         
-        NSString * code = self.invitePeopleView.invitePeople.text;
-        return @{kcode:code?:@""};
+        NSString * username = self.invitePeopleView.invitePeople.text;
+        return @{kusername:username?:@""};
     }
     return nil;
 }
@@ -152,6 +184,8 @@
         if (manager.errorType == CTAPIBaseManagerErrorTypeNoContent) {
             
             [MBProgressHUD showMessageAutoHide:@"邀请码不存在" view:self.view];
+            [self presentRegisterView];
+            
             return;
         }
         [MBProgressHUD showMessageAutoHide:@"认证失败" view:self.view];

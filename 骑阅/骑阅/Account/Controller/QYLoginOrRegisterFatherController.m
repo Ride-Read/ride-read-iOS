@@ -41,6 +41,7 @@
 #pragma makr - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.contentView];
     [self.view addSubview:self.otherLoginView];

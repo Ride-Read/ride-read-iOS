@@ -11,7 +11,6 @@
 		2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */; };
 		2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */; };
 		2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */; };
-		2BBD53061E6EFDB2007313E7 /* QYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53051E6EFDB2007313E7 /* QYUser.m */; };
 		2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530A1E6EFDEE007313E7 /* QYTest1.m */; };
 		2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530D1E6EFDFD007313E7 /* QYTest2.m */; };
 		2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53101E6EFE2E007313E7 /* QYtest3.m */; };
@@ -135,6 +134,12 @@
 		BAC871211E76FD4100C5F800 /* QYBasicPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871201E76FD4100C5F800 /* QYBasicPromptView.m */; };
 		BAC871241E76FF5200C5F800 /* QYButtonSheetPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871231E76FF5200C5F800 /* QYButtonSheetPromptView.m */; };
 		BAC871271E7707FC00C5F800 /* UIView+QYShowBottomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871261E7707FC00C5F800 /* UIView+QYShowBottomLine.m */; };
+		BAC8714A1E7836BF00C5F800 /* QYUserLogLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871491E7836BF00C5F800 /* QYUserLogLogic.m */; };
+		BAC8714D1E783A8100C5F800 /* QYUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8714C1E783A8100C5F800 /* QYUser.m */; };
+		BAC871541E78416B00C5F800 /* QYGetQiNiuTokenApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871531E78416B00C5F800 /* QYGetQiNiuTokenApiManager.m */; };
+		BAC871571E78454000C5F800 /* QYQiuniuTokenCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871561E78454000C5F800 /* QYQiuniuTokenCommand.m */; };
+		BAC8715B1E7856CB00C5F800 /* QYQiuNiuUploadTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8715A1E7856CB00C5F800 /* QYQiuNiuUploadTool.m */; };
+		BAC8715E1E785B2A00C5F800 /* QYQiuniuReformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8715D1E785B2A00C5F800 /* QYQiuniuReformer.m */; };
 		BAC959081E7576AB007E171E /* QYCommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC959071E7576AB007E171E /* QYCommentViewCell.m */; };
 		BAC9590B1E757716007E171E /* QYCommpentCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC9590A1E757716007E171E /* QYCommpentCellLayout.m */; };
 		BAC9590E1E75825C007E171E /* NSString+QYDateString.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC9590D1E75825C007E171E /* NSString+QYDateString.m */; };
@@ -199,8 +204,6 @@
 		2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadMapController.m; sourceTree = "<group>"; };
 		2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonalDataCell.h; sourceTree = "<group>"; };
 		2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonalDataCell.m; sourceTree = "<group>"; };
-		2BBD53041E6EFDB2007313E7 /* QYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUser.h; sourceTree = "<group>"; };
-		2BBD53051E6EFDB2007313E7 /* QYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUser.m; sourceTree = "<group>"; };
 		2BBD53091E6EFDEE007313E7 /* QYTest1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTest1.h; sourceTree = "<group>"; };
 		2BBD530A1E6EFDEE007313E7 /* QYTest1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTest1.m; sourceTree = "<group>"; };
 		2BBD530C1E6EFDFD007313E7 /* QYTest2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTest2.h; sourceTree = "<group>"; };
@@ -454,6 +457,18 @@
 		BAC871231E76FF5200C5F800 /* QYButtonSheetPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYButtonSheetPromptView.m; sourceTree = "<group>"; };
 		BAC871251E7707FC00C5F800 /* UIView+QYShowBottomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QYShowBottomLine.h"; sourceTree = "<group>"; };
 		BAC871261E7707FC00C5F800 /* UIView+QYShowBottomLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QYShowBottomLine.m"; sourceTree = "<group>"; };
+		BAC871481E7836BF00C5F800 /* QYUserLogLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUserLogLogic.h; sourceTree = "<group>"; };
+		BAC871491E7836BF00C5F800 /* QYUserLogLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUserLogLogic.m; sourceTree = "<group>"; };
+		BAC8714B1E783A8100C5F800 /* QYUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUser.h; sourceTree = "<group>"; };
+		BAC8714C1E783A8100C5F800 /* QYUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUser.m; sourceTree = "<group>"; };
+		BAC871521E78416B00C5F800 /* QYGetQiNiuTokenApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYGetQiNiuTokenApiManager.h; sourceTree = "<group>"; };
+		BAC871531E78416B00C5F800 /* QYGetQiNiuTokenApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYGetQiNiuTokenApiManager.m; sourceTree = "<group>"; };
+		BAC871551E78454000C5F800 /* QYQiuniuTokenCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYQiuniuTokenCommand.h; sourceTree = "<group>"; };
+		BAC871561E78454000C5F800 /* QYQiuniuTokenCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYQiuniuTokenCommand.m; sourceTree = "<group>"; };
+		BAC871591E7856CB00C5F800 /* QYQiuNiuUploadTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYQiuNiuUploadTool.h; sourceTree = "<group>"; };
+		BAC8715A1E7856CB00C5F800 /* QYQiuNiuUploadTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYQiuNiuUploadTool.m; sourceTree = "<group>"; };
+		BAC8715C1E785B2A00C5F800 /* QYQiuniuReformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYQiuniuReformer.h; sourceTree = "<group>"; };
+		BAC8715D1E785B2A00C5F800 /* QYQiuniuReformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYQiuniuReformer.m; sourceTree = "<group>"; };
 		BAC959061E7576AB007E171E /* QYCommentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCommentViewCell.h; sourceTree = "<group>"; };
 		BAC959071E7576AB007E171E /* QYCommentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCommentViewCell.m; sourceTree = "<group>"; };
 		BAC959091E757716007E171E /* QYCommpentCellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCommpentCellLayout.h; sourceTree = "<group>"; };
@@ -690,8 +705,6 @@
 		2BBD53031E6EFDA4007313E7 /* Command */ = {
 			isa = PBXGroup;
 			children = (
-				2BBD53041E6EFDB2007313E7 /* QYUser.h */,
-				2BBD53051E6EFDB2007313E7 /* QYUser.m */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -701,6 +714,8 @@
 			children = (
 				2BBD53091E6EFDEE007313E7 /* QYTest1.h */,
 				2BBD530A1E6EFDEE007313E7 /* QYTest1.m */,
+				BAC871481E7836BF00C5F800 /* QYUserLogLogic.h */,
+				BAC871491E7836BF00C5F800 /* QYUserLogLogic.m */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -710,6 +725,8 @@
 			children = (
 				2BBD530C1E6EFDFD007313E7 /* QYTest2.h */,
 				2BBD530D1E6EFDFD007313E7 /* QYTest2.m */,
+				BAC8714B1E783A8100C5F800 /* QYUser.h */,
+				BAC8714C1E783A8100C5F800 /* QYUser.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -961,6 +978,7 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				BAC8714E1E78409100C5F800 /* Reform */,
 				EC7AA16D1E5C90B400EA54AA /* ReadMap */,
 				EC7AA1491E5C8B4A00EA54AA /* ReadCycle */,
 				EC7AA1421E5C8B4200EA54AA /* Me */,
@@ -1101,6 +1119,9 @@
 		BAA0012A1E506FFD0067A894 /* Compoents */ = {
 			isa = PBXGroup;
 			children = (
+				BAC871581E7856B200C5F800 /* Tool */,
+				BAC871501E78414D00C5F800 /* ApiManager */,
+				BAC871511E78414D00C5F800 /* Command */,
 				BACBA8681E50C9BF00D2E848 /* Protocol */,
 				BAA0012D1E5070990067A894 /* Controolers */,
 				BAA0012B1E506FFD0067A894 /* View */,
@@ -1344,6 +1365,45 @@
 			);
 			path = UDIDGenerator;
 			sourceTree = "<group>";
+		};
+		BAC8714E1E78409100C5F800 /* Reform */ = {
+			isa = PBXGroup;
+			children = (
+				BAC8715C1E785B2A00C5F800 /* QYQiuniuReformer.h */,
+				BAC8715D1E785B2A00C5F800 /* QYQiuniuReformer.m */,
+			);
+			path = Reform;
+			sourceTree = "<group>";
+		};
+		BAC871501E78414D00C5F800 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				BAC871521E78416B00C5F800 /* QYGetQiNiuTokenApiManager.h */,
+				BAC871531E78416B00C5F800 /* QYGetQiNiuTokenApiManager.m */,
+			);
+			name = ApiManager;
+			path = "骑阅/Compoents/ApiManager";
+			sourceTree = SOURCE_ROOT;
+		};
+		BAC871511E78414D00C5F800 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				BAC871551E78454000C5F800 /* QYQiuniuTokenCommand.h */,
+				BAC871561E78454000C5F800 /* QYQiuniuTokenCommand.m */,
+			);
+			name = Command;
+			path = "骑阅/Compoents/Command";
+			sourceTree = SOURCE_ROOT;
+		};
+		BAC871581E7856B200C5F800 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				BAC871591E7856CB00C5F800 /* QYQiuNiuUploadTool.h */,
+				BAC8715A1E7856CB00C5F800 /* QYQiuNiuUploadTool.m */,
+			);
+			name = Tool;
+			path = "骑阅/Compoents/Tool";
+			sourceTree = SOURCE_ROOT;
 		};
 		BACBA8501E50771700D2E848 /* Category */ = {
 			isa = PBXGroup;
@@ -1764,9 +1824,9 @@
 				BA9AAAB21E692C7000D7A5BB /* YYTextWeakProxy.m in Sources */,
 				BA354DEA1E7043C400EE8189 /* UIView+YYAdd.m in Sources */,
 				EC7AA1591E5C8CFF00EA54AA /* QYNavigationController.m in Sources */,
-				2BBD53061E6EFDB2007313E7 /* QYUser.m in Sources */,
 				EC7047F71E5AE1B200FB92D8 /* QYInviteView.m in Sources */,
 				BA9AAAA91E692C7000D7A5BB /* YYTextRubyAnnotation.m in Sources */,
+				BAC871541E78416B00C5F800 /* QYGetQiNiuTokenApiManager.m in Sources */,
 				EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
 				2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */,
@@ -1785,6 +1845,7 @@
 				BA354D781E6BE20000EE8189 /* QNHijackingDetectWrapper.m in Sources */,
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
 				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
+				BAC871571E78454000C5F800 /* QYQiuniuTokenCommand.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
 				2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */,
 				BAC871241E76FF5200C5F800 /* QYButtonSheetPromptView.m in Sources */,
@@ -1796,10 +1857,12 @@
 				2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */,
 				BA9AAAA81E692C7000D7A5BB /* YYTextParser.m in Sources */,
 				2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */,
+				BAC8715E1E785B2A00C5F800 /* QYQiuniuReformer.m in Sources */,
 				BA9AAA631E6700DC00D7A5BB /* QYTranslucentNoViewController.m in Sources */,
 				BA354D351E6BE12A00EE8189 /* QNSystem.m in Sources */,
 				BAC959111E759787007E171E /* NSString+QYRegular.m in Sources */,
 				BA354D331E6BE12A00EE8189 /* QNPHAssetFile.m in Sources */,
+				BAC8714D1E783A8100C5F800 /* QYUser.m in Sources */,
 				BA9AAAA21E692C7000D7A5BB /* YYTextLayout.m in Sources */,
 				BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */,
 				BAA0017D1E50725B0067A894 /* NSArray+AXNetworkingMethods.m in Sources */,
@@ -1873,6 +1936,7 @@
 				BA354D731E6BE20000EE8189 /* QNLruCache.m in Sources */,
 				BAC8711E1E76E65100C5F800 /* QYSendCommentView.m in Sources */,
 				2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */,
+				BAC8714A1E7836BF00C5F800 /* QYUserLogLogic.m in Sources */,
 				2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BAC871211E76FD4100C5F800 /* QYBasicPromptView.m in Sources */,
@@ -1894,6 +1958,7 @@
 				BA354D9A1E6C69E000EE8189 /* QYReadFriendCycleApiManager.m in Sources */,
 				BA9AAAAE1E692C7000D7A5BB /* UIView+YYText.m in Sources */,
 				BA354D6F1E6BE20000EE8189 /* QNAssessment.m in Sources */,
+				BAC8715B1E7856CB00C5F800 /* QYQiuNiuUploadTool.m in Sources */,
 				BA354D951E6C4CEE00EE8189 /* UIButton+QYTitleButton.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
