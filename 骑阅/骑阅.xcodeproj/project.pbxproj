@@ -15,7 +15,7 @@
 		2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530D1E6EFDFD007313E7 /* QYTest2.m */; };
 		2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53101E6EFE2E007313E7 /* QYtest3.m */; };
 		2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53131E6EFE41007313E7 /* QYtest4.m */; };
-		2BF0EE821E77C2C100D8856E /* QYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF0EE811E77C2C100D8856E /* QYAlertView.m */; };
+		2BCF72461E79026900E9B3CE /* QYNamePromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYNamePromptView.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */; };
 		BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFD1E6BE12A00EE8189 /* QN_GTM_Base64.m */; };
@@ -212,8 +212,8 @@
 		2BBD53101E6EFE2E007313E7 /* QYtest3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest3.m; sourceTree = "<group>"; };
 		2BBD53121E6EFE41007313E7 /* QYtest4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest4.h; sourceTree = "<group>"; };
 		2BBD53131E6EFE41007313E7 /* QYtest4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest4.m; sourceTree = "<group>"; };
-		2BF0EE801E77C2C100D8856E /* QYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAlertView.h; sourceTree = "<group>"; };
-		2BF0EE811E77C2C100D8856E /* QYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAlertView.m; sourceTree = "<group>"; };
+		2BCF72441E79026900E9B3CE /* QYNamePromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYNamePromptView.h; sourceTree = "<group>"; };
+		2BCF72451E79026900E9B3CE /* QYNamePromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYNamePromptView.m; sourceTree = "<group>"; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
 		BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CreatUIBarButtonItem.h"; sourceTree = "<group>"; };
 		BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CreatUIBarButtonItem.m"; sourceTree = "<group>"; };
@@ -671,8 +671,8 @@
 			children = (
 				2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */,
 				2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */,
-				2BF0EE801E77C2C100D8856E /* QYAlertView.h */,
-				2BF0EE811E77C2C100D8856E /* QYAlertView.m */,
+				2BCF72441E79026900E9B3CE /* QYNamePromptView.h */,
+				2BCF72451E79026900E9B3CE /* QYNamePromptView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1866,7 +1866,6 @@
 				BA9AAAA21E692C7000D7A5BB /* YYTextLayout.m in Sources */,
 				BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */,
 				BAA0017D1E50725B0067A894 /* NSArray+AXNetworkingMethods.m in Sources */,
-				2BF0EE821E77C2C100D8856E /* QYAlertView.m in Sources */,
 				BA9AAAA31E692C7000D7A5BB /* YYTextLine.m in Sources */,
 				BA354D791E6BE20000EE8189 /* QNHosts.m in Sources */,
 				BAC959751E766282007E171E /* QYDetailCycleLayout.m in Sources */,
@@ -1923,6 +1922,7 @@
 				BA354D771E6BE20000EE8189 /* QNDnspodFree.m in Sources */,
 				BAC9590B1E757716007E171E /* QYCommpentCellLayout.m in Sources */,
 				BA354D3B1E6BE12A00EE8189 /* QNConfiguration.m in Sources */,
+				2BCF72461E79026900E9B3CE /* QYNamePromptView.m in Sources */,
 				EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */,
 				BA354D391E6BE12A00EE8189 /* QNUserAgent.m in Sources */,
 				BAC8711B1E76E37E00C5F800 /* QYCommentSectionView.m in Sources */,

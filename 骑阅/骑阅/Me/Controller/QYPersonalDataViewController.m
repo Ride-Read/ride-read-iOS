@@ -11,6 +11,7 @@
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "define.h"
 #import "QYPersonalDataCell.h"
+#import "QYNamePromptView.h"
 
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -161,6 +162,17 @@
         return cell;
     }
 }
+
+#pragma -- <UITaleViewDelegate>
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QYNamePromptView * view = [QYNamePromptView creatView];
+    view.title = @"真实姓名";
+    [view show];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
