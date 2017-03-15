@@ -67,12 +67,16 @@
     [self addSubview:self.cutLineB];
 
     self.cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.cancleBtn.tag = 1;
+    [self.cancleBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.cancleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
     [self.cancleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self addSubview:self.cancleBtn];
     
     self.configBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.configBtn.tag = 2;
+    [self.configBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.configBtn setTitle:@"确定" forState:UIControlStateNormal];
     [self.configBtn setTitleColor:[UIColor colorWithHexString:@"#52CAC1"] forState:UIControlStateNormal];
     [self addSubview:self.configBtn];
@@ -153,8 +157,15 @@
         make.top.mas_equalTo(self.cutLine.mas_bottom).offset(0);
         make.bottom.mas_equalTo(self.cancleBtn.mas_top).offset(0);
     }];
+}
+
+- (void)buttonClick:(UIButton *)sender {
+    
+    NSLog(@"%@-->%zd",self.inputTextField.text,sender.tag);
+    [self closeView];
     
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

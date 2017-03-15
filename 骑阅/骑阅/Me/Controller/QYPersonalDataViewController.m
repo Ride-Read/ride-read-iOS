@@ -166,9 +166,15 @@
 #pragma -- <UITaleViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    QYNamePromptView * view = [QYNamePromptView creatView];
-    view.title = @"真实姓名";
-    [view show];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            QYNamePromptView * view = [QYNamePromptView creatView];
+            view.title = @"真实姓名";
+            [view show];
+        }
+    }
+    
+    
     
     
 }
