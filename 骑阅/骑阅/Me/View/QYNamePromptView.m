@@ -41,7 +41,6 @@
 - (instancetype)init {
     
     if (self = [super init]) {
-        
         self.QY_x = self.sideMargin;
         self.QY_width = kScreenWidth - 2 * self.QY_x;
         self.QY_height = self.QY_width * 0.618;

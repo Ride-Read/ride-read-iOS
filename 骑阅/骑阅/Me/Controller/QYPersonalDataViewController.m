@@ -171,7 +171,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             QYNamePromptView * nameView = [QYNamePromptView creatView];
-            nameView.title = @"真实姓名";
+            nameView.title = @"昵称";
             [nameView show];
         }
     } else if (indexPath.section == 1) {
