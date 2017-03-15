@@ -10,6 +10,7 @@
 #import "UIView+Frame.h"
 #import "YYLabel.h"
 #import "UIColor+QYHexStringColor.h"
+#import "QYLoginTextField.h"
 
 @interface QYNamePromptView ()
 
@@ -17,12 +18,16 @@
 @property(nonatomic,strong) YYLabel * titleLabel;
 /** cutLine */
 @property(nonatomic,strong) UIView * cutLine;
+/** cutLine */
+@property(nonatomic,strong) UIView * cutLineB;
 /** subCutLine */
 @property(nonatomic,strong) UIView * subCutLine;
 /** cancleBtn */
 @property(nonatomic,strong) UIButton * cancleBtn;
 /** configBtn */
 @property(nonatomic,strong) UIButton * configBtn;
+/** inputTextField */
+@property(nonatomic,strong) UITextField * inputTextField;
 
 @end
 
@@ -57,10 +62,10 @@
     self.cutLine.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.00];
     [self addSubview:self.cutLine];
     
-    self.subCutLine = [[UIView alloc]init];
-    self.subCutLine.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.00];
-    [self addSubview:self.subCutLine];
-    
+    self.cutLineB = [[UIView alloc]init];
+    self.cutLineB.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.00];
+    [self addSubview:self.cutLineB];
+
     self.cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cancleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
@@ -71,7 +76,15 @@
     [self.configBtn setTitle:@"确定" forState:UIControlStateNormal];
     [self.configBtn setTitleColor:[UIColor colorWithHexString:@"#52CAC1"] forState:UIControlStateNormal];
     [self addSubview:self.configBtn];
-
+    
+    self.subCutLine = [[UIView alloc]init];
+    self.subCutLine.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.00];
+    [self addSubview:self.subCutLine];
+    
+    self.inputTextField = [[UITextField alloc]init];
+    self.inputTextField.placeholder = @"建议使用真实姓名";
+    [self addSubview:self.inputTextField];
+    
 }
 #pragma mark
 - (CGFloat)sideMargin {
@@ -117,6 +130,30 @@
         make.height.mas_equalTo(self.cancleBtn.mas_height);
         make.left.mas_equalTo(self.cancleBtn.mas_right).offset(0);
     }];
+    
+    [self.subCutLine mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(self.cancleBtn.mas_height);
+        make.width.mas_equalTo(1);
+        make.centerX.mas_equalTo(self.mas_centerX);
+    }];
+    
+    [self.cutLineB mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(self.cancleBtn.mas_top).offset(0);
+        make.height.mas_equalTo(1);
+    }];
+    
+    [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
+        make.top.mas_equalTo(self.cutLine.mas_bottom).offset(0);
+        make.bottom.mas_equalTo(self.cancleBtn.mas_top).offset(0);
+    }];
+    
 }
 
 /*
