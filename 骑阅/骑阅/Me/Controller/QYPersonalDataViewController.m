@@ -11,6 +11,8 @@
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "define.h"
 #import "QYPersonalDataCell.h"
+#import "QYNamePromptView.h"
+#import "QYTagPromptView.h"
 
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -142,6 +144,7 @@
             
             QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
             cell.mainTitleLabel.text = @"个性签名";
+            cell.subLabel.text = @"勤奋会带来好运";
             cell.showBottomLine = YES;
             return cell;
         }
@@ -161,6 +164,27 @@
         return cell;
     }
 }
+
+#pragma -- <UITaleViewDelegate>
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            QYNamePromptView * nameView = [QYNamePromptView creatView];
+            nameView.title = @"昵称";
+            [nameView show];
+        }
+    } else if (indexPath.section == 1) {
+        
+        if (indexPath.row == 1) {
+            
+            QYTagPromptView * tagView = [QYTagPromptView creatView];
+            tagView.title = @"标签";
+            [tagView show];
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
