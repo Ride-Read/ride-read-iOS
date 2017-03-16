@@ -32,7 +32,7 @@
     self.data = data;
     if (token) {
         
-        [self.up putData:data key:filename token:token complete:complete option:nil];
+        [self.up putData:data key:@"ride_read_image" token:token complete:complete option:nil];
         self.handler = nil;
         
     } else {
@@ -56,11 +56,7 @@
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
     NSString *token =  [self.apiManager fetchDataWithReformer:self.reformer];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-       
-        [[CTAppContext sharedInstance] configQiuniuToken:token];
-    });
-    [self.up putData:self.data key:self.key token:token complete:self.handler option:nil];
+    [self.up putData:self.data key:@"ride_read_image" token:token complete:self.handler option:nil];
 }
 
 - (QYGetQiNiuTokenApiManager *)apiManager {
@@ -85,7 +81,12 @@
     
     if (!_up) {
         
-        _up = [[QNUploadManager alloc] init];
+        QNZone *httpsZone = [[QNAutoZone alloc] initWithHttps:YES dns:nil];
+        QNConfiguration *cfg = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+           
+            builder.zone = httpsZone;
+        }];
+        _up = [[QNUploadManager alloc] initWithConfiguration:cfg];
     }
     return _up;
 }

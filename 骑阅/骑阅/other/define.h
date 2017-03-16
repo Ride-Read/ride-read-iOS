@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
 #import "UIView+QYShowBottomLine.h"
+#import "CTAppContext.h"
+#import "NSString+QYUrlEncode.h"
 
 #define RGB(R,G,B) [UIColor colorWithRed:R/255. green:G/255. blue:B/255. alpha:1.0]
 #define IOS10_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
@@ -45,8 +47,7 @@ static float cl_caculation_3x(float x)  {
     
     return x/2.0/375 * kScreenWidth;
 }
-
-
+#define Basic_Qiniu_URL @"http://om1ccbp21.bkt.clouddn.com/"
 
 #pragma mark - custom keys
 static NSString * const kdata = @"data";
@@ -57,6 +58,8 @@ static NSString * const kcode = @"code";
 static NSString * const kavater = @"avater";
 static NSString * const kuid = @"uid";
 static NSString * const knickname = @"nickname";
+static NSString * const kphonenumber = @"phonenumber";
+static NSString * const kface_url = @"face_url";
 static NSString * const ktoken = @"token";
 static NSString * const kfilename = @"filename";
 

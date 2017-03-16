@@ -11,4 +11,7 @@
 @interface NSString (QYDateString)
 
 + (NSString *)dateStringWithTime:(double )date;
+
++ (NSString *)uploadFilename;
+
 @end

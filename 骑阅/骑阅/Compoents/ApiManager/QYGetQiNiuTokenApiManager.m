@@ -33,13 +33,6 @@
     
     return CTAPIBaseManagerRequestTypePost;
 }
-- (NSDictionary *)reformParams:(NSDictionary *)params {
-    
-    NSString *token = @"jsonsnow";
-    NSString *filename = @"ride_read_image";
-    NSString *uid = @"jssnosnow";
-    return @{kuid:uid,ktoken:token,kfilename:filename};
-}
 
 #pragma mark -validator
 - (BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {

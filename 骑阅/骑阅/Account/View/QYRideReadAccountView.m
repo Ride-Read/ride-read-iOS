@@ -8,7 +8,7 @@
 
 #import "QYRideReadAccountView.h"
 #import "UIColor+QYHexStringColor.h"
-#import <Masonry/Masonry.h>
+#import "Masonry.h"
 #import "define.h"
 
 @interface QYIconView ()
@@ -18,14 +18,14 @@
 @implementation QYIconView
 
 #pragma mark -life cycle
--(instancetype)init {
+- (instancetype)init {
     
     self = [super init];
     [self setupUI];
     return self;
 }
 
--(void)layoutSubviews {
+- (void)layoutSubviews {
     
     [super layoutSubviews];
     UIBezierPath *path = [[UIBezierPath alloc] init];
@@ -36,9 +36,18 @@
     self.icon.layer.cornerRadius = cl_caculation_x(90);
 }
 
+#pragma mark - targat action
+
+- (void)clickIconView:(UIButton *)sender {
+    
+    if ([self.rideReadView.delegate respondsToSelector:@selector(clickCustomView:index:)]) {
+        [self.rideReadView.delegate clickCustomView:self.rideReadView index:0];
+    }
+}
+
 #pragma mark - priavte method
 
--(void)setupUI {
+- (void)setupUI {
     
     self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.icon];
@@ -58,12 +67,13 @@
     
 }
 #pragma mark - setters and getters
--(UIButton *)icon {
+- (UIButton *)icon {
     
     if (!_icon) {
         
         _icon = [[UIButton alloc] init];
         _icon.backgroundColor = [UIColor colorWithRed:0.35 green:0.79 blue:0.75 alpha:1.00];
+        [_icon addTarget:self action:@selector(clickIconView:) forControlEvents:UIControlEventTouchUpInside];
         _icon.layer.masksToBounds = YES;
         
     }
@@ -81,7 +91,7 @@
     return _title;
 }
 
--(CAShapeLayer *)bottomLine {
+- (CAShapeLayer *)bottomLine {
     
     if (!_bottomLine) {
         
@@ -95,7 +105,7 @@
 @implementation QYRideReadAccountView
 
 #pragma mark - life cycle
--(instancetype)init {
+- (instancetype)init {
     
     self = [super init];
     [self setupUI];
@@ -103,7 +113,7 @@
 }
 
 #pragma mark - targert action
--(void)clickLoginButton:(UIButton *)sender {
+- (void)clickLoginButton:(UIButton *)sender {
     
     if ([self.delegate respondsToSelector:@selector(clickCustomView:index:)]) {
         
@@ -112,7 +122,7 @@
     
 }
 #pragma mark - Private method
--(void)setupUI {
+- (void)setupUI {
     
     self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.icon];
@@ -155,7 +165,7 @@
 
 #pragma mark - Setters and getters
 
--(QYIconView *)icon {
+- (QYIconView *)icon {
     
     if (!_icon) {
         
@@ -164,7 +174,7 @@
     }
     return _icon;
 }
--(QYLoginTextField *)inviteCodeView {
+- (QYLoginTextField *)inviteCodeView {
     
     if (!_inviteCodeView) {
         
@@ -182,7 +192,7 @@
     return _inviteCodeView;
 }
 
--(UILabel *)titleLabel {
+- (UILabel *)titleLabel {
     
     if (!_titleLabel) {
         
@@ -198,7 +208,7 @@
     return _titleLabel;
 }
 
--(UIButton *)completeButton {
+- (UIButton *)completeButton {
     
     if (!_completeButton) {
         

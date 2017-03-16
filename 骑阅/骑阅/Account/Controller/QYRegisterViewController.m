@@ -17,9 +17,15 @@
 #import "QYGetQiNiuTokenApiManager.h"
 #import "NSString+QYRegular.h"
 #import "QYGetQiNiuTokenApiManager.h"
-#import "QiniuSDK.h"
+#import "QYQiuNiuUploadTool.h"
+#import "QYQiuniuUploadCommand.h"
+#import "QYQiuniuTokenCommand.h"
+#import "NSString+QYDateString.h"
+#import "QYUserRegisterApiManager.h"
+#import "QYRegisterLogic.h"
+#import "QYHomeTabBarViewController.h"
 
-@interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLCommandDataSource,CLCommandDelegate>
 @property (nonatomic, strong) QYRegisterView *registerView;
 @property (nonatomic, strong) QYResetOrSetPwdView *setView;
 @property (nonatomic, strong) QYInviteView *invitePeopleView;
@@ -31,8 +37,10 @@
 @property (nonatomic, weak) UIView *currentView;//记录当前所处的viw;
 @property (nonatomic, strong) QYVerifyCodeApiManager *verifyInviteCodeApiManager;
 @property (nonatomic, strong) MBProgressHUD *hud;
-
-
+@property (nonatomic, strong) QYQiuniuTokenCommand *commad;
+@property (nonatomic, strong) NSString *filename;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) QYRegisterLogic *registerLogic;
 
 /**
  标记是否通过手机验证的验证 default NO ,在对应API进行设置
@@ -51,10 +59,6 @@
     [self.preViews addObject:self.view];
     self.currentView = self.invitePeopleView;
     [self addPanGesture];
-//    QNUploadManager *up = [[QNUploadManager alloc] init];
-//    [up putData:nil key:nil token:nil complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//        
-//    } option:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -132,17 +136,48 @@
             
             NSString *pwd = self.setView.pwd.text;
             NSString *repwd = self.setView.confirmPwd.text;
+            if (pwd.length < 6 || repwd.length < 6) {
+                
+                [MBProgressHUD showMessageAutoHide:@"密码不小于6位数" view:self.view];
+                return;
+            }
             if ([pwd isEqualToString:repwd]) {
         
                 [self presentSetInvitCodeView];
             } else {
                 
-                [MBProgressHUD showMessageAutoHide:@"确认密码不相同" view:self.view];
+                [MBProgressHUD showMessageAutoHide:@"两次输入不一致" view:self.view];
             }
             
         }
     }
     
+    if ([customView isKindOfClass:[QYRideReadAccountView class]]) {
+        
+        
+        [self handleReadIconClick:index];
+    }
+    
+}
+
+#pragma mark - CLCoommandDataSource
+
+- (NSDictionary *)paramsForcommand:(CLCommands *)command {
+    
+    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@"jsonsnow"};
+    
+}
+
+#pragma mark - CLCommandDelegate
+
+- (void)command:(CLCommands *)commands didSuccess:(CTAPIBaseManager *)apiManager {
+    
+    
+}
+
+- (void)command:(CLCommands *)commands didFaildWith:(CTAPIBaseManager *)apiManager {
+    
+    [MBProgressHUD showMessageAutoHide:@"图片上传失败" view:self.view];
 }
 
 #pragma mark - CTAPIParamSource
@@ -153,6 +188,16 @@
         NSString * username = self.invitePeopleView.invitePeople.text;
         return @{kusername:username?:@""};
     }
+    
+    if (manager == self.registerLogic.apiManager) {
+        
+        NSString *phone = self.registerView.phoneTextField.text;
+        NSString *nickname = self.rideInviteCodeView.inviteCodeView.text;
+        NSString *url = self.url;
+        NSString *pwd = self.setView.pwd.text;
+        return @{kphonenumber:phone?:@"",knickname:nickname?:@"",kface_url:url?:@"",kpassword:pwd?:@""};
+    }
+    
     return nil;
 }
 
@@ -166,6 +211,12 @@
         self.hud = nil;
         [self presentRegisterView];
         return;
+    }
+    
+    if (manager == self.registerLogic.apiManager) {
+        
+        [MBProgressHUD showMessageAutoHide:@"注册成功" view:self.view];
+        [self gotoMainController];
     }
 }
 
@@ -192,6 +243,21 @@
         
     }
     
+    if (manager == self.registerLogic.apiManager) {
+        
+        if (self.url.length <= 0) {
+            
+            [MBProgressHUD showMessageAutoHide:@"请上传图像" view:self.view];
+            return;
+        }
+        if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
+            
+            [MBProgressHUD showMessageAutoHide:@"昵称错误" view:self.view];
+            return;
+        }
+        [MBProgressHUD showMessageAutoHide:@"注册失败" view:self.view];
+    }
+    
 }
 
 #pragma mark - target action
@@ -214,48 +280,7 @@
         NSLog(@"began");
     }
     if (sender.state == UIGestureRecognizerStateChanged) {
-        /*
-        if (precent > 0.5) {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-            } completion:nil];
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
-            } completion:^(BOOL finished) {
-             
-                [self.currentView removeFromSuperview];
-                self.currentView = nil;
-            }];
-            self.currentView = [self.preViews objectAtIndex:self.preViews.count -1];
-            [self.preViews removeObjectAtIndex:self.preViews.count - 1];
-            [sender setTranslation:CGPointZero inView:self.view];
-            
-        } else {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                preView.frame = CGRectMake(preFrame.origin.x + kScreenWidth * precent, preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-            } completion:^(BOOL finished) {
-                
-                preView.frame = CGRectMake(-kScreenWidth,preFrame.origin.y, preFrame.size.width, preFrame.size.height);
-         
-            }];
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                self.currentView.frame = CGRectMake(currentFrame.origin.x + kScreenWidth * precent, currentFrame.origin.y, currentFrame.size.width, currentFrame.size.height);
-            } completion:^(BOOL finished) {
-                
-                self.currentView.frame = CGRectMake(0,preFrame.origin.y, preFrame.size.width, preFrame.size.height);;
-            }];
-
-        }
-        NSLog(@"change");
-         */
+      
     }
     if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
         
@@ -286,7 +311,57 @@
    
     
 }
+#pragma mark - image picker controller 
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+   // NSURL *url = info[UIImagePickerControllerReferenceURL];
+    WEAKSELF(_self);
+    NSData *data = UIImageJPEGRepresentation(image, 0.3);
+    self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
+        
+        if (info.isOK) {
+            
+            [_self.rideInviteCodeView.icon.icon setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+            _self.rideInviteCodeView.icon.title.hidden = YES;
+            _self.url = key;
+            
+        }
+        MyLog(@"%@",info);
+    };
+    self.filename = [NSString uploadFilename];
+    self.commad.nextParams = @{kdata:data,kfilename:self.filename};
+    [self.commad execute];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma mark - private method
+
+-(void)gotoMainController {
+    
+    QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
+    [UIApplication sharedApplication].keyWindow.rootViewController = tab;
+}
+
+- (void)handleReadIconClick:(NSInteger)index {
+    
+    if (index == 0) {
+        
+        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+        ipc.delegate = self;
+        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:ipc animated:YES completion:nil];
+        
+    } else {
+        
+        [self.registerLogic loadData];
+    }
+}
 
 -(void)addPanGesture {
     
@@ -333,7 +408,6 @@
         
     } completion:^(BOOL finished) {
         
-        //self.registerView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
     }];
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -344,25 +418,6 @@
     self.currentView = self.setView;
 }
 
-//-(void)presendtInvitPeopleView {
-//    
-//    [self.view addSubview:self.invitePeopleView];
-//    CGRect inviteFrame = self.setView.frame;
-//    inviteFrame.origin.x = kScreenWidth;
-//    self.invitePeopleView.frame = inviteFrame;
-//    [UIView animateWithDuration:0.3 animations:^{
-//        
-//        self.setView.frame = CGRectMake(-kScreenWidth, 0, kScreenWidth, self.view.bounds.size.height);
-//        
-//    } completion:nil];
-//    [UIView animateWithDuration:0.3 animations:^{
-//        
-//        self.invitePeopleView.frame = CGRectMake(inviteFrame.origin.x - kScreenWidth, inviteFrame.origin.y, inviteFrame.size.width, inviteFrame.size.height);
-//        
-//    } completion:nil];
-//    [self.preViews addObject:self.setView];
-//    self.currentView = self.invitePeopleView;
-//}
 
 - (void)presentSetInvitCodeView {
     
@@ -449,6 +504,27 @@
         _verifyInviteCodeApiManager.paramSource = self;
     }
     return _verifyInviteCodeApiManager;
+}
+
+- (QYQiuniuTokenCommand *)commad {
+    
+    if (!_commad) {
+        
+        _commad = [[QYQiuniuTokenCommand alloc] init];
+        _commad.dataSource = self;
+        _commad.delegate = self;
+    }
+    return _commad;
+}
+- (QYRegisterLogic *)registerLogic {
+ 
+    if (!_registerLogic) {
+        
+        _registerLogic = [[QYRegisterLogic alloc] init];
+        _registerLogic.paramSource = self;
+        _registerLogic.delegate = self;
+    }
+    return _registerLogic;
 }
 
 /*

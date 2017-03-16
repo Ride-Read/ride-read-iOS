@@ -49,4 +49,19 @@
         return [formatterFullDate stringFromDate:createDate];
     }
 }
++ (NSString *)uploadFilename {
+    
+    static NSDateFormatter *formatter ;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMddhhmmss"];
+    });
+    NSDate *date = [NSDate date];
+    NSString *filename = [formatter stringFromDate:date];
+    filename = [filename stringByAppendingString:@".jpg"];
+    filename = [@"icon_" stringByAppendingString:filename];
+    return filename;
+}
+
 @end

@@ -19,4 +19,5 @@
  @return resutl
  */
 - (NSString *)verifyPhoneNumber:(NSString *)phoneNumber;
+
 @end
