@@ -25,6 +25,7 @@
 #import "QYRegisterLogic.h"
 #import "QYHomeTabBarViewController.h"
 
+
 @interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLCommandDataSource,CLCommandDelegate>
 @property (nonatomic, strong) QYRegisterView *registerView;
 @property (nonatomic, strong) QYResetOrSetPwdView *setView;
@@ -88,7 +89,7 @@
                 [self.verifyInviteCodeApiManager loadData];
                 
             }];
-            self.hud = [MBProgressHUD showMessage:@"验证中..." toView:self.view];
+            self.hud = [MBProgressHUD showMessage:@"验证中..." toView:nil];
         }
     }
     
@@ -105,7 +106,7 @@
             } else
             {
                 self.correctSMSCode = NO;
-                [MBProgressHUD showMessageAutoHide:@"获取失败" view:self.view];
+                [MBProgressHUD showMessageAutoHide:@"获取失败" view:nil];
             }
             MyLog(@"code send");
         }
@@ -118,7 +119,7 @@
             } else
             {
                 //[self presentSetView];
-                [MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:self.view];
+                [MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:nil];
             }
 
             return;
@@ -138,7 +139,7 @@
             NSString *repwd = self.setView.confirmPwd.text;
             if (pwd.length < 6 || repwd.length < 6) {
                 
-                [MBProgressHUD showMessageAutoHide:@"密码不小于6位数" view:self.view];
+                [MBProgressHUD showMessageAutoHide:@"密码不小于6位数" view:nil];
                 return;
             }
             if ([pwd isEqualToString:repwd]) {
@@ -146,7 +147,7 @@
                 [self presentSetInvitCodeView];
             } else {
                 
-                [MBProgressHUD showMessageAutoHide:@"两次输入不一致" view:self.view];
+                [MBProgressHUD showMessageAutoHide:@"两次输入不一致" view:nil];
             }
             
         }
@@ -177,7 +178,7 @@
 
 - (void)command:(CLCommands *)commands didFaildWith:(CTAPIBaseManager *)apiManager {
     
-    [MBProgressHUD showMessageAutoHide:@"图片上传失败" view:self.view];
+    [MBProgressHUD showMessageAutoHide:@"图片上传失败" view:nil];
 }
 
 #pragma mark - CTAPIParamSource
@@ -215,7 +216,7 @@
     
     if (manager == self.registerLogic.apiManager) {
         
-        [MBProgressHUD showMessageAutoHide:@"注册成功" view:self.view];
+        [MBProgressHUD showMessageAutoHide:@"注册成功" view:nil];
         [self gotoMainController];
     }
 }
@@ -228,18 +229,18 @@
         self.hud = nil;
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
             
-            [MBProgressHUD showMessageAutoHide:@"邀请码错误" view:self.view];
+            [MBProgressHUD showMessageAutoHide:@"邀请码错误" view:nil];
             return;
         }
         
         if (manager.errorType == CTAPIBaseManagerErrorTypeNoContent) {
             
-            [MBProgressHUD showMessageAutoHide:@"邀请码不存在" view:self.view];
+            [MBProgressHUD showMessageAutoHide:@"邀请码不存在" view:nil];
             [self presentRegisterView];
             
             return;
         }
-        [MBProgressHUD showMessageAutoHide:@"认证失败" view:self.view];
+        [MBProgressHUD showMessageAutoHide:@"认证失败" view:nil];
         
     }
     
@@ -247,15 +248,15 @@
         
         if (self.url.length <= 0) {
             
-            [MBProgressHUD showMessageAutoHide:@"请上传图像" view:self.view];
+            [MBProgressHUD showMessageAutoHide:@"请上传图像" view:nil];
             return;
         }
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
             
-            [MBProgressHUD showMessageAutoHide:@"昵称错误" view:self.view];
+            [MBProgressHUD showMessageAutoHide:@"昵称错误" view:nil];
             return;
         }
-        [MBProgressHUD showMessageAutoHide:@"注册失败" view:self.view];
+        [MBProgressHUD showMessageAutoHide:@"注册失败" view:nil];
     }
     
 }
@@ -267,7 +268,7 @@
         
         return;
     }
-    CGPoint translation = [sender translationInView:self.view];
+    CGPoint translation = [sender translationInView:nil];
     CGFloat translactionBase = self.view.bounds.size.width/3;
     CGFloat translactionAbs = translation.x > 0?translation.x:-translation.x;
     CGFloat precent = translactionAbs > translactionBase ? 1.0:translactionAbs/translactionBase;
@@ -319,13 +320,20 @@
    // NSURL *url = info[UIImagePickerControllerReferenceURL];
     WEAKSELF(_self);
     NSData *data = UIImageJPEGRepresentation(image, 0.3);
+    self.hud = [MBProgressHUD showMessage:@"上传中" toView:nil];
     self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
+        
+        [_self.hud hideAnimated:YES];
         
         if (info.isOK) {
             
             [_self.rideInviteCodeView.icon.icon setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
             _self.rideInviteCodeView.icon.title.hidden = YES;
             _self.url = key;
+            
+        } else {
+           
+            [MBProgressHUD showMessageAutoHide:@"上传失败" view:nil];
             
         }
         MyLog(@"%@",info);

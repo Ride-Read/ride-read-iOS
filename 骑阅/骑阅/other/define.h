@@ -53,6 +53,7 @@ static float cl_caculation_3x(float x)  {
 static NSString * const kdata = @"data";
 static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
+static NSString * const knew_password = @"new_password";
 static NSString * const kstatus = @"status";
 static NSString * const kcode = @"code";
 static NSString * const kavater = @"avater";
@@ -76,6 +77,7 @@ static NSString * const ksite = @"stie";
 static NSString * const ksiteLength = @"siteLength";
 static NSString * const kpraise = @"praise";
 static NSString * const kcomment = @"comment";
+static NSString * const kpages = @"pages";
 
 
 #endif /* define_h */

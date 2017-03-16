@@ -10,14 +10,18 @@
 #import "define.h"
 #import "QYRegisterView.h"
 #import "QYResetOrSetPwdView.h"
+#import "QYForgetApiManager.h"
+#import "NSString+QYRegular.h"
+#import "MBProgressHUD+LLHud.h"
 
-@interface QYForgertPwdController ()<QYViewClickProtocol>
+@interface QYForgertPwdController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYRegisterView *forgertView;
 @property (nonatomic, strong) QYResetOrSetPwdView *resetView;
 
 @property (nonatomic, strong) NSMutableArray *preViews;//记录前一个所处的view；
 @property (nonatomic, weak) UIView *currentView;//记录当前所处的viw;
-
+@property (nonatomic, strong) QYForgetApiManager *forgetApi;
+@property (nonatomic, getter=isCorrectSMSCode) BOOL correctSMSCode;
 
 @end
 
@@ -211,6 +215,30 @@
 }
 
 
+#pragma mark - CTAPIManangParmaSource
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.forgetApi) {
+        
+        NSString *username = self.forgertView.phoneTextField.text;
+        NSString *pwd = self.resetView.pwd.text;
+        return @{kusername:username?:@"",knew_password:pwd?:@""};
+    }
+    return nil;
+}
+
+#pragma mark - CTAPIManageCallBackdelegate
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    [MBProgressHUD showMessageAutoHide:@"修改成功" view:self.view];
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    [MBProgressHUD showMessageAutoHide:@"修改失败" view:self.view];
+}
 #pragma mark - QYCustomClickDelegate
 
 -(void)clickCustomView:(UIView *)customView index:(NSInteger)index {
@@ -219,6 +247,17 @@
         
         if (index == 0) {
             
+            NSString *string = self.forgertView.phoneTextField.text;
+            NSString *code =  [string verifyPhoneNumber:string];
+            if (code) {
+                
+                self.correctSMSCode = YES;
+                self.forgertView.verifyTextField.textField.text = code;
+            } else
+            {
+                self.correctSMSCode = NO;
+                [MBProgressHUD showMessageAutoHide:@"获取失败" view:self.view];
+            }
             MyLog(@"code send");
         }
         if (index == 1) {
@@ -226,6 +265,27 @@
             [self presentResetView];
             return;
         }
+    }
+    
+    if ([customView isKindOfClass:[QYResetOrSetPwdView class]]) {
+        
+        NSString *pwd = self.resetView.pwd.text;
+        NSString *repwd = self.resetView.confirmPwd.text;
+        if (pwd.length < 6 || repwd.length < 6) {
+            
+            [MBProgressHUD showMessageAutoHide:@"密码不小于6位数" view:self.view];
+            return;
+        }
+        if ([pwd isEqualToString:repwd]) {
+            
+            [self.forgetApi loadData];
+        
+        } else {
+            
+            [MBProgressHUD showMessageAutoHide:@"两次输入不一致" view:self.view];
+        }
+        
+        
     }
 }
 
@@ -301,6 +361,17 @@
         _preViews = [NSMutableArray array];
     }
     return _preViews;
+}
+
+- (QYForgetApiManager *)forgetApi {
+    
+    if (!_forgetApi) {
+        
+        _forgetApi = [[QYForgetApiManager alloc] init];
+        _forgetApi.delegate = self;
+        _forgetApi.paramSource = self;
+    }
+    return _forgetApi;
 }
 
 /*

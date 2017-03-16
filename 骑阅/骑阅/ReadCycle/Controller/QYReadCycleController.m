@@ -32,6 +32,8 @@
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    MyLog(@"%@",path);
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpContentView];
     [self.serialQueue addOperationWithBlock:^{

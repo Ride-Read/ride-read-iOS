@@ -94,7 +94,6 @@
 }
 -(void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-    [self gotoMainController];
     if (manager == self.logic.apiManager) {
         
         //参数不能通过验证，具体可以看对应的Api
@@ -106,7 +105,6 @@
              * [self gotoMainController]添加到这里，不用输入账号跟密码可以跳转到HomeTabBarController
              * 可以删除
              */
-            [self gotoMainController];
             return;
         }
         //请求已经发出，但服务器给了错误码
@@ -116,7 +114,6 @@
             return;
         }
         //其他情况
-        [self gotoMainController];
         [MBProgressHUD showMessageAutoHide:@"登录失败" view:self.view];
        
     }

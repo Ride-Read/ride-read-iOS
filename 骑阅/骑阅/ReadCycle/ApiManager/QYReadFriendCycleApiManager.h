@@ -9,5 +9,10 @@
 #import "CTAPIBaseManager.h"
 
 @interface QYReadFriendCycleApiManager : CTAPIBaseManager<CTAPIManager>
+@property (nonatomic, assign) BOOL isRefesh;
+@property (nonatomic, assign) BOOL isLoadMore;
+
+-(void)loadNext;
+-(void)loadLaste;
 
 @end

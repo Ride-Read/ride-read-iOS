@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSNumber *sex;
 @property (nonatomic, copy) NSString *location;
 @property (nonatomic, copy) NSArray *tags;
-@property (nonatomic, copy) NSString *hometowm;
+@property (nonatomic, copy) NSString *hometown;
 @property (nonatomic, copy) NSString *face_url;
 @property (nonatomic, copy) NSString *phonenumber;
 @property (nonatomic, copy) NSString *career;
@@ -21,11 +21,11 @@
 @property (nonatomic, strong) NSNumber *birthday;
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, strong) NSNumber *uid;
-@property (nonatomic, copy) NSString *sigature;
-@property (nonatomic, strong) NSNumber *create_at;
+@property (nonatomic, copy) NSString *signature;
+@property (nonatomic, strong) NSNumber *created_at;
 @property (nonatomic, strong) NSNumber *follower;
 @property (nonatomic, strong) NSNumber *following;
-@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *username;
 @property (nonatomic, strong) NSNumber *updated_at;
 
 + (instancetype)userWithDict:(NSDictionary *)dict;

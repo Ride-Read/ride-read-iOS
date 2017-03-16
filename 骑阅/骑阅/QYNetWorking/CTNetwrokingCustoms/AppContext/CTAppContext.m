@@ -102,7 +102,12 @@
        
         if ([obj isKindOfClass:[NSNull class]]) {
             
-            dic[key] = @"";
+            if ([key isEqualToString:@"tags"]) {
+                
+                dic[key] = @[];
+            } else {
+                dic[key] = @"";
+            }
             NSLog(@"find null");
         }
         

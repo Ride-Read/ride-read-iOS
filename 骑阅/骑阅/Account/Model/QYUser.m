@@ -7,6 +7,7 @@
 //
 
 #import "QYUser.h"
+#import "define.h"
 
 @implementation QYUser
 
@@ -22,4 +23,11 @@
     [self setValuesForKeysWithDictionary:dict];
     return self;
 }
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    
+    [super setValue:value forUndefinedKey:key];
+    MyLog(@"%@",key);
+}
+
+
 @end

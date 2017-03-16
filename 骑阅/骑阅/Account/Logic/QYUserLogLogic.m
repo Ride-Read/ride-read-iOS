@@ -16,14 +16,14 @@
 
 - (id)logic:(CLAppLogic *)logic reformNetWorking:(id)data {
     
-    if ([data isEqualToString:kApiManagerNetWorkingError]) {
+    if ([data isKindOfClass:[NSString class]]) {
         
         return nil;
     }
     NSDictionary *user_data = data[kdata];
     //QYUser *user = [QYUser userWithDict:user_data];
     [[CTAppContext sharedInstance] setUserInfo:user_data];
-    return nil;
+    return user_data;
 }
 
 - (CTAPIBaseManager *)apiManager {

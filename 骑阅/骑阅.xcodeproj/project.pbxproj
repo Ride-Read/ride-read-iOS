@@ -18,6 +18,7 @@
 		2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53131E6EFE41007313E7 /* QYtest4.m */; };
 		2BCF72461E79026900E9B3CE /* QYNamePromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYNamePromptView.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
+		BA10B0301E7ADC180089133F /* QYForgetApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA10B02F1E7ADC180089133F /* QYForgetApiManager.m */; };
 		BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */; };
 		BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFD1E6BE12A00EE8189 /* QN_GTM_Base64.m */; };
 		BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFF1E6BE12A00EE8189 /* QNALAssetFile.m */; };
@@ -222,6 +223,8 @@
 		2BCF72441E79026900E9B3CE /* QYNamePromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYNamePromptView.h; sourceTree = "<group>"; };
 		2BCF72451E79026900E9B3CE /* QYNamePromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYNamePromptView.m; sourceTree = "<group>"; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
+		BA10B02E1E7ADC180089133F /* QYForgetApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYForgetApiManager.h; sourceTree = "<group>"; };
+		BA10B02F1E7ADC180089133F /* QYForgetApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYForgetApiManager.m; sourceTree = "<group>"; };
 		BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CreatUIBarButtonItem.h"; sourceTree = "<group>"; };
 		BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CreatUIBarButtonItem.m"; sourceTree = "<group>"; };
 		BA354CFC1E6BE12A00EE8189 /* QN_GTM_Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QN_GTM_Base64.h; sourceTree = "<group>"; };
@@ -1612,6 +1615,8 @@
 				EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */,
 				BAC871661E797DBC00C5F800 /* QYUserRegisterApiManager.h */,
 				BAC871671E797DBC00C5F800 /* QYUserRegisterApiManager.m */,
+				BA10B02E1E7ADC180089133F /* QYForgetApiManager.h */,
+				BA10B02F1E7ADC180089133F /* QYForgetApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1923,6 +1928,7 @@
 				BA354D8C1E6C405900EE8189 /* QYCircleViewCell.m in Sources */,
 				EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */,
 				BA354D801E6BE20000EE8189 /* QNHex.m in Sources */,
+				BA10B0301E7ADC180089133F /* QYForgetApiManager.m in Sources */,
 				EC7AA1411E5C882D00EA54AA /* QYHomeTabBarViewController.m in Sources */,
 				BAA001831E50725B0067A894 /* UIDevice+IdentifierAddition.m in Sources */,
 				BA354D371E6BE12A00EE8189 /* QNResponseInfo.m in Sources */,
