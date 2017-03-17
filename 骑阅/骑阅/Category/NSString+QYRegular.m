@@ -16,7 +16,7 @@
     NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
     NSArray *array = [regular matchesInString:string options:0 range:NSMakeRange(0, string.length)];
     
-    NSRange result;
+    NSRange result = NSMakeRange(0, 0);
     if (array.count > 0) {
         NSTextCheckingResult *check = array[0];
         result = [check rangeAtIndex:1];

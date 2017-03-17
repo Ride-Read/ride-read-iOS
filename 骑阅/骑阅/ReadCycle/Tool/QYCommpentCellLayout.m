@@ -70,7 +70,7 @@
     comentText.yy_color = [UIColor colorWithHexString:@"#555555"];
     comentText.yy_font = [UIFont systemFontOfSize:14];
     NSRange result = [comment regularReply:comment];
-    if (result.location != NSNotFound) {
+    if (result.location != 0) {
         
         [comentText yy_setColor:[UIColor colorWithHexString:@"#52CAC1"] range:result];
         YYTextHighlight *highlight = [YYTextHighlight new];
