@@ -18,8 +18,9 @@
 #import "QYFriendCycleDetailController.h"
 #import "QYDetailCycleLayout.h"
 #import "QYHomeTabBarViewController.h"
+#import "QYPictureLookView.h"
 
-@interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
@@ -171,6 +172,25 @@
     MyLog(@"%ld",index);
 }
 
+- (void)clickPictureView:(QYCircleViewCell *)cell imageView:(UIImageView *)imageView {
+    
+    CGRect frame = [cell.statuView.pictureView convertRect:imageView.frame toView:self.view];
+    QYPictureLookView *picturLook = [QYPictureLookView pictureLookViewWithImageView:imageView frame:frame];
+    [picturLook show];
+    
+    
+}
+
+- (void)clickPraiseButton:(QYCircleViewCell *)cell dict:(NSDictionary *)dict {
+    
+    
+}
+
+- (void)clickCommpentButton:(QYCircleViewCell *)cell dict:(NSDictionary *)dict {
+    
+    
+}
+
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -182,6 +202,7 @@
     if (!cell) {
         cell = [[QYCircleViewCell alloc] initWithCycleType:QYFriendCycleTypelist];
     }
+    cell.delegate = self;
     return cell;
 }
 

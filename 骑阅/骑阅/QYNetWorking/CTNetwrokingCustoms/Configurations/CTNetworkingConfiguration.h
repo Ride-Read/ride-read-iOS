@@ -34,5 +34,6 @@ static NSUInteger kCTCacheCountLimit = 1000; // 最多1000条cache
 extern NSString * const kCTServiceGDMapV3;
 extern NSString * const kCTServiceYY;
 extern NSString * const kCTServiceAuthonticationYY;
+extern NSString * const kCTJsonService;
 
 #endif

@@ -25,6 +25,7 @@
 @interface CLRequestGenerator ()
 
 @property (nonatomic, strong) AFHTTPRequestSerializer *httpRequestSerializer;
+@property (nonatomic, strong) AFJSONRequestSerializer *jsonRequstSerializer;
 @end
 @implementation CLRequestGenerator
 
@@ -90,10 +91,16 @@
         requestParams = [self setRequestTimestamp:requestParams];
     }
     [self.httpRequestSerializer setValue:[[NSUUID UUID] UUIDString] forHTTPHeaderField:@"xxxxxxxx"];
-    
-    NSMutableURLRequest *request = [self.httpRequestSerializer requestWithMethod:@"POST" URLString:urlString parameters:requestParams error:NULL];
-    //[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    //request.HTTPBody = [NSJSONSerialization dataWithJSONObject:requestParams options:0 error:NULL];
+    NSMutableURLRequest *request;
+    if (service.type ==  YYServiceTypeRequstJsonEncode) {
+        
+        request = [self.jsonRequstSerializer requestWithMethod:@"POST" URLString:urlString parameters:requestParams error:NULL];
+//        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:requestParams options:0 error:NULL];
+    } else {
+        
+        request = [self.httpRequestSerializer requestWithMethod:@"POST" URLString:urlString parameters:requestParams error:NULL];
+    }
     if ([CTAppContext sharedInstance].accessToken) {
         [request setValue:[CTAppContext sharedInstance].accessToken forHTTPHeaderField:@"xxxxxxxx"];
     }
@@ -267,6 +274,17 @@
     }
     
     return _httpRequestSerializer;
+}
+
+- (AFJSONRequestSerializer *)jsonRequstSerializer {
+    
+    if (!_jsonRequstSerializer) {
+        
+        _jsonRequstSerializer = [AFJSONRequestSerializer serializer];
+        _jsonRequstSerializer.timeoutInterval = kCTNetworkingTimeoutSeconds;
+        _jsonRequstSerializer.cachePolicy = NSURLRequestUseProtocolCachePolicy;
+    }
+    return _jsonRequstSerializer;
 }
 
 @end

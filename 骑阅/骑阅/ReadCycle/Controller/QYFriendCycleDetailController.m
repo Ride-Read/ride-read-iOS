@@ -18,6 +18,7 @@
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "QYButtonSheetPromptView.h"
 #import "UIColor+QYHexStringColor.h"
+#import "QYCyclePostController.h"
 
 @interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate>
 @property (nonatomic, strong) QYCircleViewCell *cell;
@@ -162,6 +163,8 @@
     
     QYButtonSheetPromptView *prompt = [QYButtonSheetPromptView promptWithButtonTitles:@[@"分享",@"收藏"] action:^(UIButton *button) {
         
+        QYCyclePostController *post = [[QYCyclePostController alloc] init];
+        [self.navigationController pushViewController:post animated:YES];
     }];
     [prompt show];
 }

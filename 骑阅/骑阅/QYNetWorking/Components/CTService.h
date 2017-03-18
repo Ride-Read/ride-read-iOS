@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger,YYServiceType) {
     
     YYServiceTypeDefault,
     YYServiceTypeRequestAuthen,
+    YYServiceTypeRequstJsonEncode,
     YYServiceTypeResponseEncode
 };
 @protocol CTServiceProtocal <NSObject>

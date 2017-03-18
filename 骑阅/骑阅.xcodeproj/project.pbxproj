@@ -101,6 +101,11 @@
 		BA9AAAB21E692C7000D7A5BB /* YYTextWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA971E692C7000D7A5BB /* YYTextWeakProxy.m */; };
 		BA9AAAB31E692C7000D7A5BB /* YYLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA991E692C7000D7A5BB /* YYLabel.m */; };
 		BA9AAAB41E692C7000D7A5BB /* YYTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA9C1E692C7000D7A5BB /* YYTextView.m */; };
+		BA9D1D781E7CE18100276E76 /* QYShowUserCycleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */; };
+		BA9D1D7B1E7CE45C00276E76 /* QYCylePostMonentApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */; };
+		BA9D1D811E7D356B00276E76 /* QYCyclePostController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */; };
+		BA9D1D841E7D44E400276E76 /* YYJsonService.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D831E7D44E400276E76 /* YYJsonService.m */; };
+		BA9D1D871E7D92A500276E76 /* QYPictureLookView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D861E7D92A500276E76 /* QYPictureLookView.m */; };
 		BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001321E50725A0067A894 /* CTApiProxy.m */; };
 		BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001351E50725A0067A894 /* CTAPIBaseManager.m */; };
 		BAA0017B1E50725B0067A894 /* CTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001381E50725A0067A894 /* CTCache.m */; };
@@ -397,6 +402,16 @@
 		BA9AAA9A1E692C7000D7A5BB /* YYText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYText.h; sourceTree = "<group>"; };
 		BA9AAA9B1E692C7000D7A5BB /* YYTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextView.h; sourceTree = "<group>"; };
 		BA9AAA9C1E692C7000D7A5BB /* YYTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextView.m; sourceTree = "<group>"; };
+		BA9D1D761E7CE18100276E76 /* QYShowUserCycleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYShowUserCycleApiManager.h; sourceTree = "<group>"; };
+		BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYShowUserCycleApiManager.m; sourceTree = "<group>"; };
+		BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCylePostMonentApiManager.h; sourceTree = "<group>"; };
+		BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCylePostMonentApiManager.m; sourceTree = "<group>"; };
+		BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCyclePostController.h; sourceTree = "<group>"; };
+		BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCyclePostController.m; sourceTree = "<group>"; };
+		BA9D1D821E7D44E400276E76 /* YYJsonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYJsonService.h; sourceTree = "<group>"; };
+		BA9D1D831E7D44E400276E76 /* YYJsonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYJsonService.m; sourceTree = "<group>"; };
+		BA9D1D851E7D92A500276E76 /* QYPictureLookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPictureLookView.h; sourceTree = "<group>"; };
+		BA9D1D861E7D92A500276E76 /* QYPictureLookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPictureLookView.m; sourceTree = "<group>"; };
 		BAA001311E50725A0067A894 /* CTApiProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTApiProxy.h; sourceTree = "<group>"; };
 		BAA001321E50725A0067A894 /* CTApiProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTApiProxy.m; sourceTree = "<group>"; };
 		BAA001341E50725A0067A894 /* CTAPIBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAPIBaseManager.h; sourceTree = "<group>"; };
@@ -940,6 +955,8 @@
 				BAC8711A1E76E37E00C5F800 /* QYCommentSectionView.m */,
 				BAC8711C1E76E65100C5F800 /* QYSendCommentView.h */,
 				BAC8711D1E76E65100C5F800 /* QYSendCommentView.m */,
+				BA9D1D851E7D92A500276E76 /* QYPictureLookView.h */,
+				BA9D1D861E7D92A500276E76 /* QYPictureLookView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -962,6 +979,10 @@
 			children = (
 				BA354D981E6C69E000EE8189 /* QYReadFriendCycleApiManager.h */,
 				BA354D991E6C69E000EE8189 /* QYReadFriendCycleApiManager.m */,
+				BA9D1D761E7CE18100276E76 /* QYShowUserCycleApiManager.h */,
+				BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */,
+				BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */,
+				BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1343,6 +1364,8 @@
 				BAA001681E50725B0067A894 /* YYAuthenticationService.m */,
 				BAA001691E50725B0067A894 /* YYService.h */,
 				BAA0016A1E50725B0067A894 /* YYService.m */,
+				BA9D1D821E7D44E400276E76 /* YYJsonService.h */,
+				BA9D1D831E7D44E400276E76 /* YYJsonService.m */,
 				BAA0016B1E50725B0067A894 /* YYWeiBoServce.h */,
 				BAA0016C1E50725B0067A894 /* YYWeiBoServce.m */,
 				BAA0016D1E50725B0067A894 /* YYWeiXinServce.h */,
@@ -1575,6 +1598,8 @@
 				BAC959131E7599B1007E171E /* QYFriendCycleDetailController.m */,
 				EC7AA15D1E5C8E1F00EA54AA /* QYReadCycleController.h */,
 				EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */,
+				BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */,
+				BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1885,6 +1910,7 @@
 				BAC871241E76FF5200C5F800 /* QYButtonSheetPromptView.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
+				BA9D1D7B1E7CE45C00276E76 /* QYCylePostMonentApiManager.m in Sources */,
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,
 				BACBA8571E50780F00D2E848 /* YYBaiscTableViewCell.m in Sources */,
 				EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */,
@@ -1932,6 +1958,7 @@
 				EC7AA1411E5C882D00EA54AA /* QYHomeTabBarViewController.m in Sources */,
 				BAA001831E50725B0067A894 /* UIDevice+IdentifierAddition.m in Sources */,
 				BA354D371E6BE12A00EE8189 /* QNResponseInfo.m in Sources */,
+				BA9D1D781E7CE18100276E76 /* QYShowUserCycleApiManager.m in Sources */,
 				BA9AAA9E1E692C7000D7A5BB /* YYTextDebugOption.m in Sources */,
 				BA354D761E6BE20000EE8189 /* QNDnspodEnterprise.m in Sources */,
 				BA354D2F1E6BE12A00EE8189 /* QNAsyncRun.m in Sources */,
@@ -1958,6 +1985,7 @@
 				BAC9590B1E757716007E171E /* QYCommpentCellLayout.m in Sources */,
 				BA354D3B1E6BE12A00EE8189 /* QNConfiguration.m in Sources */,
 				2BCF72461E79026900E9B3CE /* QYNamePromptView.m in Sources */,
+				BA9D1D871E7D92A500276E76 /* QYPictureLookView.m in Sources */,
 				EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */,
 				BA354D391E6BE12A00EE8189 /* QNUserAgent.m in Sources */,
 				BAC8711B1E76E37E00C5F800 /* QYCommentSectionView.m in Sources */,
@@ -1990,6 +2018,7 @@
 				BA354D741E6BE20000EE8189 /* QNNetworkInfo.m in Sources */,
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
 				BA354D7B1E6BE20000EE8189 /* QNResolvUtil.m in Sources */,
+				BA9D1D841E7D44E400276E76 /* YYJsonService.m in Sources */,
 				BA55BFE61E4F37D600F1027B /* main.m in Sources */,
 				BA354D9A1E6C69E000EE8189 /* QYReadFriendCycleApiManager.m in Sources */,
 				BA9AAAAE1E692C7000D7A5BB /* UIView+YYText.m in Sources */,
@@ -2000,6 +2029,7 @@
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
 				BAA0017B1E50725B0067A894 /* CTCache.m in Sources */,
+				BA9D1D811E7D356B00276E76 /* QYCyclePostController.m in Sources */,
 				BAA0018C1E50725B0067A894 /* CTLoggerConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

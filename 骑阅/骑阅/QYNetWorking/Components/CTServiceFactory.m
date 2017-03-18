@@ -10,11 +10,13 @@
 #import "YYService.h"
 #import "GDMapService.h"
 #import "YYAuthenticationService.h"
+#import "YYJsonService.h"
 
 // service name list
 NSString *const kCTServiceGDMapV3 = @"kCTServiceGDMapV3";
 NSString *const kCTServiceYY = @"kCTServiceYY";
 NSString *const kCTServiceAuthonticationYY = @"kCTServiceAuthonticationYY";
+NSString *const kCTJsonService = @"kCTJsonService";
 @interface CTServiceFactory ()
 
 @property (nonatomic, strong) NSMutableDictionary *serviceStorage;
@@ -79,6 +81,11 @@ NSString *const kCTServiceAuthonticationYY = @"kCTServiceAuthonticationYY";
     if ([identifier isEqualToString:kCTServiceAuthonticationYY]) {
         
         return [[YYAuthenticationService alloc] init];
+    }
+    
+    if ([identifier isEqualToString:kCTJsonService]) {
+        
+        return [[YYJsonService alloc] init];
     }
     
     return nil;

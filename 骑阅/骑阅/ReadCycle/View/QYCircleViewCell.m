@@ -199,6 +199,7 @@
             if (!pic) {
                 pic = [UIImageView new];
                 [self addSubview:pic];
+                [self addTapAction:pic];
             }
             
             [pic sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
@@ -235,6 +236,23 @@
         pic.frame = CGRectZero;
     }
    
+}
+
+- (void)addTapAction:(UIImageView *)view {
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicture:)];
+    view.userInteractionEnabled = YES;
+    [view addGestureRecognizer:tap];
+}
+
+- (void)clickPicture:(UITapGestureRecognizer *)tap {
+    
+    if ([self.cell.delegate respondsToSelector:@selector(clickPictureView:imageView:)]) {
+        
+        UIImageView *view = (UIImageView *)tap.view;
+        [self.cell.delegate clickPictureView:self.cell imageView:view];
+    }
+    
 }
 
 @end
