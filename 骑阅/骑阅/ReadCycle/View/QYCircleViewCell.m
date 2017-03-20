@@ -73,6 +73,19 @@
 - (void)setCell:(QYCircleViewCell *)cell {
     
     _cell = cell;
+    if (cell.type == QYFriendCycleTypeUser) {
+     
+        [self layoutTime];
+        return;
+    }
+    if (cell.type == QYFriendCycleTypedetail) {
+        
+        [self layoutIcon];
+        [self layoutNikeName];
+        [self layoutTime];
+        return;
+    }
+    
     [self layoutIcon];
     [self layoutAttention];
     [self layoutNikeName];
@@ -90,6 +103,15 @@
 
 - (void)layoutTime {
     
+    if (_cell.type == QYFriendCycleTypeUser) {
+        
+        self.timeLabel.textLayout = _cell.layout.timeLayout;
+        self.timeLabel.left = 15;
+        self.timeLabel.top = 8.5;
+        self.timeLabel.width = _cell.layout.timeLayout.textBoundingSize.width;
+        self.timeLabel.height = _cell.layout.timeLayout.textBoundingSize.height;
+        return;
+    }
     self.timeLabel.textLayout = _cell.layout.timeLayout;
     self.timeLabel.left = 63;
     self.timeLabel.top = 38;
@@ -151,9 +173,15 @@
         self.content.top = 15;
     } else {
         
-        self.content.left = 63;
-        self.content.top = kQYCellPaddingText;
-        
+        if (_cell.type == QYFriendCycleTypeUser) {
+            
+            self.content.left = 16;
+            self.content.top = kQYCellPaddingText;
+            
+        } else {
+            self.content.left = 63;
+            self.content.top = kQYCellPaddingText;
+        }
     }
     self.content.width = _cell.layout.contentLayout.textBoundingSize.width;
     self.content.height = _cell.layout.contentLayout.textBoundingSize.height;
@@ -180,7 +208,7 @@
     NSArray *array = _cell.layout.status[kthumbs];
     CGSize picSize = _cell.layout.picSize;
     CGFloat leftMargin;
-    if (_cell.type == QYFriendCycleTypedetail) {
+    if (_cell.type == QYFriendCycleTypedetail || _cell.type == QYFriendCycleTypeUser) {
         
         leftMargin = 16;
     } else {
@@ -279,7 +307,11 @@
     
     self.site.textLayout = _cell.layout.sizeLayout;
     self.site.top = 11.5;
-    self.site.left = 51;
+    if (_cell.type == QYFriendCycleTypeUser) {
+        
+        self.site.left = 15;
+    } else
+        self.site.left = 51;
     self.site.size = _cell.layout.sizeLayout.textBoundingSize;
 }
 
@@ -653,7 +685,7 @@
     self = [super init];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.type = type;
-    if (self.type == QYFriendCycleTypelist) {
+    if (self.type == QYFriendCycleTypelist || self.type == QYFriendCycleTypeUser) {
         self.showBottomLine = YES;
         [self.contentView addSubview:self.statuView];
         [self.statuView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -674,7 +706,7 @@
 - (void)setLayout:(QYFriendCycleCellLayout *)layout {
     
     _layout = layout;
-    if (self.type == QYFriendCycleTypelist) {
+    if (self.type == QYFriendCycleTypelist || self.type == QYFriendCycleTypeUser) {
         
         _statuView.cell = self;
         

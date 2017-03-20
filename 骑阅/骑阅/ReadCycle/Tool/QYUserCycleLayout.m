@@ -1,19 +1,22 @@
 //
-//  QYDetailCycleLayout.m
+//  QYUserCycleLayout.m
 //  骑阅
 //
-//  Created by chen liang on 2017/3/13.
+//  Created by chen liang on 2017/3/20.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYDetailCycleLayout.h"
+#import "QYUserCycleLayout.h"
+#import "UIColor+QYHexStringColor.h"
 
-@implementation QYDetailCycleLayout
+@implementation QYUserCycleLayout
 
-- (void)layoutTool {
+- (void)layoutTime {
     
-    
+    [super layoutTime];
+    self.profileHeight = self.timeLayout.textBoundingSize.height + 8.5;
 }
+
 - (CGFloat)contentViewMarginTop {
     
     return 15;
@@ -37,4 +40,6 @@
     
     return cl_caculation_3x(225);
 }
+
+
 @end

@@ -19,6 +19,7 @@
 #import "QYDetailCycleLayout.h"
 #import "QYHomeTabBarViewController.h"
 #import "QYPictureLookView.h"
+#import "QYUserCycleLayout.h"
 
 @interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;

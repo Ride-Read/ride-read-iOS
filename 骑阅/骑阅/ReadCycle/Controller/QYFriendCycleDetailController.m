@@ -214,7 +214,7 @@
     if (!_cell) {
         _cell = [[QYCircleViewCell alloc] initWithCycleType:QYFriendCycleTypedetail];
         _cell.layout = self.layout;
-        _cell.frame = CGRectMake(0, 0, kScreenWidth,self.layout.height + 55 - self.layout.toolHeight);
+        _cell.frame = CGRectMake(0, 0, kScreenWidth,self.layout.height + 55);
     }
     return _cell;
 }

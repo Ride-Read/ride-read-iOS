@@ -55,60 +55,40 @@
 @end
 @implementation QYFriendCycleCellLayout
 
-+ (instancetype)friendStatusCellLayout:(NSDictionary *)status {
-    
-    return [[self alloc] initWithStatus:status];
-}
-- (instancetype)initWithStatus:(NSDictionary *)status {
-    
-    self = [super init];
-    _status = status;
-    [self layout];
-    return self;
-}
 - (void)layout {
     
-    _marginTop = kQYCellTopMargin;
-    _profileHeight = 0;
-    _contentHeight = 0;
-    _picHeight = 0;
-    [self layoutProfile];
-    [self layoutContent];
-    [self layoutTime];
-    [self layoutPicture];
-    [self layoutPraiseAndCommpent];
-    [self layoutTool];
-    _height = _profileHeight +  _contentHeight+ _picHeight+_toolHeight ;
+    [super layout];
+    self.height = self.profileHeight +  self.contentHeight+ self.picHeight + self.toolHeight ;
 }
 - (void)layoutProfile {
     
-    NSString *userName = _status[kusername];
+    NSString *userName = self.status[kusername];
     NSMutableAttributedString *nameText = [[NSMutableAttributedString alloc] initWithString:userName];
     nameText.yy_font = [UIFont systemFontOfSize:15];
     nameText.yy_color = [UIColor colorWithHexString:@"#000000"];
     nameText.yy_lineBreakMode = NSLineBreakByCharWrapping;
     
     YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kQYCellNameWidth, 999)];
-    _nameLayout = [YYTextLayout layoutWithContainer:container text:nameText];
-    _profileHeight = 35 + kQYCellTopMargin;
+    self.nameLayout = [YYTextLayout layoutWithContainer:container text:nameText];
+    self.profileHeight = 35 + kQYCellTopMargin;
 }
 
 - (void)layoutTime {
     
-    NSString *create = _status[kcreated_at];
+    NSString *create = self.status[kcreated_at];
     NSMutableAttributedString *createText = [[NSMutableAttributedString alloc] initWithString:create];
     createText.yy_font = [UIFont systemFontOfSize:10];
     createText.yy_color = [UIColor colorWithHexString:@"#555555"];
     createText.yy_lineBreakMode = NSLineBreakByCharWrapping;
     
     YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(kQYCellNameWidth, 999)];
-    _timeLayout = [YYTextLayout layoutWithContainer:container text:createText];
+    self.timeLayout = [YYTextLayout layoutWithContainer:container text:createText];
 
 }
 
 - (void)layoutContent {
     
-    NSString *conent = _status[kmsg];
+    NSString *conent = self.status[kmsg];
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:conent];
     text.yy_color = [UIColor colorWithHexString:@"#000000"];
     text.yy_font = [UIFont systemFontOfSize:16];
@@ -116,52 +96,52 @@
     YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(self.contentLayoutWidth, 999)];
     //container.size = CGSizeMake(kQYCellContentTextWidth, 999);
     
-    _contentLayout = [YYTextLayout layoutWithContainer:container text:text];
-    _contentHeight = _contentLayout.textBoundingSize.height + self.contentViewMarginTop;
+    self.contentLayout = [YYTextLayout layoutWithContainer:container text:text];
+    self.contentHeight = self.contentLayout.textBoundingSize.height + self.contentViewMarginTop;
 }
 - (void)layoutPicture {
     
    // CGFloat linePdding = 0.f;
-    NSArray *picturs = _status[kthumbs];
+    NSArray *picturs = self.status[kthumbs];
     switch (picturs.count) {
         case 1:
         {
-            _picSize = CGSizeMake(self.pictureLayoutOneWidth, self.pictureLayoutOneWidth);
-            _picHeight = self.pictureLayoutOneWidth;
+            self.picSize = CGSizeMake(self.pictureLayoutOneWidth, self.pictureLayoutOneWidth);
+            self.picHeight = self.pictureLayoutOneWidth;
             break;
         }
         case 2:{
             
-            _picSize = CGSizeMake(self.pictureLayoutTwoWidth, self.pictureLayoutTwoWidth);
-            _picHeight = self.pictureLayoutTwoWidth;
+            self.picSize = CGSizeMake(self.pictureLayoutTwoWidth, self.pictureLayoutTwoWidth);
+            self.picHeight = self.pictureLayoutTwoWidth;
             break;
         }
         case 3:{
             
-            _picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
-            _picHeight = self.pictureLayoutMoreThanThreeWidth;
+            self.picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
+            self.picHeight = self.pictureLayoutMoreThanThreeWidth;
             break;
         }
         case 4:case 5:case 6:{
             
-            _picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
-            _picHeight =self.pictureLayoutMoreThanThreeWidth * 2 + 3.5;
+            self.picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
+            self.picHeight =self.pictureLayoutMoreThanThreeWidth * 2 + 3.5;
             break;
         }
             
         default:{
-            _picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
-            _picHeight = self.pictureLayoutMoreThanThreeWidth * 3 + 7;
+            self.picSize = CGSizeMake(self.pictureLayoutMoreThanThreeWidth,self.pictureLayoutMoreThanThreeWidth);
+            self.picHeight = self.pictureLayoutMoreThanThreeWidth * 3 + 7;
         }
             break;
     }
-    _picHeight = _picHeight + 14.5;
+    self.picHeight = self.picHeight + 14.5;
 }
 
 - (void)layoutTool {
     
-    NSString *site = _status[ksite];
-    NSString *sizeLeght = _status[ksiteLength];
+    NSString *site = self.status[ksite];
+    NSString *sizeLeght = self.status[ksiteLength];
     NSMutableAttributedString *siteText = [[NSMutableAttributedString alloc] initWithString:site];
     NSMutableAttributedString *sizeLegthText = [[NSMutableAttributedString alloc] initWithString:sizeLeght];
     siteText.yy_font = [UIFont systemFontOfSize:11];
@@ -172,16 +152,16 @@
     
     YYTextContainer *siteContainer = [YYTextContainer containerWithSize:CGSizeMake(95, 999)];
     YYTextContainer *siteLengthContainer = [YYTextContainer containerWithSize:CGSizeMake(95, 999)];
-    _sizeLayout = [YYTextLayout layoutWithContainer:siteContainer text:siteText];
-    _sizeLengthLayout = [YYTextLayout layoutWithContainer:siteLengthContainer text:sizeLegthText];
-    _toolHeight = 75;
+    self.sizeLayout = [YYTextLayout layoutWithContainer:siteContainer text:siteText];
+    self.sizeLengthLayout = [YYTextLayout layoutWithContainer:siteLengthContainer text:sizeLegthText];
+    self.toolHeight = 75;
     
 }
 
 - (void)layoutPraiseAndCommpent {
     
-    NSArray *praiseArray = _status[kpraise];
-    NSArray *commentArray = _status[kcomment];
+    NSArray *praiseArray = self.status[kpraise];
+    NSArray *commentArray = self.status[kcomment];
     NSString *praise = [NSString stringWithFormat:@"%ld",praiseArray.count];
     NSString *comment = [NSString stringWithFormat:@"%ld",commentArray.count];
     if ([praise isEqualToString:@"0"]) {

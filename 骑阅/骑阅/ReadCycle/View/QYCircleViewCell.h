@@ -13,7 +13,8 @@
 typedef NS_ENUM(NSUInteger,QYFriendCycleType) {
     
     QYFriendCycleTypelist,
-    QYFriendCycleTypedetail
+    QYFriendCycleTypedetail,
+    QYFriendCycleTypeUser
 };
 @class QYCircleViewCell;
 
