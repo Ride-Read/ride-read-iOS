@@ -1,19 +1,21 @@
 //
-//  QYBasicViewController.m
+//  QYAttentionViewController.m
 //  骑阅
 //
-//  Created by chen liang on 2017/2/12.
+//  Created by chen liang on 2017/3/21.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYBasicViewController.h"
+#import "QYAttentionViewController.h"
+#import "define.h"
 
-@interface QYBasicViewController ()
+@interface QYAttentionViewController ()
 
 @end
 
-@implementation QYBasicViewController
+@implementation QYAttentionViewController
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -24,16 +26,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - getter and setter
-- (NSOperationQueue *)serialQueue {
+#pragma mark - life cycle
+
+- (NSDictionary *)paramForUserApi {
     
-    if (!_serialQueue) {
-        
-        _serialQueue = [[NSOperationQueue alloc] init];
-        _serialQueue.maxConcurrentOperationCount = 1;
-    }
-    return _serialQueue;
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    return @{ktype:@(0),kuid:uid};
 }
+
 /*
 #pragma mark - Navigation
 

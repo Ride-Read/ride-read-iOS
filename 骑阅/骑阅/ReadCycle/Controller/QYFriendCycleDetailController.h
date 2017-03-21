@@ -6,10 +6,10 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYBasicViewController.h"
+#import "QYTranslucentNoViewController.h"
 #import "QYFriendCycleCellLayout.h"
 
-@interface QYFriendCycleDetailController : QYBasicViewController
+@interface QYFriendCycleDetailController :QYTranslucentNoViewController
 @property (nonatomic, strong) QYFriendCycleCellLayout *layout;
 
 @end

@@ -11,6 +11,8 @@
 #import "YYBasicTableView.h"
 #import "define.h"
 #import "QYPersonalDataViewController.h"
+#import "QYAttentionViewController.h"
+#import "QYFansUserViewController.h"
 
 @interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate>
 
@@ -47,6 +49,8 @@
     
     self.title = @"我的";
     self.tabBarController.tabBar.hidden = NO;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    
 }
 
 #pragma mark - headerView delegate
@@ -54,7 +58,21 @@
 - (void)clickIcon:(QYReadMeHeaderView *)headerView {
     
     QYPersonalDataViewController *person = [[QYPersonalDataViewController alloc] init];
+    QYUser *user = [CTAppContext sharedInstance].currentUser;
+    person.user = user;
     [self.navigationController pushViewController:person animated:YES];
+}
+- (void)clickAttentionButton:(QYReadMeHeaderView *)headerView {
+    
+    QYAttentionViewController *attention = [[QYAttentionViewController alloc] init];
+    [self.navigationController pushViewController:attention animated:YES];
+}
+
+- (void)clickFansButton:(QYReadMeHeaderView *)headerView {
+    
+    QYFansUserViewController *attention = [[QYFansUserViewController alloc] init];
+    [self.navigationController pushViewController:attention animated:YES];
+
 }
 #pragma mark - tableView datasource
 

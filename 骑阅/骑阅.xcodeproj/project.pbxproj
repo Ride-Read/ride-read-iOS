@@ -139,6 +139,14 @@
 		BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001751E50725B0067A894 /* CLRequestGenerator.m */; };
 		BAA001951E50725B0067A894 /* CTUDIDGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001781E50725B0067A894 /* CTUDIDGenerator.m */; };
 		BAA001981E5072B20067A894 /* QYBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001971E5072B20067A894 /* QYBasicViewController.m */; };
+		BAC36F611E815770007D1FF4 /* QYAttentOrFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */; };
+		BAC36F641E815789007D1FF4 /* QYAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36F631E815789007D1FF4 /* QYAttentionViewController.m */; };
+		BAC36FA61E8158E4007D1FF4 /* QYAttentionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FA51E8158E4007D1FF4 /* QYAttentionViewCell.m */; };
+		BAC36FA91E815D63007D1FF4 /* QYFansUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FA81E815D63007D1FF4 /* QYFansUserViewController.m */; };
+		BAC36FAD1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FAC1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m */; };
+		BAC36FB01E816281007D1FF4 /* QYAttentionReform.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FAF1E816281007D1FF4 /* QYAttentionReform.m */; };
+		BAC36FB31E81653B007D1FF4 /* QYReadLookUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FB21E81653B007D1FF4 /* QYReadLookUserController.m */; };
+		BAC36FB91E818035007D1FF4 /* QYCycleMessageReform.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FB81E818035007D1FF4 /* QYCycleMessageReform.m */; };
 		BAC8711B1E76E37E00C5F800 /* QYCommentSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8711A1E76E37E00C5F800 /* QYCommentSectionView.m */; };
 		BAC8711E1E76E65100C5F800 /* QYSendCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC8711D1E76E65100C5F800 /* QYSendCommentView.m */; };
 		BAC871211E76FD4100C5F800 /* QYBasicPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC871201E76FD4100C5F800 /* QYBasicPromptView.m */; };
@@ -481,6 +489,22 @@
 		BAA001781E50725B0067A894 /* CTUDIDGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUDIDGenerator.m; sourceTree = "<group>"; };
 		BAA001961E5072B20067A894 /* QYBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYBasicViewController.h; sourceTree = "<group>"; };
 		BAA001971E5072B20067A894 /* QYBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYBasicViewController.m; sourceTree = "<group>"; };
+		BAC36F5F1E815770007D1FF4 /* QYAttentOrFansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentOrFansViewController.h; sourceTree = "<group>"; };
+		BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentOrFansViewController.m; sourceTree = "<group>"; };
+		BAC36F621E815789007D1FF4 /* QYAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionViewController.h; sourceTree = "<group>"; };
+		BAC36F631E815789007D1FF4 /* QYAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentionViewController.m; sourceTree = "<group>"; };
+		BAC36FA41E8158E4007D1FF4 /* QYAttentionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionViewCell.h; sourceTree = "<group>"; };
+		BAC36FA51E8158E4007D1FF4 /* QYAttentionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentionViewCell.m; sourceTree = "<group>"; };
+		BAC36FA71E815D63007D1FF4 /* QYFansUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFansUserViewController.h; sourceTree = "<group>"; };
+		BAC36FA81E815D63007D1FF4 /* QYFansUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFansUserViewController.m; sourceTree = "<group>"; };
+		BAC36FAB1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionOrFansApiManager.h; sourceTree = "<group>"; };
+		BAC36FAC1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentionOrFansApiManager.m; sourceTree = "<group>"; };
+		BAC36FAE1E816281007D1FF4 /* QYAttentionReform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionReform.h; sourceTree = "<group>"; };
+		BAC36FAF1E816281007D1FF4 /* QYAttentionReform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentionReform.m; sourceTree = "<group>"; };
+		BAC36FB11E81653B007D1FF4 /* QYReadLookUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYReadLookUserController.h; sourceTree = "<group>"; };
+		BAC36FB21E81653B007D1FF4 /* QYReadLookUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYReadLookUserController.m; sourceTree = "<group>"; };
+		BAC36FB71E818035007D1FF4 /* QYCycleMessageReform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCycleMessageReform.h; sourceTree = "<group>"; };
+		BAC36FB81E818035007D1FF4 /* QYCycleMessageReform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCycleMessageReform.m; sourceTree = "<group>"; };
 		BAC871191E76E37E00C5F800 /* QYCommentSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCommentSectionView.h; sourceTree = "<group>"; };
 		BAC8711A1E76E37E00C5F800 /* QYCommentSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCommentSectionView.m; sourceTree = "<group>"; };
 		BAC8711C1E76E65100C5F800 /* QYSendCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSendCommentView.h; sourceTree = "<group>"; };
@@ -680,13 +704,6 @@
 			path = Command;
 			sourceTree = "<group>";
 		};
-		2BBD52F71E6EFCBB007313E7 /* ApiManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ApiManager;
-			sourceTree = "<group>";
-		};
 		2BBD52F81E6EFCC4007313E7 /* Command */ = {
 			isa = PBXGroup;
 			children = (
@@ -719,6 +736,8 @@
 				2BB71EB61E7946AA00187565 /* QYTagPromptView.m */,
 				BA074B501E801AB800E5DE0D /* QYReadMeHeaderView.h */,
 				BA074B511E801AB800E5DE0D /* QYReadMeHeaderView.m */,
+				BAC36FA41E8158E4007D1FF4 /* QYAttentionViewCell.h */,
+				BAC36FA51E8158E4007D1FF4 /* QYAttentionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1426,11 +1445,24 @@
 			path = UDIDGenerator;
 			sourceTree = "<group>";
 		};
+		BAC36FAA1E815DAE007D1FF4 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				BAC36FAB1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.h */,
+				BAC36FAC1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m */,
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
 		BAC8714E1E78409100C5F800 /* Reform */ = {
 			isa = PBXGroup;
 			children = (
 				BAC8715C1E785B2A00C5F800 /* QYQiuniuReformer.h */,
 				BAC8715D1E785B2A00C5F800 /* QYQiuniuReformer.m */,
+				BAC36FAE1E816281007D1FF4 /* QYAttentionReform.h */,
+				BAC36FAF1E816281007D1FF4 /* QYAttentionReform.m */,
+				BAC36FB71E818035007D1FF4 /* QYCycleMessageReform.h */,
+				BAC36FB81E818035007D1FF4 /* QYCycleMessageReform.m */,
 			);
 			path = Reform;
 			sourceTree = "<group>";
@@ -1572,7 +1604,7 @@
 		EC7AA1421E5C8B4200EA54AA /* Me */ = {
 			isa = PBXGroup;
 			children = (
-				2BBD52F71E6EFCBB007313E7 /* ApiManager */,
+				BAC36FAA1E815DAE007D1FF4 /* ApiManager */,
 				2BBD52F81E6EFCC4007313E7 /* Command */,
 				EC7AA1451E5C8B4200EA54AA /* Controller */,
 				2BBD52F91E6EFCD6007313E7 /* Model */,
@@ -1589,6 +1621,14 @@
 				EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */,
 				2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */,
 				2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */,
+				BAC36F5F1E815770007D1FF4 /* QYAttentOrFansViewController.h */,
+				BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */,
+				BAC36F621E815789007D1FF4 /* QYAttentionViewController.h */,
+				BAC36F631E815789007D1FF4 /* QYAttentionViewController.m */,
+				BAC36FA71E815D63007D1FF4 /* QYFansUserViewController.h */,
+				BAC36FA81E815D63007D1FF4 /* QYFansUserViewController.m */,
+				BAC36FB11E81653B007D1FF4 /* QYReadLookUserController.h */,
+				BAC36FB21E81653B007D1FF4 /* QYReadLookUserController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1760,7 +1800,7 @@
 				TargetAttributes = {
 					BA55BFE01E4F37D600F1027B = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = TST4LEUS93;
+						DevelopmentTeam = LUYMC6AG7V;
 						ProvisioningStyle = Automatic;
 					};
 					BA55BFF91E4F37D600F1027B = {
@@ -1906,12 +1946,14 @@
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BA9AAAB01E692C7000D7A5BB /* YYTextTransaction.m in Sources */,
 				EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */,
+				BAC36FA91E815D63007D1FF4 /* QYFansUserViewController.m in Sources */,
 				BAC8716B1E798F2B00C5F800 /* QYRegisterLogic.m in Sources */,
 				BAC871681E797DBC00C5F800 /* QYUserRegisterApiManager.m in Sources */,
 				BA354DA11E6C6BDF00EE8189 /* QYFrIendStatusMessage.m in Sources */,
 				BA354D9D1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m in Sources */,
 				BA9AAAA41E692C7000D7A5BB /* YYTextMagnifier.m in Sources */,
 				BA354D751E6BE20000EE8189 /* QNRecord.m in Sources */,
+				BAC36F641E815789007D1FF4 /* QYAttentionViewController.m in Sources */,
 				BA354D811E6BE20000EE8189 /* QNIP.m in Sources */,
 				BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */,
 				BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */,
@@ -1948,6 +1990,7 @@
 				BA354D361E6BE12A00EE8189 /* QNUrlSafeBase64.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
 				BA354D301E6BE12A00EE8189 /* QNCrc32.m in Sources */,
+				BAC36FB31E81653B007D1FF4 /* QYReadLookUserController.m in Sources */,
 				BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */,
 				EC94C2651E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m in Sources */,
 				BAA001811E50725B0067A894 /* NSString+AXNetworkingMethods.m in Sources */,
@@ -1962,6 +2005,7 @@
 				EC7AA15F1E5C8E1F00EA54AA /* QYReadCycleController.m in Sources */,
 				BA074B521E801AB800E5DE0D /* QYReadMeHeaderView.m in Sources */,
 				BA9AAAA61E692C7000D7A5BB /* YYTextArchiver.m in Sources */,
+				BAC36FA61E8158E4007D1FF4 /* QYAttentionViewCell.m in Sources */,
 				BA9AAAA51E692C7000D7A5BB /* YYTextSelectionView.m in Sources */,
 				BA9AAAB31E692C7000D7A5BB /* YYLabel.m in Sources */,
 				BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */,
@@ -2014,6 +2058,7 @@
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
 				BA354D7F1E6BE20000EE8189 /* QNGetAddrInfo.m in Sources */,
 				BA9AAAB11E692C7000D7A5BB /* YYTextUtilities.m in Sources */,
+				BAC36FAD1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m in Sources */,
 				BA354D731E6BE20000EE8189 /* QNLruCache.m in Sources */,
 				BAC8711E1E76E65100C5F800 /* QYSendCommentView.m in Sources */,
 				2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */,
@@ -2023,6 +2068,7 @@
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BAC871211E76FD4100C5F800 /* QYBasicPromptView.m in Sources */,
 				BA9AAAAA1E692C7000D7A5BB /* YYTextRunDelegate.m in Sources */,
+				BAC36F611E815770007D1FF4 /* QYAttentOrFansViewController.m in Sources */,
 				EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */,
 				BAC959141E7599B1007E171E /* QYFriendCycleDetailController.m in Sources */,
 				BA354D311E6BE12A00EE8189 /* QNEtag.m in Sources */,
@@ -2032,6 +2078,7 @@
 				EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */,
 				BA354D3E1E6BE12A00EE8189 /* QNUploadManager.m in Sources */,
 				BA354D7A1E6BE20000EE8189 /* QNResolver.m in Sources */,
+				BAC36FB91E818035007D1FF4 /* QYCycleMessageReform.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
 				BA354D741E6BE20000EE8189 /* QNNetworkInfo.m in Sources */,
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
@@ -2043,6 +2090,7 @@
 				BA354D6F1E6BE20000EE8189 /* QNAssessment.m in Sources */,
 				BAC8715B1E7856CB00C5F800 /* QYQiuNiuUploadTool.m in Sources */,
 				BA354D951E6C4CEE00EE8189 /* UIButton+QYTitleButton.m in Sources */,
+				BAC36FB01E816281007D1FF4 /* QYAttentionReform.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
@@ -2193,7 +2241,7 @@
 			baseConfigurationReference = DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TST4LEUS93;
+				DEVELOPMENT_TEAM = LUYMC6AG7V;
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2208,7 +2256,7 @@
 			baseConfigurationReference = 9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TST4LEUS93;
+				DEVELOPMENT_TEAM = LUYMC6AG7V;
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

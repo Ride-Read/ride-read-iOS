@@ -6,8 +6,10 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "QYTranslucentNoViewController.h"
+#import "QYUser.h"
 
-@interface QYPersonalDataViewController : UIViewController
+@interface QYPersonalDataViewController : QYTranslucentNoViewController
+@property (nonatomic, weak) QYUser *user;
 
 @end

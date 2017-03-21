@@ -56,7 +56,6 @@
     }
     return @{ktype:type,kuid:uid,kpages:@(_pages)};
     
-    return nil;
 }
 #pragma mark - public method
 

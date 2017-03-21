@@ -197,7 +197,7 @@
         
         _username = [[UILabel alloc] init];
         _username.textColor = [UIColor colorWithHexString:@"#555555"];
-        _username.font = [UIFont systemFontOfSize:12];
+        _username.font = [UIFont systemFontOfSize:16];
         
     }
     return _username;
@@ -228,7 +228,7 @@
         
         _personSignature = [UILabel new];
         _personSignature.textColor = [UIColor colorWithHexString:@"#555555"];
-        _personSignature.font = [UIFont systemFontOfSize:10];
+        _personSignature.font = [UIFont systemFontOfSize:12];
     }
     return  _personSignature;
 }
@@ -237,7 +237,7 @@
     
     if (!_messageButton) {
         
-        _messageButton = [UIButton buttonTitle:@"消息" font:11 colco:[UIColor colorWithHexString:@"#555555"]];
+        _messageButton = [UIButton buttonTitle:@"消息" font:14 colco:[UIColor colorWithHexString:@"#555555"]];
         _messageButton.tag = 2;
         [_messageButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -248,7 +248,7 @@
     
     if (!_attentionButton) {
         
-        _attentionButton = [UIButton buttonTitle:@"关注" font:11 colco:[UIColor colorWithHexString:@"#555555"]];
+        _attentionButton = [UIButton buttonTitle:@"关注" font:14 colco:[UIColor colorWithHexString:@"#555555"]];
         _attentionButton.tag = 3;
         [_attentionButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -267,7 +267,7 @@
     
     if (!_fansButton) {
         
-        _fansButton = [UIButton buttonTitle:@"粉丝" font:11 colco:[UIColor colorWithHexString:@"#555555"]];
+        _fansButton = [UIButton buttonTitle:@"粉丝" font:14 colco:[UIColor colorWithHexString:@"#555555"]];
         _fansButton.tag = 4;
         [_fansButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }

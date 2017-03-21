@@ -33,10 +33,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavc];
     [self setContentView];
     [self analyseData];
-    [self addNotifaction];
     // Do any additional setup after loading the view.
 }
 
@@ -44,6 +42,8 @@
     
     [super viewWillAppear:animated];
     [self addNotifaction];
+    [self setNavc];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

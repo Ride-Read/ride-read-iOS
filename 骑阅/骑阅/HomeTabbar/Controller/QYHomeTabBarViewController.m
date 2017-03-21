@@ -39,8 +39,7 @@
     /**
      *  测试把QYPersonalDataViewController添加到HomeTabBarController
     **/
-    QYReadMeController * rideMe = [[QYReadMeController alloc]init];
-    [self addChildController:rideMe image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
+    [self addChildController:self.readMeController image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
     
     
 //    self.delegate = self.tabBarDelegate;

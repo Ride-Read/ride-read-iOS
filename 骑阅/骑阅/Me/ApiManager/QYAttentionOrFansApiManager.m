@@ -1,19 +1,19 @@
 //
-//  QYShowUserCycleApiManager.m
+//  QYAttentionOrFansApiManager.m
 //  骑阅
 //
-//  Created by chen liang on 2017/3/18.
+//  Created by chen liang on 2017/3/21.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYShowUserCycleApiManager.h"
+#import "QYAttentionOrFansApiManager.h"
 #import "define.h"
 
-@interface QYShowUserCycleApiManager ()<CTAPIManagerValidator>
+@interface QYAttentionOrFansApiManager ()<CTAPIManagerValidator>
 @property (nonatomic, assign) int pages;
-
 @end
-@implementation QYShowUserCycleApiManager
+@implementation QYAttentionOrFansApiManager
+
 - (instancetype)init {
     
     self = [super init];
@@ -24,7 +24,7 @@
 
 - (NSString *)methodName {
     
-    return @"moments/show_user";
+    return @"";
 }
 
 - (NSString *)serviceType {
@@ -37,14 +37,10 @@
     return CTAPIBaseManagerRequestTypePost;
 }
 
-- (BOOL)shouldCache {
-    
-    return NO;
-}
-
 - (NSDictionary *)reformParams:(NSDictionary *)params {
     
-    NSNumber *uid = params[kuid];
+    NSNumber *type = params[ktype];
+    NSString *uid = params[kuid];
     if (self.isLoadMore) {
         
         self.pages = self.pages + 1;
@@ -53,9 +49,8 @@
         
         self.pages = 0;
     }
-    return @{kuid:uid,kpages:@(_pages)};
+    return @{ktype:type,kuid:uid,kpages:@(_pages)};
     
-    return nil;
 }
 #pragma mark - public method
 

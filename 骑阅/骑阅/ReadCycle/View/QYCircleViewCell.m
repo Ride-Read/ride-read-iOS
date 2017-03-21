@@ -9,7 +9,6 @@
 #import "QYCircleViewCell.h"
 #import "Masonry.h"
 #import "UIColor+QYHexStringColor.h"
-#import "UIImageView+WebCache.h"
 #import "UIView+YYAdd.h"
 #import "define.h"
 #import "UIButton+QYTitleButton.h"

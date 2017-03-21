@@ -20,12 +20,14 @@
 #import "QYHomeTabBarViewController.h"
 #import "QYPictureLookView.h"
 #import "QYUserCycleLayout.h"
+#import "QYCycleMessageReform.h"
 
 @interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, strong) QYReadFriendCycleApiManager *friendCycleApi;
+@property (nonatomic, strong) QYCycleMessageReform *cycleReform;
 
 @end
 
@@ -47,6 +49,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     
+    [super viewWillAppear:animated];
     [self setNavc];
 }
 
@@ -66,57 +69,23 @@
 #pragma mark - CTAPIManagerCallback
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-1000];
-    NSTimeInterval time = [date timeIntervalSince1970] * 1000;
-    NSDictionary *dic1 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout1 = [QYFriendCycleCellLayout friendStatusCellLayout:dic1];
     
-    NSDictionary *dic2 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout2 = [QYFriendCycleCellLayout friendStatusCellLayout:dic2];
+#warning test ui
+    [self.serialQueue addOperationWithBlock:^{
     
-    NSDictionary *dic3 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout3 = [QYFriendCycleCellLayout friendStatusCellLayout:dic3];
-    
-    NSDictionary *dic4 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout4 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-    
-    
-    NSDictionary *dic5 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{},@{},@{},@{},@{},@{},@{},@{},@{},@{},@{},@{}],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian"};
-    QYFriendCycleCellLayout *layout5 = [QYFriendCycleCellLayout friendStatusCellLayout:dic5];
-
-    NSDictionary *dic6 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout6 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-   
-    NSDictionary *dic7 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout7 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-   
-    NSDictionary *dic8 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout8 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-   
-    NSDictionary *dic9 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout9 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-   
-    NSDictionary *dic10 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout10 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-   
-    NSDictionary *dic11 = @{ksite:@"广州",kthumbs:@[@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"],ksiteLength:@"1000km",kusername:@"snow",kmsg:@"骑阅骑阅骑阅",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kstatus:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kcreated_at:@"8分钟qian",kcomment:@[@{kuid:@(1),kmsg:@"不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"},@{kuid:@(1),kmsg:@"回复 json:不错",kcreated_at:@(time),knickname:@"snow",kavater:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"}],kpraise:@[@{},@{}]};
-    QYFriendCycleCellLayout *layout11 = [QYFriendCycleCellLayout friendStatusCellLayout:dic4];
-    
-
-    [self.layoutArray addObject:layout1];
-    [self.layoutArray addObject:layout2];
-    [self.layoutArray addObject:layout3];
-    [self.layoutArray addObject:layout4];
-    [self.layoutArray addObject:layout5];
-    [self.layoutArray addObject:layout6];
-    [self.layoutArray addObject:layout7];
-    [self.layoutArray addObject:layout8];
-    [self.layoutArray addObject:layout9];
-    [self.layoutArray addObject:layout10];
-    [self.layoutArray addObject:layout11];
-    
-    
-    [self.tableView reloadData];
+        NSArray *cycles = [self.friendCycleApi fetchDataWithReformer:self.cycleReform];
+        for (NSDictionary *info in cycles) {
+            
+            QYFriendCycleCellLayout *layout = [QYFriendCycleCellLayout friendStatusCellLayout:info];
+            [self.layoutArray addObject:layout];
+        }
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
+            [self.tableView reloadData];
+            
+        }];
+    }];
 }
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
@@ -281,6 +250,15 @@
         _friendCycleApi.paramSource = self;
     }
     return _friendCycleApi;
+}
+
+- (QYCycleMessageReform *)cycleReform {
+    
+    if (!_cycleReform) {
+        
+        _cycleReform = [[QYCycleMessageReform alloc] init];
+    }
+    return _cycleReform;
 }
 
 /*
