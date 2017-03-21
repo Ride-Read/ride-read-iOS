@@ -7,22 +7,91 @@
 //
 
 #import "QYReadMeController.h"
+#import "QYReadMeHeaderView.h"
+#import "YYBasicTableView.h"
+#import "define.h"
+#import "QYPersonalDataViewController.h"
 
-@interface QYReadMeController ()
+@interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate>
 
+@property (nonatomic, strong) QYReadMeHeaderView *headerView;
+@property (nonatomic, strong) YYBasicTableView *tableView;
 @end
 
 @implementation QYReadMeController
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
+    [self setContentView];
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self setNavc];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - private method
+- (void)setContentView {
+    
+    [self.view addSubview:self.tableView];
+    self.tableView.frame = self.view.bounds;
+}
+- (void)setNavc {
+    
+    self.title = @"我的";
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+#pragma mark - headerView delegate
+
+- (void)clickIcon:(QYReadMeHeaderView *)headerView {
+    
+    QYPersonalDataViewController *person = [[QYPersonalDataViewController alloc] init];
+    [self.navigationController pushViewController:person animated:YES];
+}
+#pragma mark - tableView datasource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mecell" forIndexPath:indexPath];
+    return cell;
+}
+
+#pragma mark - setter and getter
+- (QYReadMeHeaderView *)headerView {
+    
+    if (!_headerView) {
+        
+        _headerView = [[QYReadMeHeaderView alloc] init];
+        _headerView.delegate = self;
+        _headerView.frame = CGRectMake(0, 0, kScreenWidth, 270);
+    }
+    return _headerView;
+}
+
+- (YYBasicTableView *)tableView {
+    
+    if (!_tableView) {
+        
+        _tableView = [[YYBasicTableView alloc] initWithRefeshSytle:YYTableViewRefeshStyleDefault];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableHeaderView = self.headerView;
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"mecell"];
+    }
+    return _tableView;
 }
 
 /*

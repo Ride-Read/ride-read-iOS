@@ -15,6 +15,7 @@
 #import "QYTabBarControlerDelegate.h"
 #import "QYSliderTabBarIntercativeTransiton.h"
 #import "QYPersonalDataViewController.h"
+#import "QYReadMeController.h"
 
 @interface QYHomeTabBarViewController ()<UINavigationControllerDelegate>
 @property (nonatomic, strong) QYReadCycleController *readCycleController;
@@ -38,14 +39,14 @@
     /**
      *  测试把QYPersonalDataViewController添加到HomeTabBarController
     **/
-    QYPersonalDataViewController * QYPDVC = [[QYPersonalDataViewController alloc]init];
-    [self addChildController:QYPDVC image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
+    QYReadMeController * rideMe = [[QYReadMeController alloc]init];
+    [self addChildController:rideMe image:[UIImage imageNamed:@"me_normal"] selectImage:[UIImage imageNamed:@"me_selected"] title:@"我的" needNavc:YES];
     
     
-    self.delegate = self.tabBarDelegate;
-    QYSliderTabBarIntercativeTransiton *tabBar = [[QYSliderTabBarIntercativeTransiton alloc] init];
-    [tabBar fireToTabBarController:self];
-    self.tabBarDelegate.tabBar = tabBar;
+//    self.delegate = self.tabBarDelegate;
+//    QYSliderTabBarIntercativeTransiton *tabBar = [[QYSliderTabBarIntercativeTransiton alloc] init];
+//    [tabBar fireToTabBarController:self];
+//    self.tabBarDelegate.tabBar = tabBar;
     // Do any additional setup after loading the view.
 }
 
