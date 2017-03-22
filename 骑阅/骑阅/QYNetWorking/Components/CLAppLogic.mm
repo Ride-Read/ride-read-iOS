@@ -144,7 +144,7 @@ dispatch_queue_t persistance_session_manager_queue() {
 }
 
 #pragma mark - Public methods
--(id)fetchDataWithReformer:(id<CLAppLogicDelegate>)reformer {
+-(id)fetchDataWithReformer:(id<CLAppLogicDataReform>)reformer {
     
     if ([reformer respondsToSelector:@selector(logic:withTheManager:reformData:)]) {
         

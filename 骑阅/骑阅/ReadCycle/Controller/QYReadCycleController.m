@@ -189,6 +189,7 @@
     QYFriendCycleDetailController *detail = [[QYFriendCycleDetailController alloc] init];
     QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
     QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
+    detail.hidesBottomBarWhenPushed = YES;
     detail.layout = detailLayout;
     [self.navigationController pushViewController:detail animated:YES];
 }

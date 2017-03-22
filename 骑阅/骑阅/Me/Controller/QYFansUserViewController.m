@@ -18,6 +18,7 @@
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"粉丝";
     // Do any additional setup after loading the view.
 }
 

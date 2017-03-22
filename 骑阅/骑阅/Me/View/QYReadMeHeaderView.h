@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QYUser.h"
 @class QYReadMeHeaderView;
 @protocol QYReadMeHeaderViewDelegate <NSObject>
 
@@ -20,5 +20,6 @@
 @end
 @interface QYReadMeHeaderView : UIView
 @property (nonatomic, weak) id <QYReadMeHeaderViewDelegate> delegate;
+@property (nonatomic, weak) QYUser *user;
 
 @end

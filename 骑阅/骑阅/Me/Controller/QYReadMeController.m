@@ -13,11 +13,16 @@
 #import "QYPersonalDataViewController.h"
 #import "QYAttentionViewController.h"
 #import "QYFansUserViewController.h"
+#import "QYRideUserLogic.h"
+#import "QYUserReform.h"
 
-@interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate>
+@interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
 @property (nonatomic, strong) QYReadMeHeaderView *headerView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
+@property (nonatomic, strong) QYRideUserLogic *userLogic;
+@property (nonatomic, strong) QYUserReform *userReform;
+@property (nonatomic, strong) QYUser *user;
 @end
 
 @implementation QYReadMeController
@@ -26,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setContentView];
+    [self loadData];
     // Do any additional setup after loading the view.
 }
 
@@ -40,6 +46,10 @@
 }
 
 #pragma mark - private method
+- (void)loadData {
+    
+    [self.userLogic loadData];
+}
 - (void)setContentView {
     
     [self.view addSubview:self.tableView];
@@ -49,8 +59,41 @@
     
     self.title = @"我的";
     self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     
+}
+
+#pragma mark - CTAPIManagerParamSource
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.userLogic.apiManager) {
+        
+        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+        return @{kuid:uid};
+    }
+    return nil;
+}
+
+#pragma mark - CTAPIManagerCallBackDelegate
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.userLogic.apiManager) {
+        
+        self.user = [self.userLogic fetchDataWithReformer:self.userReform];
+        self.headerView.user = self.user;
+    }
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.userLogic.apiManager) {
+        
+        
+    }
 }
 
 #pragma mark - headerView delegate
@@ -60,17 +103,20 @@
     QYPersonalDataViewController *person = [[QYPersonalDataViewController alloc] init];
     QYUser *user = [CTAppContext sharedInstance].currentUser;
     person.user = user;
+    person.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:person animated:YES];
 }
 - (void)clickAttentionButton:(QYReadMeHeaderView *)headerView {
     
     QYAttentionViewController *attention = [[QYAttentionViewController alloc] init];
+    attention.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:attention animated:YES];
 }
 
 - (void)clickFansButton:(QYReadMeHeaderView *)headerView {
     
     QYFansUserViewController *attention = [[QYFansUserViewController alloc] init];
+    attention.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:attention animated:YES];
 
 }
@@ -94,7 +140,7 @@
         
         _headerView = [[QYReadMeHeaderView alloc] init];
         _headerView.delegate = self;
-        _headerView.frame = CGRectMake(0, 0, kScreenWidth, 270);
+        _headerView.frame = CGRectMake(0, 0, kScreenWidth, cl_caculation_3y(548));
     }
     return _headerView;
 }
@@ -110,6 +156,25 @@
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"mecell"];
     }
     return _tableView;
+}
+
+- (QYUserReform *)userReform {
+    
+    if (!_userReform) {
+        _userReform = [[QYUserReform alloc] init];
+    }
+    return _userReform;
+}
+
+- (QYRideUserLogic *)userLogic {
+    
+    if (!_userLogic) {
+        
+        _userLogic = [[QYRideUserLogic alloc] init];
+        _userLogic.delegate = self;
+        _userLogic.paramSource = self;
+    }
+    return _userLogic;
 }
 
 /*

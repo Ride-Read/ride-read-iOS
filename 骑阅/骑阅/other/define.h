@@ -15,6 +15,7 @@
 #import "NSString+QYUrlEncode.h"
 #import "UIColor+QYHexStringColor.h"
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
 
 
 #define RGB(R,G,B) [UIColor colorWithRed:R/255. green:G/255. blue:B/255. alpha:1.0]
@@ -35,6 +36,7 @@
 
 
 #define SizeScale ((kScreenHeight > 568) ? kScreenHeight/568 : 1)
+#define SizeScale3x ((kScreenHeight > 667) ? kScreenHeight/667 : 1)
 
 static float cl_caculation_y(float x) {
     

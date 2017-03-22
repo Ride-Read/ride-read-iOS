@@ -17,6 +17,7 @@
 #import "QYCycleMessageReform.h"
 #import "QYFansUserViewController.h"
 #import "QYAttentionViewController.h"
+#import "QYDetailCycleLayout.h"
 
 @interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate>
 @property (nonatomic, strong) QYReadMeHeaderView *headerView;
@@ -90,8 +91,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
-    [self.navigationController pushViewController:look animated:YES];
+    QYFriendCycleDetailController *detail = [[QYFriendCycleDetailController alloc] init];
+    QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
+    QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
+    detail.layout = detailLayout;
+    [self.navigationController pushViewController:detail animated:YES];
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -265,6 +269,7 @@
         _headerView = [[QYReadMeHeaderView alloc] init];
         _headerView.delegate = self;
         _headerView.frame = CGRectMake(0, 0, kScreenWidth, 270);
+        _headerView.user = self.user;
     }
     return _headerView;
 }

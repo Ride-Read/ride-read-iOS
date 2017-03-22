@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger,CLAppLogicDataPolicy) {
 @class CLAppLogic;
 //经过AppLogic这一层的协调数据将是从同步后的本地数据库中获得
 
-@protocol CLAppLogicDelegate <NSObject>
+@protocol CLAppLogicDataReform <NSObject>
 
 @required
 //实现这个协议，可以获得子类数据同步后返回的数据
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger,CLAppLogicDataPolicy) {
 
 
 -(void)loadData;
--(id)fetchDataWithReformer:(id<CLAppLogicDelegate>)reformer;
+-(id)fetchDataWithReformer:(id<CLAppLogicDataReform>)reformer;
 
 
 

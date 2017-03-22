@@ -76,8 +76,6 @@
 }
 - (void)setNavc {
     
-    QYHomeTabBarViewController *tab = (QYHomeTabBarViewController *)self.tabBarController;
-    tab.tabBar.hidden = YES;
     self.title = @"详情";
     UIBarButtonItem *rightItem = [UIBarButtonItem creatItemWithImage:@"navigation_more" highLightImage:nil title:nil target:self action:@selector(clcikRightItem:)];
     self.navigationItem.rightBarButtonItem = rightItem;

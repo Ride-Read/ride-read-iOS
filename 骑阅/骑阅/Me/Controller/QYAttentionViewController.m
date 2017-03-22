@@ -18,6 +18,7 @@
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"关注";
     // Do any additional setup after loading the view.
 }
 
