@@ -8,8 +8,11 @@
 
 #import "QYTranslucentNoViewController.h"
 #import "QYUser.h"
+#import "QYReadMeHeaderView.h"
 
 @interface QYReadLookUserController : QYTranslucentNoViewController
 @property (nonatomic, strong) QYUser *user;
+@property (nonatomic, strong) QYReadMeHeaderView *headerView;
+
 
 @end

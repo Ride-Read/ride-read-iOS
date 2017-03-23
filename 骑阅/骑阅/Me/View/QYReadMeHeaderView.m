@@ -69,9 +69,9 @@
     [self.sexIcon mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.username.mas_right).offset(5);
-        make.top.equalTo(self.username.mas_top);
-        make.bottom.equalTo(self.username.mas_bottom);
-        make.width.mas_equalTo(10);
+        make.top.equalTo(self.username.mas_top).offset(3);
+        make.width.mas_equalTo(cl_caculation_3x(25));
+        make.height.mas_equalTo(cl_caculation_3y(25));
     }];
     [self.personMap mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -319,7 +319,7 @@
     [self initialTagsView];
     [self layoutAttention];
     [self layoutFans];
-    
+    [self layoutSex];
 }
 
 - (void)initialTagsView {
@@ -375,6 +375,17 @@
     [text addAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#555555"]} range:NSMakeRange(0, 3)];
     [self.fansButton setAttributedTitle:text forState:UIControlStateNormal];
 
+}
+- (void)layoutSex {
+    
+    NSNumber *sex = _user.sex;
+    if (sex.integerValue == 0) {
+        
+        self.sexIcon.image = [UIImage imageNamed:@"ride_female"];
+    } else {
+        
+        self.sexIcon.image = [UIImage imageNamed:@"ride_man"];
+    }
 }
 
 @end

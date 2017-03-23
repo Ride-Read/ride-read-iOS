@@ -91,6 +91,7 @@ static NSString * const ksiteLength = @"siteLength";
 static NSString * const kpraise = @"praise";
 static NSString * const kcomment = @"comment";
 static NSString * const kpages = @"pages";
+static NSString * const kfrom = @"from";
 
 
 #endif /* define_h */

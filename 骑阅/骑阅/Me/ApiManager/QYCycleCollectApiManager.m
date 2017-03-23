@@ -1,24 +1,22 @@
 //
-//  QYAttentionOrFansApiManager.m
+//  QYCycleCollectApiManager.m
 //  骑阅
 //
-//  Created by chen liang on 2017/3/21.
+//  Created by chen liang on 2017/3/24.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYAttentionOrFansApiManager.h"
+#import "QYCycleCollectApiManager.h"
 #import "define.h"
 
-@interface QYAttentionOrFansApiManager ()<CTAPIManagerValidator>
+@interface QYCycleCollectApiManager ()<CTAPIManagerValidator>
 @property (nonatomic, assign) int pages;
 @end
-@implementation QYAttentionOrFansApiManager
-
+@implementation QYCycleCollectApiManager
 - (instancetype)init {
     
     self = [super init];
     self.validator = self;
-    self.pages = 0;
     return self;
 }
 
@@ -36,10 +34,8 @@
     
     return CTAPIBaseManagerRequestTypePost;
 }
-
 - (NSDictionary *)reformParams:(NSDictionary *)params {
     
-    NSNumber *type = params[ktype];
     NSString *uid = params[kuid];
     if (self.isLoadMore) {
         
@@ -49,9 +45,11 @@
         
         self.pages = 0;
     }
-    return @{ktype:type,kuid:uid,kpages:@(_pages)};
+    return @{kuid:uid,kpages:@(_pages)};
     
 }
+
+
 #pragma mark - public method
 
 - (void)loadNext {
@@ -87,7 +85,9 @@
     [super afterPerformFailWithResponse:response];
     if (self.pages != 0 && self.isLoadMore) {
         
-        self.pages = self.pages - 1;
+        self.pages = self.pages - 10;
     }
 }
+
+
 @end

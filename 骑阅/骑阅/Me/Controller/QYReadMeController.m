@@ -15,6 +15,10 @@
 #import "QYFansUserViewController.h"
 #import "QYRideUserLogic.h"
 #import "QYUserReform.h"
+#import "QYRideMyCycleController.h"
+#import "QYRequstFrindViewController.h"
+#import "QYCyclePostController.h"
+#import "QYCycleCollectViewController.h"
 
 @interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
@@ -130,9 +134,100 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mecell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [cell showBottomLine];
+    switch (indexPath.row) {
+        case 0:
+        {
+            
+            cell.imageView.image = [UIImage imageNamed:@"ride_me_send"];
+            cell.textLabel.text = @"发个阅圈";
+        }
+            break;
+        case 1:
+        {
+            
+            cell.imageView.image = [UIImage imageNamed:@"ride_me_mycycle"];
+            cell.textLabel.text = @"我的阅圈";
+        }
+            break;
+        case 2:
+        {
+            
+            cell.imageView.image = [UIImage imageNamed:@"ride_me_collect"];
+            cell.textLabel.text = @"我的收藏";
+        }
+            break;
+        case 3:
+        {
+            
+            cell.imageView.image = [UIImage imageNamed:@"ride_me_request"];
+            cell.textLabel.text = @"邀请好友";
+        }
+            break;
+        case 4:
+        {
+            
+            cell.imageView.image = [UIImage imageNamed:@"ride_me_set"];
+            cell.textLabel.text = @"设置";
+        }
+            break;
+            
+        default:
+            break;
+    }
     return cell;
 }
 
+#pragma mark - tableview delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return cl_caculation_3y(110);
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    switch (indexPath.row) {
+            case 0:
+        {
+            
+            QYCyclePostController *post = [[QYCyclePostController alloc] init];
+            post.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:post animated:YES];
+            break;
+        }
+        case 1:
+        {
+            QYRideMyCycleController *myCycle = [[QYRideMyCycleController alloc] init];
+            myCycle.user = [CTAppContext sharedInstance].currentUser;
+            myCycle.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:myCycle animated:YES];
+            
+        }
+            break;
+            case 2:
+        {
+            QYCycleCollectViewController *collect = [[QYCycleCollectViewController alloc] init];
+            collect.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:collect animated:YES];
+            break;
+            
+        }
+            case 3:
+        {
+            
+            QYRequstFrindViewController *request = [[QYRequstFrindViewController alloc] init];
+            request.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:request animated:YES];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
 #pragma mark - setter and getter
 - (QYReadMeHeaderView *)headerView {
     

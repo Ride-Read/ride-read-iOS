@@ -15,7 +15,14 @@
 @end
 @implementation YYBasicTableView
 
--(instancetype)initWithRefeshSytle:(YYTableViewRefeshStyle)style {
+- (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+    
+    self = [super initWithFrame:frame style:style];
+    self.refeshStyle = YYTableViewRefeshStyleFooter;
+    self.cl_footer = [self setRefeshFooter];
+    return self;
+}
+- (instancetype)initWithRefeshSytle:(YYTableViewRefeshStyle)style {
     
     self.refeshStyle = style;
     if (self = [super init]) {

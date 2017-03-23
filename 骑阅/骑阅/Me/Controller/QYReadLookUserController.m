@@ -10,7 +10,6 @@
 #import "QYShowUserCycleApiManager.h"
 #import "QYCircleViewCell.h"
 #import "QYUserCycleLayout.h"
-#import "QYReadMeHeaderView.h"
 #import "YYBasicTableView.h"
 #import "QYFriendCycleDetailController.h"
 #import "QYCommentSectionView.h"
@@ -20,7 +19,6 @@
 #import "QYDetailCycleLayout.h"
 
 @interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate>
-@property (nonatomic, strong) QYReadMeHeaderView *headerView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, strong) QYShowUserCycleApiManager *cycleApiManager;
@@ -224,7 +222,7 @@
     
     if (!_tableView) {
         
-        _tableView = [[YYBasicTableView alloc] initWithRefeshSytle:YYTableViewRefeshStyleFooter];
+        _tableView = [[YYBasicTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.refesh = self;
