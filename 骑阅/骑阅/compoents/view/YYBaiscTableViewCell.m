@@ -39,6 +39,7 @@
     
     [self.contentView.layer addSublayer:self.topLine];
     [self.contentView.layer addSublayer:self.bottomLine];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 -(void)layoutSubviews {
     

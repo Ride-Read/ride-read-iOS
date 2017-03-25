@@ -19,6 +19,7 @@
 #import "QYRequstFrindViewController.h"
 #import "QYCyclePostController.h"
 #import "QYCycleCollectViewController.h"
+#import "QYSetViewController.h"
 
 @interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
@@ -222,6 +223,13 @@
             request.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:request animated:YES];
             break;
+        }
+            case 4:
+        {
+            
+            QYSetViewController *set = [[QYSetViewController alloc] init];
+            set.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:set animated:YES];
         }
             
         default:
