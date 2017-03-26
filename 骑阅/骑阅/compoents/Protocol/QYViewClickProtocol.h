@@ -13,3 +13,12 @@
 @optional;
 -(void)clickCustomView:(UIView *)customView index:(NSInteger)index;
 @end
+
+@protocol QYSearchViewProtocol <NSObject>
+@optional;
+
+- (void)searchView:(UIView *)search textDidChange:(NSString *)text;
+- (void)searchView:(UIView *)search textEndChange:(NSString *)text;
+- (void)searchView:(UIView *)search didClickExit:(UIButton *)button;
+
+@end

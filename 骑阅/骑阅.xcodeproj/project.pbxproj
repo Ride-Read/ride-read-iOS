@@ -30,6 +30,9 @@
 		BA12CCA61E86930100DDB8CF /* UILabel+QYTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCA51E86930100DDB8CF /* UILabel+QYTitle.m */; };
 		BA12CCA91E869A5300DDB8CF /* QYAboutRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCA81E869A5300DDB8CF /* QYAboutRideViewController.m */; };
 		BA12CCAC1E869C3D00DDB8CF /* QYSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCAB1E869C3D00DDB8CF /* QYSetViewController.m */; };
+		BA12CCB41E87882900DDB8CF /* QYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCB31E87882900DDB8CF /* QYSearchViewController.m */; };
+		BA12CCB71E87893C00DDB8CF /* QYSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCB61E87893C00DDB8CF /* QYSearchView.m */; };
+		BA12CCBD1E87A7DB00DDB8CF /* QYSearchApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCBC1E87A7DB00DDB8CF /* QYSearchApiManager.m */; };
 		BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */; };
 		BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFD1E6BE12A00EE8189 /* QN_GTM_Base64.m */; };
 		BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFF1E6BE12A00EE8189 /* QNALAssetFile.m */; };
@@ -280,6 +283,13 @@
 		BA12CCA81E869A5300DDB8CF /* QYAboutRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAboutRideViewController.m; sourceTree = "<group>"; };
 		BA12CCAA1E869C3D00DDB8CF /* QYSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSetViewController.h; sourceTree = "<group>"; };
 		BA12CCAB1E869C3D00DDB8CF /* QYSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSetViewController.m; sourceTree = "<group>"; };
+		BA12CCB21E87882900DDB8CF /* QYSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchViewController.h; sourceTree = "<group>"; };
+		BA12CCB31E87882900DDB8CF /* QYSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSearchViewController.m; sourceTree = "<group>"; };
+		BA12CCB51E87893C00DDB8CF /* QYSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchView.h; sourceTree = "<group>"; };
+		BA12CCB61E87893C00DDB8CF /* QYSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSearchView.m; sourceTree = "<group>"; };
+		BA12CCBA1E87A44000DDB8CF /* QYSearchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchDelegate.h; sourceTree = "<group>"; };
+		BA12CCBB1E87A7DB00DDB8CF /* QYSearchApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchApiManager.h; sourceTree = "<group>"; };
+		BA12CCBC1E87A7DB00DDB8CF /* QYSearchApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSearchApiManager.m; sourceTree = "<group>"; };
 		BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CreatUIBarButtonItem.h"; sourceTree = "<group>"; };
 		BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CreatUIBarButtonItem.m"; sourceTree = "<group>"; };
 		BA354CFC1E6BE12A00EE8189 /* QN_GTM_Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QN_GTM_Base64.h; sourceTree = "<group>"; };
@@ -899,6 +909,60 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BA12CCAD1E87876700DDB8CF /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BA12CCB91E87A41A00DDB8CF /* Protocol */,
+				BA12CCAE1E87876700DDB8CF /* ApiManger */,
+				BA12CCAF1E87876700DDB8CF /* Controller */,
+				BA12CCB01E87876700DDB8CF /* Model */,
+				BA12CCB11E87876700DDB8CF /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BA12CCAE1E87876700DDB8CF /* ApiManger */ = {
+			isa = PBXGroup;
+			children = (
+				BA12CCBB1E87A7DB00DDB8CF /* QYSearchApiManager.h */,
+				BA12CCBC1E87A7DB00DDB8CF /* QYSearchApiManager.m */,
+			);
+			path = ApiManger;
+			sourceTree = "<group>";
+		};
+		BA12CCAF1E87876700DDB8CF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BA12CCB21E87882900DDB8CF /* QYSearchViewController.h */,
+				BA12CCB31E87882900DDB8CF /* QYSearchViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BA12CCB01E87876700DDB8CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA12CCB11E87876700DDB8CF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA12CCB51E87893C00DDB8CF /* QYSearchView.h */,
+				BA12CCB61E87893C00DDB8CF /* QYSearchView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BA12CCB91E87A41A00DDB8CF /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				BA12CCBA1E87A44000DDB8CF /* QYSearchDelegate.h */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		BA354CFA1E6BE12A00EE8189 /* QiniuSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1156,6 +1220,7 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				BA12CCAD1E87876700DDB8CF /* Search */,
 				BA12CC861E867CE900DDB8CF /* Set */,
 				BAC8714E1E78409100C5F800 /* Reform */,
 				EC7AA16D1E5C90B400EA54AA /* ReadMap */,
@@ -2100,6 +2165,7 @@
 				BA354D781E6BE20000EE8189 /* QNHijackingDetectWrapper.m in Sources */,
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
 				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
+				BA12CCB41E87882900DDB8CF /* QYSearchViewController.m in Sources */,
 				BAC8716E1E7991A400C5F800 /* NSString+QYUrlEncode.m in Sources */,
 				BAC871571E78454000C5F800 /* QYQiuniuTokenCommand.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
@@ -2166,6 +2232,7 @@
 				BA354D371E6BE12A00EE8189 /* QNResponseInfo.m in Sources */,
 				BA9D1D781E7CE18100276E76 /* QYShowUserCycleApiManager.m in Sources */,
 				BA12CCA61E86930100DDB8CF /* UILabel+QYTitle.m in Sources */,
+				BA12CCB71E87893C00DDB8CF /* QYSearchView.m in Sources */,
 				BA9AAA9E1E692C7000D7A5BB /* YYTextDebugOption.m in Sources */,
 				BA354D761E6BE20000EE8189 /* QNDnspodEnterprise.m in Sources */,
 				BA354D2F1E6BE12A00EE8189 /* QNAsyncRun.m in Sources */,
@@ -2247,6 +2314,7 @@
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
 				BAA0017B1E50725B0067A894 /* CTCache.m in Sources */,
+				BA12CCBD1E87A7DB00DDB8CF /* QYSearchApiManager.m in Sources */,
 				BA9D1D811E7D356B00276E76 /* QYCyclePostController.m in Sources */,
 				BAA0018C1E50725B0067A894 /* CTLoggerConfiguration.m in Sources */,
 			);

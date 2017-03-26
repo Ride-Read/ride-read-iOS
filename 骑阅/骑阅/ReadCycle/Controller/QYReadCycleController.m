@@ -21,6 +21,7 @@
 #import "QYPictureLookView.h"
 #import "QYUserCycleLayout.h"
 #import "QYCycleMessageReform.h"
+#import "QYSearchViewController.h"
 
 @interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;
@@ -134,6 +135,8 @@
 - (void)clickSearchButton:(UIBarButtonItem *)button {
     
     
+    QYSearchViewController *search = [[QYSearchViewController alloc] init];
+    [self presentViewController:search animated:YES completion:nil];
 }
 #pragma mark - ClickCutom delegate
 
