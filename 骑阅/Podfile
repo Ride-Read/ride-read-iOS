@@ -7,6 +7,9 @@ pod 'SDWebImage'
 pod 'MJRefresh'
 pod 'Masonry'
 pod 'AFNetworking'
+pod 'AVOSCloud'               
+pod 'AVOSCloudIM'             
+pod 'AVOSCloudCrashReporting' 
 
 end
 

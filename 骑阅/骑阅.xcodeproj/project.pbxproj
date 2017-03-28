@@ -89,6 +89,12 @@
 		BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF21E4F37D600F1027B /* LaunchScreen.storyboard */; };
 		BA55BFFF1E4F37D600F1027B /* __Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFFE1E4F37D600F1027B /* __Tests.m */; };
 		BA55C00A1E4F37D600F1027B /* __UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55C0091E4F37D600F1027B /* __UITests.m */; };
+		BA8055431E8969D30009A4D7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055421E8969D30009A4D7 /* libc++.tbd */; };
+		BA8055451E8969E60009A4D7 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055441E8969E60009A4D7 /* libsqlite3.tbd */; };
+		BA8055471E8969F30009A4D7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */; };
+		BA8055491E8969FF0009A4D7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055481E8969FF0009A4D7 /* MobileCoreServices.framework */; };
+		BA80554B1E896A090009A4D7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA80554A1E896A090009A4D7 /* CoreTelephony.framework */; };
+		BA80554D1E896A160009A4D7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA80554C1E896A160009A4D7 /* CoreLocation.framework */; };
 		BA995D011E84264D002FA3B2 /* QYRideMyCycleController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */; };
 		BA995D041E842BED002FA3B2 /* QYRequstFrindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D031E842BED002FA3B2 /* QYRequstFrindViewController.m */; };
 		BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D061E842F71002FA3B2 /* QYCycleCollectViewController.m */; };
@@ -409,6 +415,12 @@
 		BA55C0051E4F37D600F1027B /* 骑阅UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "骑阅UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA55C0091E4F37D600F1027B /* __UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = __UITests.m; sourceTree = "<group>"; };
 		BA55C00B1E4F37D600F1027B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA8055421E8969D30009A4D7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		BA8055441E8969E60009A4D7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BA8055481E8969FF0009A4D7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		BA80554A1E896A090009A4D7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		BA80554C1E896A160009A4D7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BA995CFF1E84264D002FA3B2 /* QYRideMyCycleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRideMyCycleController.h; sourceTree = "<group>"; };
 		BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRideMyCycleController.m; sourceTree = "<group>"; };
 		BA995D021E842BED002FA3B2 /* QYRequstFrindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRequstFrindViewController.h; sourceTree = "<group>"; };
@@ -680,6 +692,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA80554D1E896A160009A4D7 /* CoreLocation.framework in Frameworks */,
+				BA80554B1E896A090009A4D7 /* CoreTelephony.framework in Frameworks */,
+				BA8055491E8969FF0009A4D7 /* MobileCoreServices.framework in Frameworks */,
+				BA8055471E8969F30009A4D7 /* SystemConfiguration.framework in Frameworks */,
+				BA8055451E8969E60009A4D7 /* libsqlite3.tbd in Frameworks */,
+				BA8055431E8969D30009A4D7 /* libc++.tbd in Frameworks */,
 				BA354D871E6BE4CE00EE8189 /* libresolv.9.tbd in Frameworks */,
 				BA354D851E6BE4BC00EE8189 /* libz.tbd in Frameworks */,
 				BA354D831E6BE4B200EE8189 /* libcurses.tbd in Frameworks */,
@@ -707,6 +725,12 @@
 		22E49B671CD68E6F04C41DAA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA80554C1E896A160009A4D7 /* CoreLocation.framework */,
+				BA80554A1E896A090009A4D7 /* CoreTelephony.framework */,
+				BA8055481E8969FF0009A4D7 /* MobileCoreServices.framework */,
+				BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */,
+				BA8055441E8969E60009A4D7 /* libsqlite3.tbd */,
+				BA8055421E8969D30009A4D7 /* libc++.tbd */,
 				BA354D861E6BE4CE00EE8189 /* libresolv.9.tbd */,
 				BA354D841E6BE4BC00EE8189 /* libz.tbd */,
 				BA354D821E6BE4B200EE8189 /* libcurses.tbd */,

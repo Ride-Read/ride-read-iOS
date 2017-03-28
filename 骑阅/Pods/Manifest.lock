@@ -14,6 +14,25 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AVOSCloud (3.9.0)
+  - AVOSCloudCrashReporting (3.9.0):
+    - AVOSCloud (= 3.9.0)
+    - AVOSCloudCrashReporting/_ARC (= 3.9.0)
+    - AVOSCloudCrashReporting/_NOARC (= 3.9.0)
+  - AVOSCloudCrashReporting/_ARC (3.9.0):
+    - AVOSCloud (= 3.9.0)
+    - AVOSCloudCrashReporting/_NOARC (= 3.9.0)
+  - AVOSCloudCrashReporting/_NOARC (3.9.0):
+    - AVOSCloud (= 3.9.0)
+  - AVOSCloudIM (3.9.0):
+    - AVOSCloud (= 3.9.0)
+    - AVOSCloudIM/_ARC (= 3.9.0)
+    - AVOSCloudIM/_NOARC (= 3.9.0)
+  - AVOSCloudIM/_ARC (3.9.0):
+    - AVOSCloud (= 3.9.0)
+    - AVOSCloudIM/_NOARC (= 3.9.0)
+  - AVOSCloudIM/_NOARC (3.9.0):
+    - AVOSCloud (= 3.9.0)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
@@ -23,6 +42,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - AVOSCloud
+  - AVOSCloudCrashReporting
+  - AVOSCloudIM
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -30,11 +52,14 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AVOSCloud: 3ef7ddf9bdab1b2b3ff693c22a9b05aace322cbc
+  AVOSCloudCrashReporting: 9aaf151ea4451783b2ec85ef734a35706428abc0
+  AVOSCloudIM: 6313e74d023df0660f4958e267d8fcf78ac44f19
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: f185eac988c7f14ce3649220ced0fe7e3f677fb8
+PODFILE CHECKSUM: d80fc05e4e263a84f6afe4b351103316b804b58d
 
 COCOAPODS: 1.2.0

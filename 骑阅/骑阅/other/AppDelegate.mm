@@ -10,6 +10,9 @@
 #import "QYLoginOrRegisterFatherController.h"
 #import "QYHomeTabBarViewController.h"
 #import "CTAppContext.h"
+#import <AVOSCloud/AVOSCloud.h>
+static NSString *const LCCKAPPID = @"dYRQ8YfHRiILshUnfFJu2eQM-gzGzoHsz";
+static NSString *const LCCKAPPKEY = @"ye24iIK6ys8IvaISMC4Bs5WK";
 
 @interface AppDelegate ()
 
@@ -20,6 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [AVOSCloud setApplicationId:LCCKAPPID clientKey:LCCKAPPKEY];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     QYUser *curentUser = [CTAppContext sharedInstance].currentUser;
