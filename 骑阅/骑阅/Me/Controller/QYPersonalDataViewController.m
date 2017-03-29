@@ -47,26 +47,17 @@
 }
 - (void) setupTableView {
     
-    self.tableView = [[UITableView alloc]init];
+    self.tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
-    
+    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 49, 0);
+    self.tableView.sectionHeaderHeight = 5;
+    self.tableView.sectionFooterHeight = 5;
+    [self.tableView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
     [self.view addSubview:self.tableView];
-    
-    //添加tableView的约束
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(0);
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-    }];
-    
-    
 }
 
 #pragma -- <UITableViewDataSource>
@@ -87,14 +78,6 @@
     }
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 2) {
-        return 0;
-    } else {
-        return 10;
-    }
-}
-
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row ==0) {
@@ -104,67 +87,33 @@
     }
 }
 
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:@"QYPersonalDataCell"];
+
     if (indexPath.section == 0) {
-        
-        
         if (indexPath.row == 0) {
-            
-            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellImageView];
-            cell.mainTitleLabel.text = @"头像";
-            cell.subImageView.image = [UIImage imageNamed:@"me"];
-            cell.showBottomLine = YES;
-            return cell;
+            cell.cellType = QYPersonalDataCellImageView;
+            cell.subImageView.image = nil;
         } else {
-            
-            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
-            cell.mainTitleLabel.text = @"昵称";
-            cell.subLabel.text = @"建议使用真实姓名";
-            return cell;
+            cell.cellType = QYPersonalDataCellLabel;
+            cell.subLabel.text = self.user.username;
         }
-        
-    } else if (indexPath.section == 1)  {
-        
-        
+    } else if (indexPath.section == 1) {
+        cell.cellType = QYPersonalDataCellLabel;
         if (indexPath.row == 0) {
-            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
-            cell.mainTitleLabel.text = @"性别";
-            cell.showBottomLine = YES;
-            return cell;
-
+            cell.subLabel.text = [NSString stringWithFormat:@"%zd",self.user.sex];
         } else if (indexPath.row == 1) {
-            
-            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
-            cell.mainTitleLabel.text = @"标签";
-            cell.subLabel.text = @"旅游、户外、美食";
-            cell.showBottomLine = YES;
-            return cell;
+            cell.subLabel.text = @"标签";
         } else {
-            
-            QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
-            cell.mainTitleLabel.text = @"个性签名";
-            cell.subLabel.text = @"勤奋会带来好运";
-            cell.showBottomLine = YES;
-            return cell;
+            cell.subLabel.text = @"个性签名";
         }
-        
+    } else {
+        cell.cellType = QYPersonalDataCellLabel;
+        cell.subLabel.text = [NSString stringWithFormat:@"%zd",indexPath.row];
     }
-      else {
-        
-        NSArray * mainTitles = @[@"手机号",@"毕业/在读院校",@"所在地",@"家乡",@"职业"];
-        NSArray * subLabels = @[@"15521337313",@"广东工业大学",@"广州",@"阳春",@"学生"];
-        
-        QYPersonalDataCell * cell = [QYPersonalDataCell loadCellInTableView:tableView cellType:QYPersonalDataCellLabel];
-        cell.showBottomLine = YES;
-        NSString * mainTitle = mainTitles[indexPath.row];
-        NSString * subLabel = subLabels[indexPath.row];
-        cell.mainTitleLabel.text = mainTitle;
-        cell.subLabel.text = subLabel;
-        return cell;
-    }
+    return cell;
 }
-
 #pragma -- <UITaleViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     

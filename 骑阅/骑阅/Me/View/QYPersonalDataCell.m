@@ -10,6 +10,7 @@
 #import "UIView+Frame.h"
 #import <Masonry/Masonry.h>
 #import "UIColor+QYHexStringColor.h"
+#import "define.h"
 
 
 @interface QYPersonalDataCell()
@@ -18,33 +19,23 @@
 
 @implementation QYPersonalDataCell
 
-+(instancetype) loadCellInTableView:(UITableView *)tableView cellType:(QYPersonalDataCellType)cellType {
-    
-    static NSString * ID = @"QYPersonalDataCell";
-    QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-    
-        cell = [[QYPersonalDataCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID cellType:cellType];
-    }
-    
-    return cell;
-}
-
--(instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellType:(QYPersonalDataCellType)cellType{
+-(instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self setupUIWithCellType:cellType];
+        [self setupUI];
+        
     }
     return self;
 }
 
--(void) setupUIWithCellType:(QYPersonalDataCellType)cellType {
+-(void) setupUI {
     
-    
+    [self.contentView showBottomLine];
     self.mainTitleLabel = [[UILabel alloc]init];
     self.mainTitleLabel.font = [UIFont systemFontOfSize:16.0];
     [self.mainTitleLabel setTextColor:[UIColor colorWithHexString:000000]];
     [self.contentView addSubview:self.mainTitleLabel];
+    
     
     self.indicatorView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"right_arrow"]];
     [self.contentView addSubview:self.indicatorView];
@@ -55,33 +46,40 @@
     [self.contentView addSubview:self.subLabel];
     
     self.subImageView = [[UIImageView alloc]init];
+    self.subImageView.image = [UIImage imageNamed:@"me"];
     [self.contentView addSubview:self.subImageView];
 
     
-    if (cellType == QYPersonalDataCellDefault) {
-        
-        self.indicatorView.hidden = NO;
-        self.mainTitleLabel.hidden = NO;
-        self.subImageView.hidden = YES;
-        self.subLabel.hidden = YES;
-        
-    } else if (cellType == QYPersonalDataCellLabel) {
-        
-        self.indicatorView.hidden = NO;
-        self.mainTitleLabel.hidden = NO;
-        self.subLabel.hidden = NO;
-        self.subImageView.hidden = YES;
-        
-    } else {
-        
-        self.indicatorView.hidden = NO;
-        self.mainTitleLabel.hidden = NO;
-        self.subImageView.hidden = NO;
-        self.subLabel.hidden = YES;
-    }
-    
 }
 
+
+- (void)setCellType:(QYPersonalDataCellType)cellType {
+    
+        if (cellType == QYPersonalDataCellDefault) {
+    
+            self.indicatorView.hidden = NO;
+            self.mainTitleLabel.hidden = NO;
+            self.subImageView.hidden = YES;
+            self.subLabel.hidden = YES;
+    
+        } else if (cellType == QYPersonalDataCellLabel) {
+    
+            self.indicatorView.hidden = NO;
+            self.mainTitleLabel.hidden = NO;
+            self.subLabel.hidden = NO;
+            self.subImageView.hidden = YES;
+    
+        } else {
+    
+            self.indicatorView.hidden = NO;
+            self.mainTitleLabel.hidden = NO;
+            self.subImageView.hidden = NO;
+            self.subLabel.hidden = YES;
+        }
+        
+
+    
+}
 -(void) layoutSubviews {
     
     [super layoutSubviews];
