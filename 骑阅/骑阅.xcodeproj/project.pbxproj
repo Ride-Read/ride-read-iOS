@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D4FF71E704612003FD8BD /* UIView+Frame.m */; };
+		2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BB344361E8BB69A00BB8C40 /* meizi2.png */; };
 		2BB71EB71E7946AA00187565 /* QYTagPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB71EB61E7946AA00187565 /* QYTagPromptView.m */; };
 		2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */; };
 		2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */; };
@@ -247,6 +248,7 @@
 /* Begin PBXFileReference section */
 		2B4D4FF61E704612003FD8BD /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		2B4D4FF71E704612003FD8BD /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		2BB344361E8BB69A00BB8C40 /* meizi2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meizi2.png; sourceTree = "<group>"; };
 		2BB71EB51E7946AA00187565 /* QYTagPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTagPromptView.h; sourceTree = "<group>"; };
 		2BB71EB61E7946AA00187565 /* QYTagPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTagPromptView.m; sourceTree = "<group>"; };
 		2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonalDataViewController.h; sourceTree = "<group>"; };
@@ -816,6 +818,7 @@
 			children = (
 				2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */,
 				2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */,
+				2BB344361E8BB69A00BB8C40 /* meizi2.png */,
 				2BCF72441E79026900E9B3CE /* QYNamePromptView.h */,
 				2BCF72451E79026900E9B3CE /* QYNamePromptView.m */,
 				2BB71EB51E7946AA00187565 /* QYTagPromptView.h */,
@@ -2068,6 +2071,7 @@
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
+				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
