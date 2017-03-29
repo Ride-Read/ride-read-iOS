@@ -17,7 +17,7 @@
 		2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530D1E6EFDFD007313E7 /* QYTest2.m */; };
 		2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53101E6EFE2E007313E7 /* QYtest3.m */; };
 		2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53131E6EFE41007313E7 /* QYtest4.m */; };
-		2BCF72461E79026900E9B3CE /* QYNamePromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYNamePromptView.m */; };
+		2BCF72461E79026900E9B3CE /* QYTextPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYTextPromptView.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA074B491E7EEBC100E5DE0D /* QYCycleBasicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA074B481E7EEBC100E5DE0D /* QYCycleBasicLayout.m */; };
 		BA074B4C1E7EF1D900E5DE0D /* QYUserCycleLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA074B4B1E7EF1D900E5DE0D /* QYUserCycleLayout.m */; };
@@ -265,8 +265,8 @@
 		2BBD53101E6EFE2E007313E7 /* QYtest3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest3.m; sourceTree = "<group>"; };
 		2BBD53121E6EFE41007313E7 /* QYtest4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest4.h; sourceTree = "<group>"; };
 		2BBD53131E6EFE41007313E7 /* QYtest4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest4.m; sourceTree = "<group>"; };
-		2BCF72441E79026900E9B3CE /* QYNamePromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYNamePromptView.h; sourceTree = "<group>"; };
-		2BCF72451E79026900E9B3CE /* QYNamePromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYNamePromptView.m; sourceTree = "<group>"; };
+		2BCF72441E79026900E9B3CE /* QYTextPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTextPromptView.h; sourceTree = "<group>"; };
+		2BCF72451E79026900E9B3CE /* QYTextPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTextPromptView.m; sourceTree = "<group>"; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
 		BA074B471E7EEBC100E5DE0D /* QYCycleBasicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCycleBasicLayout.h; sourceTree = "<group>"; };
 		BA074B481E7EEBC100E5DE0D /* QYCycleBasicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCycleBasicLayout.m; sourceTree = "<group>"; };
@@ -819,8 +819,8 @@
 				2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */,
 				2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */,
 				2BB344361E8BB69A00BB8C40 /* meizi2.png */,
-				2BCF72441E79026900E9B3CE /* QYNamePromptView.h */,
-				2BCF72451E79026900E9B3CE /* QYNamePromptView.m */,
+				2BCF72441E79026900E9B3CE /* QYTextPromptView.h */,
+				2BCF72451E79026900E9B3CE /* QYTextPromptView.m */,
 				2BB71EB51E7946AA00187565 /* QYTagPromptView.h */,
 				2BB71EB61E7946AA00187565 /* QYTagPromptView.m */,
 				BA074B501E801AB800E5DE0D /* QYReadMeHeaderView.h */,
@@ -2286,7 +2286,7 @@
 				BA354D771E6BE20000EE8189 /* QNDnspodFree.m in Sources */,
 				BAC9590B1E757716007E171E /* QYCommpentCellLayout.m in Sources */,
 				BA354D3B1E6BE12A00EE8189 /* QNConfiguration.m in Sources */,
-				2BCF72461E79026900E9B3CE /* QYNamePromptView.m in Sources */,
+				2BCF72461E79026900E9B3CE /* QYTextPromptView.m in Sources */,
 				BA9D1D871E7D92A500276E76 /* QYPictureLookView.m in Sources */,
 				EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */,
 				BA354D391E6BE12A00EE8189 /* QNUserAgent.m in Sources */,

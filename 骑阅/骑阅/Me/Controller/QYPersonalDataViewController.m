@@ -11,7 +11,7 @@
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "define.h"
 #import "QYPersonalDataCell.h"
-#import "QYNamePromptView.h"
+#import "QYTextPromptView.h"
 #import "QYTagPromptView.h"
 
 
@@ -53,9 +53,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 49, 0);
-    self.tableView.sectionHeaderHeight = 5;
-    self.tableView.sectionFooterHeight = 5;
+    self.tableView.contentInset = UIEdgeInsetsMake(-25, 0, 49, 0);
+    self.tableView.sectionHeaderHeight = 2;
+    self.tableView.sectionFooterHeight = 2;
     [self.tableView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
     [self.view addSubview:self.tableView];
 }
@@ -92,25 +92,46 @@
     QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:@"QYPersonalDataCell"];
 
     if (indexPath.section == 0) {
+        
+        NSArray * data = @[@"头像",@"昵称"];
+        cell.mainTitleLabel.text = data[indexPath.row];
         if (indexPath.row == 0) {
+            
             cell.cellType = QYPersonalDataCellImageView;
-            cell.subImageView.image = nil;
+            cell.subImageView.image = [UIImage imageNamed:@"meizi2.png"];
+            
         } else {
+            
             cell.cellType = QYPersonalDataCellLabel;
             cell.subLabel.text = self.user.username;
+            
         }
     } else if (indexPath.section == 1) {
+        
         cell.cellType = QYPersonalDataCellLabel;
+        NSArray * data = @[@"性别",@"标签",@"个性签名"];
+        cell.mainTitleLabel.text = data[indexPath.row];
         if (indexPath.row == 0) {
-            cell.subLabel.text = [NSString stringWithFormat:@"%zd",self.user.sex];
+
+            cell.subLabel.text = [NSString stringWithFormat:@"%@",self.user.sex];
+            
         } else if (indexPath.row == 1) {
+
             cell.subLabel.text = @"标签";
+            
         } else {
-            cell.subLabel.text = @"个性签名";
+            
+            cell.subLabel.text = self.user.signature;
+            
         }
-    } else {
+    } else if (indexPath.section == 2) {
+        
         cell.cellType = QYPersonalDataCellLabel;
-        cell.subLabel.text = [NSString stringWithFormat:@"%zd",indexPath.row];
+        NSArray * data = @[@"手机号",@"毕业/在读学校",@"所在地",@"家乡",@"职业"];
+        cell.mainTitleLabel.text = data[indexPath.row];
+        
+    } else  {
+        return nil;
     }
     return cell;
 }
@@ -119,9 +140,16 @@
     
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
-            QYNamePromptView * nameView = [QYNamePromptView creatView];
+            QYTextPromptView * nameView = [QYTextPromptView creatView];
+            nameView.placeHolder = @"建议使用真实姓名";
             nameView.title = @"昵称";
             [nameView show];
+            [nameView ConfigClickWithBlock:^(NSString * targetString) {
+                
+                self.user.username = targetString;
+                [self.tableView reloadData];
+                
+            }];
         }
     } else if (indexPath.section == 1) {
         
@@ -130,6 +158,20 @@
             QYTagPromptView * tagView = [QYTagPromptView creatView];
             tagView.title = @"标签";
             [tagView show];
+            
+        } else if (indexPath.row == 2) {
+            
+            QYTextPromptView * nameView = [QYTextPromptView creatView];
+            nameView.placeHolder = @"编辑个性签名";
+            nameView.title = @"个性签名";
+            [nameView show];
+            [nameView ConfigClickWithBlock:^(NSString * targetString) {
+                
+                self.user.signature = targetString;
+                [self.tableView reloadData];
+                
+            }];
+
         }
     }
 }

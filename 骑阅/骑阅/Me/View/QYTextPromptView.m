@@ -1,18 +1,18 @@
 //
-//  QYNamePromptView.m
+//  QYTextPromptView.m
 //  骑阅
 //
 //  Created by 谢升阳 on 2017/3/15.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYNamePromptView.h"
+#import "QYTextPromptView.h"
 #import "UIView+Frame.h"
 #import "YYLabel.h"
 #import "UIColor+QYHexStringColor.h"
 #import "QYLoginTextField.h"
 
-@interface QYNamePromptView ()
+@interface QYTextPromptView ()
 
 /** titleLabel */
 @property(nonatomic,strong) YYLabel * titleLabel;
@@ -26,12 +26,13 @@
 @property(nonatomic,strong) UIButton * cancleBtn;
 /** configBtn */
 @property(nonatomic,strong) UIButton * configBtn;
-/** inputTextField */
-@property(nonatomic,strong) UITextField * inputTextField;
+
 
 @end
 
-@implementation QYNamePromptView
+@implementation QYTextPromptView {
+    ConfigClickBlock configClickBlock;
+}
 
 + (instancetype)creatView {
     
@@ -86,7 +87,6 @@
     [self addSubview:self.subCutLine];
     
     self.inputTextField = [[UITextField alloc]init];
-    self.inputTextField.placeholder = @"建议使用真实姓名";
     [self addSubview:self.inputTextField];
     
 }
@@ -100,6 +100,11 @@
     
     _title = title;
     self.titleLabel.text = title;
+}
+- (void)setPlaceHolder:(NSString *)placeHolder {
+    
+    _placeHolder = placeHolder;
+    self.inputTextField.placeholder = placeHolder;
 }
 
 - (void)layoutSubviews {
@@ -161,12 +166,20 @@
 
 - (void)buttonClick:(UIButton *)sender {
     
-    NSLog(@"%@-->%zd",self.inputTextField.text,sender.tag);
+    if (configClickBlock) {
+        configClickBlock(self.inputTextField.text);
+    }
     [self closeView];
     
 }
 
-
+//实现block方法
+- (void)ConfigClickWithBlock:(ConfigClickBlock)block {
+    
+    if (block) {
+        configClickBlock = block;
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
