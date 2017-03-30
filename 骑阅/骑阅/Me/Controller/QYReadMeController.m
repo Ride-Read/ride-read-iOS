@@ -77,7 +77,7 @@
     if (manager == self.userLogic.apiManager) {
         
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-        return @{kuid:uid};
+        return @{kuid:uid?:@(-1)};
     }
     return nil;
 }
