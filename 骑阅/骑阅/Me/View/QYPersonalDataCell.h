@@ -20,7 +20,6 @@ typedef NS_ENUM(NSInteger, QYPersonalDataCellType) {
 
 /** mainTitleLabel */
 @property(nonatomic,strong) UILabel * mainTitleLabel;
-
 /** indicatorView */
 @property(nonatomic,strong) UIImageView * indicatorView;
 /** subImageView */
@@ -28,7 +27,6 @@ typedef NS_ENUM(NSInteger, QYPersonalDataCellType) {
 /** subLabel */
 @property(nonatomic,strong) UILabel * subLabel;
 
-
-+ (instancetype)loadCellInTableView:(UITableView *)tableView cellType:(QYPersonalDataCellType)cellType;
-
+/** type */
+@property(nonatomic,assign) QYPersonalDataCellType cellType;
 @end
