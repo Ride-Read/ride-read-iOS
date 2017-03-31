@@ -36,39 +36,38 @@
 #import "LCIMWireFormat.h"
 
 // Describes attributes of the field.
-typedef NS_OPTIONS(uint16_t, LCIMFieldFlags) {
-  LCIMFieldNone            = 0,
+typedef NS_OPTIONS(uint16_t, GPBFieldFlags) {
   // These map to standard protobuf concepts.
-  LCIMFieldRequired        = 1 << 0,
-  LCIMFieldRepeated        = 1 << 1,
-  LCIMFieldPacked          = 1 << 2,
-  LCIMFieldOptional        = 1 << 3,
-  LCIMFieldHasDefaultValue = 1 << 4,
+  GPBFieldRequired        = 1 << 0,
+  GPBFieldRepeated        = 1 << 1,
+  GPBFieldPacked          = 1 << 2,
+  GPBFieldOptional        = 1 << 3,
+  GPBFieldHasDefaultValue = 1 << 4,
 
   // Indicates the field needs custom handling for the TextFormat name, if not
   // set, the name can be derived from the ObjC name.
-  LCIMFieldTextFormatNameCustom = 1 << 6,
+  GPBFieldTextFormatNameCustom = 1 << 6,
   // Indicates the field has an enum descriptor.
-  LCIMFieldHasEnumDescriptor = 1 << 7,
+  GPBFieldHasEnumDescriptor = 1 << 7,
 
   // These are not standard protobuf concepts, they are specific to the
   // Objective C runtime.
 
   // These bits are used to mark the field as a map and what the key
   // type is.
-  LCIMFieldMapKeyMask     = 0xF << 8,
-  LCIMFieldMapKeyInt32    =  1 << 8,
-  LCIMFieldMapKeyInt64    =  2 << 8,
-  LCIMFieldMapKeyUInt32   =  3 << 8,
-  LCIMFieldMapKeyUInt64   =  4 << 8,
-  LCIMFieldMapKeySInt32   =  5 << 8,
-  LCIMFieldMapKeySInt64   =  6 << 8,
-  LCIMFieldMapKeyFixed32  =  7 << 8,
-  LCIMFieldMapKeyFixed64  =  8 << 8,
-  LCIMFieldMapKeySFixed32 =  9 << 8,
-  LCIMFieldMapKeySFixed64 = 10 << 8,
-  LCIMFieldMapKeyBool     = 11 << 8,
-  LCIMFieldMapKeyString   = 12 << 8,
+  GPBFieldMapKeyMask     = 0xF << 8,
+  GPBFieldMapKeyInt32    =  1 << 8,
+  GPBFieldMapKeyInt64    =  2 << 8,
+  GPBFieldMapKeyUInt32   =  3 << 8,
+  GPBFieldMapKeyUInt64   =  4 << 8,
+  GPBFieldMapKeySInt32   =  5 << 8,
+  GPBFieldMapKeySInt64   =  6 << 8,
+  GPBFieldMapKeyFixed32  =  7 << 8,
+  GPBFieldMapKeyFixed64  =  8 << 8,
+  GPBFieldMapKeySFixed32 =  9 << 8,
+  GPBFieldMapKeySFixed64 = 10 << 8,
+  GPBFieldMapKeyBool     = 11 << 8,
+  GPBFieldMapKeyString   = 12 << 8,
 };
 
 // NOTE: The structures defined here have their members ordered to minimize
@@ -83,7 +82,7 @@ typedef struct GPBMessageFieldDescription {
     const char *className;  // Name for message class.
     // For enums only: If EnumDescriptors are compiled in, it will be that,
     // otherwise it will be the verifier.
-    LCIMEnumDescriptorFunc enumDescFunc;
+    GPBEnumDescriptorFunc enumDescFunc;
     GPBEnumValidationFunc enumVerifier;
   } dataTypeSpecific;
   // The field number for the ivar.
@@ -96,7 +95,7 @@ typedef struct GPBMessageFieldDescription {
   // Offset of the variable into it's structure struct.
   uint32_t offset;
   // Field flags. Use accessor functions below.
-  LCIMFieldFlags flags;
+  GPBFieldFlags flags;
   // Data type of the ivar.
   GPBDataType dataType;
 } GPBMessageFieldDescription;
@@ -112,7 +111,6 @@ typedef struct GPBMessageFieldDescriptionWithDefault {
 
 // Describes attributes of the extension.
 typedef NS_OPTIONS(uint8_t, GPBExtensionOptions) {
-  GPBExtensionNone          = 0,
   // These map to standard protobuf concepts.
   GPBExtensionRepeated      = 1 << 0,
   GPBExtensionPacked        = 1 << 1,
@@ -125,16 +123,15 @@ typedef struct GPBExtensionDescription {
   const char *singletonName;
   const char *extendedClass;
   const char *messageOrGroupClassName;
-  LCIMEnumDescriptorFunc enumDescriptorFunc;
+  GPBEnumDescriptorFunc enumDescriptorFunc;
   int32_t fieldNumber;
   GPBDataType dataType;
   GPBExtensionOptions options;
 } GPBExtensionDescription;
 
-typedef NS_OPTIONS(uint32_t, LCIMDescriptorInitializationFlags) {
-  LCIMDescriptorInitializationFlag_None              = 0,
-  LCIMDescriptorInitializationFlag_FieldsWithDefault = 1 << 0,
-  LCIMDescriptorInitializationFlag_WireFormat        = 1 << 1,
+typedef NS_OPTIONS(uint32_t, GPBDescriptorInitializationFlags) {
+  GPBDescriptorInitializationFlag_FieldsWithDefault = 1 << 0,
+  GPBDescriptorInitializationFlag_WireFormat        = 1 << 1,
 };
 
 @interface LCIMDescriptor () {
@@ -152,7 +149,7 @@ typedef NS_OPTIONS(uint32_t, LCIMDescriptorInitializationFlags) {
                      fields:(void *)fieldDescriptions
                  fieldCount:(uint32_t)fieldCount
                 storageSize:(uint32_t)storageSize
-                      flags:(LCIMDescriptorInitializationFlags)flags;
+                      flags:(GPBDescriptorInitializationFlags)flags;
 
 - (instancetype)initWithClass:(Class)messageClass
                          file:(LCIMFileDescriptor *)file
@@ -168,15 +165,10 @@ typedef NS_OPTIONS(uint32_t, LCIMDescriptorInitializationFlags) {
       firstHasIndex:(int32_t)firstHasIndex;
 - (void)setupExtraTextInfo:(const char *)extraTextFormatInfo;
 - (void)setupExtensionRanges:(const GPBExtensionRange *)ranges count:(int32_t)count;
-- (void)setupContainingMessageClassName:(const char *)msgClassName;
-- (void)setupMessageClassNameSuffix:(NSString *)suffix;
 
 @end
 
 @interface LCIMFileDescriptor ()
-- (instancetype)initWithPackage:(NSString *)package
-                     objcPrefix:(NSString *)objcPrefix
-                         syntax:(GPBFileSyntax)syntax;
 - (instancetype)initWithPackage:(NSString *)package
                          syntax:(GPBFileSyntax)syntax;
 @end
@@ -237,13 +229,13 @@ typedef NS_OPTIONS(uint32_t, LCIMDescriptorInitializationFlags) {
  @package
   GPBExtensionDescription *description_;
 }
-@property(nonatomic, readonly) LCIMWireFormat wireType;
+@property(nonatomic, readonly) GPBWireFormat wireType;
 
 // For repeated extensions, alternateWireType is the wireType with the opposite
 // value for the packable property.  i.e. - if the extension was marked packed
 // it would be the wire type for unpacked; if the extension was marked unpacked,
 // it would be the wire type for packed.
-@property(nonatomic, readonly) LCIMWireFormat alternateWireType;
+@property(nonatomic, readonly) GPBWireFormat alternateWireType;
 
 // description has to be long lived, it is held as a raw pointer.
 - (instancetype)initWithExtensionDescription:
@@ -253,15 +245,9 @@ typedef NS_OPTIONS(uint32_t, LCIMDescriptorInitializationFlags) {
 
 CF_EXTERN_C_BEGIN
 
-// Direct access is use for speed, to avoid even internally declaring things
-// read/write, etc. The warning is enabled in the project to ensure code calling
-// protos can turn on -Wdirect-ivar-access without issues.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-
 GPB_INLINE BOOL LCIMFieldIsMapOrArray(LCIMFieldDescriptor *field) {
   return (field->description_->flags &
-          (LCIMFieldRepeated | LCIMFieldMapKeyMask)) != 0;
+          (GPBFieldRepeated | GPBFieldMapKeyMask)) != 0;
 }
 
 GPB_INLINE GPBDataType LCIMGetFieldDataType(LCIMFieldDescriptor *field) {
@@ -275,8 +261,6 @@ GPB_INLINE int32_t LCIMFieldHasIndex(LCIMFieldDescriptor *field) {
 GPB_INLINE uint32_t LCIMFieldNumber(LCIMFieldDescriptor *field) {
   return field->description_->number;
 }
-
-#pragma clang diagnostic pop
 
 uint32_t LCIMFieldTag(LCIMFieldDescriptor *self);
 
@@ -307,23 +291,23 @@ GPB_INLINE BOOL LCIMExtensionIsWireFormat(GPBExtensionDescription *description) 
 }
 
 // Helper for compile time assets.
-#ifndef LCIMInternalCompileAssert
+#ifndef _GPBCompileAssert
   #if __has_feature(c_static_assert) || __has_extension(c_static_assert)
-    #define LCIMInternalCompileAssert(test, msg) _Static_assert((test), #msg)
+    #define _GPBCompileAssert(test, msg) _Static_assert((test), #msg)
   #else
     // Pre-Xcode 7 support.
-    #define LCIMInternalCompileAssertSymbolInner(line, msg) LCIMInternalCompileAssert ## line ## __ ## msg
-    #define LCIMInternalCompileAssertSymbol(line, msg) LCIMInternalCompileAssertSymbolInner(line, msg)
-    #define LCIMInternalCompileAssert(test, msg) \
-        typedef char LCIMInternalCompileAssertSymbol(__LINE__, msg) [ ((test) ? 1 : -1) ]
+    #define _GPBCompileAssertSymbolInner(line, msg) _GPBCompileAssert ## line ## __ ## msg
+    #define _GPBCompileAssertSymbol(line, msg) _GPBCompileAssertSymbolInner(line, msg)
+    #define _GPBCompileAssert(test, msg) \
+        typedef char _GPBCompileAssertSymbol(__LINE__, msg) [ ((test) ? 1 : -1) ]
   #endif  // __has_feature(c_static_assert) || __has_extension(c_static_assert)
-#endif // LCIMInternalCompileAssert
+#endif // _GPBCompileAssert
 
 // Sanity check that there isn't padding between the field description
 // structures with and without a default.
-LCIMInternalCompileAssert(sizeof(GPBMessageFieldDescriptionWithDefault) ==
-                         (sizeof(GPBGenericValue) +
-                          sizeof(GPBMessageFieldDescription)),
-                         DescriptionsWithDefault_different_size_than_expected);
+_GPBCompileAssert(sizeof(GPBMessageFieldDescriptionWithDefault) ==
+                  (sizeof(GPBGenericValue) +
+                   sizeof(GPBMessageFieldDescription)),
+                  DescriptionsWithDefault_different_size_than_expected);
 
 CF_EXTERN_C_END

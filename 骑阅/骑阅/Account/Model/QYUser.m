@@ -9,7 +9,12 @@
 #import "QYUser.h"
 #import "define.h"
 
+
 @implementation QYUser
+@synthesize userId = _userId;
+@synthesize name = _name;
+@synthesize avatarURL = _avatarURL;
+@synthesize clientId = _clientId;
 
 + (instancetype)userWithDict:(NSDictionary *)dict {
     
@@ -29,5 +34,71 @@
     MyLog(@"%@",key);
 }
 
+- (BOOL)isEqualToUer:(QYUser *)user {
+    return (user.userId == self.userId);
+}
 
+- (id)copyWithZone:(NSZone *)zone {
+    return [[QYUser alloc] initWithUserId:self.userId
+                                       name:self.name
+                                  avatarURL:self.avatarURL
+                                   clientId:self.clientId
+            ];
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.userId forKey:@"userId"];
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.avatarURL forKey:@"avatarURL"];
+    [aCoder encodeObject:self.clientId forKey:@"clientId"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super init]){
+        _userId = [aDecoder decodeObjectForKey:@"userId"];
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _avatarURL = [aDecoder decodeObjectForKey:@"avatarURL"];
+        _clientId = [aDecoder decodeObjectForKey:@"clientId"];
+    }
+    return self;
+}
+
+#pragma mark - getter
+- (NSString *)userId {
+    
+    if (self.uid) {
+        
+        return [NSString stringWithFormat:@"%@",self.uid];
+    }
+    return nil;
+}
+
+- (NSString *)clientId {
+    
+    if (self.uid) {
+        
+        return [NSString stringWithFormat:@"%@",self.uid];
+    }
+
+    return nil;
+}
+
+- (NSURL *)avatarURL {
+    
+    if (self.face_url) {
+        
+        return [NSURL URLWithString:self.face_url];
+    }
+    return nil;
+}
+
+- (NSString *)name {
+    
+    if (self.username) {
+        
+        return self.username;
+    }
+    return nil;
+}
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QYChatKit.h"
 
-@interface QYUser : NSObject
+@interface QYUser : NSObject<LCCKUserDelegate>
 
 @property (nonatomic, strong) NSNumber *sex;        //性别
 @property (nonatomic, copy) NSString *location;     //所在地
@@ -27,6 +28,9 @@
 @property (nonatomic, strong) NSNumber *following;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, strong) NSNumber *updated_at;
+
+
+
 
 + (instancetype)userWithDict:(NSDictionary *)dict;
 @end

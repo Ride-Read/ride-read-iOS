@@ -34,17 +34,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Every generated proto file defines a local "Root" class that exposes a
- * LCIMExtensionRegistry for all the extensions defined by that file and
- * the files it depends on.
- **/
+/// Every generated proto file defines a local "Root" class that exposes a
+/// @c LCIMExtensionRegistry for all the extensions defined by that file and
+/// the files it depends on.
 @interface LCIMRootObject : NSObject
 
-/**
- * @return An extension registry for the given file and all the files it depends
- * on.
- **/
+/// An extension registry for the given file and all the files it depends on.
 + (LCIMExtensionRegistry *)extensionRegistry;
 
 @end

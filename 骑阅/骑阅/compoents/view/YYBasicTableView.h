@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MJRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 
 @class YYBasicTableView;
 typedef NS_ENUM(NSUInteger,YYTableViewRefeshStyle) {

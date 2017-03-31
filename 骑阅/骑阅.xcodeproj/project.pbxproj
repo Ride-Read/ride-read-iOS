@@ -96,6 +96,9 @@
 		BA8055491E8969FF0009A4D7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055481E8969FF0009A4D7 /* MobileCoreServices.framework */; };
 		BA80554B1E896A090009A4D7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA80554A1E896A090009A4D7 /* CoreTelephony.framework */; };
 		BA80554D1E896A160009A4D7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA80554C1E896A160009A4D7 /* CoreLocation.framework */; };
+		BA8059521E8D59260009A4D7 /* QYRecentConversaionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8059501E8D59260009A4D7 /* QYRecentConversaionCell.m */; };
+		BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8059511E8D59260009A4D7 /* QYRecentConversaionCell.xib */; };
+		BA80595C1E8EB6310009A4D7 /* QYChatKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BA80595B1E8EB6310009A4D7 /* QYChatKit.m */; };
 		BA995D011E84264D002FA3B2 /* QYRideMyCycleController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */; };
 		BA995D041E842BED002FA3B2 /* QYRequstFrindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D031E842BED002FA3B2 /* QYRequstFrindViewController.m */; };
 		BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D061E842F71002FA3B2 /* QYCycleCollectViewController.m */; };
@@ -423,6 +426,11 @@
 		BA8055481E8969FF0009A4D7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		BA80554A1E896A090009A4D7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		BA80554C1E896A160009A4D7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BA80594F1E8D59260009A4D7 /* QYRecentConversaionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRecentConversaionCell.h; sourceTree = "<group>"; };
+		BA8059501E8D59260009A4D7 /* QYRecentConversaionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRecentConversaionCell.m; sourceTree = "<group>"; };
+		BA8059511E8D59260009A4D7 /* QYRecentConversaionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYRecentConversaionCell.xib; sourceTree = "<group>"; };
+		BA80595A1E8EB6310009A4D7 /* QYChatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYChatKit.h; sourceTree = "<group>"; };
+		BA80595B1E8EB6310009A4D7 /* QYChatKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYChatKit.m; sourceTree = "<group>"; };
 		BA995CFF1E84264D002FA3B2 /* QYRideMyCycleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRideMyCycleController.h; sourceTree = "<group>"; };
 		BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRideMyCycleController.m; sourceTree = "<group>"; };
 		BA995D021E842BED002FA3B2 /* QYRequstFrindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRequstFrindViewController.h; sourceTree = "<group>"; };
@@ -1247,6 +1255,7 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				BA8056A01E8D4E310009A4D7 /* Message */,
 				BA12CCAD1E87876700DDB8CF /* Search */,
 				BA12CC861E867CE900DDB8CF /* Set */,
 				BAC8714E1E78409100C5F800 /* Reform */,
@@ -1292,6 +1301,50 @@
 				BA55C00B1E4F37D600F1027B /* Info.plist */,
 			);
 			path = "骑阅UITests";
+			sourceTree = "<group>";
+		};
+		BA8056A01E8D4E310009A4D7 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				BA8056A11E8D4E310009A4D7 /* Controller */,
+				BA8056A21E8D4E310009A4D7 /* Model */,
+				BA8056A31E8D4E310009A4D7 /* Tool */,
+				BA8056A41E8D4E310009A4D7 /* View */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		BA8056A11E8D4E310009A4D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BA8056A21E8D4E310009A4D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA8056A31E8D4E310009A4D7 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				BA80595A1E8EB6310009A4D7 /* QYChatKit.h */,
+				BA80595B1E8EB6310009A4D7 /* QYChatKit.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		BA8056A41E8D4E310009A4D7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA80594F1E8D59260009A4D7 /* QYRecentConversaionCell.h */,
+				BA8059501E8D59260009A4D7 /* QYRecentConversaionCell.m */,
+				BA8059511E8D59260009A4D7 /* QYRecentConversaionCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BA9AAA671E692C4400D7A5BB /* Venders */ = {
@@ -2071,6 +2124,7 @@
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
+				BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2180,6 +2234,7 @@
 				BAC36FA91E815D63007D1FF4 /* QYFansUserViewController.m in Sources */,
 				BAC8716B1E798F2B00C5F800 /* QYRegisterLogic.m in Sources */,
 				BAC871681E797DBC00C5F800 /* QYUserRegisterApiManager.m in Sources */,
+				BA8059521E8D59260009A4D7 /* QYRecentConversaionCell.m in Sources */,
 				BA354DA11E6C6BDF00EE8189 /* QYFrIendStatusMessage.m in Sources */,
 				BA354D9D1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m in Sources */,
 				BA9AAAA41E692C7000D7A5BB /* YYTextMagnifier.m in Sources */,
@@ -2198,6 +2253,7 @@
 				BAC871571E78454000C5F800 /* QYQiuniuTokenCommand.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
 				2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */,
+				BA80595C1E8EB6310009A4D7 /* QYChatKit.m in Sources */,
 				BAC871241E76FF5200C5F800 /* QYButtonSheetPromptView.m in Sources */,
 				BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */,
 				BAC36FC31E82BBF0007D1FF4 /* QYUserReform.m in Sources */,
@@ -2490,6 +2546,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LUYMC6AG7V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/骑阅/Venders/Class/Tool/Vendor/VoiceLib",
+					"$(PROJECT_DIR)/骑阅/Venders/ChatKit/Class/Tool/Vendor/VoiceLib",
+				);
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2505,6 +2566,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LUYMC6AG7V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/骑阅/Venders/Class/Tool/Vendor/VoiceLib",
+					"$(PROJECT_DIR)/骑阅/Venders/ChatKit/Class/Tool/Vendor/VoiceLib",
+				);
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

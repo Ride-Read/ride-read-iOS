@@ -94,20 +94,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak, readonly, nullable)   AVIMClient   *imClient;
 
-/**
- * Add custom property for conversation.
- *
- * @param object The property value.
- * @param key    The property name.
- */
-- (void)setObject:(nullable id)object forKey:(NSString *)key;
-
 /*!
- * Get custom property value for conversation.
- * @param key The custom property name.
- * @return The custom property value.
+ 生成一个新的 AVIMConversationUpdateBuilder 实例。用于更新对话。
+ @return 新的 AVIMConversationUpdateBuilder 实例.
  */
-- (nullable id)objectForKey:(NSString *)key;
+- (AVIMConversationUpdateBuilder *)newUpdateBuilder;
 
 /*!
  创建一个 AVIMKeyedConversation 对象。用于序列化，方便保存在本地。
@@ -124,10 +115,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  发送更新。
+ @param updateDict － 需要更新的数据，可通过 AVIMConversationUpdateBuilder 生成
  @param callback － 结果回调
  @return None.
  */
-- (void)updateWithCallback:(AVIMBooleanResultBlock)callback;
+- (void)update:(NSDictionary *)updateDict
+      callback:(AVIMBooleanResultBlock)callback;
 
 /*!
  加入对话。
@@ -266,7 +259,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param callback 查询结果回调。
  @return None。
  */
-- (void)queryMessagesBeforeId:(nullable NSString *)messageId
+- (void)queryMessagesBeforeId:(NSString *)messageId
                     timestamp:(int64_t)timestamp
                         limit:(NSUInteger)limit
                      callback:(AVIMArrayResultBlock)callback;
@@ -298,21 +291,6 @@ NS_ASSUME_NONNULL_BEGIN
             options:(AVIMMessageSendOption)options
       progressBlock:(nullable AVIMProgressBlock)progressBlock
            callback:(AVIMBooleanResultBlock)callback AVIM_DEPRECATED("Deprecated in AVOSCloudIM SDK 3.4.0. Use -[AVIMConversation sendMessage:option:progressBlock:callback:] instead.");
-
-/*!
- 生成一个新的 AVIMConversationUpdateBuilder 实例。用于更新对话。
- @return 新的 AVIMConversationUpdateBuilder 实例.
- */
-- (AVIMConversationUpdateBuilder *)newUpdateBuilder AVIM_DEPRECATED("Deprecated in AVOSCloudIM SDK 3.7.0. Use -[AVIMConversation setObject:forKey:] instead.");
-
-/*!
- 发送更新。
- @param updateDict － 需要更新的数据，可通过 AVIMConversationUpdateBuilder 生成
- @param callback － 结果回调
- @return None.
- */
-- (void)update:(NSDictionary *)updateDict
-      callback:(AVIMBooleanResultBlock)callback AVIM_DEPRECATED("Deprecated in AVOSCloudIM SDK 3.7.0. Use -[AVIMConversation updateWithCallback:] instead.");
 
 @end
 

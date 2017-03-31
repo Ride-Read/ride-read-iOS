@@ -40,6 +40,4 @@
 
 - (void)setKeyedConversation:(AVIMKeyedConversation *)keyedConversation;
 
-+ (NSDictionary *)filterCustomAttributesFromDictionary:(NSDictionary *)dictionary;
-
 @end

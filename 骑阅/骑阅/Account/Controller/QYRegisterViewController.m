@@ -187,7 +187,7 @@
     if (manager == self.verifyInviteCodeApiManager) {
         
         NSString * username = self.invitePeopleView.invitePeople.text;
-        return @{kusername:username?:@""};
+        return @{kphonenumber:username?:@""};
     }
     
     if (manager == self.registerLogic.apiManager) {
@@ -208,7 +208,7 @@
     
     if (manager == self.verifyInviteCodeApiManager) {
         
-        [self.hud hideAnimated:YES];
+        [self.hud hide:YES];
         self.hud = nil;
         [self presentRegisterView];
         return;
@@ -225,7 +225,7 @@
     
     if (manager == self.verifyInviteCodeApiManager) {
         
-        [self.hud hideAnimated:YES];
+        [self.hud hide:YES];
         self.hud = nil;
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
             
@@ -323,7 +323,7 @@
     self.hud = [MBProgressHUD showMessage:@"上传中" toView:nil];
     self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
         
-        [_self.hud hideAnimated:YES];
+        [_self.hud hide:YES];
         
         if (info.isOK) {
             

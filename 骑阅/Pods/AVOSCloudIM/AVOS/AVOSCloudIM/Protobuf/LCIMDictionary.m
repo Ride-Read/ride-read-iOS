@@ -45,12 +45,6 @@
 // directly.
 // ------------------------------------------------------------------
 
-// Direct access is use for speed, to avoid even internally declaring things
-// read/write, etc. The warning is enabled in the project to ensure code calling
-// protos can turn on -Wdirect-ivar-access without issues.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-
 // Used to include code only visible to specific versions of the static
 // analyzer. Useful for wrapping code that only exists to silence the analyzer.
 // Determine the values you want to use for BEGIN_APPLE_BUILD_VERSION,
@@ -73,12 +67,12 @@ static BOOL DictDefault_IsValidValue(int32_t value) {
   return (value != kGPBUnrecognizedEnumeratorValue);
 }
 
-//%PDDM-DEFINE SERIALIZE_SUPPORT_2_TYPE(VALUE_NAME, VALUE_TYPE, GPBDATATYPE_NAME1, GPBDATATYPE_NAME2)
+//%PDDM-DEFINE SERIALIZE_SUPPORT_2_TYPE(VALUE_NAME, VALUE_TYPE, LCIMDATATYPE_NAME1, LCIMDATATYPE_NAME2)
 //%static size_t ComputeDict##VALUE_NAME##FieldSize(VALUE_TYPE value, uint32_t fieldNum, GPBDataType dataType) {
 //%  if (dataType == GPBDataType##GPBDATATYPE_NAME1) {
-//%    return LCIMCompute##GPBDATATYPE_NAME1##Size(fieldNum, value);
+//%    return GPBCompute##GPBDATATYPE_NAME1##Size(fieldNum, value);
 //%  } else if (dataType == GPBDataType##GPBDATATYPE_NAME2) {
-//%    return LCIMCompute##GPBDATATYPE_NAME2##Size(fieldNum, value);
+//%    return GPBCompute##GPBDATATYPE_NAME2##Size(fieldNum, value);
 //%  } else {
 //%    NSCAssert(NO, @"Unexpected type %d", dataType);
 //%    return 0;
@@ -95,14 +89,14 @@ static BOOL DictDefault_IsValidValue(int32_t value) {
 //%  }
 //%}
 //%
-//%PDDM-DEFINE SERIALIZE_SUPPORT_3_TYPE(VALUE_NAME, VALUE_TYPE, GPBDATATYPE_NAME1, GPBDATATYPE_NAME2, GPBDATATYPE_NAME3)
+//%PDDM-DEFINE SERIALIZE_SUPPORT_3_TYPE(VALUE_NAME, VALUE_TYPE, LCIMDATATYPE_NAME1, LCIMDATATYPE_NAME2, LCIMDATATYPE_NAME3)
 //%static size_t ComputeDict##VALUE_NAME##FieldSize(VALUE_TYPE value, uint32_t fieldNum, GPBDataType dataType) {
 //%  if (dataType == GPBDataType##GPBDATATYPE_NAME1) {
-//%    return LCIMCompute##GPBDATATYPE_NAME1##Size(fieldNum, value);
+//%    return GPBCompute##GPBDATATYPE_NAME1##Size(fieldNum, value);
 //%  } else if (dataType == GPBDataType##GPBDATATYPE_NAME2) {
-//%    return LCIMCompute##GPBDATATYPE_NAME2##Size(fieldNum, value);
+//%    return GPBCompute##GPBDATATYPE_NAME2##Size(fieldNum, value);
 //%  } else if (dataType == GPBDataType##GPBDATATYPE_NAME3) {
-//%    return LCIMCompute##GPBDATATYPE_NAME3##Size(fieldNum, value);
+//%    return GPBCompute##GPBDATATYPE_NAME3##Size(fieldNum, value);
 //%  } else {
 //%    NSCAssert(NO, @"Unexpected type %d", dataType);
 //%    return 0;
@@ -125,7 +119,7 @@ static BOOL DictDefault_IsValidValue(int32_t value) {
 //%static size_t ComputeDict##VALUE_NAME##FieldSize(VALUE_TYPE VisP##value, uint32_t fieldNum, GPBDataType dataType) {
 //%  NSCAssert(dataType == GPBDataType##VALUE_NAME, @"bad type: %d", dataType);
 //%  #pragma unused(dataType)  // For when asserts are off in release.
-//%  return LCIMCompute##VALUE_NAME##Size(fieldNum, value);
+//%  return GPBCompute##VALUE_NAME##Size(fieldNum, value);
 //%}
 //%
 //%static void WriteDict##VALUE_NAME##Field(LCIMCodedOutputStream *stream, VALUE_TYPE VisP##value, uint32_t fieldNum, GPBDataType dataType) {
@@ -346,7 +340,7 @@ void LCIMDictionaryWriteToStreamInternalHelper(LCIMCodedOutputStream *outputStre
                                               LCIMFieldDescriptor *field) {
   NSCAssert(field.mapKeyDataType == GPBDataTypeString, @"Unexpected key type");
   GPBDataType mapValueType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
     #pragma unused(stop)
     // Write the tag.
@@ -460,11 +454,11 @@ void LCIMDictionaryReadEntry(id mapDictionary,
     value = field.defaultValue;
   }
 
-  LCIMCodedInputStreamState *state = &stream->state_;
+  GPBCodedInputStreamState *state = &stream->state_;
   uint32_t keyTag =
-      LCIMWireFormatMakeTag(kMapKeyFieldNumber, LCIMWireFormatForType(keyDataType, NO));
+      GPBWireFormatMakeTag(kMapKeyFieldNumber, GPBWireFormatForType(keyDataType, NO));
   uint32_t valueTag =
-      LCIMWireFormatMakeTag(kMapValueFieldNumber, LCIMWireFormatForType(valueDataType, NO));
+      GPBWireFormatMakeTag(kMapValueFieldNumber, GPBWireFormatForType(valueDataType, NO));
 
   BOOL hitError = NO;
   while (YES) {
@@ -490,8 +484,6 @@ void LCIMDictionaryReadEntry(id mapDictionary,
       key.valueString = [@"" retain];
     }
     if (LCIMDataTypeIsObject(valueDataType) && value.valueString == nil) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wswitch-enum"
       switch (valueDataType) {
         case GPBDataTypeString:
           value.valueString = [@"" retain];
@@ -513,7 +505,6 @@ void LCIMDictionaryReadEntry(id mapDictionary,
           // Nothing
           break;
       }
-#pragma clang diagnostic pop
     }
 
     if ((keyDataType == GPBDataTypeString) && LCIMDataTypeIsObject(valueDataType)) {
@@ -577,12 +568,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%DICTIONARY_KEY_TO_ENUM_IMPL(KEY_NAME, KEY_TYPE, KisP, Enum, int32_t, KHELPER)
 
 //%PDDM-DEFINE DICTIONARY_KEY_TO_POD_IMPL(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER)
-//%DICTIONARY_COMMON_IMPL(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, POD, VALUE_NAME, value)
+//%DICTIONARY_COMMON_IMPL(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, POD, value)
 
 //%PDDM-DEFINE DICTIONARY_POD_KEY_TO_OBJECT_IMPL(KEY_NAME, KEY_TYPE, VALUE_NAME, VALUE_TYPE)
-//%DICTIONARY_COMMON_IMPL(KEY_NAME, KEY_TYPE, , VALUE_NAME, VALUE_TYPE, POD, OBJECT, Object, object)
+//%DICTIONARY_COMMON_IMPL(KEY_NAME, KEY_TYPE, , VALUE_NAME, VALUE_TYPE, POD, OBJECT, object)
 
-//%PDDM-DEFINE DICTIONARY_COMMON_IMPL(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME_VAR)
+//%PDDM-DEFINE DICTIONARY_COMMON_IMPL(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME)
 //%#pragma mark - KEY_NAME -> VALUE_NAME
 //%
 //%@implementation LCIM##KEY_NAME##VALUE_NAME##Dictionary {
@@ -591,24 +582,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%+ (instancetype)dictionary {
-//%  return [[[self alloc] initWith##VNAME##s:NULL forKeys:NULL count:0] autorelease];
+//%  return [[[self alloc] initWith##VNAME$u##s:NULL forKeys:NULL count:0] autorelease];
 //%}
 //%
-//%+ (instancetype)dictionaryWith##VNAME##:(VALUE_TYPE)##VNAME_VAR
+//%+ (instancetype)dictionaryWith##VNAME$u##:(VALUE_TYPE)##VNAME
 //%                      ##VNAME$S##  forKey:(KEY_TYPE##KisP$S##KisP)key {
-//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME##s:forKeys:count:
+//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME$u##s:forKeys:count:
 //%  // on to get the type correct.
-//%  return [[(LCIM##KEY_NAME##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME##s:&##VNAME_VAR
+//%  return [[(LCIM##KEY_NAME##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME$u##s:&##VNAME
 //%               KEY_NAME$S VALUE_NAME$S                        ##VNAME$S##  forKeys:&key
 //%               KEY_NAME$S VALUE_NAME$S                        ##VNAME$S##    count:1] autorelease];
 //%}
 //%
-//%+ (instancetype)dictionaryWith##VNAME##s:(const VALUE_TYPE [])##VNAME_VAR##s
+//%+ (instancetype)dictionaryWith##VNAME$u##s:(const VALUE_TYPE [])##VNAME##s
 //%                      ##VNAME$S##  forKeys:(const KEY_TYPE##KisP$S##KisP [])keys
 //%                      ##VNAME$S##    count:(NSUInteger)count {
-//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME##s:forKeys:count:
+//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME$u##s:forKeys:count:
 //%  // on to get the type correct.
-//%  return [[(LCIM##KEY_NAME##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME##s:##VNAME_VAR##s
+//%  return [[(LCIM##KEY_NAME##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME$u##s:##VNAME##s
 //%               KEY_NAME$S VALUE_NAME$S                               forKeys:keys
 //%               KEY_NAME$S VALUE_NAME$S                                 count:count] autorelease];
 //%}
@@ -624,18 +615,18 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (instancetype)init {
-//%  return [self initWith##VNAME##s:NULL forKeys:NULL count:0];
+//%  return [self initWith##VNAME$u##s:NULL forKeys:NULL count:0];
 //%}
 //%
-//%- (instancetype)initWith##VNAME##s:(const VALUE_TYPE [])##VNAME_VAR##s
+//%- (instancetype)initWith##VNAME$u##s:(const VALUE_TYPE [])##VNAME##s
 //%                ##VNAME$S##  forKeys:(const KEY_TYPE##KisP$S##KisP [])keys
 //%                ##VNAME$S##    count:(NSUInteger)count {
 //%  self = [super init];
 //%  if (self) {
 //%    _dictionary = [[NSMutableDictionary alloc] init];
-//%    if (count && VNAME_VAR##s && keys) {
+//%    if (count && VNAME##s && keys) {
 //%      for (NSUInteger i = 0; i < count; ++i) {
-//%DICTIONARY_VALIDATE_VALUE_##VHELPER(VNAME_VAR##s[i], ______)##DICTIONARY_VALIDATE_KEY_##KHELPER(keys[i], ______)        [_dictionary setObject:WRAPPED##VHELPER(VNAME_VAR##s[i]) forKey:WRAPPED##KHELPER(keys[i])];
+//%DICTIONARY_VALIDATE_VALUE_##VHELPER(VNAME##s[i], ______)##DICTIONARY_VALIDATE_KEY_##KHELPER(keys[i], ______)        [_dictionary setObject:WRAPPED##VHELPER(VNAME##s[i]) forKey:WRAPPED##KHELPER(keys[i])];
 //%      }
 //%    }
 //%  }
@@ -643,7 +634,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (instancetype)initWithDictionary:(LCIM##KEY_NAME##VALUE_NAME##Dictionary *)dictionary {
-//%  self = [self initWith##VNAME##s:NULL forKeys:NULL count:0];
+//%  self = [self initWith##VNAME$u##s:NULL forKeys:NULL count:0];
 //%  if (self) {
 //%    if (dictionary) {
 //%      [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -654,14 +645,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%
 //%- (instancetype)initWithCapacity:(NSUInteger)numItems {
 //%  #pragma unused(numItems)
-//%  return [self initWith##VNAME##s:NULL forKeys:NULL count:0];
+//%  return [self initWith##VNAME$u##s:NULL forKeys:NULL count:0];
 //%}
 //%
-//%DICTIONARY_IMMUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME_VAR, )
+//%DICTIONARY_IMMUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, )
 //%
 //%VALUE_FOR_KEY_##VHELPER(KEY_TYPE##KisP$S##KisP, VALUE_NAME, VALUE_TYPE, KHELPER)
 //%
-//%DICTIONARY_MUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME_VAR, )
+//%DICTIONARY_MUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, )
 //%
 //%@end
 //%
@@ -771,9 +762,9 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return [self initWithValidationFunction:func rawValues:NULL forKeys:NULL count:0];
 //%}
 //%
-//%DICTIONARY_IMMUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, Value, value, Raw)
+//%DICTIONARY_IMMUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, value, Raw)
 //%
-//%- (BOOL)getEnum:(VALUE_TYPE *)value forKey:(KEY_TYPE##KisP$S##KisP)key {
+//%- (BOOL)valueForKey:(KEY_TYPE##KisP$S##KisP)key value:(VALUE_TYPE *)value {
 //%  NSNumber *wrapped = [_dictionary objectForKey:WRAPPED##KHELPER(key)];
 //%  if (wrapped && value) {
 //%    VALUE_TYPE result = UNWRAP##VALUE_NAME(wrapped);
@@ -785,7 +776,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return (wrapped != NULL);
 //%}
 //%
-//%- (BOOL)getRawValue:(VALUE_TYPE *)rawValue forKey:(KEY_TYPE##KisP$S##KisP)key {
+//%- (BOOL)valueForKey:(KEY_TYPE##KisP$S##KisP)key rawValue:(VALUE_TYPE *)rawValue {
 //%  NSNumber *wrapped = [_dictionary objectForKey:WRAPPED##KHELPER(key)];
 //%  if (wrapped && rawValue) {
 //%    *rawValue = UNWRAP##VALUE_NAME(wrapped);
@@ -793,7 +784,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return (wrapped != NULL);
 //%}
 //%
-//%- (void)enumerateKeysAndEnumsUsingBlock:
+//%- (void)enumerateKeysAndValuesUsingBlock:
 //%    (void (^)(KEY_TYPE KisP##key, VALUE_TYPE value, BOOL *stop))block {
 //%  GPBEnumValidationFunc func = _validationFunc;
 //%  [_dictionary enumerateKeysAndObjectsUsingBlock:^(ENUM_TYPE##KHELPER(KEY_TYPE)##aKey,
@@ -807,12 +798,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  }];
 //%}
 //%
-//%DICTIONARY_MUTABLE_CORE2(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, Value, Enum, value, Raw)
+//%DICTIONARY_MUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, value, Raw)
 //%
-//%- (void)setEnum:(VALUE_TYPE)value forKey:(KEY_TYPE##KisP$S##KisP)key {
+//%- (void)setValue:(VALUE_TYPE)value forKey:(KEY_TYPE##KisP$S##KisP)key {
 //%DICTIONARY_VALIDATE_KEY_##KHELPER(key, )  if (!_validationFunc(value)) {
 //%    [NSException raise:NSInvalidArgumentException
-//%                format:@"LCIM##KEY_NAME##VALUE_NAME##Dictionary: Attempt to set an unknown enum value (%d)",
+//%                format:@"GPB##KEY_NAME##VALUE_NAME##Dictionary: Attempt to set an unknown enum value (%d)",
 //%                       value];
 //%  }
 //%
@@ -825,7 +816,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%@end
 //%
 
-//%PDDM-DEFINE DICTIONARY_IMMUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME_VAR, ACCESSOR_NAME)
+//%PDDM-DEFINE DICTIONARY_IMMUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, ACCESSOR_NAME)
 //%- (void)dealloc {
 //%  NSAssert(!_autocreator,
 //%           @"%@: Autocreator must be cleared before release, autocreator: %@",
@@ -835,18 +826,17 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (instancetype)copyWithZone:(NSZone *)zone {
-//%  return [[LCIM##KEY_NAME##VALUE_NAME##Dictionary allocWithZone:zone] initWithDictionary:self];
+//%  return [[GPB##KEY_NAME##VALUE_NAME##Dictionary allocWithZone:zone] initWithDictionary:self];
 //%}
 //%
-//%- (BOOL)isEqual:(id)other {
+//%- (BOOL)isEqual:(LCIM##KEY_NAME##VALUE_NAME##Dictionary *)other {
 //%  if (self == other) {
 //%    return YES;
 //%  }
-//%  if (![other isKindOfClass:[LCIM##KEY_NAME##VALUE_NAME##Dictionary class]]) {
+//%  if (![other isKindOfClass:[GPB##KEY_NAME##VALUE_NAME##Dictionary class]]) {
 //%    return NO;
 //%  }
-//%  LCIM##KEY_NAME##VALUE_NAME##Dictionary *otherDictionary = other;
-//%  return [_dictionary isEqual:otherDictionary->_dictionary];
+//%  return [_dictionary isEqual:other->_dictionary];
 //%}
 //%
 //%- (NSUInteger)hash {
@@ -861,12 +851,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return _dictionary.count;
 //%}
 //%
-//%- (void)enumerateKeysAnd##ACCESSOR_NAME##VNAME##sUsingBlock:
-//%    (void (^)(KEY_TYPE KisP##key, VALUE_TYPE VNAME_VAR, BOOL *stop))block {
+//%- (void)enumerateKeysAnd##ACCESSOR_NAME##VNAME$u##sUsingBlock:
+//%    (void (^)(KEY_TYPE KisP##key, VALUE_TYPE VNAME, BOOL *stop))block {
 //%  [_dictionary enumerateKeysAndObjectsUsingBlock:^(ENUM_TYPE##KHELPER(KEY_TYPE)##aKey,
-//%                                                   ENUM_TYPE##VHELPER(VALUE_TYPE)##a##VNAME_VAR$u,
+//%                                                   ENUM_TYPE##VHELPER(VALUE_TYPE)##a##VNAME$u,
 //%                                                   BOOL *stop) {
-//%      block(UNWRAP##KEY_NAME(aKey), UNWRAP##VALUE_NAME(a##VNAME_VAR$u), stop);
+//%      block(UNWRAP##KEY_NAME(aKey), UNWRAP##VALUE_NAME(a##VNAME$u), stop);
 //%  }];
 //%}
 //%
@@ -880,11 +870,11 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  GPBDataType keyDataType = field.mapKeyDataType;
 //%  __block size_t result = 0;
 //%  [_dictionary enumerateKeysAndObjectsUsingBlock:^(ENUM_TYPE##KHELPER(KEY_TYPE)##aKey,
-//%                                                   ENUM_TYPE##VHELPER(VALUE_TYPE)##a##VNAME_VAR$u##,
+//%                                                   ENUM_TYPE##VHELPER(VALUE_TYPE)##a##VNAME$u##,
 //%                                                   BOOL *stop) {
 //%    #pragma unused(stop)
 //%    size_t msgSize = ComputeDict##KEY_NAME##FieldSize(UNWRAP##KEY_NAME(aKey), kMapKeyFieldNumber, keyDataType);
-//%    msgSize += ComputeDict##VALUE_NAME##FieldSize(UNWRAP##VALUE_NAME(a##VNAME_VAR$u), kMapValueFieldNumber, valueDataType);
+//%    msgSize += ComputeDict##VALUE_NAME##FieldSize(UNWRAP##VALUE_NAME(a##VNAME$u), kMapValueFieldNumber, valueDataType);
 //%    result += LCIMComputeRawVarint32SizeForInteger(msgSize) + msgSize;
 //%  }];
 //%  size_t tagSize = LCIMComputeWireFormatTagSize(LCIMFieldNumber(field), GPBDataTypeMessage);
@@ -896,20 +886,20 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%                         asField:(LCIMFieldDescriptor *)field {
 //%  GPBDataType valueDataType = LCIMGetFieldDataType(field);
 //%  GPBDataType keyDataType = field.mapKeyDataType;
-//%  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+//%  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
 //%  [_dictionary enumerateKeysAndObjectsUsingBlock:^(ENUM_TYPE##KHELPER(KEY_TYPE)##aKey,
-//%                                                   ENUM_TYPE##VHELPER(VALUE_TYPE)##a##VNAME_VAR$u,
+//%                                                   ENUM_TYPE##VHELPER(VALUE_TYPE)##a##VNAME$u,
 //%                                                   BOOL *stop) {
 //%    #pragma unused(stop)
 //%    // Write the tag.
 //%    [outputStream writeInt32NoTag:tag];
 //%    // Write the size of the message.
 //%    size_t msgSize = ComputeDict##KEY_NAME##FieldSize(UNWRAP##KEY_NAME(aKey), kMapKeyFieldNumber, keyDataType);
-//%    msgSize += ComputeDict##VALUE_NAME##FieldSize(UNWRAP##VALUE_NAME(a##VNAME_VAR$u), kMapValueFieldNumber, valueDataType);
+//%    msgSize += ComputeDict##VALUE_NAME##FieldSize(UNWRAP##VALUE_NAME(a##VNAME$u), kMapValueFieldNumber, valueDataType);
 //%    [outputStream writeInt32NoTag:(int32_t)msgSize];
 //%    // Write the fields.
 //%    WriteDict##KEY_NAME##Field(outputStream, UNWRAP##KEY_NAME(aKey), kMapKeyFieldNumber, keyDataType);
-//%    WriteDict##VALUE_NAME##Field(outputStream, UNWRAP##VALUE_NAME(a##VNAME_VAR$u), kMapValueFieldNumber, valueDataType);
+//%    WriteDict##VALUE_NAME##Field(outputStream, UNWRAP##VALUE_NAME(a##VNAME$u), kMapValueFieldNumber, valueDataType);
 //%  }];
 //%}
 //%
@@ -919,14 +909,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-//%  [self enumerateKeysAnd##ACCESSOR_NAME##VNAME##sUsingBlock:^(KEY_TYPE KisP##key, VALUE_TYPE VNAME_VAR, BOOL *stop) {
+//%  [self enumerateKeysAnd##ACCESSOR_NAME##VNAME$u##sUsingBlock:^(KEY_TYPE KisP##key, VALUE_TYPE VNAME, BOOL *stop) {
 //%      #pragma unused(stop)
-//%      block(TEXT_FORMAT_OBJ##KEY_NAME(key), TEXT_FORMAT_OBJ##VALUE_NAME(VNAME_VAR));
+//%      block(TEXT_FORMAT_OBJ##KEY_NAME(key), TEXT_FORMAT_OBJ##VALUE_NAME(VNAME));
 //%  }];
 //%}
-//%PDDM-DEFINE DICTIONARY_MUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME_VAR, ACCESSOR_NAME)
-//%DICTIONARY_MUTABLE_CORE2(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME, VNAME_VAR, ACCESSOR_NAME)
-//%PDDM-DEFINE DICTIONARY_MUTABLE_CORE2(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, VNAME_REMOVE, VNAME_VAR, ACCESSOR_NAME)
+//%PDDM-DEFINE DICTIONARY_MUTABLE_CORE(KEY_NAME, KEY_TYPE, KisP, VALUE_NAME, VALUE_TYPE, KHELPER, VHELPER, VNAME, ACCESSOR_NAME)
 //%- (void)add##ACCESSOR_NAME##EntriesFromDictionary:(LCIM##KEY_NAME##VALUE_NAME##Dictionary *)otherDictionary {
 //%  if (otherDictionary) {
 //%    [_dictionary addEntriesFromDictionary:otherDictionary->_dictionary];
@@ -936,14 +924,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  }
 //%}
 //%
-//%- (void)set##ACCESSOR_NAME##VNAME##:(VALUE_TYPE)VNAME_VAR forKey:(KEY_TYPE##KisP$S##KisP)key {
-//%DICTIONARY_VALIDATE_VALUE_##VHELPER(VNAME_VAR, )##DICTIONARY_VALIDATE_KEY_##KHELPER(key, )  [_dictionary setObject:WRAPPED##VHELPER(VNAME_VAR) forKey:WRAPPED##KHELPER(key)];
+//%- (void)set##ACCESSOR_NAME##VNAME$u##:(VALUE_TYPE)VNAME forKey:(KEY_TYPE##KisP$S##KisP)key {
+//%DICTIONARY_VALIDATE_VALUE_##VHELPER(VNAME, )##DICTIONARY_VALIDATE_KEY_##KHELPER(key, )  [_dictionary setObject:WRAPPED##VHELPER(VNAME) forKey:WRAPPED##KHELPER(key)];
 //%  if (_autocreator) {
 //%    LCIMAutocreatedDictionaryModified(_autocreator, self);
 //%  }
 //%}
 //%
-//%- (void)remove##VNAME_REMOVE##ForKey:(KEY_TYPE##KisP$S##KisP)aKey {
+//%- (void)remove##VNAME$u##ForKey:(KEY_TYPE##KisP$S##KisP)aKey {
 //%  [_dictionary removeObjectForKey:WRAPPED##KHELPER(aKey)];
 //%}
 //%
@@ -956,11 +944,11 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //
 
 //%PDDM-DEFINE DICTIONARY_BOOL_KEY_TO_POD_IMPL(VALUE_NAME, VALUE_TYPE)
-//%DICTIONARY_BOOL_KEY_TO_VALUE_IMPL(VALUE_NAME, VALUE_TYPE, POD, VALUE_NAME, value)
+//%DICTIONARY_BOOL_KEY_TO_VALUE_IMPL(VALUE_NAME, VALUE_TYPE, POD, value)
 //%PDDM-DEFINE DICTIONARY_BOOL_KEY_TO_OBJECT_IMPL(VALUE_NAME, VALUE_TYPE)
-//%DICTIONARY_BOOL_KEY_TO_VALUE_IMPL(VALUE_NAME, VALUE_TYPE, OBJECT, Object, object)
+//%DICTIONARY_BOOL_KEY_TO_VALUE_IMPL(VALUE_NAME, VALUE_TYPE, OBJECT, object)
 
-//%PDDM-DEFINE DICTIONARY_BOOL_KEY_TO_VALUE_IMPL(VALUE_NAME, VALUE_TYPE, HELPER, VNAME, VNAME_VAR)
+//%PDDM-DEFINE DICTIONARY_BOOL_KEY_TO_VALUE_IMPL(VALUE_NAME, VALUE_TYPE, HELPER, VNAME)
 //%#pragma mark - Bool -> VALUE_NAME
 //%
 //%@implementation LCIMBool##VALUE_NAME##Dictionary {
@@ -969,32 +957,32 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%BOOL_DICT_HAS_STORAGE_##HELPER()}
 //%
 //%+ (instancetype)dictionary {
-//%  return [[[self alloc] initWith##VNAME##s:NULL forKeys:NULL count:0] autorelease];
+//%  return [[[self alloc] initWith##VNAME$u##s:NULL forKeys:NULL count:0] autorelease];
 //%}
 //%
-//%+ (instancetype)dictionaryWith##VNAME##:(VALUE_TYPE)VNAME_VAR
+//%+ (instancetype)dictionaryWith##VNAME$u##:(VALUE_TYPE)VNAME
 //%                      ##VNAME$S##  forKey:(BOOL)key {
-//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME##s:forKeys:count:
+//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME$u##s:forKeys:count:
 //%  // on to get the type correct.
-//%  return [[(GPBBool##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME##s:&##VNAME_VAR
+//%  return [[(LCIMBool##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME$u##s:&##VNAME
 //%                    VALUE_NAME$S                        ##VNAME$S##  forKeys:&key
 //%                    VALUE_NAME$S                        ##VNAME$S##    count:1] autorelease];
 //%}
 //%
-//%+ (instancetype)dictionaryWith##VNAME##s:(const VALUE_TYPE [])##VNAME_VAR##s
+//%+ (instancetype)dictionaryWith##VNAME$u##s:(const VALUE_TYPE [])##VNAME##s
 //%                      ##VNAME$S##  forKeys:(const BOOL [])keys
 //%                      ##VNAME$S##    count:(NSUInteger)count {
-//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME##s:forKeys:count:
+//%  // Cast is needed so the compiler knows what class we are invoking initWith##VNAME$u##s:forKeys:count:
 //%  // on to get the type correct.
-//%  return [[(GPBBool##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME##s:##VNAME_VAR##s
+//%  return [[(LCIMBool##VALUE_NAME##Dictionary*)[self alloc] initWith##VNAME$u##s:##VNAME##s
 //%                    VALUE_NAME$S                        ##VNAME$S##  forKeys:keys
 //%                    VALUE_NAME$S                        ##VNAME$S##    count:count] autorelease];
 //%}
 //%
-//%+ (instancetype)dictionaryWithDictionary:(GPBBool##VALUE_NAME##Dictionary *)dictionary {
+//%+ (instancetype)dictionaryWithDictionary:(LCIMBool##VALUE_NAME##Dictionary *)dictionary {
 //%  // Cast is needed so the compiler knows what class we are invoking initWithDictionary:
 //%  // on to get the type correct.
-//%  return [[(GPBBool##VALUE_NAME##Dictionary*)[self alloc] initWithDictionary:dictionary] autorelease];
+//%  return [[(LCIMBool##VALUE_NAME##Dictionary*)[self alloc] initWithDictionary:dictionary] autorelease];
 //%}
 //%
 //%+ (instancetype)dictionaryWithCapacity:(NSUInteger)numItems {
@@ -1002,14 +990,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (instancetype)init {
-//%  return [self initWith##VNAME##s:NULL forKeys:NULL count:0];
+//%  return [self initWith##VNAME$u##s:NULL forKeys:NULL count:0];
 //%}
 //%
 //%BOOL_DICT_INITS_##HELPER(VALUE_NAME, VALUE_TYPE)
 //%
 //%- (instancetype)initWithCapacity:(NSUInteger)numItems {
 //%  #pragma unused(numItems)
-//%  return [self initWith##VNAME##s:NULL forKeys:NULL count:0];
+//%  return [self initWith##VNAME$u##s:NULL forKeys:NULL count:0];
 //%}
 //%
 //%BOOL_DICT_DEALLOC##HELPER()
@@ -1018,20 +1006,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return [[GPBBool##VALUE_NAME##Dictionary allocWithZone:zone] initWithDictionary:self];
 //%}
 //%
-//%- (BOOL)isEqual:(id)other {
+//%- (BOOL)isEqual:(LCIMBool##VALUE_NAME##Dictionary *)other {
 //%  if (self == other) {
 //%    return YES;
 //%  }
 //%  if (![other isKindOfClass:[GPBBool##VALUE_NAME##Dictionary class]]) {
 //%    return NO;
 //%  }
-//%  GPBBool##VALUE_NAME##Dictionary *otherDictionary = other;
-//%  if ((BOOL_DICT_W_HAS##HELPER(0, ) != BOOL_DICT_W_HAS##HELPER(0, otherDictionary->)) ||
-//%      (BOOL_DICT_W_HAS##HELPER(1, ) != BOOL_DICT_W_HAS##HELPER(1, otherDictionary->))) {
+//%  if ((BOOL_DICT_W_HAS##HELPER(0, ) != BOOL_DICT_W_HAS##HELPER(0, other->)) ||
+//%      (BOOL_DICT_W_HAS##HELPER(1, ) != BOOL_DICT_W_HAS##HELPER(1, other->))) {
 //%    return NO;
 //%  }
-//%  if ((BOOL_DICT_W_HAS##HELPER(0, ) && (NEQ_##HELPER(_values[0], otherDictionary->_values[0]))) ||
-//%      (BOOL_DICT_W_HAS##HELPER(1, ) && (NEQ_##HELPER(_values[1], otherDictionary->_values[1])))) {
+//%  if ((BOOL_DICT_W_HAS##HELPER(0, ) && (NEQ_##HELPER(_values[0], other->_values[0]))) ||
+//%      (BOOL_DICT_W_HAS##HELPER(1, ) && (NEQ_##HELPER(_values[1], other->_values[1])))) {
 //%    return NO;
 //%  }
 //%  return YES;
@@ -1057,7 +1044,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return (BOOL_DICT_W_HAS##HELPER(0, ) ? 1 : 0) + (BOOL_DICT_W_HAS##HELPER(1, ) ? 1 : 0);
 //%}
 //%
-//%BOOL_VALUE_FOR_KEY_##HELPER(VALUE_NAME, VALUE_TYPE)
+//%BOOL_VALUE_FOR_KEY_##HELPER(VALUE_TYPE)
 //%
 //%BOOL_SET_GPBVALUE_FOR_KEY_##HELPER(VALUE_NAME, VALUE_TYPE, VisP)
 //%
@@ -1070,8 +1057,8 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  }
 //%}
 //%
-//%- (void)enumerateKeysAnd##VNAME##sUsingBlock:
-//%    (void (^)(BOOL key, VALUE_TYPE VNAME_VAR, BOOL *stop))block {
+//%- (void)enumerateKeysAnd##VNAME$u##sUsingBlock:
+//%    (void (^)(BOOL key, VALUE_TYPE VNAME, BOOL *stop))block {
 //%  BOOL stop = NO;
 //%  if (BOOL_DICT_HAS##HELPER(0, )) {
 //%    block(NO, _values[0], &stop);
@@ -1101,7 +1088,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%- (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
 //%                         asField:(LCIMFieldDescriptor *)field {
 //%  GPBDataType valueDataType = LCIMGetFieldDataType(field);
-//%  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+//%  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
 //%  for (int i = 0; i < 2; ++i) {
 //%    if (BOOL_DICT_HAS##HELPER(i, )) {
 //%      // Write the tag.
@@ -1128,7 +1115,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //
 
 //%PDDM-DEFINE VALUE_FOR_KEY_POD(KEY_TYPE, VALUE_NAME, VALUE_TYPE, KHELPER)
-//%- (BOOL)get##VALUE_NAME##:(nullable VALUE_TYPE *)value forKey:(KEY_TYPE)key {
+//%- (BOOL)valueForKey:(KEY_TYPE)key value:(VALUE_TYPE *)value {
 //%  NSNumber *wrapped = [_dictionary objectForKey:WRAPPED##KHELPER(key)];
 //%  if (wrapped && value) {
 //%    *value = UNWRAP##VALUE_NAME(wrapped);
@@ -1218,9 +1205,9 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  BOOL _valueSet[2];
 //%
 //%PDDM-DEFINE BOOL_DICT_INITS_POD(VALUE_NAME, VALUE_TYPE)
-//%- (instancetype)initWith##VALUE_NAME##s:(const VALUE_TYPE [])values
-//%                 ##VALUE_NAME$S## forKeys:(const BOOL [])keys
-//%                 ##VALUE_NAME$S##   count:(NSUInteger)count {
+//%- (instancetype)initWithValues:(const VALUE_TYPE [])values
+//%                       forKeys:(const BOOL [])keys
+//%                         count:(NSUInteger)count {
 //%  self = [super init];
 //%  if (self) {
 //%    for (NSUInteger i = 0; i < count; ++i) {
@@ -1232,8 +1219,8 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return self;
 //%}
 //%
-//%- (instancetype)initWithDictionary:(GPBBool##VALUE_NAME##Dictionary *)dictionary {
-//%  self = [self initWith##VALUE_NAME##s:NULL forKeys:NULL count:0];
+//%- (instancetype)initWithDictionary:(LCIMBool##VALUE_NAME##Dictionary *)dictionary {
+//%  self = [self initWithValues:NULL forKeys:NULL count:0];
 //%  if (self) {
 //%    if (dictionary) {
 //%      for (int i = 0; i < 2; ++i) {
@@ -1259,8 +1246,8 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%BOOL_DICT_HASPOD(IDX, REF)
 //%PDDM-DEFINE BOOL_DICT_HASPOD(IDX, REF)
 //%REF##_valueSet[IDX]
-//%PDDM-DEFINE BOOL_VALUE_FOR_KEY_POD(VALUE_NAME, VALUE_TYPE)
-//%- (BOOL)get##VALUE_NAME##:(VALUE_TYPE *)value forKey:(BOOL)key {
+//%PDDM-DEFINE BOOL_VALUE_FOR_KEY_POD(VALUE_TYPE)
+//%- (BOOL)valueForKey:(BOOL)key value:(VALUE_TYPE *)value {
 //%  int idx = (key ? 1 : 0);
 //%  if (_valueSet[idx]) {
 //%    if (value) {
@@ -1278,7 +1265,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  _valueSet[idx] = YES;
 //%}
 //%PDDM-DEFINE BOOL_DICT_MUTATIONS_POD(VALUE_NAME, VALUE_TYPE)
-//%- (void)addEntriesFromDictionary:(GPBBool##VALUE_NAME##Dictionary *)otherDictionary {
+//%- (void)addEntriesFromDictionary:(LCIMBool##VALUE_NAME##Dictionary *)otherDictionary {
 //%  if (otherDictionary) {
 //%    for (int i = 0; i < 2; ++i) {
 //%      if (otherDictionary->_valueSet[i]) {
@@ -1292,7 +1279,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  }
 //%}
 //%
-//%- (void)set##VALUE_NAME:(VALUE_TYPE)value forKey:(BOOL)key {
+//%- (void)setValue:(VALUE_TYPE)value forKey:(BOOL)key {
 //%  int idx = (key ? 1 : 0);
 //%  _values[idx] = value;
 //%  _valueSet[idx] = YES;
@@ -1301,7 +1288,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  }
 //%}
 //%
-//%- (void)remove##VALUE_NAME##ForKey:(BOOL)aKey {
+//%- (void)removeValueForKey:(BOOL)aKey {
 //%  _valueSet[aKey ? 1 : 0] = NO;
 //%}
 //%
@@ -1364,8 +1351,8 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (instancetype)deepCopyWithZone:(NSZone *)zone {
-//%  LCIM##KEY_NAME##VALUE_NAME##Dictionary *newDict =
-//%      [[LCIM##KEY_NAME##VALUE_NAME##Dictionary alloc] init];
+//%  GPB##KEY_NAME##VALUE_NAME##Dictionary *newDict =
+//%      [[GPB##KEY_NAME##VALUE_NAME##Dictionary alloc] init];
 //%  [_dictionary enumerateKeysAndObjectsUsingBlock:^(id aKey,
 //%                                                   LCIMMessage *msg,
 //%                                                   BOOL *stop) {
@@ -1390,8 +1377,8 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 //%
 //%- (instancetype)deepCopyWithZone:(NSZone *)zone {
-//%  LCIM##KEY_NAME##VALUE_NAME##Dictionary *newDict =
-//%      [[LCIM##KEY_NAME##VALUE_NAME##Dictionary alloc] init];
+//%  GPB##KEY_NAME##VALUE_NAME##Dictionary *newDict =
+//%      [[GPB##KEY_NAME##VALUE_NAME##Dictionary alloc] init];
 //%  for (int i = 0; i < 2; ++i) {
 //%    if (_values[i] != nil) {
 //%      newDict->_values[i] = [_values[i] copyWithZone:zone];
@@ -1439,7 +1426,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%  return self;
 //%}
 //%
-//%- (instancetype)initWithDictionary:(GPBBool##VALUE_NAME##Dictionary *)dictionary {
+//%- (instancetype)initWithDictionary:(LCIMBool##VALUE_NAME##Dictionary *)dictionary {
 //%  self = [self initWithObjects:NULL forKeys:NULL count:0];
 //%  if (self) {
 //%    if (dictionary) {
@@ -1462,7 +1449,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%(BOOL_DICT_HASOBJECT(IDX, REF))
 //%PDDM-DEFINE BOOL_DICT_HASOBJECT(IDX, REF)
 //%REF##_values[IDX] != nil
-//%PDDM-DEFINE BOOL_VALUE_FOR_KEY_OBJECT(VALUE_NAME, VALUE_TYPE)
+//%PDDM-DEFINE BOOL_VALUE_FOR_KEY_OBJECT(VALUE_TYPE)
 //%- (VALUE_TYPE)objectForKey:(BOOL)key {
 //%  return _values[key ? 1 : 0];
 //%}
@@ -1475,7 +1462,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 //%}
 
 //%PDDM-DEFINE BOOL_DICT_MUTATIONS_OBJECT(VALUE_NAME, VALUE_TYPE)
-//%- (void)addEntriesFromDictionary:(GPBBool##VALUE_NAME##Dictionary *)otherDictionary {
+//%- (void)addEntriesFromDictionary:(LCIMBool##VALUE_NAME##Dictionary *)otherDictionary {
 //%  if (otherDictionary) {
 //%    for (int i = 0; i < 2; ++i) {
 //%      if (otherDictionary->_values[i] != nil) {
@@ -1529,24 +1516,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32:(uint32_t)value
-                              forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint32_t)value
+                             forKey:(uint32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32UInt32Dictionary*)[self alloc] initWithUInt32s:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMUInt32UInt32Dictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32s:(const uint32_t [])values
-                              forKeys:(const uint32_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint32_t [])values
+                             forKeys:(const uint32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32UInt32Dictionary*)[self alloc] initWithUInt32s:values
+  return [[(LCIMUInt32UInt32Dictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -1562,12 +1549,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt32s:(const uint32_t [])values
-                        forKeys:(const uint32_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint32_t [])values
+                       forKeys:(const uint32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -1581,7 +1568,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32UInt32Dictionary *)dictionary {
-  self = [self initWithUInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -1592,7 +1579,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -1607,15 +1594,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32UInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32UInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32UInt32Dictionary class]]) {
     return NO;
   }
-  LCIMUInt32UInt32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -1630,7 +1616,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, uint32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -1665,7 +1651,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -1688,13 +1674,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt32sUsingBlock:^(uint32_t key, uint32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, uint32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], [NSString stringWithFormat:@"%u", value]);
   }];
 }
 
-- (BOOL)getUInt32:(nullable uint32_t *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(uint32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedIntValue];
@@ -1711,14 +1697,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt32:(uint32_t)value forKey:(uint32_t)key {
+- (void)setValue:(uint32_t)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt32ForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -1736,24 +1722,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32:(int32_t)value
++ (instancetype)dictionaryWithValue:(int32_t)value
                              forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32Int32Dictionary*)[self alloc] initWithInt32s:&value
+  return [[(LCIMUInt32Int32Dictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32s:(const int32_t [])values
++ (instancetype)dictionaryWithValues:(const int32_t [])values
                              forKeys:(const uint32_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32Int32Dictionary*)[self alloc] initWithInt32s:values
+  return [[(LCIMUInt32Int32Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -1769,10 +1755,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt32s:(const int32_t [])values
+- (instancetype)initWithValues:(const int32_t [])values
                        forKeys:(const uint32_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -1788,7 +1774,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32Int32Dictionary *)dictionary {
-  self = [self initWithInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -1799,7 +1785,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -1814,15 +1800,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32Int32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32Int32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32Int32Dictionary class]]) {
     return NO;
   }
-  LCIMUInt32Int32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -1837,7 +1822,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, int32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -1872,7 +1857,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -1895,13 +1880,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt32sUsingBlock:^(uint32_t key, int32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, int32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], [NSString stringWithFormat:@"%d", value]);
   }];
 }
 
-- (BOOL)getInt32:(nullable int32_t *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped intValue];
@@ -1918,14 +1903,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt32:(int32_t)value forKey:(uint32_t)key {
+- (void)setValue:(int32_t)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt32ForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -1943,24 +1928,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64:(uint64_t)value
-                              forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint64_t)value
+                             forKey:(uint32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32UInt64Dictionary*)[self alloc] initWithUInt64s:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMUInt32UInt64Dictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64s:(const uint64_t [])values
-                              forKeys:(const uint32_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint64_t [])values
+                             forKeys:(const uint32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32UInt64Dictionary*)[self alloc] initWithUInt64s:values
+  return [[(LCIMUInt32UInt64Dictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -1976,12 +1961,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt64s:(const uint64_t [])values
-                        forKeys:(const uint32_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint64_t [])values
+                       forKeys:(const uint32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -1995,7 +1980,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32UInt64Dictionary *)dictionary {
-  self = [self initWithUInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -2006,7 +1991,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -2021,15 +2006,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32UInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32UInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32UInt64Dictionary class]]) {
     return NO;
   }
-  LCIMUInt32UInt64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -2044,7 +2028,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, uint64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -2079,7 +2063,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -2102,13 +2086,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt64sUsingBlock:^(uint32_t key, uint64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, uint64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], [NSString stringWithFormat:@"%llu", value]);
   }];
 }
 
-- (BOOL)getUInt64:(nullable uint64_t *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(uint64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedLongLongValue];
@@ -2125,14 +2109,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt64:(uint64_t)value forKey:(uint32_t)key {
+- (void)setValue:(uint64_t)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt64ForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -2150,24 +2134,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64:(int64_t)value
++ (instancetype)dictionaryWithValue:(int64_t)value
                              forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32Int64Dictionary*)[self alloc] initWithInt64s:&value
+  return [[(LCIMUInt32Int64Dictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64s:(const int64_t [])values
++ (instancetype)dictionaryWithValues:(const int64_t [])values
                              forKeys:(const uint32_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32Int64Dictionary*)[self alloc] initWithInt64s:values
+  return [[(LCIMUInt32Int64Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -2183,10 +2167,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt64s:(const int64_t [])values
+- (instancetype)initWithValues:(const int64_t [])values
                        forKeys:(const uint32_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -2202,7 +2186,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32Int64Dictionary *)dictionary {
-  self = [self initWithInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -2213,7 +2197,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -2228,15 +2212,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32Int64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32Int64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32Int64Dictionary class]]) {
     return NO;
   }
-  LCIMUInt32Int64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -2251,7 +2234,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, int64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -2286,7 +2269,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -2309,13 +2292,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt64sUsingBlock:^(uint32_t key, int64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, int64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], [NSString stringWithFormat:@"%lld", value]);
   }];
 }
 
-- (BOOL)getInt64:(nullable int64_t *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(int64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped longLongValue];
@@ -2332,14 +2315,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt64:(int64_t)value forKey:(uint32_t)key {
+- (void)setValue:(int64_t)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt64ForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -2357,24 +2340,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithBools:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithBool:(BOOL)value
-                            forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValue:(BOOL)value
+                             forKey:(uint32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32BoolDictionary*)[self alloc] initWithBools:&value
-                                                        forKeys:&key
-                                                          count:1] autorelease];
+  return [[(LCIMUInt32BoolDictionary*)[self alloc] initWithValues:&value
+                                                         forKeys:&key
+                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithBools:(const BOOL [])values
-                            forKeys:(const uint32_t [])keys
-                              count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValues:(const BOOL [])values
+                             forKeys:(const uint32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32BoolDictionary*)[self alloc] initWithBools:values
+  return [[(LCIMUInt32BoolDictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -2390,12 +2373,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithBools:(const BOOL [])values
-                      forKeys:(const uint32_t [])keys
-                        count:(NSUInteger)count {
+- (instancetype)initWithValues:(const BOOL [])values
+                       forKeys:(const uint32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -2409,7 +2392,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32BoolDictionary *)dictionary {
-  self = [self initWithBools:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -2420,7 +2403,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -2435,15 +2418,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32BoolDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32BoolDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32BoolDictionary class]]) {
     return NO;
   }
-  LCIMUInt32BoolDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -2458,7 +2440,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndBoolsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, BOOL value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -2493,7 +2475,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -2516,13 +2498,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndBoolsUsingBlock:^(uint32_t key, BOOL value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, BOOL value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], (value ? @"true" : @"false"));
   }];
 }
 
-- (BOOL)getBool:(nullable BOOL *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(BOOL *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped boolValue];
@@ -2539,14 +2521,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setBool:(BOOL)value forKey:(uint32_t)key {
+- (void)setValue:(BOOL)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeBoolForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -2564,24 +2546,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithFloats:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloat:(float)value
++ (instancetype)dictionaryWithValue:(float)value
                              forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32FloatDictionary*)[self alloc] initWithFloats:&value
+  return [[(LCIMUInt32FloatDictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloats:(const float [])values
++ (instancetype)dictionaryWithValues:(const float [])values
                              forKeys:(const uint32_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32FloatDictionary*)[self alloc] initWithFloats:values
+  return [[(LCIMUInt32FloatDictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -2597,10 +2579,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithFloats:(const float [])values
+- (instancetype)initWithValues:(const float [])values
                        forKeys:(const uint32_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -2616,7 +2598,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32FloatDictionary *)dictionary {
-  self = [self initWithFloats:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -2627,7 +2609,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -2642,15 +2624,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32FloatDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32FloatDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32FloatDictionary class]]) {
     return NO;
   }
-  LCIMUInt32FloatDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -2665,7 +2646,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndFloatsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, float value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -2700,7 +2681,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -2723,13 +2704,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndFloatsUsingBlock:^(uint32_t key, float value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, float value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], [NSString stringWithFormat:@"%.*g", FLT_DIG, value]);
   }];
 }
 
-- (BOOL)getFloat:(nullable float *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(float *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped floatValue];
@@ -2746,14 +2727,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setFloat:(float)value forKey:(uint32_t)key {
+- (void)setValue:(float)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeFloatForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -2771,24 +2752,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithDoubles:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithDouble:(double)value
-                              forKey:(uint32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValue:(double)value
+                             forKey:(uint32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32DoubleDictionary*)[self alloc] initWithDoubles:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMUInt32DoubleDictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithDoubles:(const double [])values
-                              forKeys:(const uint32_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValues:(const double [])values
+                             forKeys:(const uint32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt32DoubleDictionary*)[self alloc] initWithDoubles:values
+  return [[(LCIMUInt32DoubleDictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -2804,12 +2785,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithDoubles:(const double [])values
-                        forKeys:(const uint32_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const double [])values
+                       forKeys:(const uint32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -2823,7 +2804,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt32DoubleDictionary *)dictionary {
-  self = [self initWithDoubles:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -2834,7 +2815,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -2849,15 +2830,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32DoubleDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32DoubleDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32DoubleDictionary class]]) {
     return NO;
   }
-  LCIMUInt32DoubleDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -2872,7 +2852,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndDoublesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, double value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -2907,7 +2887,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -2930,13 +2910,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndDoublesUsingBlock:^(uint32_t key, double value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint32_t key, double value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%u", key], [NSString stringWithFormat:@"%.*lg", DBL_DIG, value]);
   }];
 }
 
-- (BOOL)getDouble:(nullable double *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(double *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped doubleValue];
@@ -2953,14 +2933,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setDouble:(double)value forKey:(uint32_t)key {
+- (void)setValue:(double)value forKey:(uint32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeDoubleForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -3084,15 +3064,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32EnumDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32EnumDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32EnumDictionary class]]) {
     return NO;
   }
-  LCIMUInt32EnumDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -3142,7 +3121,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -3183,7 +3162,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }];
 }
 
-- (BOOL)getEnum:(int32_t *)value forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     int32_t result = [wrapped intValue];
@@ -3195,7 +3174,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (BOOL)getRawValue:(int32_t *)rawValue forKey:(uint32_t)key {
+- (BOOL)valueForKey:(uint32_t)key rawValue:(int32_t *)rawValue {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && rawValue) {
     *rawValue = [wrapped intValue];
@@ -3203,7 +3182,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (void)enumerateKeysAndEnumsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint32_t key, int32_t value, BOOL *stop))block {
   GPBEnumValidationFunc func = _validationFunc;
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
@@ -3233,7 +3212,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeEnumForKey:(uint32_t)aKey {
+- (void)removeValueForKey:(uint32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -3241,10 +3220,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   [_dictionary removeAllObjects];
 }
 
-- (void)setEnum:(int32_t)value forKey:(uint32_t)key {
+- (void)setValue:(int32_t)value forKey:(uint32_t)key {
   if (!_validationFunc(value)) {
     [NSException raise:NSInvalidArgumentException
-                format:@"LCIMUInt32EnumDictionary: Attempt to set an unknown enum value (%d)",
+                format:@"GPBUInt32EnumDictionary: Attempt to set an unknown enum value (%d)",
                        value];
   }
 
@@ -3346,15 +3325,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt32ObjectDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32ObjectDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32ObjectDictionary class]]) {
     return NO;
   }
-  LCIMUInt32ObjectDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -3427,7 +3405,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    id aObject,
                                                    BOOL *stop) {
@@ -3502,24 +3480,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32:(uint32_t)value
-                              forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint32_t)value
+                             forKey:(int32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32UInt32Dictionary*)[self alloc] initWithUInt32s:&value
-                                                           forKeys:&key
-                                                             count:1] autorelease];
+  return [[(LCIMInt32UInt32Dictionary*)[self alloc] initWithValues:&value
+                                                          forKeys:&key
+                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32s:(const uint32_t [])values
-                              forKeys:(const int32_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint32_t [])values
+                             forKeys:(const int32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32UInt32Dictionary*)[self alloc] initWithUInt32s:values
+  return [[(LCIMInt32UInt32Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -3535,12 +3513,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt32s:(const uint32_t [])values
-                        forKeys:(const int32_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint32_t [])values
+                       forKeys:(const int32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -3554,7 +3532,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32UInt32Dictionary *)dictionary {
-  self = [self initWithUInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -3565,7 +3543,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -3580,15 +3558,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32UInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32UInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32UInt32Dictionary class]]) {
     return NO;
   }
-  LCIMInt32UInt32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -3603,7 +3580,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, uint32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -3638,7 +3615,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -3661,13 +3638,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt32sUsingBlock:^(int32_t key, uint32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, uint32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], [NSString stringWithFormat:@"%u", value]);
   }];
 }
 
-- (BOOL)getUInt32:(nullable uint32_t *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(uint32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedIntValue];
@@ -3684,14 +3661,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt32:(uint32_t)value forKey:(int32_t)key {
+- (void)setValue:(uint32_t)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt32ForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -3709,24 +3686,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32:(int32_t)value
++ (instancetype)dictionaryWithValue:(int32_t)value
                              forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32Int32Dictionary*)[self alloc] initWithInt32s:&value
+  return [[(LCIMInt32Int32Dictionary*)[self alloc] initWithValues:&value
                                                          forKeys:&key
                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32s:(const int32_t [])values
++ (instancetype)dictionaryWithValues:(const int32_t [])values
                              forKeys:(const int32_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32Int32Dictionary*)[self alloc] initWithInt32s:values
+  return [[(LCIMInt32Int32Dictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -3742,10 +3719,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt32s:(const int32_t [])values
+- (instancetype)initWithValues:(const int32_t [])values
                        forKeys:(const int32_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -3761,7 +3738,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32Int32Dictionary *)dictionary {
-  self = [self initWithInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -3772,7 +3749,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -3787,15 +3764,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32Int32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32Int32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32Int32Dictionary class]]) {
     return NO;
   }
-  LCIMInt32Int32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -3810,7 +3786,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, int32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -3845,7 +3821,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -3868,13 +3844,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt32sUsingBlock:^(int32_t key, int32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, int32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], [NSString stringWithFormat:@"%d", value]);
   }];
 }
 
-- (BOOL)getInt32:(nullable int32_t *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped intValue];
@@ -3891,14 +3867,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt32:(int32_t)value forKey:(int32_t)key {
+- (void)setValue:(int32_t)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt32ForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -3916,24 +3892,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64:(uint64_t)value
-                              forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint64_t)value
+                             forKey:(int32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32UInt64Dictionary*)[self alloc] initWithUInt64s:&value
-                                                           forKeys:&key
-                                                             count:1] autorelease];
+  return [[(LCIMInt32UInt64Dictionary*)[self alloc] initWithValues:&value
+                                                          forKeys:&key
+                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64s:(const uint64_t [])values
-                              forKeys:(const int32_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint64_t [])values
+                             forKeys:(const int32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32UInt64Dictionary*)[self alloc] initWithUInt64s:values
+  return [[(LCIMInt32UInt64Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -3949,12 +3925,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt64s:(const uint64_t [])values
-                        forKeys:(const int32_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint64_t [])values
+                       forKeys:(const int32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -3968,7 +3944,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32UInt64Dictionary *)dictionary {
-  self = [self initWithUInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -3979,7 +3955,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -3994,15 +3970,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32UInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32UInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32UInt64Dictionary class]]) {
     return NO;
   }
-  LCIMInt32UInt64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -4017,7 +3992,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, uint64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -4052,7 +4027,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -4075,13 +4050,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt64sUsingBlock:^(int32_t key, uint64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, uint64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], [NSString stringWithFormat:@"%llu", value]);
   }];
 }
 
-- (BOOL)getUInt64:(nullable uint64_t *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(uint64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedLongLongValue];
@@ -4098,14 +4073,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt64:(uint64_t)value forKey:(int32_t)key {
+- (void)setValue:(uint64_t)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt64ForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -4123,24 +4098,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64:(int64_t)value
++ (instancetype)dictionaryWithValue:(int64_t)value
                              forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32Int64Dictionary*)[self alloc] initWithInt64s:&value
+  return [[(LCIMInt32Int64Dictionary*)[self alloc] initWithValues:&value
                                                          forKeys:&key
                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64s:(const int64_t [])values
++ (instancetype)dictionaryWithValues:(const int64_t [])values
                              forKeys:(const int32_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32Int64Dictionary*)[self alloc] initWithInt64s:values
+  return [[(LCIMInt32Int64Dictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -4156,10 +4131,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt64s:(const int64_t [])values
+- (instancetype)initWithValues:(const int64_t [])values
                        forKeys:(const int32_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -4175,7 +4150,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32Int64Dictionary *)dictionary {
-  self = [self initWithInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -4186,7 +4161,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -4201,15 +4176,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32Int64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32Int64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32Int64Dictionary class]]) {
     return NO;
   }
-  LCIMInt32Int64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -4224,7 +4198,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, int64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -4259,7 +4233,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -4282,13 +4256,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt64sUsingBlock:^(int32_t key, int64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, int64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], [NSString stringWithFormat:@"%lld", value]);
   }];
 }
 
-- (BOOL)getInt64:(nullable int64_t *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(int64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped longLongValue];
@@ -4305,14 +4279,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt64:(int64_t)value forKey:(int32_t)key {
+- (void)setValue:(int64_t)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt64ForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -4330,24 +4304,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithBools:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithBool:(BOOL)value
-                            forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValue:(BOOL)value
+                             forKey:(int32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32BoolDictionary*)[self alloc] initWithBools:&value
-                                                       forKeys:&key
-                                                         count:1] autorelease];
+  return [[(LCIMInt32BoolDictionary*)[self alloc] initWithValues:&value
+                                                        forKeys:&key
+                                                          count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithBools:(const BOOL [])values
-                            forKeys:(const int32_t [])keys
-                              count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValues:(const BOOL [])values
+                             forKeys:(const int32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32BoolDictionary*)[self alloc] initWithBools:values
+  return [[(LCIMInt32BoolDictionary*)[self alloc] initWithValues:values
                                                         forKeys:keys
                                                           count:count] autorelease];
 }
@@ -4363,12 +4337,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithBools:(const BOOL [])values
-                      forKeys:(const int32_t [])keys
-                        count:(NSUInteger)count {
+- (instancetype)initWithValues:(const BOOL [])values
+                       forKeys:(const int32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -4382,7 +4356,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32BoolDictionary *)dictionary {
-  self = [self initWithBools:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -4393,7 +4367,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -4408,15 +4382,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32BoolDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32BoolDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32BoolDictionary class]]) {
     return NO;
   }
-  LCIMInt32BoolDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -4431,7 +4404,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndBoolsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, BOOL value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -4466,7 +4439,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -4489,13 +4462,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndBoolsUsingBlock:^(int32_t key, BOOL value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, BOOL value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], (value ? @"true" : @"false"));
   }];
 }
 
-- (BOOL)getBool:(nullable BOOL *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(BOOL *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped boolValue];
@@ -4512,14 +4485,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setBool:(BOOL)value forKey:(int32_t)key {
+- (void)setValue:(BOOL)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeBoolForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -4537,24 +4510,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithFloats:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloat:(float)value
++ (instancetype)dictionaryWithValue:(float)value
                              forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32FloatDictionary*)[self alloc] initWithFloats:&value
+  return [[(LCIMInt32FloatDictionary*)[self alloc] initWithValues:&value
                                                          forKeys:&key
                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloats:(const float [])values
++ (instancetype)dictionaryWithValues:(const float [])values
                              forKeys:(const int32_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32FloatDictionary*)[self alloc] initWithFloats:values
+  return [[(LCIMInt32FloatDictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -4570,10 +4543,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithFloats:(const float [])values
+- (instancetype)initWithValues:(const float [])values
                        forKeys:(const int32_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -4589,7 +4562,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32FloatDictionary *)dictionary {
-  self = [self initWithFloats:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -4600,7 +4573,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -4615,15 +4588,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32FloatDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32FloatDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32FloatDictionary class]]) {
     return NO;
   }
-  LCIMInt32FloatDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -4638,7 +4610,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndFloatsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, float value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -4673,7 +4645,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -4696,13 +4668,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndFloatsUsingBlock:^(int32_t key, float value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, float value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], [NSString stringWithFormat:@"%.*g", FLT_DIG, value]);
   }];
 }
 
-- (BOOL)getFloat:(nullable float *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(float *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped floatValue];
@@ -4719,14 +4691,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setFloat:(float)value forKey:(int32_t)key {
+- (void)setValue:(float)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeFloatForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -4744,24 +4716,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithDoubles:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithDouble:(double)value
-                              forKey:(int32_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValue:(double)value
+                             forKey:(int32_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32DoubleDictionary*)[self alloc] initWithDoubles:&value
-                                                           forKeys:&key
-                                                             count:1] autorelease];
+  return [[(LCIMInt32DoubleDictionary*)[self alloc] initWithValues:&value
+                                                          forKeys:&key
+                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithDoubles:(const double [])values
-                              forKeys:(const int32_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValues:(const double [])values
+                             forKeys:(const int32_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt32DoubleDictionary*)[self alloc] initWithDoubles:values
+  return [[(LCIMInt32DoubleDictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -4777,12 +4749,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithDoubles:(const double [])values
-                        forKeys:(const int32_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const double [])values
+                       forKeys:(const int32_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -4796,7 +4768,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt32DoubleDictionary *)dictionary {
-  self = [self initWithDoubles:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -4807,7 +4779,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -4822,15 +4794,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32DoubleDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32DoubleDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32DoubleDictionary class]]) {
     return NO;
   }
-  LCIMInt32DoubleDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -4845,7 +4816,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndDoublesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, double value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -4880,7 +4851,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -4903,13 +4874,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndDoublesUsingBlock:^(int32_t key, double value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int32_t key, double value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%d", key], [NSString stringWithFormat:@"%.*lg", DBL_DIG, value]);
   }];
 }
 
-- (BOOL)getDouble:(nullable double *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(double *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped doubleValue];
@@ -4926,14 +4897,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setDouble:(double)value forKey:(int32_t)key {
+- (void)setValue:(double)value forKey:(int32_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeDoubleForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -5057,15 +5028,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32EnumDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32EnumDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32EnumDictionary class]]) {
     return NO;
   }
-  LCIMInt32EnumDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -5115,7 +5085,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -5156,7 +5126,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }];
 }
 
-- (BOOL)getEnum:(int32_t *)value forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     int32_t result = [wrapped intValue];
@@ -5168,7 +5138,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (BOOL)getRawValue:(int32_t *)rawValue forKey:(int32_t)key {
+- (BOOL)valueForKey:(int32_t)key rawValue:(int32_t *)rawValue {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && rawValue) {
     *rawValue = [wrapped intValue];
@@ -5176,7 +5146,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (void)enumerateKeysAndEnumsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int32_t key, int32_t value, BOOL *stop))block {
   GPBEnumValidationFunc func = _validationFunc;
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
@@ -5206,7 +5176,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeEnumForKey:(int32_t)aKey {
+- (void)removeValueForKey:(int32_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -5214,10 +5184,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   [_dictionary removeAllObjects];
 }
 
-- (void)setEnum:(int32_t)value forKey:(int32_t)key {
+- (void)setValue:(int32_t)value forKey:(int32_t)key {
   if (!_validationFunc(value)) {
     [NSException raise:NSInvalidArgumentException
-                format:@"LCIMInt32EnumDictionary: Attempt to set an unknown enum value (%d)",
+                format:@"GPBInt32EnumDictionary: Attempt to set an unknown enum value (%d)",
                        value];
   }
 
@@ -5319,15 +5289,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt32ObjectDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32ObjectDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32ObjectDictionary class]]) {
     return NO;
   }
-  LCIMInt32ObjectDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -5400,7 +5369,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    id aObject,
                                                    BOOL *stop) {
@@ -5475,24 +5444,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32:(uint32_t)value
-                              forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint32_t)value
+                             forKey:(uint64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64UInt32Dictionary*)[self alloc] initWithUInt32s:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMUInt64UInt32Dictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32s:(const uint32_t [])values
-                              forKeys:(const uint64_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint32_t [])values
+                             forKeys:(const uint64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64UInt32Dictionary*)[self alloc] initWithUInt32s:values
+  return [[(LCIMUInt64UInt32Dictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -5508,12 +5477,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt32s:(const uint32_t [])values
-                        forKeys:(const uint64_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint32_t [])values
+                       forKeys:(const uint64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -5527,7 +5496,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64UInt32Dictionary *)dictionary {
-  self = [self initWithUInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -5538,7 +5507,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -5553,15 +5522,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64UInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64UInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64UInt32Dictionary class]]) {
     return NO;
   }
-  LCIMUInt64UInt32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -5576,7 +5544,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, uint32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -5611,7 +5579,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -5634,13 +5602,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt32sUsingBlock:^(uint64_t key, uint32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, uint32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], [NSString stringWithFormat:@"%u", value]);
   }];
 }
 
-- (BOOL)getUInt32:(nullable uint32_t *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(uint32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedIntValue];
@@ -5657,14 +5625,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt32:(uint32_t)value forKey:(uint64_t)key {
+- (void)setValue:(uint32_t)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt32ForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -5682,24 +5650,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32:(int32_t)value
++ (instancetype)dictionaryWithValue:(int32_t)value
                              forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64Int32Dictionary*)[self alloc] initWithInt32s:&value
+  return [[(LCIMUInt64Int32Dictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32s:(const int32_t [])values
++ (instancetype)dictionaryWithValues:(const int32_t [])values
                              forKeys:(const uint64_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64Int32Dictionary*)[self alloc] initWithInt32s:values
+  return [[(LCIMUInt64Int32Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -5715,10 +5683,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt32s:(const int32_t [])values
+- (instancetype)initWithValues:(const int32_t [])values
                        forKeys:(const uint64_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -5734,7 +5702,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64Int32Dictionary *)dictionary {
-  self = [self initWithInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -5745,7 +5713,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -5760,15 +5728,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64Int32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64Int32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64Int32Dictionary class]]) {
     return NO;
   }
-  LCIMUInt64Int32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -5783,7 +5750,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, int32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -5818,7 +5785,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -5841,13 +5808,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt32sUsingBlock:^(uint64_t key, int32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, int32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], [NSString stringWithFormat:@"%d", value]);
   }];
 }
 
-- (BOOL)getInt32:(nullable int32_t *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped intValue];
@@ -5864,14 +5831,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt32:(int32_t)value forKey:(uint64_t)key {
+- (void)setValue:(int32_t)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt32ForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -5889,24 +5856,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64:(uint64_t)value
-                              forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint64_t)value
+                             forKey:(uint64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64UInt64Dictionary*)[self alloc] initWithUInt64s:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMUInt64UInt64Dictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64s:(const uint64_t [])values
-                              forKeys:(const uint64_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint64_t [])values
+                             forKeys:(const uint64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64UInt64Dictionary*)[self alloc] initWithUInt64s:values
+  return [[(LCIMUInt64UInt64Dictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -5922,12 +5889,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt64s:(const uint64_t [])values
-                        forKeys:(const uint64_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint64_t [])values
+                       forKeys:(const uint64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -5941,7 +5908,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64UInt64Dictionary *)dictionary {
-  self = [self initWithUInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -5952,7 +5919,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -5967,15 +5934,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64UInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64UInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64UInt64Dictionary class]]) {
     return NO;
   }
-  LCIMUInt64UInt64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -5990,7 +5956,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, uint64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -6025,7 +5991,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -6048,13 +6014,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt64sUsingBlock:^(uint64_t key, uint64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, uint64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], [NSString stringWithFormat:@"%llu", value]);
   }];
 }
 
-- (BOOL)getUInt64:(nullable uint64_t *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(uint64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedLongLongValue];
@@ -6071,14 +6037,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt64:(uint64_t)value forKey:(uint64_t)key {
+- (void)setValue:(uint64_t)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt64ForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -6096,24 +6062,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64:(int64_t)value
++ (instancetype)dictionaryWithValue:(int64_t)value
                              forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64Int64Dictionary*)[self alloc] initWithInt64s:&value
+  return [[(LCIMUInt64Int64Dictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64s:(const int64_t [])values
++ (instancetype)dictionaryWithValues:(const int64_t [])values
                              forKeys:(const uint64_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64Int64Dictionary*)[self alloc] initWithInt64s:values
+  return [[(LCIMUInt64Int64Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -6129,10 +6095,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt64s:(const int64_t [])values
+- (instancetype)initWithValues:(const int64_t [])values
                        forKeys:(const uint64_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -6148,7 +6114,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64Int64Dictionary *)dictionary {
-  self = [self initWithInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -6159,7 +6125,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -6174,15 +6140,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64Int64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64Int64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64Int64Dictionary class]]) {
     return NO;
   }
-  LCIMUInt64Int64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -6197,7 +6162,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, int64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -6232,7 +6197,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -6255,13 +6220,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt64sUsingBlock:^(uint64_t key, int64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, int64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], [NSString stringWithFormat:@"%lld", value]);
   }];
 }
 
-- (BOOL)getInt64:(nullable int64_t *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(int64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped longLongValue];
@@ -6278,14 +6243,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt64:(int64_t)value forKey:(uint64_t)key {
+- (void)setValue:(int64_t)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt64ForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -6303,24 +6268,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithBools:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithBool:(BOOL)value
-                            forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValue:(BOOL)value
+                             forKey:(uint64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64BoolDictionary*)[self alloc] initWithBools:&value
-                                                        forKeys:&key
-                                                          count:1] autorelease];
+  return [[(LCIMUInt64BoolDictionary*)[self alloc] initWithValues:&value
+                                                         forKeys:&key
+                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithBools:(const BOOL [])values
-                            forKeys:(const uint64_t [])keys
-                              count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValues:(const BOOL [])values
+                             forKeys:(const uint64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64BoolDictionary*)[self alloc] initWithBools:values
+  return [[(LCIMUInt64BoolDictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -6336,12 +6301,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithBools:(const BOOL [])values
-                      forKeys:(const uint64_t [])keys
-                        count:(NSUInteger)count {
+- (instancetype)initWithValues:(const BOOL [])values
+                       forKeys:(const uint64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -6355,7 +6320,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64BoolDictionary *)dictionary {
-  self = [self initWithBools:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -6366,7 +6331,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -6381,15 +6346,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64BoolDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64BoolDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64BoolDictionary class]]) {
     return NO;
   }
-  LCIMUInt64BoolDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -6404,7 +6368,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndBoolsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, BOOL value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -6439,7 +6403,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -6462,13 +6426,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndBoolsUsingBlock:^(uint64_t key, BOOL value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, BOOL value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], (value ? @"true" : @"false"));
   }];
 }
 
-- (BOOL)getBool:(nullable BOOL *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(BOOL *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped boolValue];
@@ -6485,14 +6449,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setBool:(BOOL)value forKey:(uint64_t)key {
+- (void)setValue:(BOOL)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeBoolForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -6510,24 +6474,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithFloats:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloat:(float)value
++ (instancetype)dictionaryWithValue:(float)value
                              forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64FloatDictionary*)[self alloc] initWithFloats:&value
+  return [[(LCIMUInt64FloatDictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloats:(const float [])values
++ (instancetype)dictionaryWithValues:(const float [])values
                              forKeys:(const uint64_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64FloatDictionary*)[self alloc] initWithFloats:values
+  return [[(LCIMUInt64FloatDictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -6543,10 +6507,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithFloats:(const float [])values
+- (instancetype)initWithValues:(const float [])values
                        forKeys:(const uint64_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -6562,7 +6526,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64FloatDictionary *)dictionary {
-  self = [self initWithFloats:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -6573,7 +6537,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -6588,15 +6552,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64FloatDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64FloatDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64FloatDictionary class]]) {
     return NO;
   }
-  LCIMUInt64FloatDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -6611,7 +6574,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndFloatsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, float value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -6646,7 +6609,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -6669,13 +6632,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndFloatsUsingBlock:^(uint64_t key, float value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, float value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], [NSString stringWithFormat:@"%.*g", FLT_DIG, value]);
   }];
 }
 
-- (BOOL)getFloat:(nullable float *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(float *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped floatValue];
@@ -6692,14 +6655,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setFloat:(float)value forKey:(uint64_t)key {
+- (void)setValue:(float)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeFloatForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -6717,24 +6680,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithDoubles:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithDouble:(double)value
-                              forKey:(uint64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValue:(double)value
+                             forKey:(uint64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64DoubleDictionary*)[self alloc] initWithDoubles:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMUInt64DoubleDictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithDoubles:(const double [])values
-                              forKeys:(const uint64_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValues:(const double [])values
+                             forKeys:(const uint64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMUInt64DoubleDictionary*)[self alloc] initWithDoubles:values
+  return [[(LCIMUInt64DoubleDictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -6750,12 +6713,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithDoubles:(const double [])values
-                        forKeys:(const uint64_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const double [])values
+                       forKeys:(const uint64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -6769,7 +6732,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMUInt64DoubleDictionary *)dictionary {
-  self = [self initWithDoubles:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -6780,7 +6743,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -6795,15 +6758,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64DoubleDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64DoubleDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64DoubleDictionary class]]) {
     return NO;
   }
-  LCIMUInt64DoubleDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -6818,7 +6780,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndDoublesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, double value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -6853,7 +6815,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -6876,13 +6838,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndDoublesUsingBlock:^(uint64_t key, double value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(uint64_t key, double value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%llu", key], [NSString stringWithFormat:@"%.*lg", DBL_DIG, value]);
   }];
 }
 
-- (BOOL)getDouble:(nullable double *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(double *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped doubleValue];
@@ -6899,14 +6861,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setDouble:(double)value forKey:(uint64_t)key {
+- (void)setValue:(double)value forKey:(uint64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeDoubleForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -7030,15 +6992,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64EnumDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64EnumDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64EnumDictionary class]]) {
     return NO;
   }
-  LCIMUInt64EnumDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -7088,7 +7049,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -7129,7 +7090,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }];
 }
 
-- (BOOL)getEnum:(int32_t *)value forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     int32_t result = [wrapped intValue];
@@ -7141,7 +7102,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (BOOL)getRawValue:(int32_t *)rawValue forKey:(uint64_t)key {
+- (BOOL)valueForKey:(uint64_t)key rawValue:(int32_t *)rawValue {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && rawValue) {
     *rawValue = [wrapped intValue];
@@ -7149,7 +7110,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (void)enumerateKeysAndEnumsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(uint64_t key, int32_t value, BOOL *stop))block {
   GPBEnumValidationFunc func = _validationFunc;
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
@@ -7179,7 +7140,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeEnumForKey:(uint64_t)aKey {
+- (void)removeValueForKey:(uint64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -7187,10 +7148,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   [_dictionary removeAllObjects];
 }
 
-- (void)setEnum:(int32_t)value forKey:(uint64_t)key {
+- (void)setValue:(int32_t)value forKey:(uint64_t)key {
   if (!_validationFunc(value)) {
     [NSException raise:NSInvalidArgumentException
-                format:@"LCIMUInt64EnumDictionary: Attempt to set an unknown enum value (%d)",
+                format:@"GPBUInt64EnumDictionary: Attempt to set an unknown enum value (%d)",
                        value];
   }
 
@@ -7292,15 +7253,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMUInt64ObjectDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64ObjectDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64ObjectDictionary class]]) {
     return NO;
   }
-  LCIMUInt64ObjectDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -7373,7 +7333,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    id aObject,
                                                    BOOL *stop) {
@@ -7448,24 +7408,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32:(uint32_t)value
-                              forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint32_t)value
+                             forKey:(int64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64UInt32Dictionary*)[self alloc] initWithUInt32s:&value
-                                                           forKeys:&key
-                                                             count:1] autorelease];
+  return [[(LCIMInt64UInt32Dictionary*)[self alloc] initWithValues:&value
+                                                          forKeys:&key
+                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32s:(const uint32_t [])values
-                              forKeys:(const int64_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint32_t [])values
+                             forKeys:(const int64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64UInt32Dictionary*)[self alloc] initWithUInt32s:values
+  return [[(LCIMInt64UInt32Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -7481,12 +7441,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt32s:(const uint32_t [])values
-                        forKeys:(const int64_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint32_t [])values
+                       forKeys:(const int64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -7500,7 +7460,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64UInt32Dictionary *)dictionary {
-  self = [self initWithUInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -7511,7 +7471,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -7526,15 +7486,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64UInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64UInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64UInt32Dictionary class]]) {
     return NO;
   }
-  LCIMInt64UInt32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -7549,7 +7508,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, uint32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -7584,7 +7543,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -7607,13 +7566,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt32sUsingBlock:^(int64_t key, uint32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, uint32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], [NSString stringWithFormat:@"%u", value]);
   }];
 }
 
-- (BOOL)getUInt32:(nullable uint32_t *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(uint32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedIntValue];
@@ -7630,14 +7589,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt32:(uint32_t)value forKey:(int64_t)key {
+- (void)setValue:(uint32_t)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt32ForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -7655,24 +7614,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32:(int32_t)value
++ (instancetype)dictionaryWithValue:(int32_t)value
                              forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64Int32Dictionary*)[self alloc] initWithInt32s:&value
+  return [[(LCIMInt64Int32Dictionary*)[self alloc] initWithValues:&value
                                                          forKeys:&key
                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32s:(const int32_t [])values
++ (instancetype)dictionaryWithValues:(const int32_t [])values
                              forKeys:(const int64_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64Int32Dictionary*)[self alloc] initWithInt32s:values
+  return [[(LCIMInt64Int32Dictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -7688,10 +7647,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt32s:(const int32_t [])values
+- (instancetype)initWithValues:(const int32_t [])values
                        forKeys:(const int64_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -7707,7 +7666,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64Int32Dictionary *)dictionary {
-  self = [self initWithInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -7718,7 +7677,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -7733,15 +7692,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64Int32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64Int32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64Int32Dictionary class]]) {
     return NO;
   }
-  LCIMInt64Int32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -7756,7 +7714,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, int32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -7791,7 +7749,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -7814,13 +7772,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt32sUsingBlock:^(int64_t key, int32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, int32_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], [NSString stringWithFormat:@"%d", value]);
   }];
 }
 
-- (BOOL)getInt32:(nullable int32_t *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped intValue];
@@ -7837,14 +7795,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt32:(int32_t)value forKey:(int64_t)key {
+- (void)setValue:(int32_t)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt32ForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -7862,24 +7820,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64:(uint64_t)value
-                              forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint64_t)value
+                             forKey:(int64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64UInt64Dictionary*)[self alloc] initWithUInt64s:&value
-                                                           forKeys:&key
-                                                             count:1] autorelease];
+  return [[(LCIMInt64UInt64Dictionary*)[self alloc] initWithValues:&value
+                                                          forKeys:&key
+                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64s:(const uint64_t [])values
-                              forKeys:(const int64_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint64_t [])values
+                             forKeys:(const int64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64UInt64Dictionary*)[self alloc] initWithUInt64s:values
+  return [[(LCIMInt64UInt64Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -7895,12 +7853,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt64s:(const uint64_t [])values
-                        forKeys:(const int64_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint64_t [])values
+                       forKeys:(const int64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -7914,7 +7872,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64UInt64Dictionary *)dictionary {
-  self = [self initWithUInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -7925,7 +7883,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -7940,15 +7898,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64UInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64UInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64UInt64Dictionary class]]) {
     return NO;
   }
-  LCIMInt64UInt64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -7963,7 +7920,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, uint64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -7998,7 +7955,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -8021,13 +7978,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt64sUsingBlock:^(int64_t key, uint64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, uint64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], [NSString stringWithFormat:@"%llu", value]);
   }];
 }
 
-- (BOOL)getUInt64:(nullable uint64_t *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(uint64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped unsignedLongLongValue];
@@ -8044,14 +8001,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt64:(uint64_t)value forKey:(int64_t)key {
+- (void)setValue:(uint64_t)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeUInt64ForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -8069,24 +8026,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64:(int64_t)value
++ (instancetype)dictionaryWithValue:(int64_t)value
                              forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64Int64Dictionary*)[self alloc] initWithInt64s:&value
+  return [[(LCIMInt64Int64Dictionary*)[self alloc] initWithValues:&value
                                                          forKeys:&key
                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64s:(const int64_t [])values
++ (instancetype)dictionaryWithValues:(const int64_t [])values
                              forKeys:(const int64_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64Int64Dictionary*)[self alloc] initWithInt64s:values
+  return [[(LCIMInt64Int64Dictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -8102,10 +8059,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt64s:(const int64_t [])values
+- (instancetype)initWithValues:(const int64_t [])values
                        forKeys:(const int64_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -8121,7 +8078,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64Int64Dictionary *)dictionary {
-  self = [self initWithInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -8132,7 +8089,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -8147,15 +8104,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64Int64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64Int64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64Int64Dictionary class]]) {
     return NO;
   }
-  LCIMInt64Int64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -8170,7 +8126,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, int64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -8205,7 +8161,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -8228,13 +8184,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt64sUsingBlock:^(int64_t key, int64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, int64_t value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], [NSString stringWithFormat:@"%lld", value]);
   }];
 }
 
-- (BOOL)getInt64:(nullable int64_t *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(int64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped longLongValue];
@@ -8251,14 +8207,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt64:(int64_t)value forKey:(int64_t)key {
+- (void)setValue:(int64_t)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeInt64ForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -8276,24 +8232,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithBools:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithBool:(BOOL)value
-                            forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValue:(BOOL)value
+                             forKey:(int64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64BoolDictionary*)[self alloc] initWithBools:&value
-                                                       forKeys:&key
-                                                         count:1] autorelease];
+  return [[(LCIMInt64BoolDictionary*)[self alloc] initWithValues:&value
+                                                        forKeys:&key
+                                                          count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithBools:(const BOOL [])values
-                            forKeys:(const int64_t [])keys
-                              count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValues:(const BOOL [])values
+                             forKeys:(const int64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64BoolDictionary*)[self alloc] initWithBools:values
+  return [[(LCIMInt64BoolDictionary*)[self alloc] initWithValues:values
                                                         forKeys:keys
                                                           count:count] autorelease];
 }
@@ -8309,12 +8265,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithBools:(const BOOL [])values
-                      forKeys:(const int64_t [])keys
-                        count:(NSUInteger)count {
+- (instancetype)initWithValues:(const BOOL [])values
+                       forKeys:(const int64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -8328,7 +8284,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64BoolDictionary *)dictionary {
-  self = [self initWithBools:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -8339,7 +8295,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -8354,15 +8310,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64BoolDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64BoolDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64BoolDictionary class]]) {
     return NO;
   }
-  LCIMInt64BoolDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -8377,7 +8332,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndBoolsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, BOOL value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -8412,7 +8367,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -8435,13 +8390,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndBoolsUsingBlock:^(int64_t key, BOOL value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, BOOL value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], (value ? @"true" : @"false"));
   }];
 }
 
-- (BOOL)getBool:(nullable BOOL *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(BOOL *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped boolValue];
@@ -8458,14 +8413,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setBool:(BOOL)value forKey:(int64_t)key {
+- (void)setValue:(BOOL)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeBoolForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -8483,24 +8438,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithFloats:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloat:(float)value
++ (instancetype)dictionaryWithValue:(float)value
                              forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64FloatDictionary*)[self alloc] initWithFloats:&value
+  return [[(LCIMInt64FloatDictionary*)[self alloc] initWithValues:&value
                                                          forKeys:&key
                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloats:(const float [])values
++ (instancetype)dictionaryWithValues:(const float [])values
                              forKeys:(const int64_t [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64FloatDictionary*)[self alloc] initWithFloats:values
+  return [[(LCIMInt64FloatDictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -8516,10 +8471,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithFloats:(const float [])values
+- (instancetype)initWithValues:(const float [])values
                        forKeys:(const int64_t [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -8535,7 +8490,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64FloatDictionary *)dictionary {
-  self = [self initWithFloats:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -8546,7 +8501,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -8561,15 +8516,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64FloatDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64FloatDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64FloatDictionary class]]) {
     return NO;
   }
-  LCIMInt64FloatDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -8584,7 +8538,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndFloatsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, float value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -8619,7 +8573,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -8642,13 +8596,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndFloatsUsingBlock:^(int64_t key, float value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, float value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], [NSString stringWithFormat:@"%.*g", FLT_DIG, value]);
   }];
 }
 
-- (BOOL)getFloat:(nullable float *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(float *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped floatValue];
@@ -8665,14 +8619,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setFloat:(float)value forKey:(int64_t)key {
+- (void)setValue:(float)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeFloatForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -8690,24 +8644,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithDoubles:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithDouble:(double)value
-                              forKey:(int64_t)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValue:(double)value
+                             forKey:(int64_t)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64DoubleDictionary*)[self alloc] initWithDoubles:&value
-                                                           forKeys:&key
-                                                             count:1] autorelease];
+  return [[(LCIMInt64DoubleDictionary*)[self alloc] initWithValues:&value
+                                                          forKeys:&key
+                                                            count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithDoubles:(const double [])values
-                              forKeys:(const int64_t [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValues:(const double [])values
+                             forKeys:(const int64_t [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMInt64DoubleDictionary*)[self alloc] initWithDoubles:values
+  return [[(LCIMInt64DoubleDictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -8723,12 +8677,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithDoubles:(const double [])values
-                        forKeys:(const int64_t [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const double [])values
+                       forKeys:(const int64_t [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -8742,7 +8696,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMInt64DoubleDictionary *)dictionary {
-  self = [self initWithDoubles:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -8753,7 +8707,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -8768,15 +8722,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64DoubleDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64DoubleDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64DoubleDictionary class]]) {
     return NO;
   }
-  LCIMInt64DoubleDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -8791,7 +8744,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndDoublesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, double value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
@@ -8826,7 +8779,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -8849,13 +8802,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndDoublesUsingBlock:^(int64_t key, double value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(int64_t key, double value, BOOL *stop) {
       #pragma unused(stop)
       block([NSString stringWithFormat:@"%lld", key], [NSString stringWithFormat:@"%.*lg", DBL_DIG, value]);
   }];
 }
 
-- (BOOL)getDouble:(nullable double *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(double *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     *value = [wrapped doubleValue];
@@ -8872,14 +8825,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setDouble:(double)value forKey:(int64_t)key {
+- (void)setValue:(double)value forKey:(int64_t)key {
   [_dictionary setObject:@(value) forKey:@(key)];
   if (_autocreator) {
     LCIMAutocreatedDictionaryModified(_autocreator, self);
   }
 }
 
-- (void)removeDoubleForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -9003,15 +8956,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64EnumDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64EnumDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64EnumDictionary class]]) {
     return NO;
   }
-  LCIMInt64EnumDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -9061,7 +9013,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -9102,7 +9054,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }];
 }
 
-- (BOOL)getEnum:(int32_t *)value forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && value) {
     int32_t result = [wrapped intValue];
@@ -9114,7 +9066,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (BOOL)getRawValue:(int32_t *)rawValue forKey:(int64_t)key {
+- (BOOL)valueForKey:(int64_t)key rawValue:(int32_t *)rawValue {
   NSNumber *wrapped = [_dictionary objectForKey:@(key)];
   if (wrapped && rawValue) {
     *rawValue = [wrapped intValue];
@@ -9122,7 +9074,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (void)enumerateKeysAndEnumsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(int64_t key, int32_t value, BOOL *stop))block {
   GPBEnumValidationFunc func = _validationFunc;
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
@@ -9152,7 +9104,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeEnumForKey:(int64_t)aKey {
+- (void)removeValueForKey:(int64_t)aKey {
   [_dictionary removeObjectForKey:@(aKey)];
 }
 
@@ -9160,10 +9112,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   [_dictionary removeAllObjects];
 }
 
-- (void)setEnum:(int32_t)value forKey:(int64_t)key {
+- (void)setValue:(int32_t)value forKey:(int64_t)key {
   if (!_validationFunc(value)) {
     [NSException raise:NSInvalidArgumentException
-                format:@"LCIMInt64EnumDictionary: Attempt to set an unknown enum value (%d)",
+                format:@"GPBInt64EnumDictionary: Attempt to set an unknown enum value (%d)",
                        value];
   }
 
@@ -9265,15 +9217,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMInt64ObjectDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64ObjectDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64ObjectDictionary class]]) {
     return NO;
   }
-  LCIMInt64ObjectDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -9346,7 +9297,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *aKey,
                                                    id aObject,
                                                    BOOL *stop) {
@@ -9421,24 +9372,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32:(uint32_t)value
-                              forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint32_t)value
+                             forKey:(NSString *)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringUInt32Dictionary*)[self alloc] initWithUInt32s:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMStringUInt32Dictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32s:(const uint32_t [])values
-                              forKeys:(const NSString * [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint32_t [])values
+                             forKeys:(const NSString * [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringUInt32Dictionary*)[self alloc] initWithUInt32s:values
+  return [[(LCIMStringUInt32Dictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -9454,12 +9405,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt32s:(const uint32_t [])values
-                        forKeys:(const NSString * [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint32_t [])values
+                       forKeys:(const NSString * [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -9477,7 +9428,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringUInt32Dictionary *)dictionary {
-  self = [self initWithUInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -9488,7 +9439,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -9503,15 +9454,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringUInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringUInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringUInt32Dictionary class]]) {
     return NO;
   }
-  LCIMStringUInt32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -9526,7 +9476,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, uint32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -9561,7 +9511,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -9584,13 +9534,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt32sUsingBlock:^(NSString *key, uint32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, uint32_t value, BOOL *stop) {
       #pragma unused(stop)
       block(key, [NSString stringWithFormat:@"%u", value]);
   }];
 }
 
-- (BOOL)getUInt32:(nullable uint32_t *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(uint32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped unsignedIntValue];
@@ -9607,7 +9557,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt32:(uint32_t)value forKey:(NSString *)key {
+- (void)setValue:(uint32_t)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -9618,7 +9568,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeUInt32ForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -9636,24 +9586,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32:(int32_t)value
++ (instancetype)dictionaryWithValue:(int32_t)value
                              forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringInt32Dictionary*)[self alloc] initWithInt32s:&value
+  return [[(LCIMStringInt32Dictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32s:(const int32_t [])values
++ (instancetype)dictionaryWithValues:(const int32_t [])values
                              forKeys:(const NSString * [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringInt32Dictionary*)[self alloc] initWithInt32s:values
+  return [[(LCIMStringInt32Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -9669,10 +9619,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt32s:(const int32_t [])values
+- (instancetype)initWithValues:(const int32_t [])values
                        forKeys:(const NSString * [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -9692,7 +9642,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringInt32Dictionary *)dictionary {
-  self = [self initWithInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -9703,7 +9653,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -9718,15 +9668,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringInt32Dictionary class]]) {
     return NO;
   }
-  LCIMStringInt32Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -9741,7 +9690,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, int32_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -9776,7 +9725,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -9799,13 +9748,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt32sUsingBlock:^(NSString *key, int32_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, int32_t value, BOOL *stop) {
       #pragma unused(stop)
       block(key, [NSString stringWithFormat:@"%d", value]);
   }];
 }
 
-- (BOOL)getInt32:(nullable int32_t *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped intValue];
@@ -9822,7 +9771,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt32:(int32_t)value forKey:(NSString *)key {
+- (void)setValue:(int32_t)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -9833,7 +9782,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeInt32ForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -9851,24 +9800,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64:(uint64_t)value
-                              forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint64_t)value
+                             forKey:(NSString *)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringUInt64Dictionary*)[self alloc] initWithUInt64s:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMStringUInt64Dictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64s:(const uint64_t [])values
-                              forKeys:(const NSString * [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint64_t [])values
+                             forKeys:(const NSString * [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringUInt64Dictionary*)[self alloc] initWithUInt64s:values
+  return [[(LCIMStringUInt64Dictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -9884,12 +9833,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt64s:(const uint64_t [])values
-                        forKeys:(const NSString * [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint64_t [])values
+                       forKeys:(const NSString * [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -9907,7 +9856,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringUInt64Dictionary *)dictionary {
-  self = [self initWithUInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -9918,7 +9867,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -9933,15 +9882,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringUInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringUInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringUInt64Dictionary class]]) {
     return NO;
   }
-  LCIMStringUInt64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -9956,7 +9904,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndUInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, uint64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -9991,7 +9939,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -10014,13 +9962,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndUInt64sUsingBlock:^(NSString *key, uint64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, uint64_t value, BOOL *stop) {
       #pragma unused(stop)
       block(key, [NSString stringWithFormat:@"%llu", value]);
   }];
 }
 
-- (BOOL)getUInt64:(nullable uint64_t *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(uint64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped unsignedLongLongValue];
@@ -10037,7 +9985,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt64:(uint64_t)value forKey:(NSString *)key {
+- (void)setValue:(uint64_t)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -10048,7 +9996,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeUInt64ForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -10066,24 +10014,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64:(int64_t)value
++ (instancetype)dictionaryWithValue:(int64_t)value
                              forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringInt64Dictionary*)[self alloc] initWithInt64s:&value
+  return [[(LCIMStringInt64Dictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64s:(const int64_t [])values
++ (instancetype)dictionaryWithValues:(const int64_t [])values
                              forKeys:(const NSString * [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringInt64Dictionary*)[self alloc] initWithInt64s:values
+  return [[(LCIMStringInt64Dictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -10099,10 +10047,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt64s:(const int64_t [])values
+- (instancetype)initWithValues:(const int64_t [])values
                        forKeys:(const NSString * [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -10122,7 +10070,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringInt64Dictionary *)dictionary {
-  self = [self initWithInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -10133,7 +10081,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -10148,15 +10096,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringInt64Dictionary class]]) {
     return NO;
   }
-  LCIMStringInt64Dictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -10171,7 +10118,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, int64_t value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -10206,7 +10153,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -10229,13 +10176,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndInt64sUsingBlock:^(NSString *key, int64_t value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, int64_t value, BOOL *stop) {
       #pragma unused(stop)
       block(key, [NSString stringWithFormat:@"%lld", value]);
   }];
 }
 
-- (BOOL)getInt64:(nullable int64_t *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(int64_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped longLongValue];
@@ -10252,7 +10199,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt64:(int64_t)value forKey:(NSString *)key {
+- (void)setValue:(int64_t)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -10263,7 +10210,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeInt64ForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -10281,24 +10228,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithBools:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithBool:(BOOL)value
-                            forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValue:(BOOL)value
+                             forKey:(NSString *)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringBoolDictionary*)[self alloc] initWithBools:&value
-                                                        forKeys:&key
-                                                          count:1] autorelease];
+  return [[(LCIMStringBoolDictionary*)[self alloc] initWithValues:&value
+                                                         forKeys:&key
+                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithBools:(const BOOL [])values
-                            forKeys:(const NSString * [])keys
-                              count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValues:(const BOOL [])values
+                             forKeys:(const NSString * [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringBoolDictionary*)[self alloc] initWithBools:values
+  return [[(LCIMStringBoolDictionary*)[self alloc] initWithValues:values
                                                          forKeys:keys
                                                            count:count] autorelease];
 }
@@ -10314,12 +10261,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithBools:(const BOOL [])values
-                      forKeys:(const NSString * [])keys
-                        count:(NSUInteger)count {
+- (instancetype)initWithValues:(const BOOL [])values
+                       forKeys:(const NSString * [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -10337,7 +10284,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringBoolDictionary *)dictionary {
-  self = [self initWithBools:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -10348,7 +10295,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -10363,15 +10310,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringBoolDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringBoolDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringBoolDictionary class]]) {
     return NO;
   }
-  LCIMStringBoolDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -10386,7 +10332,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndBoolsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, BOOL value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -10421,7 +10367,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -10444,13 +10390,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndBoolsUsingBlock:^(NSString *key, BOOL value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, BOOL value, BOOL *stop) {
       #pragma unused(stop)
       block(key, (value ? @"true" : @"false"));
   }];
 }
 
-- (BOOL)getBool:(nullable BOOL *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(BOOL *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped boolValue];
@@ -10467,7 +10413,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setBool:(BOOL)value forKey:(NSString *)key {
+- (void)setValue:(BOOL)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -10478,7 +10424,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeBoolForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -10496,24 +10442,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithFloats:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloat:(float)value
++ (instancetype)dictionaryWithValue:(float)value
                              forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringFloatDictionary*)[self alloc] initWithFloats:&value
+  return [[(LCIMStringFloatDictionary*)[self alloc] initWithValues:&value
                                                           forKeys:&key
                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloats:(const float [])values
++ (instancetype)dictionaryWithValues:(const float [])values
                              forKeys:(const NSString * [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringFloatDictionary*)[self alloc] initWithFloats:values
+  return [[(LCIMStringFloatDictionary*)[self alloc] initWithValues:values
                                                           forKeys:keys
                                                             count:count] autorelease];
 }
@@ -10529,10 +10475,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithFloats:(const float [])values
+- (instancetype)initWithValues:(const float [])values
                        forKeys:(const NSString * [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -10552,7 +10498,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringFloatDictionary *)dictionary {
-  self = [self initWithFloats:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -10563,7 +10509,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -10578,15 +10524,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringFloatDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringFloatDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringFloatDictionary class]]) {
     return NO;
   }
-  LCIMStringFloatDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -10601,7 +10546,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndFloatsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, float value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -10636,7 +10581,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -10659,13 +10604,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndFloatsUsingBlock:^(NSString *key, float value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, float value, BOOL *stop) {
       #pragma unused(stop)
       block(key, [NSString stringWithFormat:@"%.*g", FLT_DIG, value]);
   }];
 }
 
-- (BOOL)getFloat:(nullable float *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(float *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped floatValue];
@@ -10682,7 +10627,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setFloat:(float)value forKey:(NSString *)key {
+- (void)setValue:(float)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -10693,7 +10638,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeFloatForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -10711,24 +10656,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithDoubles:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithDouble:(double)value
-                              forKey:(NSString *)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValue:(double)value
+                             forKey:(NSString *)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringDoubleDictionary*)[self alloc] initWithDoubles:&value
-                                                            forKeys:&key
-                                                              count:1] autorelease];
+  return [[(LCIMStringDoubleDictionary*)[self alloc] initWithValues:&value
+                                                           forKeys:&key
+                                                             count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithDoubles:(const double [])values
-                              forKeys:(const NSString * [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValues:(const double [])values
+                             forKeys:(const NSString * [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMStringDoubleDictionary*)[self alloc] initWithDoubles:values
+  return [[(LCIMStringDoubleDictionary*)[self alloc] initWithValues:values
                                                            forKeys:keys
                                                              count:count] autorelease];
 }
@@ -10744,12 +10689,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithDoubles:(const double [])values
-                        forKeys:(const NSString * [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const double [])values
+                       forKeys:(const NSString * [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     _dictionary = [[NSMutableDictionary alloc] init];
@@ -10767,7 +10712,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMStringDoubleDictionary *)dictionary {
-  self = [self initWithDoubles:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       [_dictionary addEntriesFromDictionary:dictionary->_dictionary];
@@ -10778,7 +10723,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 - (void)dealloc {
@@ -10793,15 +10738,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringDoubleDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringDoubleDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringDoubleDictionary class]]) {
     return NO;
   }
-  LCIMStringDoubleDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -10816,7 +10760,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return _dictionary.count;
 }
 
-- (void)enumerateKeysAndDoublesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, double value, BOOL *stop))block {
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
@@ -10851,7 +10795,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -10874,13 +10818,13 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (void)enumerateForTextFormat:(void (^)(id keyObj, id valueObj))block {
-  [self enumerateKeysAndDoublesUsingBlock:^(NSString *key, double value, BOOL *stop) {
+  [self enumerateKeysAndValuesUsingBlock:^(NSString *key, double value, BOOL *stop) {
       #pragma unused(stop)
       block(key, [NSString stringWithFormat:@"%.*lg", DBL_DIG, value]);
   }];
 }
 
-- (BOOL)getDouble:(nullable double *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(double *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     *value = [wrapped doubleValue];
@@ -10897,7 +10841,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setDouble:(double)value forKey:(NSString *)key {
+- (void)setValue:(double)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
@@ -10908,7 +10852,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeDoubleForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -11036,15 +10980,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMStringEnumDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMStringEnumDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMStringEnumDictionary class]]) {
     return NO;
   }
-  LCIMStringEnumDictionary *otherDictionary = other;
-  return [_dictionary isEqual:otherDictionary->_dictionary];
+  return [_dictionary isEqual:other->_dictionary];
 }
 
 - (NSUInteger)hash {
@@ -11094,7 +11037,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
   GPBDataType keyDataType = field.mapKeyDataType;
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
                                                    NSNumber *aValue,
                                                    BOOL *stop) {
@@ -11135,7 +11078,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }];
 }
 
-- (BOOL)getEnum:(int32_t *)value forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key value:(int32_t *)value {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && value) {
     int32_t result = [wrapped intValue];
@@ -11147,7 +11090,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (BOOL)getRawValue:(int32_t *)rawValue forKey:(NSString *)key {
+- (BOOL)valueForKey:(NSString *)key rawValue:(int32_t *)rawValue {
   NSNumber *wrapped = [_dictionary objectForKey:key];
   if (wrapped && rawValue) {
     *rawValue = [wrapped intValue];
@@ -11155,7 +11098,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (wrapped != NULL);
 }
 
-- (void)enumerateKeysAndEnumsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(NSString *key, int32_t value, BOOL *stop))block {
   GPBEnumValidationFunc func = _validationFunc;
   [_dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey,
@@ -11189,7 +11132,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeEnumForKey:(NSString *)aKey {
+- (void)removeValueForKey:(NSString *)aKey {
   [_dictionary removeObjectForKey:aKey];
 }
 
@@ -11197,14 +11140,14 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   [_dictionary removeAllObjects];
 }
 
-- (void)setEnum:(int32_t)value forKey:(NSString *)key {
+- (void)setValue:(int32_t)value forKey:(NSString *)key {
   if (!key) {
     [NSException raise:NSInvalidArgumentException
                 format:@"Attempting to add nil key to a Dictionary"];
   }
   if (!_validationFunc(value)) {
     [NSException raise:NSInvalidArgumentException
-                format:@"LCIMStringEnumDictionary: Attempt to set an unknown enum value (%d)",
+                format:@"GPBStringEnumDictionary: Attempt to set an unknown enum value (%d)",
                        value];
   }
 
@@ -11231,26 +11174,26 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32:(uint32_t)value
-                              forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint32_t)value
+                             forKey:(BOOL)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolUInt32Dictionary*)[self alloc] initWithUInt32s:&value
-                                                          forKeys:&key
-                                                            count:1] autorelease];
+  return [[(LCIMBoolUInt32Dictionary*)[self alloc] initWithValues:&value
+                                                         forKeys:&key
+                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt32s:(const uint32_t [])values
-                              forKeys:(const BOOL [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt32s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint32_t [])values
+                             forKeys:(const BOOL [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolUInt32Dictionary*)[self alloc] initWithUInt32s:values
-                                                          forKeys:keys
-                                                            count:count] autorelease];
+  return [[(LCIMBoolUInt32Dictionary*)[self alloc] initWithValues:values
+                                                         forKeys:keys
+                                                           count:count] autorelease];
 }
 
 + (instancetype)dictionaryWithDictionary:(LCIMBoolUInt32Dictionary *)dictionary {
@@ -11264,12 +11207,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt32s:(const uint32_t [])values
-                        forKeys:(const BOOL [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint32_t [])values
+                       forKeys:(const BOOL [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     for (NSUInteger i = 0; i < count; ++i) {
@@ -11282,7 +11225,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolUInt32Dictionary *)dictionary {
-  self = [self initWithUInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -11298,7 +11241,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -11314,20 +11257,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolUInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolUInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolUInt32Dictionary class]]) {
     return NO;
   }
-  LCIMBoolUInt32Dictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -11353,7 +11295,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getUInt32:(uint32_t *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(uint32_t *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -11380,7 +11322,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndUInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, uint32_t value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -11411,7 +11353,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -11441,7 +11383,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt32:(uint32_t)value forKey:(BOOL)key {
+- (void)setValue:(uint32_t)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -11450,7 +11392,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeUInt32ForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -11473,24 +11415,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt32s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32:(int32_t)value
++ (instancetype)dictionaryWithValue:(int32_t)value
                              forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolInt32Dictionary*)[self alloc] initWithInt32s:&value
+  return [[(LCIMBoolInt32Dictionary*)[self alloc] initWithValues:&value
                                                         forKeys:&key
                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt32s:(const int32_t [])values
++ (instancetype)dictionaryWithValues:(const int32_t [])values
                              forKeys:(const BOOL [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt32s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolInt32Dictionary*)[self alloc] initWithInt32s:values
+  return [[(LCIMBoolInt32Dictionary*)[self alloc] initWithValues:values
                                                         forKeys:keys
                                                           count:count] autorelease];
 }
@@ -11506,10 +11448,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt32s:(const int32_t [])values
+- (instancetype)initWithValues:(const int32_t [])values
                        forKeys:(const BOOL [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -11524,7 +11466,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolInt32Dictionary *)dictionary {
-  self = [self initWithInt32s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -11540,7 +11482,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt32s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -11556,20 +11498,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolInt32Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolInt32Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolInt32Dictionary class]]) {
     return NO;
   }
-  LCIMBoolInt32Dictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -11595,7 +11536,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getInt32:(int32_t *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(int32_t *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -11622,7 +11563,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndInt32sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, int32_t value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -11653,7 +11594,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -11683,7 +11624,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt32:(int32_t)value forKey:(BOOL)key {
+- (void)setValue:(int32_t)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -11692,7 +11633,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeInt32ForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -11715,26 +11656,26 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithUInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64:(uint64_t)value
-                              forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValue:(uint64_t)value
+                             forKey:(BOOL)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolUInt64Dictionary*)[self alloc] initWithUInt64s:&value
-                                                          forKeys:&key
-                                                            count:1] autorelease];
+  return [[(LCIMBoolUInt64Dictionary*)[self alloc] initWithValues:&value
+                                                         forKeys:&key
+                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithUInt64s:(const uint64_t [])values
-                              forKeys:(const BOOL [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithUInt64s:forKeys:count:
++ (instancetype)dictionaryWithValues:(const uint64_t [])values
+                             forKeys:(const BOOL [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolUInt64Dictionary*)[self alloc] initWithUInt64s:values
-                                                          forKeys:keys
-                                                            count:count] autorelease];
+  return [[(LCIMBoolUInt64Dictionary*)[self alloc] initWithValues:values
+                                                         forKeys:keys
+                                                           count:count] autorelease];
 }
 
 + (instancetype)dictionaryWithDictionary:(LCIMBoolUInt64Dictionary *)dictionary {
@@ -11748,12 +11689,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithUInt64s:(const uint64_t [])values
-                        forKeys:(const BOOL [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const uint64_t [])values
+                       forKeys:(const BOOL [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     for (NSUInteger i = 0; i < count; ++i) {
@@ -11766,7 +11707,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolUInt64Dictionary *)dictionary {
-  self = [self initWithUInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -11782,7 +11723,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithUInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -11798,20 +11739,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolUInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolUInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolUInt64Dictionary class]]) {
     return NO;
   }
-  LCIMBoolUInt64Dictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -11837,7 +11777,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getUInt64:(uint64_t *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(uint64_t *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -11864,7 +11804,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndUInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, uint64_t value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -11895,7 +11835,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -11925,7 +11865,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setUInt64:(uint64_t)value forKey:(BOOL)key {
+- (void)setValue:(uint64_t)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -11934,7 +11874,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeUInt64ForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -11957,24 +11897,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithInt64s:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64:(int64_t)value
++ (instancetype)dictionaryWithValue:(int64_t)value
                              forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolInt64Dictionary*)[self alloc] initWithInt64s:&value
+  return [[(LCIMBoolInt64Dictionary*)[self alloc] initWithValues:&value
                                                         forKeys:&key
                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithInt64s:(const int64_t [])values
++ (instancetype)dictionaryWithValues:(const int64_t [])values
                              forKeys:(const BOOL [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithInt64s:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolInt64Dictionary*)[self alloc] initWithInt64s:values
+  return [[(LCIMBoolInt64Dictionary*)[self alloc] initWithValues:values
                                                         forKeys:keys
                                                           count:count] autorelease];
 }
@@ -11990,10 +11930,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithInt64s:(const int64_t [])values
+- (instancetype)initWithValues:(const int64_t [])values
                        forKeys:(const BOOL [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -12008,7 +11948,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolInt64Dictionary *)dictionary {
-  self = [self initWithInt64s:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -12024,7 +11964,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithInt64s:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -12040,20 +11980,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolInt64Dictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolInt64Dictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolInt64Dictionary class]]) {
     return NO;
   }
-  LCIMBoolInt64Dictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -12079,7 +12018,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getInt64:(int64_t *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(int64_t *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -12106,7 +12045,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndInt64sUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, int64_t value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -12137,7 +12076,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -12167,7 +12106,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setInt64:(int64_t)value forKey:(BOOL)key {
+- (void)setValue:(int64_t)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -12176,7 +12115,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeInt64ForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -12199,26 +12138,26 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithBools:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithBool:(BOOL)value
-                            forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValue:(BOOL)value
+                             forKey:(BOOL)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolBoolDictionary*)[self alloc] initWithBools:&value
-                                                      forKeys:&key
-                                                        count:1] autorelease];
+  return [[(LCIMBoolBoolDictionary*)[self alloc] initWithValues:&value
+                                                       forKeys:&key
+                                                         count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithBools:(const BOOL [])values
-                            forKeys:(const BOOL [])keys
-                              count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithBools:forKeys:count:
++ (instancetype)dictionaryWithValues:(const BOOL [])values
+                             forKeys:(const BOOL [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolBoolDictionary*)[self alloc] initWithBools:values
-                                                      forKeys:keys
-                                                        count:count] autorelease];
+  return [[(LCIMBoolBoolDictionary*)[self alloc] initWithValues:values
+                                                       forKeys:keys
+                                                         count:count] autorelease];
 }
 
 + (instancetype)dictionaryWithDictionary:(LCIMBoolBoolDictionary *)dictionary {
@@ -12232,12 +12171,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithBools:(const BOOL [])values
-                      forKeys:(const BOOL [])keys
-                        count:(NSUInteger)count {
+- (instancetype)initWithValues:(const BOOL [])values
+                       forKeys:(const BOOL [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     for (NSUInteger i = 0; i < count; ++i) {
@@ -12250,7 +12189,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolBoolDictionary *)dictionary {
-  self = [self initWithBools:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -12266,7 +12205,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithBools:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -12282,20 +12221,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolBoolDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolBoolDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolBoolDictionary class]]) {
     return NO;
   }
-  LCIMBoolBoolDictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -12321,7 +12259,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getBool:(BOOL *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(BOOL *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -12348,7 +12286,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndBoolsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, BOOL value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -12379,7 +12317,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -12409,7 +12347,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setBool:(BOOL)value forKey:(BOOL)key {
+- (void)setValue:(BOOL)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -12418,7 +12356,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeBoolForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -12441,24 +12379,24 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithFloats:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloat:(float)value
++ (instancetype)dictionaryWithValue:(float)value
                              forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolFloatDictionary*)[self alloc] initWithFloats:&value
+  return [[(LCIMBoolFloatDictionary*)[self alloc] initWithValues:&value
                                                         forKeys:&key
                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithFloats:(const float [])values
++ (instancetype)dictionaryWithValues:(const float [])values
                              forKeys:(const BOOL [])keys
                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithFloats:forKeys:count:
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolFloatDictionary*)[self alloc] initWithFloats:values
+  return [[(LCIMBoolFloatDictionary*)[self alloc] initWithValues:values
                                                         forKeys:keys
                                                           count:count] autorelease];
 }
@@ -12474,10 +12412,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithFloats:(const float [])values
+- (instancetype)initWithValues:(const float [])values
                        forKeys:(const BOOL [])keys
                          count:(NSUInteger)count {
   self = [super init];
@@ -12492,7 +12430,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolFloatDictionary *)dictionary {
-  self = [self initWithFloats:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -12508,7 +12446,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithFloats:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -12524,20 +12462,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolFloatDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolFloatDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolFloatDictionary class]]) {
     return NO;
   }
-  LCIMBoolFloatDictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -12563,7 +12500,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getFloat:(float *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(float *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -12590,7 +12527,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndFloatsUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, float value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -12621,7 +12558,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -12651,7 +12588,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setFloat:(float)value forKey:(BOOL)key {
+- (void)setValue:(float)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -12660,7 +12597,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeFloatForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -12683,26 +12620,26 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 + (instancetype)dictionary {
-  return [[[self alloc] initWithDoubles:NULL forKeys:NULL count:0] autorelease];
+  return [[[self alloc] initWithValues:NULL forKeys:NULL count:0] autorelease];
 }
 
-+ (instancetype)dictionaryWithDouble:(double)value
-                              forKey:(BOOL)key {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValue:(double)value
+                             forKey:(BOOL)key {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolDoubleDictionary*)[self alloc] initWithDoubles:&value
-                                                          forKeys:&key
-                                                            count:1] autorelease];
+  return [[(LCIMBoolDoubleDictionary*)[self alloc] initWithValues:&value
+                                                         forKeys:&key
+                                                           count:1] autorelease];
 }
 
-+ (instancetype)dictionaryWithDoubles:(const double [])values
-                              forKeys:(const BOOL [])keys
-                                count:(NSUInteger)count {
-  // Cast is needed so the compiler knows what class we are invoking initWithDoubles:forKeys:count:
++ (instancetype)dictionaryWithValues:(const double [])values
+                             forKeys:(const BOOL [])keys
+                               count:(NSUInteger)count {
+  // Cast is needed so the compiler knows what class we are invoking initWithValues:forKeys:count:
   // on to get the type correct.
-  return [[(LCIMBoolDoubleDictionary*)[self alloc] initWithDoubles:values
-                                                          forKeys:keys
-                                                            count:count] autorelease];
+  return [[(LCIMBoolDoubleDictionary*)[self alloc] initWithValues:values
+                                                         forKeys:keys
+                                                           count:count] autorelease];
 }
 
 + (instancetype)dictionaryWithDictionary:(LCIMBoolDoubleDictionary *)dictionary {
@@ -12716,12 +12653,12 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)init {
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
-- (instancetype)initWithDoubles:(const double [])values
-                        forKeys:(const BOOL [])keys
-                          count:(NSUInteger)count {
+- (instancetype)initWithValues:(const double [])values
+                       forKeys:(const BOOL [])keys
+                         count:(NSUInteger)count {
   self = [super init];
   if (self) {
     for (NSUInteger i = 0; i < count; ++i) {
@@ -12734,7 +12671,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 - (instancetype)initWithDictionary:(LCIMBoolDoubleDictionary *)dictionary {
-  self = [self initWithDoubles:NULL forKeys:NULL count:0];
+  self = [self initWithValues:NULL forKeys:NULL count:0];
   if (self) {
     if (dictionary) {
       for (int i = 0; i < 2; ++i) {
@@ -12750,7 +12687,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems {
   #pragma unused(numItems)
-  return [self initWithDoubles:NULL forKeys:NULL count:0];
+  return [self initWithValues:NULL forKeys:NULL count:0];
 }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
@@ -12766,20 +12703,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolDoubleDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolDoubleDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolDoubleDictionary class]]) {
     return NO;
   }
-  LCIMBoolDoubleDictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -12805,7 +12741,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getDouble:(double *)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(double *)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -12832,7 +12768,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndDoublesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, double value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -12863,7 +12799,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -12893,7 +12829,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setDouble:(double)value forKey:(BOOL)key {
+- (void)setValue:(double)value forKey:(BOOL)key {
   int idx = (key ? 1 : 0);
   _values[idx] = value;
   _valueSet[idx] = YES;
@@ -12902,7 +12838,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeDoubleForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -13007,20 +12943,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolObjectDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolObjectDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolObjectDictionary class]]) {
     return NO;
   }
-  LCIMBoolObjectDictionary *otherDictionary = other;
-  if (((_values[0] != nil) != (otherDictionary->_values[0] != nil)) ||
-      ((_values[1] != nil) != (otherDictionary->_values[1] != nil))) {
+  if (((_values[0] != nil) != (other->_values[0] != nil)) ||
+      ((_values[1] != nil) != (other->_values[1] != nil))) {
     return NO;
   }
-  if (((_values[0] != nil) && (![_values[0] isEqual:otherDictionary->_values[0]])) ||
-      ((_values[1] != nil) && (![_values[1] isEqual:otherDictionary->_values[1]]))) {
+  if (((_values[0] != nil) && (![_values[0] isEqual:other->_values[0]])) ||
+      ((_values[1] != nil) && (![_values[1] isEqual:other->_values[1]]))) {
     return NO;
   }
   return YES;
@@ -13118,7 +13053,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_values[i] != nil) {
       // Write the tag.
@@ -13298,20 +13233,19 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return [[LCIMBoolEnumDictionary allocWithZone:zone] initWithDictionary:self];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolEnumDictionary *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolEnumDictionary class]]) {
     return NO;
   }
-  LCIMBoolEnumDictionary *otherDictionary = other;
-  if ((_valueSet[0] != otherDictionary->_valueSet[0]) ||
-      (_valueSet[1] != otherDictionary->_valueSet[1])) {
+  if ((_valueSet[0] != other->_valueSet[0]) ||
+      (_valueSet[1] != other->_valueSet[1])) {
     return NO;
   }
-  if ((_valueSet[0] && (_values[0] != otherDictionary->_values[0])) ||
-      (_valueSet[1] && (_values[1] != otherDictionary->_values[1]))) {
+  if ((_valueSet[0] && (_values[0] != other->_values[0])) ||
+      (_valueSet[1] && (_values[1] != other->_values[1]))) {
     return NO;
   }
   return YES;
@@ -13337,7 +13271,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return (_valueSet[0] ? 1 : 0) + (_valueSet[1] ? 1 : 0);
 }
 
-- (BOOL)getEnum:(int32_t*)value forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key value:(int32_t*)value {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (value) {
@@ -13352,7 +13286,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return NO;
 }
 
-- (BOOL)getRawValue:(int32_t*)rawValue forKey:(BOOL)key {
+- (BOOL)valueForKey:(BOOL)key rawValue:(int32_t*)rawValue {
   int idx = (key ? 1 : 0);
   if (_valueSet[idx]) {
     if (rawValue) {
@@ -13363,7 +13297,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   return NO;
 }
 
-- (void)enumerateKeysAndRawValuesUsingBlock:
+- (void)enumerateKeysAndValuesUsingBlock:
     (void (^)(BOOL key, int32_t value, BOOL *stop))block {
   BOOL stop = NO;
   if (_valueSet[0]) {
@@ -13374,7 +13308,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)enumerateKeysAndEnumsUsingBlock:
+- (void)enumerateKeysAndRawValuesUsingBlock:
     (void (^)(BOOL key, int32_t rawValue, BOOL *stop))block {
   BOOL stop = NO;
   GPBEnumValidationFunc func = _validationFunc;
@@ -13433,7 +13367,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 - (void)writeToCodedOutputStream:(LCIMCodedOutputStream *)outputStream
                          asField:(LCIMFieldDescriptor *)field {
   GPBDataType valueDataType = LCIMGetFieldDataType(field);
-  uint32_t tag = LCIMWireFormatMakeTag(LCIMFieldNumber(field), LCIMWireFormatLengthDelimited);
+  uint32_t tag = GPBWireFormatMakeTag(LCIMFieldNumber(field), GPBWireFormatLengthDelimited);
   for (int i = 0; i < 2; ++i) {
     if (_valueSet[i]) {
       // Write the tag.
@@ -13479,10 +13413,10 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)setEnum:(int32_t)value forKey:(BOOL)key {
+- (void)setValue:(int32_t)value forKey:(BOOL)key {
   if (!_validationFunc(value)) {
     [NSException raise:NSInvalidArgumentException
-                format:@"LCIMBoolEnumDictionary: Attempt to set an unknown enum value (%d)",
+                format:@"GPBBoolEnumDictionary: Attempt to set an unknown enum value (%d)",
      value];
   }
   int idx = (key ? 1 : 0);
@@ -13502,7 +13436,7 @@ void LCIMDictionaryReadEntry(id mapDictionary,
   }
 }
 
-- (void)removeEnumForKey:(BOOL)aKey {
+- (void)removeValueForKey:(BOOL)aKey {
   _valueSet[aKey ? 1 : 0] = NO;
 }
 
@@ -13619,5 +13553,3 @@ void LCIMDictionaryReadEntry(id mapDictionary,
 }
 
 @end
-
-#pragma clang diagnostic pop

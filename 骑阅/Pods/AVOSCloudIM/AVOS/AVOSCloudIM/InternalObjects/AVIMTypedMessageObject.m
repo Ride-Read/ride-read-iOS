@@ -18,11 +18,7 @@
         return NO;
     }
     BOOL __block isSupportedThisVersion = NO;
-    id type = [self objectForKey:@"_lctype"];
-    //使用REST API发送时type可能为string类型
-    if (![type isKindOfClass:[NSNumber class]]) {
-        return NO;
-    }
+    NSNumber *type = [self objectForKey:@"_lctype"];
     [_typeDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([key intValue] == [type intValue]) {
             isSupportedThisVersion = YES;

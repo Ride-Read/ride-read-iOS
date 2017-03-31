@@ -23,27 +23,27 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-#pragma mark - LCIMEmptyRoot
+#pragma mark - GPBEmptyRoot
 
 @implementation LCIMEmptyRoot
 
 @end
 
-#pragma mark - LCIMEmptyRoot_FileDescriptor
+#pragma mark - GPBEmptyRoot_FileDescriptor
 
-static LCIMFileDescriptor *LCIMEmptyRoot_FileDescriptor(void) {
+static LCIMFileDescriptor *GPBEmptyRoot_FileDescriptor(void) {
   // This is called by +initialize so there is no need to worry
   // about thread safety of the singleton.
   static LCIMFileDescriptor *descriptor = NULL;
   if (!descriptor) {
-    LCIM_DEBUG_CHECK_RUNTIME_VERSIONS();
+    GPBDebugCheckRuntimeVersion();
     descriptor = [[LCIMFileDescriptor alloc] initWithPackage:@"google.protobuf"
                                                      syntax:GPBFileSyntaxProto3];
   }
   return descriptor;
 }
 
-#pragma mark - LCIMEmpty
+#pragma mark - GPBEmpty
 
 @implementation LCIMEmpty
 
@@ -60,11 +60,11 @@ typedef struct LCIMEmpty__storage_ {
     LCIMDescriptor *localDescriptor =
         [LCIMDescriptor allocDescriptorForClass:[LCIMEmpty class]
                                      rootClass:[LCIMEmptyRoot class]
-                                          file:LCIMEmptyRoot_FileDescriptor()
+                                          file:GPBEmptyRoot_FileDescriptor()
                                         fields:NULL
                                     fieldCount:0
                                    storageSize:sizeof(LCIMEmpty__storage_)
-                                         flags:LCIMDescriptorInitializationFlag_None];
+                                         flags:0];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
   }
