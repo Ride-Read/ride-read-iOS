@@ -2,15 +2,9 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '骑阅' do
-pod 'MBProgressHUD'
-pod 'SDWebImage'
-pod 'MJRefresh'
-pod 'Masonry'
-pod 'AFNetworking'
-pod 'AVOSCloud'               
-pod 'AVOSCloudIM'             
-pod 'AVOSCloudCrashReporting' 
-
+# ignoring warning from pods
+inhibit_all_warnings!
+pod 'ChatKit'
 end
 
 

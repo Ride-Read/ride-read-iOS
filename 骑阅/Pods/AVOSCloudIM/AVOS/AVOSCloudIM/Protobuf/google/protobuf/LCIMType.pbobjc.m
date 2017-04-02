@@ -27,23 +27,33 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-#pragma mark - GPBTypeRoot
+#pragma mark - LCIMTypeRoot
 
 @implementation LCIMTypeRoot
 
-// No extensions in the file and none of the imports (direct or indirect)
-// defined extensions, so no need to generate +extensionRegistry.
++ (LCIMExtensionRegistry*)extensionRegistry {
+  // This is called by +initialize so there is no need to worry
+  // about thread safety and initialization of registry.
+  static LCIMExtensionRegistry* registry = nil;
+  if (!registry) {
+    GPBDebugCheckRuntimeVersion();
+    registry = [[LCIMExtensionRegistry alloc] init];
+    [registry addExtensions:[LCIMAnyRoot extensionRegistry]];
+    [registry addExtensions:[LCIMSourceContextRoot extensionRegistry]];
+  }
+  return registry;
+}
 
 @end
 
-#pragma mark - GPBTypeRoot_FileDescriptor
+#pragma mark - LCIMTypeRoot_FileDescriptor
 
 static LCIMFileDescriptor *LCIMTypeRoot_FileDescriptor(void) {
   // This is called by +initialize so there is no need to worry
   // about thread safety of the singleton.
   static LCIMFileDescriptor *descriptor = NULL;
   if (!descriptor) {
-    LCIM_DEBUG_CHECK_RUNTIME_VERSIONS();
+    GPBDebugCheckRuntimeVersion();
     descriptor = [[LCIMFileDescriptor alloc] initWithPackage:@"google.protobuf"
                                                      syntax:GPBFileSyntaxProto3];
   }
@@ -52,7 +62,7 @@ static LCIMFileDescriptor *LCIMTypeRoot_FileDescriptor(void) {
 
 #pragma mark - Enum GPBSyntax
 
-LCIMEnumDescriptor *LCIMSyntax_EnumDescriptor(void) {
+LCIMEnumDescriptor *GPBSyntax_EnumDescriptor(void) {
   static LCIMEnumDescriptor *descriptor = NULL;
   if (!descriptor) {
     static const char *valueNames =
@@ -62,11 +72,11 @@ LCIMEnumDescriptor *LCIMSyntax_EnumDescriptor(void) {
         GPBSyntax_SyntaxProto3,
     };
     LCIMEnumDescriptor *worker =
-        [LCIMEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(GPBSyntax)
+        [LCIMEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(LCIMSyntax)
                                        valueNames:valueNames
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
-                                     enumVerifier:LCIMSyntax_IsValidValue];
+                                     enumVerifier:GPBSyntax_IsValidValue];
     if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
       [worker release];
     }
@@ -74,7 +84,7 @@ LCIMEnumDescriptor *LCIMSyntax_EnumDescriptor(void) {
   return descriptor;
 }
 
-BOOL LCIMSyntax_IsValidValue(int32_t value__) {
+BOOL GPBSyntax_IsValidValue(int32_t value__) {
   switch (value__) {
     case GPBSyntax_SyntaxProto2:
     case GPBSyntax_SyntaxProto3:
@@ -98,11 +108,11 @@ BOOL LCIMSyntax_IsValidValue(int32_t value__) {
 typedef struct GPBType__storage_ {
   uint32_t _has_storage_[1];
   GPBSyntax syntax;
-  __unsafe_unretained NSString *name;
-  __unsafe_unretained NSMutableArray *fieldsArray;
-  __unsafe_unretained NSMutableArray *oneofsArray;
-  __unsafe_unretained NSMutableArray *optionsArray;
-  __unsafe_unretained LCIMSourceContext *sourceContext;
+  NSString *name;
+  NSMutableArray *fieldsArray;
+  NSMutableArray *oneofsArray;
+  NSMutableArray *optionsArray;
+  LCIMSourceContext *sourceContext;
 } GPBType__storage_;
 
 // This method is threadsafe because it is initially called
@@ -117,7 +127,7 @@ typedef struct GPBType__storage_ {
         .number = GPBType_FieldNumber_Name,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(GPBType__storage_, name),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
       {
@@ -126,7 +136,7 @@ typedef struct GPBType__storage_ {
         .number = GPBType_FieldNumber_FieldsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(GPBType__storage_, fieldsArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
       {
@@ -135,7 +145,7 @@ typedef struct GPBType__storage_ {
         .number = GPBType_FieldNumber_OneofsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(GPBType__storage_, oneofsArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeString,
       },
       {
@@ -144,7 +154,7 @@ typedef struct GPBType__storage_ {
         .number = GPBType_FieldNumber_OptionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(GPBType__storage_, optionsArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
       {
@@ -153,16 +163,16 @@ typedef struct GPBType__storage_ {
         .number = GPBType_FieldNumber_SourceContext,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(GPBType__storage_, sourceContext),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
       {
         .name = "syntax",
-        .dataTypeSpecific.enumDescFunc = LCIMSyntax_EnumDescriptor,
+        .dataTypeSpecific.enumDescFunc = GPBSyntax_EnumDescriptor,
         .number = GPBType_FieldNumber_Syntax,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(GPBType__storage_, syntax),
-        .flags = LCIMFieldOptional | LCIMFieldHasEnumDescriptor,
+        .flags = GPBFieldOptional | GPBFieldHasEnumDescriptor,
         .dataType = GPBDataTypeEnum,
       },
     };
@@ -185,13 +195,13 @@ typedef struct GPBType__storage_ {
 int32_t GPBType_Syntax_RawValue(LCIMType *message) {
   LCIMDescriptor *descriptor = [LCIMType descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBType_FieldNumber_Syntax];
-  return LCIMGetMessageInt32Field(message, field);
+  return GPBGetMessageInt32Field(message, field);
 }
 
 void SetGPBType_Syntax_RawValue(LCIMType *message, int32_t value) {
   LCIMDescriptor *descriptor = [LCIMType descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBType_FieldNumber_Syntax];
-  LCIMSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 #pragma mark - GPBField
@@ -215,11 +225,11 @@ typedef struct LCIMField__storage_ {
   GPBField_Cardinality cardinality;
   int32_t number;
   int32_t oneofIndex;
-  __unsafe_unretained NSString *name;
-  __unsafe_unretained NSString *typeURL;
-  __unsafe_unretained NSMutableArray *optionsArray;
-  __unsafe_unretained NSString *jsonName;
-  __unsafe_unretained NSString *defaultValue;
+  NSString *name;
+  NSString *typeURL;
+  NSMutableArray *optionsArray;
+  NSString *jsonName;
+  NSString *defaultValue;
 } LCIMField__storage_;
 
 // This method is threadsafe because it is initially called
@@ -230,20 +240,20 @@ typedef struct LCIMField__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "kind",
-        .dataTypeSpecific.enumDescFunc = LCIMField_Kind_EnumDescriptor,
+        .dataTypeSpecific.enumDescFunc = GPBField_Kind_EnumDescriptor,
         .number = GPBField_FieldNumber_Kind,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(LCIMField__storage_, kind),
-        .flags = LCIMFieldOptional | LCIMFieldHasEnumDescriptor,
+        .flags = GPBFieldOptional | GPBFieldHasEnumDescriptor,
         .dataType = GPBDataTypeEnum,
       },
       {
         .name = "cardinality",
-        .dataTypeSpecific.enumDescFunc = LCIMField_Cardinality_EnumDescriptor,
+        .dataTypeSpecific.enumDescFunc = GPBField_Cardinality_EnumDescriptor,
         .number = GPBField_FieldNumber_Cardinality,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(LCIMField__storage_, cardinality),
-        .flags = LCIMFieldOptional | LCIMFieldHasEnumDescriptor,
+        .flags = GPBFieldOptional | GPBFieldHasEnumDescriptor,
         .dataType = GPBDataTypeEnum,
       },
       {
@@ -252,7 +262,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_Number,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(LCIMField__storage_, number),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,
       },
       {
@@ -261,7 +271,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_Name,
         .hasIndex = 3,
         .offset = (uint32_t)offsetof(LCIMField__storage_, name),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
       {
@@ -270,7 +280,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_TypeURL,
         .hasIndex = 4,
         .offset = (uint32_t)offsetof(LCIMField__storage_, typeURL),
-        .flags = LCIMFieldOptional | LCIMFieldTextFormatNameCustom,
+        .flags = GPBFieldOptional | GPBFieldTextFormatNameCustom,
         .dataType = GPBDataTypeString,
       },
       {
@@ -279,7 +289,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_OneofIndex,
         .hasIndex = 5,
         .offset = (uint32_t)offsetof(LCIMField__storage_, oneofIndex),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,
       },
       {
@@ -288,7 +298,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_Packed,
         .hasIndex = 6,
         .offset = 7,  // Stored in _has_storage_ to save space.
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
       {
@@ -297,7 +307,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_OptionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(LCIMField__storage_, optionsArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
       {
@@ -306,7 +316,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_JsonName,
         .hasIndex = 8,
         .offset = (uint32_t)offsetof(LCIMField__storage_, jsonName),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
       {
@@ -315,7 +325,7 @@ typedef struct LCIMField__storage_ {
         .number = GPBField_FieldNumber_DefaultValue,
         .hasIndex = 9,
         .offset = (uint32_t)offsetof(LCIMField__storage_, defaultValue),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
     };
@@ -343,30 +353,30 @@ typedef struct LCIMField__storage_ {
 int32_t GPBField_Kind_RawValue(LCIMField *message) {
   LCIMDescriptor *descriptor = [LCIMField descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBField_FieldNumber_Kind];
-  return LCIMGetMessageInt32Field(message, field);
+  return GPBGetMessageInt32Field(message, field);
 }
 
 void SetGPBField_Kind_RawValue(LCIMField *message, int32_t value) {
   LCIMDescriptor *descriptor = [LCIMField descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBField_FieldNumber_Kind];
-  LCIMSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 int32_t GPBField_Cardinality_RawValue(LCIMField *message) {
   LCIMDescriptor *descriptor = [LCIMField descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBField_FieldNumber_Cardinality];
-  return LCIMGetMessageInt32Field(message, field);
+  return GPBGetMessageInt32Field(message, field);
 }
 
 void SetGPBField_Cardinality_RawValue(LCIMField *message, int32_t value) {
   LCIMDescriptor *descriptor = [LCIMField descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBField_FieldNumber_Cardinality];
-  LCIMSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 #pragma mark - Enum GPBField_Kind
 
-LCIMEnumDescriptor *LCIMField_Kind_EnumDescriptor(void) {
+LCIMEnumDescriptor *GPBField_Kind_EnumDescriptor(void) {
   static LCIMEnumDescriptor *descriptor = NULL;
   if (!descriptor) {
     static const char *valueNames =
@@ -402,7 +412,7 @@ LCIMEnumDescriptor *LCIMField_Kind_EnumDescriptor(void) {
                                        valueNames:valueNames
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
-                                     enumVerifier:LCIMField_Kind_IsValidValue];
+                                     enumVerifier:GPBField_Kind_IsValidValue];
     if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
       [worker release];
     }
@@ -410,7 +420,7 @@ LCIMEnumDescriptor *LCIMField_Kind_EnumDescriptor(void) {
   return descriptor;
 }
 
-BOOL LCIMField_Kind_IsValidValue(int32_t value__) {
+BOOL GPBField_Kind_IsValidValue(int32_t value__) {
   switch (value__) {
     case GPBField_Kind_TypeUnknown:
     case GPBField_Kind_TypeDouble:
@@ -439,7 +449,7 @@ BOOL LCIMField_Kind_IsValidValue(int32_t value__) {
 
 #pragma mark - Enum GPBField_Cardinality
 
-LCIMEnumDescriptor *LCIMField_Cardinality_EnumDescriptor(void) {
+LCIMEnumDescriptor *GPBField_Cardinality_EnumDescriptor(void) {
   static LCIMEnumDescriptor *descriptor = NULL;
   if (!descriptor) {
     static const char *valueNames =
@@ -456,16 +466,15 @@ LCIMEnumDescriptor *LCIMField_Cardinality_EnumDescriptor(void) {
                                        valueNames:valueNames
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
-                                     enumVerifier:LCIMField_Cardinality_IsValidValue];
-
-      if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
-          [worker release];
-      }
+                                     enumVerifier:GPBField_Cardinality_IsValidValue];
+    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+      [worker release];
+    }
   }
   return descriptor;
 }
 
-BOOL LCIMField_Cardinality_IsValidValue(int32_t value__) {
+BOOL GPBField_Cardinality_IsValidValue(int32_t value__) {
   switch (value__) {
     case GPBField_Cardinality_CardinalityUnknown:
     case GPBField_Cardinality_CardinalityOptional:
@@ -490,10 +499,10 @@ BOOL LCIMField_Cardinality_IsValidValue(int32_t value__) {
 typedef struct LCIMEnum__storage_ {
   uint32_t _has_storage_[1];
   GPBSyntax syntax;
-  __unsafe_unretained NSString *name;
-  __unsafe_unretained NSMutableArray *enumvalueArray;
-  __unsafe_unretained NSMutableArray *optionsArray;
-  __unsafe_unretained LCIMSourceContext *sourceContext;
+  NSString *name;
+  NSMutableArray *enumvalueArray;
+  NSMutableArray *optionsArray;
+  LCIMSourceContext *sourceContext;
 } LCIMEnum__storage_;
 
 // This method is threadsafe because it is initially called
@@ -508,7 +517,7 @@ typedef struct LCIMEnum__storage_ {
         .number = GPBEnum_FieldNumber_Name,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(LCIMEnum__storage_, name),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
       {
@@ -517,7 +526,7 @@ typedef struct LCIMEnum__storage_ {
         .number = GPBEnum_FieldNumber_EnumvalueArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(LCIMEnum__storage_, enumvalueArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
       {
@@ -526,7 +535,7 @@ typedef struct LCIMEnum__storage_ {
         .number = GPBEnum_FieldNumber_OptionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(LCIMEnum__storage_, optionsArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
       {
@@ -535,16 +544,16 @@ typedef struct LCIMEnum__storage_ {
         .number = GPBEnum_FieldNumber_SourceContext,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(LCIMEnum__storage_, sourceContext),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
       {
         .name = "syntax",
-        .dataTypeSpecific.enumDescFunc = LCIMSyntax_EnumDescriptor,
+        .dataTypeSpecific.enumDescFunc = GPBSyntax_EnumDescriptor,
         .number = GPBEnum_FieldNumber_Syntax,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(LCIMEnum__storage_, syntax),
-        .flags = LCIMFieldOptional | LCIMFieldHasEnumDescriptor,
+        .flags = GPBFieldOptional | GPBFieldHasEnumDescriptor,
         .dataType = GPBDataTypeEnum,
       },
     };
@@ -567,13 +576,13 @@ typedef struct LCIMEnum__storage_ {
 int32_t GPBEnum_Syntax_RawValue(LCIMEnum *message) {
   LCIMDescriptor *descriptor = [LCIMEnum descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBEnum_FieldNumber_Syntax];
-  return LCIMGetMessageInt32Field(message, field);
+  return GPBGetMessageInt32Field(message, field);
 }
 
 void SetGPBEnum_Syntax_RawValue(LCIMEnum *message, int32_t value) {
   LCIMDescriptor *descriptor = [LCIMEnum descriptor];
   LCIMFieldDescriptor *field = [descriptor fieldWithNumber:GPBEnum_FieldNumber_Syntax];
-  LCIMSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 #pragma mark - GPBEnumValue
@@ -587,8 +596,8 @@ void SetGPBEnum_Syntax_RawValue(LCIMEnum *message, int32_t value) {
 typedef struct LCIMEnumValue__storage_ {
   uint32_t _has_storage_[1];
   int32_t number;
-  __unsafe_unretained NSString *name;
-  __unsafe_unretained NSMutableArray *optionsArray;
+  NSString *name;
+  NSMutableArray *optionsArray;
 } LCIMEnumValue__storage_;
 
 // This method is threadsafe because it is initially called
@@ -603,7 +612,7 @@ typedef struct LCIMEnumValue__storage_ {
         .number = GPBEnumValue_FieldNumber_Name,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(LCIMEnumValue__storage_, name),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
       {
@@ -612,7 +621,7 @@ typedef struct LCIMEnumValue__storage_ {
         .number = GPBEnumValue_FieldNumber_Number,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(LCIMEnumValue__storage_, number),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,
       },
       {
@@ -621,7 +630,7 @@ typedef struct LCIMEnumValue__storage_ {
         .number = GPBEnumValue_FieldNumber_OptionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(LCIMEnumValue__storage_, optionsArray),
-        .flags = LCIMFieldRepeated,
+        .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },
     };
@@ -650,8 +659,8 @@ typedef struct LCIMEnumValue__storage_ {
 
 typedef struct LCIMOption__storage_ {
   uint32_t _has_storage_[1];
-  __unsafe_unretained NSString *name;
-  __unsafe_unretained LCIMAny *value;
+  NSString *name;
+  LCIMAny *value;
 } LCIMOption__storage_;
 
 // This method is threadsafe because it is initially called
@@ -666,7 +675,7 @@ typedef struct LCIMOption__storage_ {
         .number = GPBOption_FieldNumber_Name,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(LCIMOption__storage_, name),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
       {
@@ -675,7 +684,7 @@ typedef struct LCIMOption__storage_ {
         .number = GPBOption_FieldNumber_Value,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(LCIMOption__storage_, value),
-        .flags = LCIMFieldOptional,
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
     };

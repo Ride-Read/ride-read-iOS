@@ -32,12 +32,6 @@
 
 #import "LCIMMessage_PackagePrivate.h"
 
-// Direct access is use for speed, to avoid even internally declaring things
-// read/write, etc. The warning is enabled in the project to ensure code calling
-// protos can turn on -Wdirect-ivar-access without issues.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-
 // Mutable arrays use an internal buffer that can always hold a multiple of this elements.
 #define kChunkSize 16
 #define CapacityFromCount(x) (((x / kChunkSize) + 1) * kChunkSize)
@@ -137,7 +131,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 //%}
 //%
 //%- (instancetype)copyWithZone:(NSZone *)zone {
-//%  return [[LCIM##NAME##Array allocWithZone:zone] initWithValues:_values count:_count];
+//%  return [[GPB##NAME##Array allocWithZone:zone] initWithValues:_values count:_count];
 //%}
 //%
 //%ARRAY_IMMUTABLE_CORE(NAME, TYPE, , FORMAT)
@@ -164,16 +158,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 //%  [super dealloc];
 //%}
 //%
-//%- (BOOL)isEqual:(id)other {
+//%- (BOOL)isEqual:(LCIM##NAME##Array *)other {
 //%  if (self == other) {
 //%    return YES;
 //%  }
-//%  if (![other isKindOfClass:[LCIM##NAME##Array class]]) {
+//%  if (![other isKindOfClass:[GPB##NAME##Array class]]) {
 //%    return NO;
 //%  }
-//%  LCIM##NAME##Array *otherArray = other;
-//%  return (_count == otherArray->_count
-//%          && memcmp(_values, otherArray->_values, (_count * sizeof(TYPE))) == 0);
+//%  return (_count == other->_count
+//%          && memcmp(_values, other->_values, (_count * sizeof(TYPE))) == 0);
 //%}
 //%
 //%- (NSUInteger)hash {
@@ -195,7 +188,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 //%}
 //%
 //%- (void)enumerate##ACCESSOR_NAME##ValuesWithBlock:(void (^)(TYPE value, NSUInteger idx, BOOL *stop))block {
-//%  [self enumerate##ACCESSOR_NAME##ValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+//%  [self enumerate##ACCESSOR_NAME##ValuesWithOptions:0 usingBlock:block];
 //%}
 //%
 //%- (void)enumerate##ACCESSOR_NAME##ValuesWithOptions:(NSEnumerationOptions)opts
@@ -375,16 +368,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt32Array *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt32Array class]]) {
     return NO;
   }
-  LCIMInt32Array *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(int32_t))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(int32_t))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -406,7 +398,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(int32_t value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -623,16 +615,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt32Array *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt32Array class]]) {
     return NO;
   }
-  LCIMUInt32Array *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(uint32_t))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(uint32_t))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -654,7 +645,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(uint32_t value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -871,16 +862,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMInt64Array *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMInt64Array class]]) {
     return NO;
   }
-  LCIMInt64Array *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(int64_t))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(int64_t))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -902,7 +892,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(int64_t value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -1119,16 +1109,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMUInt64Array *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMUInt64Array class]]) {
     return NO;
   }
-  LCIMUInt64Array *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(uint64_t))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(uint64_t))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -1150,7 +1139,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(uint64_t value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -1367,16 +1356,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMFloatArray *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMFloatArray class]]) {
     return NO;
   }
-  LCIMFloatArray *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(float))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(float))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -1398,7 +1386,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(float value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -1615,16 +1603,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMDoubleArray *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMDoubleArray class]]) {
     return NO;
   }
-  LCIMDoubleArray *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(double))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(double))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -1646,7 +1633,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(double value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -1863,16 +1850,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMBoolArray *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMBoolArray class]]) {
     return NO;
   }
-  LCIMBoolArray *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(BOOL))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(BOOL))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -1894,7 +1880,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(BOOL value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -2135,16 +2121,15 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
   [super dealloc];
 }
 
-- (BOOL)isEqual:(id)other {
+- (BOOL)isEqual:(LCIMEnumArray *)other {
   if (self == other) {
     return YES;
   }
   if (![other isKindOfClass:[LCIMEnumArray class]]) {
     return NO;
   }
-  LCIMEnumArray *otherArray = other;
-  return (_count == otherArray->_count
-          && memcmp(_values, otherArray->_values, (_count * sizeof(int32_t))) == 0);
+  return (_count == other->_count
+          && memcmp(_values, other->_values, (_count * sizeof(int32_t))) == 0);
 }
 
 - (NSUInteger)hash {
@@ -2166,7 +2151,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateRawValuesWithBlock:(void (^)(int32_t value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateRawValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateRawValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateRawValuesWithOptions:(NSEnumerationOptions)opts
@@ -2218,7 +2203,7 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 - (void)enumerateValuesWithBlock:(void (^)(int32_t value, NSUInteger idx, BOOL *stop))block {
-  [self enumerateValuesWithOptions:(NSEnumerationOptions)0 usingBlock:block];
+  [self enumerateValuesWithOptions:0 usingBlock:block];
 }
 
 - (void)enumerateValuesWithOptions:(NSEnumerationOptions)opts
@@ -2547,5 +2532,3 @@ static BOOL ArrayDefault_IsValidValue(int32_t value) {
 }
 
 @end
-
-#pragma clang diagnostic pop

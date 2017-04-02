@@ -1,65 +1,68 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
-  - AVOSCloud (3.9.0)
-  - AVOSCloudCrashReporting (3.9.0):
-    - AVOSCloud (= 3.9.0)
-    - AVOSCloudCrashReporting/_ARC (= 3.9.0)
-    - AVOSCloudCrashReporting/_NOARC (= 3.9.0)
-  - AVOSCloudCrashReporting/_ARC (3.9.0):
-    - AVOSCloud (= 3.9.0)
-    - AVOSCloudCrashReporting/_NOARC (= 3.9.0)
-  - AVOSCloudCrashReporting/_NOARC (3.9.0):
-    - AVOSCloud (= 3.9.0)
-  - AVOSCloudIM (3.9.0):
-    - AVOSCloud (= 3.9.0)
-    - AVOSCloudIM/_ARC (= 3.9.0)
-    - AVOSCloudIM/_NOARC (= 3.9.0)
-  - AVOSCloudIM/_ARC (3.9.0):
-    - AVOSCloud (= 3.9.0)
-    - AVOSCloudIM/_NOARC (= 3.9.0)
-  - AVOSCloudIM/_NOARC (3.9.0):
-    - AVOSCloud (= 3.9.0)
+  - AVOSCloud (3.8.2)
+  - AVOSCloudIM (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudIM/_ARC (= 3.8.2)
+    - AVOSCloudIM/_NOARC (= 3.8.2)
+  - AVOSCloudIM/_ARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudIM/_NOARC (= 3.8.2)
+  - AVOSCloudIM/_NOARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+  - ChatKit (0.8.10):
+    - AVOSCloud (~> 3.8.2)
+    - AVOSCloudIM (~> 3.8.2)
+    - CYLDeallocBlockExecutor (~> 1.1.2)
+    - DACircularProgress (~> 2.3.1)
+    - FDStackView (~> 1.0)
+    - FMDB (~> 2.6.2)
+    - Masonry (~> 1.0.1)
+    - MJRefresh (~> 3.1.9)
+    - MLLabel (~> 1.9.2)
+    - MWPhotoBrowser (~> 2.1.2)
+    - pop (~> 1.0.9)
+    - SDWebImage (~> 3.8.0)
+    - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
+  - CYLDeallocBlockExecutor (1.1.2)
+  - DACircularProgress (2.3.1)
+  - FDStackView (1.0)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - Masonry (1.0.2)
-  - MBProgressHUD (1.0.0)
+  - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.12)
+  - MLLabel (1.9.2)
+  - MWPhotoBrowser (2.1.2):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
+  - pop (1.0.9)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - UITableView+FDTemplateLayoutCell (1.5.beta)
 
 DEPENDENCIES:
-  - AFNetworking
-  - AVOSCloud
-  - AVOSCloudCrashReporting
-  - AVOSCloudIM
-  - Masonry
-  - MBProgressHUD
-  - MJRefresh
-  - SDWebImage
+  - ChatKit
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AVOSCloud: 3ef7ddf9bdab1b2b3ff693c22a9b05aace322cbc
-  AVOSCloudCrashReporting: 9aaf151ea4451783b2ec85ef734a35706428abc0
-  AVOSCloudIM: 6313e74d023df0660f4958e267d8fcf78ac44f19
+  AVOSCloud: fc3a1ae341a1421b66f8828fbc9850ddb6eaaa7c
+  AVOSCloudIM: 7c8ba883afde0f0bceabd5aa9856d407bb4b06ee
+  ChatKit: 0b2c5079782f8829a6ae08e7834b02ce530b798b
+  CYLDeallocBlockExecutor: ecf39e45dcead9e120f460df5668b8f5093d178e
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  FDStackView: 3a4bbe0ce9c35e974246a585168b9da8c32213f1
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MLLabel: df58127ce0bd1f87890ecc3232db77a85ce4cd97
+  MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
 
-PODFILE CHECKSUM: d80fc05e4e263a84f6afe4b351103316b804b58d
+PODFILE CHECKSUM: 0f330e36a3b9cf0289d0f889a37e5b9b73329369
 
 COCOAPODS: 1.2.0

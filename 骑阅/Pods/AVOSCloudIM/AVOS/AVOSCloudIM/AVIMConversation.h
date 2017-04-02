@@ -266,7 +266,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param callback 查询结果回调。
  @return None。
  */
-- (void)queryMessagesBeforeId:(nullable NSString *)messageId
+- (void)queryMessagesBeforeId:(NSString *)messageId
                     timestamp:(int64_t)timestamp
                         limit:(NSUInteger)limit
                      callback:(AVIMArrayResultBlock)callback;

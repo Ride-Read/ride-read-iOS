@@ -135,10 +135,6 @@ static BOOL enableAutomatic = NO;
     return [query findObjects:error];
 }
 
-- (NSArray<AVRole *> *)getRolesAndThrowsWithError:(NSError * _Nullable __autoreleasing *)error {
-    return [self getRoles:error];
-}
-
 - (void)getRolesInBackgroundWithBlock:(void (^)(NSArray<AVRole *> * _Nullable, NSError * _Nullable))block {
     [AVUtils asynchronizeTask:^{
         NSError *error = nil;
@@ -202,10 +198,6 @@ static BOOL enableAutomatic = NO;
 - (BOOL)signUp:(NSError *__autoreleasing *)error
 {
     return [self saveWithOption:nil eventually:NO verifyBefore:NO error:error];
-}
-
-- (BOOL)signUpAndThrowsWithError:(NSError * _Nullable __autoreleasing *)error {
-    return [self signUp:error];
 }
 
 - (void)signUpInBackground

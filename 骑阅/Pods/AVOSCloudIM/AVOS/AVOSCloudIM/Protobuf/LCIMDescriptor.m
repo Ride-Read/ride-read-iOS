@@ -36,16 +36,8 @@
 #import "LCIMWireFormat.h"
 #import "LCIMMessage_PackagePrivate.h"
 
-// Direct access is use for speed, to avoid even internally declaring things
-// read/write, etc. The warning is enabled in the project to ensure code calling
-// protos can turn on -Wdirect-ivar-access without issues.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-
-// The addresses of these variables are used as keys for objc_getAssociatedObject.
+// The address of this variable is used as a key for obj_getAssociatedObject.
 static const char kTextFormatExtraValueKey = 0;
-static const char kParentClassNameValueKey = 0;
-static const char kClassNameSuffixKey = 0;
 
 // Utility function to generate selectors on the fly.
 static SEL SelFromStrings(const char *prefix, const char *middle,
@@ -118,14 +110,14 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
                      fields:(void *)fieldDescriptions
                  fieldCount:(uint32_t)fieldCount
                 storageSize:(uint32_t)storageSize
-                      flags:(LCIMDescriptorInitializationFlags)flags {
+                      flags:(GPBDescriptorInitializationFlags)flags {
   // The rootClass is no longer used, but it is passed in to ensure it
   // was started up during initialization also.
   (void)rootClass;
   NSMutableArray *fields = nil;
   GPBFileSyntax syntax = file.syntax;
   BOOL fieldsIncludeDefault =
-      (flags & LCIMDescriptorInitializationFlag_FieldsWithDefault) != 0;
+      (flags & GPBDescriptorInitializationFlag_FieldsWithDefault) != 0;
 
   void *desc;
   for (uint32_t i = 0; i < fieldCount; ++i) {
@@ -148,7 +140,7 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
     [fieldDescriptor release];
   }
 
-  BOOL wireFormat = (flags & LCIMDescriptorInitializationFlag_WireFormat) != 0;
+  BOOL wireFormat = (flags & GPBDescriptorInitializationFlag_WireFormat) != 0;
   LCIMDescriptor *descriptor = [[self alloc] initWithClass:messageClass
                                                      file:file
                                                    fields:fields
@@ -203,7 +195,7 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
   if (extraTextFormatInfo) {
     NSValue *extraInfoValue = [NSValue valueWithPointer:extraTextFormatInfo];
     for (LCIMFieldDescriptor *fieldDescriptor in fields_) {
-      if (fieldDescriptor->description_->flags & LCIMFieldTextFormatNameCustom) {
+      if (fieldDescriptor->description_->flags & GPBFieldTextFormatNameCustom) {
         objc_setAssociatedObject(fieldDescriptor, &kTextFormatExtraValueKey,
                                  extraInfoValue,
                                  OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -217,100 +209,8 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
   extensionRangesCount_ = count;
 }
 
-- (void)setupContainingMessageClassName:(const char *)msgClassName {
-  // Note: Only fetch the class here, can't send messages to it because
-  // that could cause cycles back to this class within +initialize if
-  // two messages have each other in fields (i.e. - they build a graph).
-  NSAssert(objc_getClass(msgClassName), @"Class %s not defined", msgClassName);
-  NSValue *parentNameValue = [NSValue valueWithPointer:msgClassName];
-  objc_setAssociatedObject(self, &kParentClassNameValueKey,
-                           parentNameValue,
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)setupMessageClassNameSuffix:(NSString *)suffix {
-  if (suffix.length) {
-    objc_setAssociatedObject(self, &kClassNameSuffixKey,
-                             suffix,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-  }
-}
-
 - (NSString *)name {
   return NSStringFromClass(messageClass_);
-}
-
-- (LCIMDescriptor *)containingType {
-  NSValue *parentNameValue =
-      objc_getAssociatedObject(self, &kParentClassNameValueKey);
-  if (!parentNameValue) {
-    return nil;
-  }
-  const char *parentName = [parentNameValue pointerValue];
-  Class parentClass = objc_getClass(parentName);
-  NSAssert(parentClass, @"Class %s not defined", parentName);
-  return [parentClass descriptor];
-}
-
-- (NSString *)fullName {
-  NSString *className = NSStringFromClass(self.messageClass);
-  LCIMFileDescriptor *file = self.file;
-  NSString *objcPrefix = file.objcPrefix;
-  if (objcPrefix && ![className hasPrefix:objcPrefix]) {
-    NSAssert(0,
-             @"Class didn't have correct prefix? (%@ - %@)",
-             className, objcPrefix);
-    return nil;
-  }
-  LCIMDescriptor *parent = self.containingType;
-
-  NSString *name = nil;
-  if (parent) {
-    NSString *parentClassName = NSStringFromClass(parent.messageClass);
-    // The generator will add _Class to avoid reserved words, drop it.
-    NSString *suffix = objc_getAssociatedObject(parent, &kClassNameSuffixKey);
-    if (suffix) {
-      if (![parentClassName hasSuffix:suffix]) {
-        NSAssert(0,
-                 @"ParentMessage class didn't have correct suffix? (%@ - %@)",
-                 className, suffix);
-        return nil;
-      }
-      parentClassName =
-          [parentClassName substringToIndex:(parentClassName.length - suffix.length)];
-    }
-    NSString *parentPrefix = [parentClassName stringByAppendingString:@"_"];
-    if (![className hasPrefix:parentPrefix]) {
-      NSAssert(0,
-               @"Class didn't have the correct parent name prefix? (%@ - %@)",
-               parentPrefix, className);
-      return nil;
-    }
-    name = [className substringFromIndex:parentPrefix.length];
-  } else {
-    name = [className substringFromIndex:objcPrefix.length];
-  }
-
-  // The generator will add _Class to avoid reserved words, drop it.
-  NSString *suffix = objc_getAssociatedObject(self, &kClassNameSuffixKey);
-  if (suffix) {
-    if (![name hasSuffix:suffix]) {
-      NSAssert(0,
-               @"Message class didn't have correct suffix? (%@ - %@)",
-               name, suffix);
-      return nil;
-    }
-    name = [name substringToIndex:(name.length - suffix.length)];
-  }
-
-  NSString *prefix = (parent != nil ? parent.fullName : file.package);
-  NSString *result;
-  if (prefix.length > 0) {
-    result = [NSString stringWithFormat:@"%@.%@", prefix, name];
-  } else {
-    result = name;
-  }
-  return result;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -349,27 +249,13 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
 
 @implementation LCIMFileDescriptor {
   NSString *package_;
-  NSString *objcPrefix_;
   GPBFileSyntax syntax_;
 }
 
 @synthesize package = package_;
-@synthesize objcPrefix = objcPrefix_;
 @synthesize syntax = syntax_;
 
 - (instancetype)initWithPackage:(NSString *)package
-                     objcPrefix:(NSString *)objcPrefix
-                         syntax:(GPBFileSyntax)syntax {
-  self = [super init];
-  if (self) {
-    package_ = [package copy];
-    objcPrefix_ = [objcPrefix copy];
-    syntax_ = syntax;
-  }
-  return self;
-}
-
-- (instancetype)initWithPackage:(NSString *)package
                          syntax:(GPBFileSyntax)syntax {
   self = [super init];
   if (self) {
@@ -377,12 +263,6 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
     syntax_ = syntax;
   }
   return self;
-}
-
-- (void)dealloc {
-  [package_ release];
-  [objcPrefix_ release];
-  [super dealloc];
 }
 
 @end
@@ -436,25 +316,25 @@ static NSArray *NewFieldsArrayForHasIndex(int hasIndex,
 
 uint32_t LCIMFieldTag(LCIMFieldDescriptor *self) {
   GPBMessageFieldDescription *description = self->description_;
-  LCIMWireFormat format;
-  if ((description->flags & LCIMFieldMapKeyMask) != 0) {
+  GPBWireFormat format;
+  if ((description->flags & GPBFieldMapKeyMask) != 0) {
     // Maps are repeated messages on the wire.
-    format = LCIMWireFormatForType(GPBDataTypeMessage, NO);
+    format = GPBWireFormatForType(GPBDataTypeMessage, NO);
   } else {
-    format = LCIMWireFormatForType(description->dataType,
-                                  ((description->flags & LCIMFieldPacked) != 0));
+    format = GPBWireFormatForType(description->dataType,
+                                  ((description->flags & GPBFieldPacked) != 0));
   }
-  return LCIMWireFormatMakeTag(description->number, format);
+  return GPBWireFormatMakeTag(description->number, format);
 }
 
 uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
   GPBMessageFieldDescription *description = self->description_;
-  NSCAssert((description->flags & LCIMFieldRepeated) != 0,
+  NSCAssert((description->flags & GPBFieldRepeated) != 0,
             @"Only valid on repeated fields");
-  LCIMWireFormat format =
-      LCIMWireFormatForType(description->dataType,
-                           ((description->flags & LCIMFieldPacked) == 0));
-  return LCIMWireFormatMakeTag(description->number, format);
+  GPBWireFormat format =
+      GPBWireFormatForType(description->dataType,
+                           ((description->flags & GPBFieldPacked) == 0));
+  return GPBWireFormatMakeTag(description->number, format);
 }
 
 @implementation LCIMFieldDescriptor {
@@ -525,13 +405,10 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
     // Extra type specific data.
     if (isMessage) {
       const char *className = coreDesc->dataTypeSpecific.className;
-      // Note: Only fetch the class here, can't send messages to it because
-      // that could cause cycles back to this class within +initialize if
-      // two messages have each other in fields (i.e. - they build a graph).
       msgClass_ = objc_getClass(className);
       NSAssert(msgClass_, @"Class %s not defined", className);
     } else if (dataType == GPBDataTypeEnum) {
-      if ((coreDesc->flags & LCIMFieldHasEnumDescriptor) != 0) {
+      if ((coreDesc->flags & GPBFieldHasEnumDescriptor) != 0) {
         enumHandling_.enumDescriptor_ =
             coreDesc->dataTypeSpecific.enumDescFunc();
       } else {
@@ -562,7 +439,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 
 - (void)dealloc {
   if (description_->dataType == GPBDataTypeBytes &&
-      !(description_->flags & LCIMFieldRepeated)) {
+      !(description_->flags & GPBFieldRepeated)) {
     [defaultValue_.valueData release];
   }
   [super dealloc];
@@ -573,7 +450,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 - (BOOL)hasDefaultValue {
-  return (description_->flags & LCIMFieldHasDefaultValue) != 0;
+  return (description_->flags & GPBFieldHasDefaultValue) != 0;
 }
 
 - (uint32_t)number {
@@ -585,49 +462,49 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 - (BOOL)isRequired {
-  return (description_->flags & LCIMFieldRequired) != 0;
+  return (description_->flags & GPBFieldRequired) != 0;
 }
 
 - (BOOL)isOptional {
-  return (description_->flags & LCIMFieldOptional) != 0;
+  return (description_->flags & GPBFieldOptional) != 0;
 }
 
-- (LCIMFieldType)fieldType {
-  LCIMFieldFlags flags = description_->flags;
-  if ((flags & LCIMFieldRepeated) != 0) {
-    return LCIMFieldTypeRepeated;
-  } else if ((flags & LCIMFieldMapKeyMask) != 0) {
-    return LCIMFieldTypeMap;
+- (GPBFieldType)fieldType {
+  GPBFieldFlags flags = description_->flags;
+  if ((flags & GPBFieldRepeated) != 0) {
+    return GPBFieldTypeRepeated;
+  } else if ((flags & GPBFieldMapKeyMask) != 0) {
+    return GPBFieldTypeMap;
   } else {
-    return LCIMFieldTypeSingle;
+    return GPBFieldTypeSingle;
   }
 }
 
 - (GPBDataType)mapKeyDataType {
-  switch (description_->flags & LCIMFieldMapKeyMask) {
-    case LCIMFieldMapKeyInt32:
+  switch (description_->flags & GPBFieldMapKeyMask) {
+    case GPBFieldMapKeyInt32:
       return GPBDataTypeInt32;
-    case LCIMFieldMapKeyInt64:
+    case GPBFieldMapKeyInt64:
       return GPBDataTypeInt64;
-    case LCIMFieldMapKeyUInt32:
+    case GPBFieldMapKeyUInt32:
       return GPBDataTypeUInt32;
-    case LCIMFieldMapKeyUInt64:
+    case GPBFieldMapKeyUInt64:
       return GPBDataTypeUInt64;
-    case LCIMFieldMapKeySInt32:
+    case GPBFieldMapKeySInt32:
       return GPBDataTypeSInt32;
-    case LCIMFieldMapKeySInt64:
+    case GPBFieldMapKeySInt64:
       return GPBDataTypeSInt64;
-    case LCIMFieldMapKeyFixed32:
+    case GPBFieldMapKeyFixed32:
       return GPBDataTypeFixed32;
-    case LCIMFieldMapKeyFixed64:
+    case GPBFieldMapKeyFixed64:
       return GPBDataTypeFixed64;
-    case LCIMFieldMapKeySFixed32:
+    case GPBFieldMapKeySFixed32:
       return GPBDataTypeSFixed32;
-    case LCIMFieldMapKeySFixed64:
+    case GPBFieldMapKeySFixed64:
       return GPBDataTypeSFixed64;
-    case LCIMFieldMapKeyBool:
+    case GPBFieldMapKeyBool:
       return GPBDataTypeBool;
-    case LCIMFieldMapKeyString:
+    case GPBFieldMapKeyString:
       return GPBDataTypeString;
 
     default:
@@ -637,13 +514,13 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 - (BOOL)isPackable {
-  return (description_->flags & LCIMFieldPacked) != 0;
+  return (description_->flags & GPBFieldPacked) != 0;
 }
 
 - (BOOL)isValidEnumValue:(int32_t)value {
   NSAssert(description_->dataType == GPBDataTypeEnum,
            @"Field Must be of type GPBDataTypeEnum");
-  if (description_->flags & LCIMFieldHasEnumDescriptor) {
+  if (description_->flags & GPBFieldHasEnumDescriptor) {
     return enumHandling_.enumDescriptor_.enumVerifier(value);
   } else {
     return enumHandling_.enumVerifier_(value);
@@ -651,7 +528,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 - (LCIMEnumDescriptor *)enumDescriptor {
-  if (description_->flags & LCIMFieldHasEnumDescriptor) {
+  if (description_->flags & GPBFieldHasEnumDescriptor) {
     return enumHandling_.enumDescriptor_;
   } else {
     return nil;
@@ -663,7 +540,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
   // to an actual defaultValue in our initializer.
   GPBGenericValue value = defaultValue_;
 
-  if (!(description_->flags & LCIMFieldRepeated)) {
+  if (!(description_->flags & GPBFieldRepeated)) {
     // We special handle data and strings. If they are nil, we replace them
     // with empty string/empty data.
     GPBDataType type = description_->dataType;
@@ -677,7 +554,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 - (NSString *)textFormatName {
-  if ((description_->flags & LCIMFieldTextFormatNameCustom) != 0) {
+  if ((description_->flags & GPBFieldTextFormatNameCustom) != 0) {
     NSValue *extraInfoValue =
         objc_getAssociatedObject(self, &kTextFormatExtraValueKey);
     // Support can be left out at generation time.
@@ -701,7 +578,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
   }
 
   // Remove "Array" from the end for repeated fields.
-  if (((description_->flags & LCIMFieldRepeated) != 0) &&
+  if (((description_->flags & GPBFieldRepeated) != 0) &&
       [name hasSuffix:@"Array"]) {
     name = [name substringToIndex:(len - 5)];
     len = [name length];
@@ -868,22 +745,6 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
   return NO;
 }
 
-- (BOOL)getValue:(int32_t *)outValue forEnumTextFormatName:(NSString *)textFormatName {
-    if (nameOffsets_ == NULL) [self calcValueNameOffsets];
-
-    for (uint32_t i = 0; i < valueCount_; ++i) {
-        int32_t value = values_[i];
-        NSString *valueTextFormatName = [self textFormatNameForValue:value];
-        if ([valueTextFormatName isEqual:textFormatName]) {
-            if (outValue) {
-                *outValue = value;
-            }
-            return YES;
-        }
-    }
-    return NO;
-}
-
 - (NSString *)textFormatNameForValue:(int32_t)number {
   if (nameOffsets_ == NULL) [self calcValueNameOffsets];
 
@@ -942,7 +803,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
   if ((self = [super init])) {
     description_ = description;
 
-#if defined(DEBUG) && DEBUG
+#if DEBUG
     const char *className = description->messageOrGroupClassName;
     if (className) {
       NSAssert(objc_lookUpClass(className) != Nil,
@@ -1011,15 +872,15 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
   return description_->dataType;
 }
 
-- (LCIMWireFormat)wireType {
-  return LCIMWireFormatForType(description_->dataType,
+- (GPBWireFormat)wireType {
+  return GPBWireFormatForType(description_->dataType,
                               LCIMExtensionIsPacked(description_));
 }
 
-- (LCIMWireFormat)alternateWireType {
+- (GPBWireFormat)alternateWireType {
   NSAssert(LCIMExtensionIsRepeated(description_),
            @"Only valid on repeated extensions");
-  return LCIMWireFormatForType(description_->dataType,
+  return GPBWireFormatForType(description_->dataType,
                               !LCIMExtensionIsPacked(description_));
 }
 
@@ -1028,7 +889,7 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 - (BOOL)isMap {
-  return (description_->options & LCIMFieldMapKeyMask) != 0;
+  return (description_->options & GPBFieldMapKeyMask) != 0;
 }
 
 - (BOOL)isPackable {
@@ -1100,5 +961,3 @@ uint32_t LCIMFieldAlternateTag(LCIMFieldDescriptor *self) {
 }
 
 @end
-
-#pragma clang diagnostic pop

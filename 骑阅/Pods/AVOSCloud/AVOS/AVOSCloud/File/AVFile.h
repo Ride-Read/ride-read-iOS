@@ -114,12 +114,6 @@ The name of the file.
 - (BOOL)save:(NSError **)error;
 
 /*!
- An alias of `-[AVFile save:]` methods that supports Swift exception.
- @seealso `-[AVFile save:]`
- */
-- (BOOL)saveAndThrowsWithError:(NSError **)error;
-
-/*!
  Saves the file asynchronously.
  @return whether the save succeeded.
  */

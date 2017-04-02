@@ -50,20 +50,9 @@ CF_EXTERN_C_BEGIN
 
 // These two are used to inject a runtime check for version mismatch into the
 // generated sources to make sure they are linked with a supporting runtime.
-void LCIMCheckRuntimeVersionSupport(int32_t objcRuntimeVersion);
-GPB_INLINE void LCIM_DEBUG_CHECK_RUNTIME_VERSIONS() {
-  // NOTE: By being inline here, this captures the value from the library's
-  // headers at the time the generated code was compiled.
-#if defined(DEBUG) && DEBUG
-  LCIMCheckRuntimeVersionSupport(GOOGLE_PROTOBUF_OBJC_VERSION);
-#endif
-}
-
-// Legacy version of the checks, remove when GOOGLE_PROTOBUF_OBJC_GEN_VERSION
-// goes away (see more info in LCIMBootstrap.h).
 void LCIMCheckRuntimeVersionInternal(int32_t version);
 GPB_INLINE void LCIMDebugCheckRuntimeVersion() {
-#if defined(DEBUG) && DEBUG
+#if DEBUG
   LCIMCheckRuntimeVersionInternal(GOOGLE_PROTOBUF_OBJC_GEN_VERSION);
 #endif
 }
@@ -107,7 +96,7 @@ GPB_INLINE int64_t LCIMLogicalRightShift64(int64_t value, int32_t spaces) {
 // negative values must be sign-extended to 64 bits to be varint encoded,
 // thus always taking 10 bytes on the wire.)
 GPB_INLINE int32_t LCIMDecodeZigZag32(uint32_t n) {
-  return (int32_t)(LCIMLogicalRightShift32((int32_t)n, 1) ^ -((int32_t)(n) & 1));
+  return LCIMLogicalRightShift32(n, 1) ^ -(n & 1);
 }
 
 // Decode a ZigZag-encoded 64-bit value.  ZigZag encodes signed integers
@@ -115,7 +104,7 @@ GPB_INLINE int32_t LCIMDecodeZigZag32(uint32_t n) {
 // negative values must be sign-extended to 64 bits to be varint encoded,
 // thus always taking 10 bytes on the wire.)
 GPB_INLINE int64_t LCIMDecodeZigZag64(uint64_t n) {
-  return (int64_t)(LCIMLogicalRightShift64((int64_t)n, 1) ^ -((int64_t)(n) & 1));
+  return LCIMLogicalRightShift64(n, 1) ^ -(n & 1);
 }
 
 // Encode a ZigZag-encoded 32-bit value.  ZigZag encodes signed integers
@@ -124,7 +113,7 @@ GPB_INLINE int64_t LCIMDecodeZigZag64(uint64_t n) {
 // thus always taking 10 bytes on the wire.)
 GPB_INLINE uint32_t LCIMEncodeZigZag32(int32_t n) {
   // Note:  the right-shift must be arithmetic
-  return (uint32_t)((n << 1) ^ (n >> 31));
+  return (n << 1) ^ (n >> 31);
 }
 
 // Encode a ZigZag-encoded 64-bit value.  ZigZag encodes signed integers
@@ -133,12 +122,8 @@ GPB_INLINE uint32_t LCIMEncodeZigZag32(int32_t n) {
 // thus always taking 10 bytes on the wire.)
 GPB_INLINE uint64_t LCIMEncodeZigZag64(int64_t n) {
   // Note:  the right-shift must be arithmetic
-  return (uint64_t)((n << 1) ^ (n >> 63));
+  return (n << 1) ^ (n >> 63);
 }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wswitch-enum"
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 
 GPB_INLINE BOOL LCIMDataTypeIsObject(GPBDataType type) {
   switch (type) {
@@ -177,7 +162,7 @@ GPB_INLINE BOOL LCIMExtensionIsMessage(LCIMExtensionDescriptor *ext) {
 // The field is an array/map or it has an object value.
 GPB_INLINE BOOL LCIMFieldStoresObject(LCIMFieldDescriptor *field) {
   GPBMessageFieldDescription *desc = field->description_;
-  if ((desc->flags & (LCIMFieldRepeated | LCIMFieldMapKeyMask)) != 0) {
+  if ((desc->flags & (GPBFieldRepeated | GPBFieldMapKeyMask)) != 0) {
     return YES;
   }
   return LCIMDataTypeIsObject(desc->dataType);
@@ -201,8 +186,6 @@ GPB_INLINE void LCIMSetHasIvarField(LCIMMessage *self, LCIMFieldDescriptor *fiel
 
 void LCIMMaybeClearOneof(LCIMMessage *self, LCIMOneofDescriptor *oneof,
                         int32_t oneofHasIndex, uint32_t fieldNumberNotToClear);
-
-#pragma clang diagnostic pop
 
 //%PDDM-DEFINE GPB_IVAR_SET_DECL(NAME, TYPE)
 //%void GPBSet##NAME##IvarWithFieldInternal(LCIMMessage *self,
@@ -310,7 +293,7 @@ NSString *LCIMDecodeTextFormatName(const uint8_t *decodeData, int32_t key,
 // A series of selectors that are used solely to get @encoding values
 // for them by the dynamic protobuf runtime code. See
 // LCIMMessageEncodingForSelector for details.
-@protocol LCIMMessageSignatureProtocol
+@protocol GPBMessageSignatureProtocol
 @optional
 
 #define GPB_MESSAGE_SIGNATURE_ENTRY(TYPE, NAME) \

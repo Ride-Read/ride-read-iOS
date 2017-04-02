@@ -10,10 +10,6 @@
 #import "QYLoginOrRegisterFatherController.h"
 #import "QYHomeTabBarViewController.h"
 #import "CTAppContext.h"
-#import <AVOSCloud/AVOSCloud.h>
-static NSString *const LCCKAPPID = @"dYRQ8YfHRiILshUnfFJu2eQM-gzGzoHsz";
-static NSString *const LCCKAPPKEY = @"ye24iIK6ys8IvaISMC4Bs5WK";
-
 @interface AppDelegate ()
 
 @end
@@ -23,7 +19,7 @@ static NSString *const LCCKAPPKEY = @"ye24iIK6ys8IvaISMC4Bs5WK";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [AVOSCloud setApplicationId:LCCKAPPID clientKey:LCCKAPPKEY];
+    //[QYChatKit invokeThisMethodInDidFinishLaunching];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     QYUser *curentUser = [CTAppContext sharedInstance].currentUser;
@@ -33,12 +29,21 @@ static NSString *const LCCKAPPKEY = @"ye24iIK6ys8IvaISMC4Bs5WK";
         self.window.rootViewController = logFather;
     } else {
         
-        QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
-        self.window.rootViewController = tab;
+//           [QYChatKit invokeThisMethodAfterLoginSuccessWithClientId:@"1" success:^{
+//        
+//           QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
+//             self.window.rootViewController = tab;
+//        
+//        } failed:^(NSError *error) {
+//        
+//            
+//          //[MBProgressHUD showMessageAutoHide:@"登录失败" view:nil];
+//        QYLoginOrRegisterFatherController *logFather = [[QYLoginOrRegisterFatherController alloc] init];
+//        self.window.rootViewController = logFather;
+//        
+//        }];
+//    }
     }
-    
-    [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

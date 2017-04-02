@@ -14,7 +14,6 @@
 		2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52F41E6EFBA9007313E7 /* QYReadMapController.m */; };
 		2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */; };
 		2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530A1E6EFDEE007313E7 /* QYTest1.m */; };
-		2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530D1E6EFDFD007313E7 /* QYTest2.m */; };
 		2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53101E6EFE2E007313E7 /* QYtest3.m */; };
 		2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53131E6EFE41007313E7 /* QYtest4.m */; };
 		2BCF72461E79026900E9B3CE /* QYTextPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYTextPromptView.m */; };
@@ -201,6 +200,9 @@
 		BACBA8591E50780F00D2E848 /* YYFMPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8561E50780F00D2E848 /* YYFMPromptView.m */; };
 		BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA85C1E507A2B00D2E848 /* MBProgressHUD+LLHud.m */; };
 		BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */; };
+		BAD30E061E8FF4A0004CF67F /* QYRecentConversaionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD30E041E8FF4A0004CF67F /* QYRecentConversaionCell.m */; };
+		BAD30E071E8FF4A0004CF67F /* QYRecentConversaionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD30E051E8FF4A0004CF67F /* QYRecentConversaionCell.xib */; };
+		BAD30E0D1E8FFB48004CF67F /* QYChatkExample.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD30E0C1E8FFB48004CF67F /* QYChatkExample.m */; };
 		EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */; };
 		EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */; };
 		EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */; };
@@ -259,8 +261,6 @@
 		2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonalDataCell.m; sourceTree = "<group>"; };
 		2BBD53091E6EFDEE007313E7 /* QYTest1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTest1.h; sourceTree = "<group>"; };
 		2BBD530A1E6EFDEE007313E7 /* QYTest1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTest1.m; sourceTree = "<group>"; };
-		2BBD530C1E6EFDFD007313E7 /* QYTest2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTest2.h; sourceTree = "<group>"; };
-		2BBD530D1E6EFDFD007313E7 /* QYTest2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTest2.m; sourceTree = "<group>"; };
 		2BBD530F1E6EFE2E007313E7 /* QYtest3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest3.h; sourceTree = "<group>"; };
 		2BBD53101E6EFE2E007313E7 /* QYtest3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest3.m; sourceTree = "<group>"; };
 		2BBD53121E6EFE41007313E7 /* QYtest4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest4.h; sourceTree = "<group>"; };
@@ -634,6 +634,11 @@
 		BACBA8631E50C90100D2E848 /* QYLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoginHeaderView.h; sourceTree = "<group>"; };
 		BACBA8641E50C90100D2E848 /* QYLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoginHeaderView.m; sourceTree = "<group>"; };
 		BACBA8691E50C9BF00D2E848 /* QYViewClickProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYViewClickProtocol.h; sourceTree = "<group>"; };
+		BAD30E031E8FF4A0004CF67F /* QYRecentConversaionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRecentConversaionCell.h; sourceTree = "<group>"; };
+		BAD30E041E8FF4A0004CF67F /* QYRecentConversaionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRecentConversaionCell.m; sourceTree = "<group>"; };
+		BAD30E051E8FF4A0004CF67F /* QYRecentConversaionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYRecentConversaionCell.xib; sourceTree = "<group>"; };
+		BAD30E0B1E8FFB48004CF67F /* QYChatkExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYChatkExample.h; sourceTree = "<group>"; };
+		BAD30E0C1E8FFB48004CF67F /* QYChatkExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYChatkExample.m; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
 		EC2026021E5E723A00AE2528 /* QYTabBarControlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTabBarControlerDelegate.h; sourceTree = "<group>"; };
 		EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTabBarControlerDelegate.m; sourceTree = "<group>"; };
@@ -882,8 +887,6 @@
 		2BBD53081E6EFDE2007313E7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2BBD530C1E6EFDFD007313E7 /* QYTest2.h */,
-				2BBD530D1E6EFDFD007313E7 /* QYTest2.m */,
 				BAC8714B1E783A8100C5F800 /* QYUser.h */,
 				BAC8714C1E783A8100C5F800 /* QYUser.m */,
 			);
@@ -1247,6 +1250,7 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				BAD30DFE1E8FF4A0004CF67F /* Message */,
 				BA12CCAD1E87876700DDB8CF /* Search */,
 				BA12CC861E867CE900DDB8CF /* Set */,
 				BAC8714E1E78409100C5F800 /* Reform */,
@@ -1775,6 +1779,50 @@
 			path = "骑阅/Compoents/Protocol";
 			sourceTree = SOURCE_ROOT;
 		};
+		BAD30DFE1E8FF4A0004CF67F /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				BAD30DFF1E8FF4A0004CF67F /* Controller */,
+				BAD30E001E8FF4A0004CF67F /* Model */,
+				BAD30E011E8FF4A0004CF67F /* Tool */,
+				BAD30E021E8FF4A0004CF67F /* View */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		BAD30DFF1E8FF4A0004CF67F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BAD30E001E8FF4A0004CF67F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BAD30E011E8FF4A0004CF67F /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				BAD30E0B1E8FFB48004CF67F /* QYChatkExample.h */,
+				BAD30E0C1E8FFB48004CF67F /* QYChatkExample.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		BAD30E021E8FF4A0004CF67F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BAD30E031E8FF4A0004CF67F /* QYRecentConversaionCell.h */,
+				BAD30E041E8FF4A0004CF67F /* QYRecentConversaionCell.m */,
+				BAD30E051E8FF4A0004CF67F /* QYRecentConversaionCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EB82BA38347459AD24D7B13E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2071,6 +2119,7 @@
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
+				BAD30E071E8FF4A0004CF67F /* QYRecentConversaionCell.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2180,6 +2229,7 @@
 				BAC36FA91E815D63007D1FF4 /* QYFansUserViewController.m in Sources */,
 				BAC8716B1E798F2B00C5F800 /* QYRegisterLogic.m in Sources */,
 				BAC871681E797DBC00C5F800 /* QYUserRegisterApiManager.m in Sources */,
+				BAD30E061E8FF4A0004CF67F /* QYRecentConversaionCell.m in Sources */,
 				BA354DA11E6C6BDF00EE8189 /* QYFrIendStatusMessage.m in Sources */,
 				BA354D9D1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m in Sources */,
 				BA9AAAA41E692C7000D7A5BB /* YYTextMagnifier.m in Sources */,
@@ -2191,6 +2241,7 @@
 				BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */,
 				BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */,
 				BA354D781E6BE20000EE8189 /* QNHijackingDetectWrapper.m in Sources */,
+				BAD30E0D1E8FFB48004CF67F /* QYChatkExample.m in Sources */,
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
 				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
 				BA12CCB41E87882900DDB8CF /* QYSearchViewController.m in Sources */,
@@ -2207,7 +2258,6 @@
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,
 				BACBA8571E50780F00D2E848 /* YYBaiscTableViewCell.m in Sources */,
 				EC43E7BE1E59C26F00DCCBB9 /* QYLoginTextField.m in Sources */,
-				2BBD530E1E6EFDFD007313E7 /* QYTest2.m in Sources */,
 				BA9AAAA81E692C7000D7A5BB /* YYTextParser.m in Sources */,
 				2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */,
 				BAC8715E1E785B2A00C5F800 /* QYQiuniuReformer.m in Sources */,

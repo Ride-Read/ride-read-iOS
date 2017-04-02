@@ -4,22 +4,37 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>AVOSCloud.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AVOSCloudCrashReporting.xcscheme</key>
+		<key>AVOSCloudIM.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AVOSCloudIM.xcscheme</key>
+		<key>CYLDeallocBlockExecutor.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ChatKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FDStackView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -30,6 +45,21 @@
 			<false/>
 		</dict>
 		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MLLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -49,50 +79,100 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>UITableView+FDTemplateLayoutCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>134A2A38F1DAACB6E292FC5B450522C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>213778811014F90176BC2F033F0B00DC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>24B9F39A5EAC29482E2CAA2DC7813121</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>288A6E512ABA7B290C198795E7118F53</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41FA54D12162DAD51D02FC58A2CD5034</key>
+		<key>3E77C69BDFD955586C9C37CDD2DE40C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>872353D8A5B92CABEB70A28697836D9F</key>
+		<key>44D90496AC638D44B6A7308729B505CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>942C45249A2B483F86C14D65B1F250AE</key>
+		<key>676A271461AE2A7FCAAAB62677E10B5A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>95DF9CF0E78D8D298F908A78700BA694</key>
+		<key>7F38D4F75750731AB7DA81DD762A734B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A17A3D0B3A061F74BF0EBDC63C69F1D1</key>
+		<key>88845F0F7AFB9D160B0377D7662FE1FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
+		<key>952397283D969E6DD94DA78A6C7A3882</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D52144DE9D7255DE912490FF5A806573</key>
+		<key>A02B0E8896D42AD3AD468835F125BB6E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E14A62900910444707A5504D25EC98DC</key>
+		<key>B0030A9AAB19B536D4CA94907F5DE536</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4F9C576D1A5B093AD68EE663D0323D4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C533BF5150C76FF55A5A5C88D852B829</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE6DE7AC1E7C7493CB50DE47021222E3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F075E81B95545CF4A0D3613103795CA4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4F69B30276ABB097820C3D703866BDA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
