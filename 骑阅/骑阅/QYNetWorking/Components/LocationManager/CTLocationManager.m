@@ -8,6 +8,8 @@
 
 #import "CTLocationManager.h"
 
+NSString * const kLocationServiceStatusErrorNotifation = @"LocationServiceStatusErrorNotifation";
+NSString * const kLocationResultNotifationl = @"LocationResultNotifationl";
 @interface CTLocationManager () <CLLocationManagerDelegate>
 
 @property (nonatomic, assign, readwrite) CTLocationManagerLocationResult locationResult;
@@ -37,6 +39,7 @@
         [self.locationManager startUpdatingLocation];
     } else {
         [self failedLocationWithResultType:CTLocationManagerLocationResultFail statusType:self.locationStatus];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceStatusErrorNotifation object:nil];
     }
 }
 
@@ -58,6 +61,7 @@
 {
     self.currentLocation = [manager.location copy];
     NSLog(@"Current location is %@", self.currentLocation);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationResultNotifationl object:nil userInfo:@{}];
     [self stopLocation];
 }
 

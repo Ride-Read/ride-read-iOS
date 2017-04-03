@@ -12,6 +12,7 @@
 #import "QYAttentionReform.h"
 #import "QYReadLookUserController.h"
 #import "define.h"
+#import "QYConversationViewController.h"
 
 @interface QYAttentOrFansViewController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,YYBaseicTableViewRefeshDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) QYAttentionOrFansApiManager *userApiManager;
@@ -77,11 +78,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
-    NSDictionary *info = self.userArrays[indexPath.row];
-    QYUser *user = info[kdata];
-    look.user = user;
-    [self.navigationController pushViewController:look animated:YES];
+    QYConversationViewController *conver = [[QYConversationViewController alloc] initWithPeerId:@"1000"];
+    conver.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:conver animated:YES];
+
+//    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
+//    NSDictionary *info = self.userArrays[indexPath.row];
+//    QYUser *user = info[kdata];
+//    look.user = user;
+//    [self.navigationController pushViewController:look animated:YES];
     
 }
 

@@ -6,7 +6,6 @@
 //  Copyright © 2016年 LeanCloud. All rights reserved.
 //
 
-@import UIKit;
 @class LCCKBaseViewController;
 @protocol LCCKViewControllerEventProtocol <NSObject>
 
@@ -22,6 +21,7 @@ typedef void(^LCCKViewDidDismissBlock)(__kindof LCCKBaseViewController *viewCont
 typedef void(^LCCKViewControllerWillDeallocBlock) (__kindof LCCKBaseViewController *viewController);
 typedef void(^LCCKViewDidReceiveMemoryWarningBlock)(__kindof LCCKBaseViewController *viewController);
 
+<<<<<<< HEAD
 @property (nonatomic, copy, readonly) LCCKViewDidLoadBlock viewDidLoadBlock;
 @property (nonatomic, copy, readonly) LCCKViewWillAppearBlock viewWillAppearBlock;
 @property (nonatomic, copy, readonly) LCCKViewDidAppearBlock viewDidAppearBlock;
@@ -30,6 +30,16 @@ typedef void(^LCCKViewDidReceiveMemoryWarningBlock)(__kindof LCCKBaseViewControl
 @property (nonatomic, copy, readonly) LCCKViewDidDismissBlock viewDidDismissBlock;
 @property (nonatomic, copy, readonly) LCCKViewControllerWillDeallocBlock viewControllerWillDeallocBlock;
 @property (nonatomic, copy, readonly) LCCKViewDidReceiveMemoryWarningBlock didReceiveMemoryWarningBlock;
+=======
+@property (nonatomic, copy) LCCKViewDidLoadBlock viewDidLoadBlock;
+@property (nonatomic, copy) LCCKViewWillAppearBlock viewWillAppearBlock;
+@property (nonatomic, copy) LCCKViewDidAppearBlock viewDidAppearBlock;
+@property (nonatomic, copy) LCCKViewWillDisappearBlock viewWillDisappearBlock;
+@property (nonatomic, copy) LCCKViewDidDisappearBlock viewDidDisappearBlock;
+@property (nonatomic, copy) LCCKViewDidDismissBlock viewDidDismissBlock;
+@property (nonatomic, copy) LCCKViewControllerWillDeallocBlock viewControllerWillDeallocBlock;
+@property (nonatomic, copy) LCCKViewDidReceiveMemoryWarningBlock didReceiveMemoryWarningBlock;
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 /**
  *  View的相关事件调出
@@ -45,7 +55,11 @@ typedef void(^LCCKViewDidReceiveMemoryWarningBlock)(__kindof LCCKBaseViewControl
 
 @end
 
+<<<<<<< HEAD
 typedef void(^LCCKBarButtonItemActionBlock)(UIBarButtonItem *sender, UIEvent *event);
+=======
+typedef void(^LCCKBarButtonItemActionBlock)(__kindof LCCKBaseViewController *viewController, UIBarButtonItem *sender, UIEvent *event);
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 typedef NS_ENUM(NSInteger, LCCKBarButtonItemStyle) {
     LCCKBarButtonItemStyleSetting = 0,

@@ -10,7 +10,16 @@
 #import "LCCKCellRegisterController.h"
 #import "LCCKChatBar.h"
 #import "LCCKConversationRefreshHeader.h"
+<<<<<<< HEAD
 #import "LCCKDeallocBlockExecutor.h"
+=======
+
+#if __has_include(<CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>)
+#import <CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>
+#else
+#import "CYLDeallocBlockExecutor.h"
+#endif
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -32,9 +41,12 @@ static CGFloat const LCCKScrollViewInsetTop = 20.f;
 
 @implementation LCCKBaseConversationViewController
 
+<<<<<<< HEAD
 - (void)dealloc {
     _chatBar.delegate = nil;
 }
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initilzer];
@@ -54,8 +66,13 @@ static CGFloat const LCCKScrollViewInsetTop = 20.f;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // KVO注册监听
     [self addObserver:self forKeyPath:@"loadingMoreMessage" options:NSKeyValueObservingOptionNew context:LCCKBaseConversationViewControllerRefreshContext];
+<<<<<<< HEAD
     __unsafe_unretained typeof(self) weakSelf = self;
     [self lcck_executeAtDealloc:^{
+=======
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    [self cyl_executeAtDealloc:^{
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         [weakSelf removeObserver:weakSelf forKeyPath:@"loadingMoreMessage"];
     }];
     [LCCKCellRegisterController registerChatMessageCellClassForTableView:self.tableView];
@@ -88,7 +105,10 @@ static CGFloat const LCCKScrollViewInsetTop = 20.f;
 
 - (void)setShouldLoadMoreMessagesScrollToTop:(BOOL)shouldLoadMoreMessagesScrollToTop {
     _shouldLoadMoreMessagesScrollToTop = shouldLoadMoreMessagesScrollToTop;
+<<<<<<< HEAD
     
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 }
 
 // KVO监听执行
@@ -149,6 +169,7 @@ static CGFloat const LCCKScrollViewInsetTop = 20.f;
     return _chatBar;
 }
 
+<<<<<<< HEAD
 #pragma mark - Previte Method
 
 //- (void)setIsUserScrolling:(BOOL)isUserScrolling {
@@ -158,4 +179,6 @@ static CGFloat const LCCKScrollViewInsetTop = 20.f;
 //    }
 //}
 
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @end

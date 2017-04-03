@@ -47,15 +47,17 @@
 }
 -(NSDictionary *)reformParams:(NSDictionary *)params {
     
-    NSString *userName = params[kusername];
+    NSString *userName = params[kphonenumber];
     NSString *password = params[kpassword];
+    NSNumber *latitue = params[klatitude];
+    NSString *longtitue = params[klongitude];
     NSDictionary *dict;
     if (password.length > 0) {
         
         password = [password sha1];
         
     }
-    dict = @{kusername:userName,kpassword:password};
+    dict = @{kphonenumber:userName,kpassword:password,klongitude:longtitue,klatitude:latitue};
     
     return dict;
 }
@@ -64,7 +66,7 @@
 #pragma mark - APIManagerValidator
 -(BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
     
-    NSString *userName = data[kusername];
+    NSString *userName = data[kphonenumber];
     NSString *password = data[kpassword];
     if (!userName||userName.length <= 0) {
         

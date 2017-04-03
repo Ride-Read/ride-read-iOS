@@ -94,7 +94,11 @@
         
         [[LCCKUserSystemService sharedInstance] cacheUsersWithIds:userIds callback:^(BOOL succeeded, NSError *error) {
             if (error) {
+<<<<<<< HEAD
 //                NSLog(@"%@",error.localizedDescription);
+=======
+                // NSLog(@"%@",error.localizedDescription);
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
             }
         }];
     }];

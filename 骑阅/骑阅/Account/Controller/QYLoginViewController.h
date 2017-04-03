@@ -6,9 +6,9 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYBasicViewController.h"
+#import "QYBasicNeedLocationController.h"
 
-@interface QYLoginViewController : QYBasicViewController
+@interface QYLoginViewController : QYBasicNeedLocationController
 @property (nonatomic, assign) BOOL presented;
 
 @end

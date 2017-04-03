@@ -6,9 +6,12 @@
 //  Copyright © 2015年 https://LeanCloud.cn . All rights reserved.
 //
 
+<<<<<<< HEAD
 @import UIKit;
 @import Foundation;
 
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @interface LCCKCellRegisterController : NSObject
 
 + (void)registerChatMessageCellClassForTableView:(UITableView *)tableView;

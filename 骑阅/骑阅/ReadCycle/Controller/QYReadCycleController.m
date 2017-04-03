@@ -64,7 +64,7 @@
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{kuid:uid,ktype:@(0)};
+    return @{kuid:uid?:@(-1),ktype:@(0)};
 }
 
 #pragma mark - CTAPIManagerCallback

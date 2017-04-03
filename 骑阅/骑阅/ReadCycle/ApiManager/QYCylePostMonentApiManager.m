@@ -24,12 +24,12 @@
 
 - (NSString *)methodName {
     
-    return @"/moments/post_moment";
+    return @"moments/post_moment";
 }
 
 - (NSString *)serviceType {
     
-    return kCTJsonService;
+    return kCTServiceAuthonticationYY;
 }
 
 - (CTAPIManagerRequestType)requestType {
@@ -48,18 +48,21 @@
     NSNumber *uid = params[kuid];
     NSInteger type = 0;
     NSString *video = params[kvideo_url];
+    NSNumber *longitude = params[klongitude];
+    NSNumber *latitude = params[klatitude];
     if (video) {
         type = 2;
         NSString *cover = params[kcover];
-        return @{kuid:uid,kmsg:msg,kvideo_url:video,kcover:cover,ktype:@(type)};
+        return @{kuid:uid,kmsg:msg,kvideo_url:video,kcover:cover,ktype:@(type),klatitude:latitude,klongitude:longitude};
     }
     NSArray *pictures = params[kpictures_url];
+    NSString *picture = [pictures componentsJoinedByString:@","];
     if (pictures.count > 0) {
         type = 1;
-        return @{kuid:uid,kmsg:msg,kpictures_url:pictures,ktype:@(type)};
+        return @{kuid:uid,kmsg:msg,kpictures_url:picture,ktype:@(type),klatitude:latitude,klongitude:longitude};
     }
     
-    return @{kuid:uid,kmsg:msg,ktype:@(type)};
+    return @{kuid:uid,kmsg:msg,ktype:@(type),klatitude:latitude,klongitude:longitude};
 }
 
 #pragma mark - CTAPIValidator

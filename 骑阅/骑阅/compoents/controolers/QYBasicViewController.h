@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CTLocationManager.h"
 /**
  BasicController do nothting
  Suggest all controller inherit this
  */
 @interface QYBasicViewController : UIViewController
 @property (nonatomic, strong) NSOperationQueue *serialQueue;
+@property (nonatomic, copy) CLLocation *location;
 
 @end

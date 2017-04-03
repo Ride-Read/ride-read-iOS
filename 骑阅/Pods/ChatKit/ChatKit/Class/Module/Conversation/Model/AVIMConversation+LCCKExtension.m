@@ -141,5 +141,25 @@
     [self update:[updateBuilder dictionary] callback:callback];
 }
 
+<<<<<<< HEAD
+=======
+- (void)lcck_setConversationWithMute:(BOOL)mute callback:(LCCKBooleanResultBlock)callback {
+    if (mute) {
+        [self muteWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
+            !callback ?: callback(succeeded, error);
+        }];
+    } else {
+        [self unmuteWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
+            !callback ?: callback(succeeded, error);
+        }];
+    }
+}
+
+- (BOOL)lcck_isCreaterForCurrentUser {
+    BOOL isCreater = [self.creator isEqualToString:[LCChatKit sharedInstance].clientId];
+    return isCreater;
+}
+
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @end
 

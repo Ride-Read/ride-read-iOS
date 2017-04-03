@@ -1,4 +1,5 @@
 PODS:
+<<<<<<< HEAD
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -36,6 +37,22 @@ PODS:
   - ChatKit (0.8.5):
     - AVOSCloud (~> 3.7.1)
     - AVOSCloudIM (~> 3.7.1)
+=======
+  - AVOSCloud (3.8.2)
+  - AVOSCloudIM (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudIM/_ARC (= 3.8.2)
+    - AVOSCloudIM/_NOARC (= 3.8.2)
+  - AVOSCloudIM/_ARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudIM/_NOARC (= 3.8.2)
+  - AVOSCloudIM/_NOARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+  - ChatKit (0.8.10):
+    - AVOSCloud (~> 3.8.2)
+    - AVOSCloudIM (~> 3.8.2)
+    - CYLDeallocBlockExecutor (~> 1.1.2)
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     - DACircularProgress (~> 2.3.1)
     - FDStackView (~> 1.0)
     - FMDB (~> 2.6.2)
@@ -46,6 +63,10 @@ PODS:
     - pop (~> 1.0.9)
     - SDWebImage (~> 3.8.0)
     - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
+<<<<<<< HEAD
+=======
+  - CYLDeallocBlockExecutor (1.1.2)
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
   - DACircularProgress (2.3.1)
   - FDStackView (1.0)
   - FMDB (2.6.2):
@@ -66,6 +87,7 @@ PODS:
   - UITableView+FDTemplateLayoutCell (1.5.beta)
 
 DEPENDENCIES:
+<<<<<<< HEAD
   - AFNetworking
   - AVOSCloud
   - AVOSCloudCrashReporting
@@ -82,6 +104,15 @@ SPEC CHECKSUMS:
   AVOSCloudCrashReporting: ffe83b9160f90f5f98287c3b22264cad7ddab9d5
   AVOSCloudIM: 32f1beb173becc0264967a81a606ef538fd8687f
   ChatKit: 83cb69cda88a43921821f7b5712a7bf94125d88c
+=======
+  - ChatKit
+
+SPEC CHECKSUMS:
+  AVOSCloud: fc3a1ae341a1421b66f8828fbc9850ddb6eaaa7c
+  AVOSCloudIM: 7c8ba883afde0f0bceabd5aa9856d407bb4b06ee
+  ChatKit: 0b2c5079782f8829a6ae08e7834b02ce530b798b
+  CYLDeallocBlockExecutor: ecf39e45dcead9e120f460df5668b8f5093d178e
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FDStackView: 3a4bbe0ce9c35e974246a585168b9da8c32213f1
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
@@ -94,6 +125,10 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
 
+<<<<<<< HEAD
 PODFILE CHECKSUM: 01ee13926d576d9a96816b85485a03e71723b2b0
+=======
+PODFILE CHECKSUM: 0f330e36a3b9cf0289d0f889a37e5b9b73329369
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 COCOAPODS: 1.2.0

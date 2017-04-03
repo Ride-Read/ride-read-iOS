@@ -21,5 +21,6 @@
 @interface QYReadMeHeaderView : UIView
 @property (nonatomic, weak) id <QYReadMeHeaderViewDelegate> delegate;
 @property (nonatomic, weak) QYUser *user;
+@property (nonatomic, strong) UIButton *messageButton;
 
 @end

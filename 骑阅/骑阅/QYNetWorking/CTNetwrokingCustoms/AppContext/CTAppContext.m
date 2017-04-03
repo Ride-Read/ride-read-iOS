@@ -102,11 +102,14 @@
        
         if ([obj isKindOfClass:[NSNull class]]) {
             
-            if ([key isEqualToString:@"tags"]) {
+            if ([key isEqualToString:@"tagString"]) {
                 
                 dic[key] = @[];
             } else {
-                dic[key] = @"";
+                if ([key isEqualToString:@"sex"] || [key isEqualToString:@"latitude"] || [key isEqualToString:@"longitude"] ||[key isEqualToString:@"follower"] ||[key isEqualToString:@"following"]) {
+                    dic[key] = @(0);
+                } else
+                    dic[key] = @"";
             }
             NSLog(@"find null");
         }

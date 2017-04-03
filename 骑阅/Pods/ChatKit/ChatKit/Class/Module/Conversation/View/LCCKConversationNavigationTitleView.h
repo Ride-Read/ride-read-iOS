@@ -12,8 +12,11 @@
 
 @interface LCCKConversationNavigationTitleView : UIView
 
+<<<<<<< HEAD
 @property (nonatomic, assign) BOOL showRemindMuteImageView;
 
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 - (instancetype)initWithConversation:(AVIMConversation *)conversation navigationController:(UINavigationController *)navigationController;
 
 @end

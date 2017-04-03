@@ -9,7 +9,16 @@
 #import "LCCKChatVoiceMessageCell.h"
 #import "LCCKMessageVoiceFactory.h"
 #import "LCCKAVAudioPlayer.h"
+<<<<<<< HEAD
 #import "LCCKDeallocBlockExecutor.h"
+=======
+
+#if __has_include(<CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>)
+#import <CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>
+#else
+#import "CYLDeallocBlockExecutor.h"
+#endif
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 static void * const LCCKChatVoiceMessageCellVoiceMessageStateContext = (void*)&LCCKChatVoiceMessageCellVoiceMessageStateContext;
 
@@ -81,8 +90,13 @@ static void * const LCCKChatVoiceMessageCellVoiceMessageStateContext = (void*)&L
     [self addGeneralView];
     self.voiceMessageState = LCCKVoiceMessageStateNormal;
     [[LCCKAVAudioPlayer sharePlayer]  addObserver:self forKeyPath:@"audioPlayerState" options:NSKeyValueObservingOptionNew context:LCCKChatVoiceMessageCellVoiceMessageStateContext];
+<<<<<<< HEAD
     __unsafe_unretained typeof(self) weakSelf = self;
     [self lcck_executeAtDealloc:^{
+=======
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    [self cyl_executeAtDealloc:^{
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         [[LCCKAVAudioPlayer sharePlayer] removeObserver:weakSelf forKeyPath:@"audioPlayerState"];
     }];
 }

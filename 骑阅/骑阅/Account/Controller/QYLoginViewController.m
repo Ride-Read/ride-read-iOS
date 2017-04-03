@@ -16,12 +16,13 @@
 #import "MBProgressHUD+LLHud.h"
 #import "QYHomeTabBarViewController.h"
 #import "QYUserLogLogic.h"
+#import "CTLocationManager.h"
 
 @interface QYLoginViewController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYControllerDismissAciton>
 @property (nonatomic, strong) QYLoginView *loginView;
 @property (nonatomic, strong) QYLoginApiManager *loginApiManager;
 @property (nonatomic, strong) QYUserLogLogic *logic;
-
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation QYLoginViewController
@@ -30,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.loginView];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -37,6 +39,11 @@
     
     [super viewDidLayoutSubviews];
     self.loginView.frame = self.view.bounds;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+   
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -54,7 +61,9 @@
         
         if (index == 0) {
             MyLog(@"click next setup");
+            self.hud = [MBProgressHUD showMessage:@"登录中..." toView:nil];
             [self.logic loadData];
+            [self.view endEditing:YES];
             return;
         }
         if (index == 1) {
@@ -79,7 +88,7 @@
         
         NSString *username = self.loginView.phoneTextField.text;
         NSString *password = self.loginView.passwordTextField.text;
-        return @{kusername:username?:@"",kpassword:password?:@""};
+        return @{kphonenumber:username?:@"",kpassword:password?:@"",klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     }
     return nil;
 }
@@ -89,6 +98,7 @@
     
     if (manager == self.logic.apiManager) {
         
+        [self.hud hide:YES];
         [self gotoMainController];
     }
 }
@@ -96,6 +106,7 @@
     
     if (manager == self.logic.apiManager) {
         
+        [self.hud hide:YES];
         //参数不能通过验证，具体可以看对应的Api
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
             

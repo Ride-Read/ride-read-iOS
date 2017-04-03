@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QYChatKit.h"
+#import <ChatKit/LCChatKit.h>
 
 @interface QYUser : NSObject<LCCKUserDelegate>
 
 @property (nonatomic, strong) NSNumber *sex;        //性别
 @property (nonatomic, copy) NSString *location;     //所在地
-@property (nonatomic, copy) NSArray *tags;          //标签
+@property (nonatomic, copy) NSArray *tagString;          //标签
 @property (nonatomic, copy) NSString *hometown;     //家乡
 @property (nonatomic, copy) NSString *face_url;     //头像URL
 @property (nonatomic, copy) NSString *phonenumber;  //手机号
@@ -28,6 +28,12 @@
 @property (nonatomic, strong) NSNumber *following;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, strong) NSNumber *updated_at;
+@property (nonatomic, strong) NSNumber *latitude;
+@property (nonatomic, strong) NSNumber *longitude;
+@property (nonatomic, strong) NSString *rideReadId;
+
+
+
 
 
 

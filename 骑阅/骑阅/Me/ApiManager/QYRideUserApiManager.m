@@ -22,7 +22,7 @@
 
 - (NSString *)methodName {
     
-    return @"";
+    return @"users/show_user";
 }
 
 - (NSString *)serviceType {

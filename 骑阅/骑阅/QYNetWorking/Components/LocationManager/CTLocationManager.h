@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+FOUNDATION_EXPORT  NSString * const kLocationServiceStatusErrorNotifation;
+FOUNDATION_EXPORT  NSString * const kLocationResultNotifationl;
 typedef NS_ENUM(NSUInteger, CTLocationManagerLocationServiceStatus) {
     CTLocationManagerLocationServiceStatusDefault,               //默认状态
     CTLocationManagerLocationServiceStatusOK,                    //定位功能正常

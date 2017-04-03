@@ -6,8 +6,8 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYBasicViewController.h"
+#import "QYBasicNeedLocationController.h"
 
-@interface QYCyclePostController : QYBasicViewController
+@interface QYCyclePostController : QYBasicNeedLocationController
 
 @end

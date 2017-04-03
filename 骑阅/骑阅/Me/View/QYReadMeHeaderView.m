@@ -19,7 +19,6 @@
 @property (nonatomic, strong) UIImageView *sexIcon;
 @property (nonatomic, strong) UIButton *personMap;
 @property (nonatomic, strong) UILabel *personSignature;
-@property (nonatomic, strong) UIButton *messageButton;
 @property (nonatomic, strong) UIButton *attentionButton;
 @property (nonatomic, strong) UIButton *fansButton;
 @property (nonatomic, strong) UIView *bottomView;
@@ -324,7 +323,7 @@
 
 - (void)initialTagsView {
     
-    NSArray *array = self.user.tags;
+    NSArray *array = self.user.tagString;
     UIButton *pre;
     NSMutableSet *set = [NSMutableSet setWithArray:self.tagsView.subviews];
     for (NSString *tag in array) {
@@ -354,6 +353,10 @@
     }
 }
 
+- (void)layoutMessage {
+    
+    
+}
 - (void)layoutAttention {
     
     NSNumber *following = _user.following;

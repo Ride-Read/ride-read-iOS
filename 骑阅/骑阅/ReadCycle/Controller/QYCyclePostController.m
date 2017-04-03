@@ -10,10 +10,12 @@
 #import "UIButton+QYTitleButton.h"
 #import "define.h"
 #import "QYCylePostMonentApiManager.h"
+#import "MBProgressHUD+LLHud.h"
 
 @interface QYCyclePostController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYCylePostMonentApiManager *postApiManager;
 @property (nonatomic, strong) NSDictionary *params;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -55,11 +57,12 @@
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
     
+    [self.hud hide:YES];
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-    
+    [self.hud hide:YES];
 }
 
 #pragma mark - target action
@@ -70,7 +73,7 @@
         
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
         NSString *msg = @"测试测试测试测试测试测试测试测试上厕所测试测试测试测试";
-        self.params = @{kuid:uid,kmsg:msg};
+        self.params = @{kuid:uid,kmsg:msg,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
         
     } else {
         
@@ -81,9 +84,14 @@
         }
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
         NSString *msg = @"测试测试测试测试测试测试测试测试上厕所测试测试测试测试";
-        self.params = @{kuid:uid,kmsg:msg,kpictures_url:array};
+        self.params = @{kuid:uid,kmsg:msg,kpictures_url:array,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     }
-    [self.postApiManager loadData];
+    [self.serialQueue addOperationWithBlock:^{
+        
+        [self.postApiManager loadData];
+
+    }];
+    self.hud = [MBProgressHUD showMessage:@"发表中" toView:nil];
 }
 
 #pragma mark - getter and setter

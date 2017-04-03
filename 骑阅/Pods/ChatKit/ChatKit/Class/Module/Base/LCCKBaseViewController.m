@@ -13,6 +13,7 @@
 
 @interface LCCKBaseViewController ()
 
+<<<<<<< HEAD
 @property (nonatomic, copy, readwrite) LCCKViewDidLoadBlock viewDidLoadBlock;
 @property (nonatomic, copy, readwrite) LCCKViewWillAppearBlock viewWillAppearBlock;
 @property (nonatomic, copy, readwrite) LCCKViewDidAppearBlock viewDidAppearBlock;
@@ -21,11 +22,24 @@
 @property (nonatomic, copy, readwrite) LCCKViewDidDismissBlock viewDidDismissBlock;
 @property (nonatomic, copy, readwrite) LCCKViewControllerWillDeallocBlock viewControllerWillDeallocBlock;
 @property (nonatomic, copy, readwrite) LCCKViewDidReceiveMemoryWarningBlock didReceiveMemoryWarningBlock;
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @property (nonatomic, copy) LCCKBarButtonItemActionBlock barButtonItemAction;
 
 @end
 
 @implementation LCCKBaseViewController
+<<<<<<< HEAD
+=======
+@synthesize viewDidLoadBlock = _viewDidLoadBlock;
+@synthesize viewWillAppearBlock = _viewWillAppearBlock;
+@synthesize viewDidAppearBlock = _viewDidAppearBlock;
+@synthesize viewWillDisappearBlock = _viewWillDisappearBlock;
+@synthesize viewDidDisappearBlock = _viewDidDisappearBlock;
+@synthesize viewDidDismissBlock = _viewDidDismissBlock;
+@synthesize viewControllerWillDeallocBlock = _viewControllerWillDeallocBlock;
+@synthesize didReceiveMemoryWarningBlock = _didReceiveMemoryWarningBlock;
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 #pragma mark -
 #pragma mark - UIViewController Life Event Block
@@ -65,7 +79,11 @@
 
 - (void)clickedBarButtonItemAction:(UIBarButtonItem *)sender event:(UIEvent *)event {
     if (self.barButtonItemAction) {
+<<<<<<< HEAD
         self.barButtonItemAction(sender, event);
+=======
+        self.barButtonItemAction(self, sender, event);
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     }
 }
 

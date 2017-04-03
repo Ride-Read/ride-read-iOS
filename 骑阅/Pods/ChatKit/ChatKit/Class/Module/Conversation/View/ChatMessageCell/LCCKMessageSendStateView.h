@@ -6,9 +6,10 @@
 //  Copyright © 2015年 https://LeanCloud.cn . All rights reserved.
 //
 
-@import UIKit;
-@import Foundation;
+<<<<<<< HEAD
 
+=======
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @protocol LCCKSendImageViewDelegate <NSObject>
 @required
 - (void)resendMessage:(id)sender;

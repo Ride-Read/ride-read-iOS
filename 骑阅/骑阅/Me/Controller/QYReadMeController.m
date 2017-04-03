@@ -20,6 +20,8 @@
 #import "QYCyclePostController.h"
 #import "QYCycleCollectViewController.h"
 #import "QYSetViewController.h"
+#import "QYConversaitonListViewController.h"
+#import "QYChatkExample.h"
 
 
 @interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
@@ -29,6 +31,7 @@
 @property (nonatomic, strong) QYRideUserLogic *userLogic;
 @property (nonatomic, strong) QYUserReform *userReform;
 @property (nonatomic, strong) QYUser *user;
+@property (nonatomic, assign) NSUInteger unreadCount;
 @end
 
 @implementation QYReadMeController
@@ -38,6 +41,7 @@
     [super viewDidLoad];
     [self setContentView];
     [self loadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addUnreadMessage) name:KReciveMessagNotiFation object:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -45,6 +49,7 @@
     
     [super viewWillAppear:animated];
     [self setNavc];
+    [self loadUnreadMessage];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -55,6 +60,24 @@
 - (void)loadData {
     
     [self.userLogic loadData];
+}
+
+- (void)loadUnreadMessage {
+    
+    [QYChatkExample fetchUnreadMessageNumber:^(NSUInteger unread) {
+       
+        NSString *unreadText = [NSString stringWithFormat:@"消息 %ld",unread];
+        [self.headerView.messageButton setTitle:unreadText forState:UIControlStateNormal];
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            self.unreadCount = unread;
+        });
+    }];
+}
+- (void)addUnreadMessage {
+    
+    NSString *unreadText = [NSString stringWithFormat:@"消息 %ld",++self.unreadCount];
+    [self.headerView.messageButton setTitle:unreadText forState:UIControlStateNormal];
 }
 - (void)setContentView {
     
@@ -103,6 +126,13 @@
 }
 
 #pragma mark - headerView delegate
+
+- (void)clickMessageButton:(QYReadMeHeaderView *)headerView {
+    
+    QYConversaitonListViewController *list = [[QYConversaitonListViewController alloc] init];
+    list.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:list animated:YES];
+}
 
 - (void)clickIcon:(QYReadMeHeaderView *)headerView {
     

@@ -32,7 +32,7 @@
 - (NSDictionary *)paramForUserApi {
     
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{ktype:@(0),kuid:uid};
+    return @{ktype:@(0),kuid:uid?:@(-1)};
 }
 
 /*

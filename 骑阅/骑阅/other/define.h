@@ -16,7 +16,7 @@
 #import "UIColor+QYHexStringColor.h"
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
-
+#import "UIAlertController+QYQuickAlert.h"
 
 #define RGB(R,G,B) [UIColor colorWithRed:R/255. green:G/255. blue:B/255. alpha:1.0]
 #define IOS10_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
@@ -63,6 +63,8 @@ static float cl_caculation_3y(float x)  {
 static NSString * const kdata = @"data";
 static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
+static NSString * const klatitude = @"latitude";
+static NSString * const klongitude = @"longitude";
 static NSString * const knew_password = @"new_password";
 static NSString * const kstatus = @"status";
 static NSString * const kcode = @"code";

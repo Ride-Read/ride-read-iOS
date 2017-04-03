@@ -7,6 +7,7 @@
 //
 
 #import "QYBasicViewController.h"
+#import "define.h"
 
 @interface QYBasicViewController ()
 
@@ -24,6 +25,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - notifaction
+
+- (void)locationError {
+    
+    
+}
+
 #pragma mark - getter and setter
 - (NSOperationQueue *)serialQueue {
     
@@ -34,6 +42,7 @@
     }
     return _serialQueue;
 }
+
 /*
 #pragma mark - Navigation
 

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MJRefresh/MJRefresh.h>
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @class YYBasicTableView;
 typedef NS_ENUM(NSUInteger,YYTableViewRefeshStyle) {

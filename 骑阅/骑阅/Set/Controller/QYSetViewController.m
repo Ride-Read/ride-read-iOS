@@ -15,6 +15,7 @@
 #import "QYAboutRideViewController.h"
 #import "MBProgressHUD+LLHud.h"
 #import "YYFMPromptView.h"
+#import "QYChatkExample.h"
 @interface QYSetViewController ()<UIAlertViewDelegate>
 @property (nonatomic, strong) QYSetFooterView *footerView;
 @property (nonatomic, weak) UILabel *ramLabel;
@@ -71,7 +72,14 @@
     }];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        
+        [QYChatkExample invokeThisMethodAfterLoginSuccessWithClientId:@"" success:^{
+            
+            MyLog(@"登出成功");
+            
+        } failed:^(NSError *error) {
+            
+            MyLog(@"登出失败");
+        }];
     }];
     
     UIAlertController *al = [UIAlertController alertControllerWithTitle:nil message:@"您确定要退出账号?" preferredStyle:UIAlertControllerStyleAlert];
