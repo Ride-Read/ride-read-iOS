@@ -74,9 +74,9 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
         
         
 #warning test user message
-    
+
+        NSMutableArray *array = @[].mutableCopy;
         for (NSString *userid in userIds) {
-            NSMutableArray *array = @[].mutableCopy;
             MyLog(@"the user id :%@",userid);
 #warning do you net working to fetch the use message
             QYUser * user;
@@ -103,6 +103,7 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
             }
             
             [array addObject:user];
+            completionHandler(array,nil);
 
         }
     }];

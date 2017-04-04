@@ -208,6 +208,8 @@
 		BAD3142E1E90ADEF004CF67F /* QYConversaitonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD3142D1E90ADEF004CF67F /* QYConversaitonListViewController.m */; };
 		BAD314371E924190004CF67F /* UIAlertController+QYQuickAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314361E924190004CF67F /* UIAlertController+QYQuickAlert.m */; };
 		BAD3143A1E926E8F004CF67F /* QYBasicNeedLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314391E926E8E004CF67F /* QYBasicNeedLocationController.m */; };
+		BAD314451E9400F2004CF67F /* QYLookAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */; };
+		BAD314481E940107004CF67F /* QYLoodFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314471E940107004CF67F /* QYLoodFansViewController.m */; };
 		EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */; };
 		EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */; };
 		EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */; };
@@ -654,6 +656,10 @@
 		BAD314361E924190004CF67F /* UIAlertController+QYQuickAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+QYQuickAlert.m"; sourceTree = "<group>"; };
 		BAD314381E926E8E004CF67F /* QYBasicNeedLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYBasicNeedLocationController.h; path = "骑阅/Compoents/controolers/QYBasicNeedLocationController.h"; sourceTree = SOURCE_ROOT; };
 		BAD314391E926E8E004CF67F /* QYBasicNeedLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYBasicNeedLocationController.m; path = "骑阅/Compoents/controolers/QYBasicNeedLocationController.m"; sourceTree = SOURCE_ROOT; };
+		BAD314431E9400F2004CF67F /* QYLookAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLookAttentionViewController.h; sourceTree = "<group>"; };
+		BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLookAttentionViewController.m; sourceTree = "<group>"; };
+		BAD314461E940107004CF67F /* QYLoodFansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoodFansViewController.h; sourceTree = "<group>"; };
+		BAD314471E940107004CF67F /* QYLoodFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoodFansViewController.m; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
 		EC2026021E5E723A00AE2528 /* QYTabBarControlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTabBarControlerDelegate.h; sourceTree = "<group>"; };
 		EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTabBarControlerDelegate.m; sourceTree = "<group>"; };
@@ -1922,6 +1928,10 @@
 				BAC36FA81E815D63007D1FF4 /* QYFansUserViewController.m */,
 				BAC36FB11E81653B007D1FF4 /* QYReadLookUserController.h */,
 				BAC36FB21E81653B007D1FF4 /* QYReadLookUserController.m */,
+				BAD314431E9400F2004CF67F /* QYLookAttentionViewController.h */,
+				BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */,
+				BAD314461E940107004CF67F /* QYLoodFansViewController.h */,
+				BAD314471E940107004CF67F /* QYLoodFansViewController.m */,
 				BA995CFF1E84264D002FA3B2 /* QYRideMyCycleController.h */,
 				BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */,
 				BA995D021E842BED002FA3B2 /* QYRequstFrindViewController.h */,
@@ -2314,6 +2324,7 @@
 				BAC36FBC1E82AC46007D1FF4 /* QYRideUserApiManager.m in Sources */,
 				BA995D0F1E843411002FA3B2 /* QYCycleCollectApiManager.m in Sources */,
 				ECA4B42E1E52EE9E00D06D35 /* QYRegisterViewController.m in Sources */,
+				BAD314481E940107004CF67F /* QYLoodFansViewController.m in Sources */,
 				BA354D321E6BE12A00EE8189 /* QNFile.m in Sources */,
 				BA9AAA9F1E692C7000D7A5BB /* YYTextEffectWindow.m in Sources */,
 				BA9AAAAD1E692C7000D7A5BB /* UIPasteboard+YYText.m in Sources */,
@@ -2408,6 +2419,7 @@
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
 				BA354D741E6BE20000EE8189 /* QNNetworkInfo.m in Sources */,
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
+				BAD314451E9400F2004CF67F /* QYLookAttentionViewController.m in Sources */,
 				BA354D7B1E6BE20000EE8189 /* QNResolvUtil.m in Sources */,
 				BA9D1D841E7D44E400276E76 /* YYJsonService.m in Sources */,
 				BA55BFE61E4F37D600F1027B /* main.m in Sources */,

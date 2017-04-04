@@ -41,11 +41,7 @@
     MyLog(@"%@",path);
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpContentView];
-    [self.serialQueue addOperationWithBlock:^{
-       
-        [self.friendCycleApi loadData];
-    }];
-    
+    [self loadData];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -108,6 +104,14 @@
        
         make.top.equalTo(self.selectView.mas_bottom);
         make.left.and.right.and.bottom.mas_equalTo(0);
+    }];
+}
+
+- (void)loadData {
+    
+    [self.serialQueue addOperationWithBlock:^{
+        
+        [self.friendCycleApi loadData];
     }];
 }
 

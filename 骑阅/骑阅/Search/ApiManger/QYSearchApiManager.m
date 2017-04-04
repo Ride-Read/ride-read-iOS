@@ -85,4 +85,13 @@
         [self.search searchStart:requestId manager:self];
     }
 }
+
+- (void)searchView:(UIView *)search textEndChange:(NSString *)text {
+    
+    NSUInteger requestId = [self loadData];
+    if ([self.search respondsToSelector:@selector(searchStart:manager:)]) {
+        
+        [self.search searchStart:requestId manager:self];
+    }
+}
 @end
