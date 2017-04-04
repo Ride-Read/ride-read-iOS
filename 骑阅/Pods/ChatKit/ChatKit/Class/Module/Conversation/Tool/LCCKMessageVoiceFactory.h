@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "LCCKConstants.h"
-<<<<<<< HEAD
-@import UIKit;
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @interface LCCKMessageVoiceFactory : NSObject
 

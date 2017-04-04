@@ -17,13 +17,8 @@
 
 #import "UIImageView+LCCKExtension.h"
 
-<<<<<<< HEAD
 static CGFloat LCCKImageSize = 60;
 static CGFloat LCCKVerticalSpacing = 15;
-=======
-static CGFloat LCCKImageSize = 45;
-static CGFloat LCCKVerticalSpacing = 8;
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 static CGFloat LCCKHorizontalSpacing = 10;
 static CGFloat LCCKTimestampeLabelWidth = 100;
 static CGFloat LCCKAutoResizingDefaultScreenWidth = 320;
@@ -33,11 +28,7 @@ static CGFloat LCCKMessageLabelHeight;
 static CGFloat LCCKLittleBadgeSize = 10;
 static CGFloat LCCKRemindMuteSize = 18;
 
-<<<<<<< HEAD
 CGFloat const LCCKConversationListCellDefaultHeight = 90; //LCCKImageSize + LCCKVerticalSpacing * 2;
-=======
-CGFloat const LCCKConversationListCellDefaultHeight = 61; //LCCKImageSize + LCCKVerticalSpacing * 2;
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @interface LCCKConversationListCell ()
 
@@ -79,21 +70,12 @@ CGFloat const LCCKConversationListCellDefaultHeight = 61; //LCCKImageSize + LCCK
     self.selectedBackgroundView = selectionColor;
     LCCKNameLabelHeight = LCCKImageSize * LCCKNameLabelHeightProportion;
     LCCKMessageLabelHeight = LCCKImageSize - LCCKNameLabelHeight;
-<<<<<<< HEAD
-    [self addSubview:self.avatarImageView];
-    [self addSubview:self.timestampLabel];
-    [self.contentView addSubview:self.litteBadgeView];
-    [self.contentView addSubview:self.nameLabel];
-    [self.contentView addSubview:self.messageTextLabel];
-    [self.contentView addSubview:self.remindMuteImageView];
-=======
     [self.contentView addSubview:self.avatarImageView];
     [self.contentView addSubview:self.timestampLabel];
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.messageTextLabel];
     [self.contentView addSubview:self.remindMuteImageView];
     [self.contentView addSubview:self.litteBadgeView];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 }
 
 - (UIImageView *)avatarImageView {
@@ -112,11 +94,7 @@ CGFloat const LCCKConversationListCellDefaultHeight = 61; //LCCKImageSize + LCCK
 - (UIView *)litteBadgeView {
     if (_litteBadgeView == nil) {
         UIView *litteBadgeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, LCCKLittleBadgeSize, LCCKLittleBadgeSize)];
-<<<<<<< HEAD
-//        litteBadgeView.layer.masksToBounds = YES;
-=======
         litteBadgeView.backgroundColor = [UIColor redColor];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         litteBadgeView.layer.cornerRadius = LCCKLittleBadgeSize / 2;
         litteBadgeView.center = CGPointMake(CGRectGetMaxX(_avatarImageView.frame), CGRectGetMinY(_avatarImageView.frame));
         litteBadgeView.hidden = YES;

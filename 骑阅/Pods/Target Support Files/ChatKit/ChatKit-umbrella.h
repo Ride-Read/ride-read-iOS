@@ -93,12 +93,6 @@
 #import "LCCKError.h"
 #import "NSDate+LCCKDateTools.h"
 #import "LCCKAlertController.h"
-<<<<<<< HEAD
-#import "LCCKDeallocBlockExecutor.h"
-#import "LCCKDeallocExecutor.h"
-#import "NSObject+LCCKDeallocBlockExecutor.h"
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 #import "LCCKCaptionView.h"
 #import "LCCKPBConstants.h"
 #import "LCCKPhoto.h"

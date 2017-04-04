@@ -23,11 +23,7 @@ typedef NS_OPTIONS(NSUInteger, MLDataDetectorTypes) {
     
     //这个是对attributedText里带有Link属性的检测，至于为什么31，预留上面空间以添加新的个性化
     //这个东西和dataDetectorTypesOfAttributedLinkValue对应起来，会对带有NSLinkAttributeName区间的value进行检测，匹配则给予对应的LinkType，找不到则为Other
-<<<<<<< HEAD
     MLDataDetectorTypeAttributedLink = 1 << 20,
-=======
-    MLDataDetectorTypeAttributedLink = 1 << 31,
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 };
 
 

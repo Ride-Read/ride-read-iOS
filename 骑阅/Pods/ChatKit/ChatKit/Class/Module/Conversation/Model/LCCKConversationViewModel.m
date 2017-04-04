@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-//
-=======
  //
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 //  LCCKConversationViewModel.m
 //  LCCKChatExample
 //
@@ -43,16 +39,12 @@
 #import "NSMutableArray+LCCKMessageExtention.h"
 #import "LCCKAlertController.h"
 #import "NSObject+LCCKExtension.h"
-<<<<<<< HEAD
-#import "LCCKDeallocBlockExecutor.h"
-=======
 
 #if __has_include(<CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>)
 #import <CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>
 #else
 #import "CYLDeallocBlockExecutor.h"
 #endif
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @interface LCCKConversationViewModel ()
 
@@ -78,14 +70,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessage:) name:LCCKNotificationMessageReceived object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationInvalided:) name:LCCKNotificationCurrentConversationInvalided object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundImageChanged:) name:LCCKNotificationConversationViewControllerBackgroundImageDidChanged object:nil];
-<<<<<<< HEAD
-        __unsafe_unretained typeof(self) weakSelf = self;
-        [self lcck_executeAtDealloc:^{
-            weakSelf.delegate = nil;
-=======
         __unsafe_unretained __typeof(self) weakSelf = self;
         [self cyl_executeAtDealloc:^{
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
             [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
         }];
     }
@@ -759,17 +745,10 @@ fromTimestamp     |    toDate   |                |  上次上拉刷新顶端，�
             idx++;
         }
     }
-<<<<<<< HEAD
-    if (*allVisibleImages == nil) {
-        *allVisibleImages = [allVisibleImages_ copy];
-    }
-    if (*allVisibleThumbs == nil) {
-=======
     if (allVisibleImages) {
         *allVisibleImages = [allVisibleImages_ copy];
     }
     if (allVisibleThumbs) {
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         *allVisibleThumbs = [allVisibleThumbs_ copy];
     }
 }

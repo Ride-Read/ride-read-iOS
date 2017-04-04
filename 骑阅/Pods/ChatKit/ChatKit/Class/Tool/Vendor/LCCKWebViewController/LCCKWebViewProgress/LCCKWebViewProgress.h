@@ -6,10 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-<<<<<<< HEAD
-@import UIKit;
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 #undef njk_weak
 #if __has_feature(objc_arc_weak)

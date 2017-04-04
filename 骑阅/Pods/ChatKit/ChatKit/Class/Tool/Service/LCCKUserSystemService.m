@@ -189,17 +189,10 @@ NSString *const LCCKUserSystemServiceErrorDomain = @"LCCKUserSystemServiceErrorD
         userName_ = user.name;
         avatarURL_ = user.avatarURL;
         if (userName_ || avatarURL_) {
-<<<<<<< HEAD
-            if (*name == nil) {
-                *name = userName_;
-            }
-            if (*avatarURL == nil) {
-=======
             if (name) {
                 *name = userName_;
             }
             if (avatarURL) {
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
                 *avatarURL = avatarURL_;
             }
             return;

@@ -6,12 +6,6 @@
 //  Copyright © 2016年 LeanCloud. All rights reserved.
 //
 
-<<<<<<< HEAD
-FOUNDATION_EXPORT double LCChatKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char LCChatKitVersionString[];
-
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 #if __has_include(<AVOSCloud/AVOSCloud.h>)
     #import <AVOSCloud/AVOSCloud.h>
 #else
@@ -57,10 +51,7 @@ FOUNDATION_EXPORT const unsigned char LCChatKitVersionString[];
     #import <ChatKit/LCCKInputViewPluginLocation.h>
     #import <ChatKit/LCCKAlertController.h>
     #import <ChatKit/NSFileManager+LCCKExtension.h>
-<<<<<<< HEAD
-=======
-    #import <NSObject+LCCKExtension.h>
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
+    #import "NSObject+LCCKExtension.h"
 
 #else
 
@@ -95,11 +86,7 @@ FOUNDATION_EXPORT const unsigned char LCChatKitVersionString[];
     #import "LCCKInputViewPluginLocation.h"
     #import "LCCKAlertController.h"
     #import "NSFileManager+LCCKExtension.h"
-<<<<<<< HEAD
-
-=======
     #import "NSObject+LCCKExtension.h"
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 #endif
 
 

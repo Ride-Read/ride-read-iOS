@@ -263,17 +263,10 @@ static NSString *const LCCKInputViewPluginClassKey = @"LCCKInputViewPluginClassK
  */
 typedef NS_ENUM(NSUInteger, LCCKInputViewPluginType) {
     LCCKInputViewPluginTypeDefault = 0,       /**< 默认未知类型 */
-<<<<<<< HEAD
     LCCKInputViewPluginTypeTakePhoto = 1,         /**< 拍照 */
     LCCKInputViewPluginTypePickImage = 2,         /**< 选择照片 */
     LCCKInputViewPluginTypeLocation = 3,          /**< 地理位置 */
     LCCKInputViewPluginTypeShortVideo = 4,        /**< 短视频 */
-=======
-    LCCKInputViewPluginTypeTakePhoto = -1,         /**< 拍照 */
-    LCCKInputViewPluginTypePickImage = -2,         /**< 选择照片 */
-    LCCKInputViewPluginTypeLocation = -3,          /**< 地理位置 */
-    LCCKInputViewPluginTypeShortVideo = -4,        /**< 短视频 */
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 //    LCCKInputViewPluginTypeMorePanel= -7,         /**< 显示更多面板 */
 //    LCCKInputViewPluginTypeText = -1,              /**< 文本输入 */
 //    LCCKInputViewPluginTypeVoice = -2,             /**< 语音输入 */

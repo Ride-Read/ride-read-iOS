@@ -9,30 +9,22 @@
 #import "LCCKConversationNavigationTitleView.h"
 #import "NSString+LCCKExtension.h"
 #import "UIImageView+LCCKExtension.h"
-<<<<<<< HEAD
-#import "LCCKDeallocBlockExecutor.h"
-=======
 
 #if __has_include(<CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>)
 #import <CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>
 #else
 #import "CYLDeallocBlockExecutor.h"
 #endif
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 #if __has_include(<ChatKit/LCChatKit.h>)
 #import <ChatKit/LCChatKit.h>
 #else
 #import "LCChatKit.h"
 #endif
 static CGFloat const kLCCKTitleFontSize = 17.f;
-<<<<<<< HEAD
-static void * const LCCKConversationNavigationTitleViewShowRemindMuteImageViewContext = (void*)&LCCKConversationNavigationTitleViewShowRemindMuteImageViewContext;
-=======
 
 static void * const LCCKConversationViewControllerMutedContext = (void*)&LCCKConversationViewControllerMutedContext;
 static void * const LCCKConversationViewControllerNameContext = (void*)&LCCKConversationViewControllerNameContext;
 static void * const LCCKConversationViewControllerMembersCountContext = (void*)&LCCKConversationViewControllerMembersCountContext;
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @interface LCCKConversationNavigationTitleView ()
 
@@ -41,12 +33,8 @@ static void * const LCCKConversationViewControllerMembersCountContext = (void*)&
 @property (nonatomic, weak) UINavigationController *navigationController;
 @property (nonatomic, strong) UIStackView *containerView;
 @property (nonatomic, strong) UIImageView *remindMuteImageView;
-<<<<<<< HEAD
-
-=======
 @property (nonatomic, copy) NSString *conversationName;
 @property (nonatomic, strong) AVIMConversation *conversation;
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @end
 
 @implementation LCCKConversationNavigationTitleView
@@ -75,29 +63,6 @@ static void * const LCCKConversationViewControllerMembersCountContext = (void*)&
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-<<<<<<< HEAD
-    if(context != LCCKConversationNavigationTitleViewShowRemindMuteImageViewContext) {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
-    if(context == LCCKConversationNavigationTitleViewShowRemindMuteImageViewContext) {
-        //if ([keyPath isEqualToString:@"showRemindMuteImageView"]) {
-        id newKey = change[NSKeyValueChangeNewKey];
-        BOOL boolValue = [newKey boolValue];
-        self.remindMuteImageView.hidden = !boolValue;
-        [self.containerView layoutIfNeeded];//fix member count view won't display when conversationNameView is too long
-    }
-}
-
-- (instancetype)sharedInit {
-    [self addSubview:self.containerView];
-    self.showRemindMuteImageView = NO;
-    [self addObserver:self forKeyPath:@"showRemindMuteImageView" options:NSKeyValueObservingOptionNew context:LCCKConversationNavigationTitleViewShowRemindMuteImageViewContext];
-    __unsafe_unretained typeof(self) weakSelf = self;
-    [self lcck_executeAtDealloc:^{
-        [weakSelf removeObserver:weakSelf forKeyPath:@"showRemindMuteImageView"];
-    }];
-=======
     if(context == LCCKConversationViewControllerMutedContext) {
         id newKey = change[NSKeyValueChangeNewKey];
         BOOL muted = [newKey boolValue];
@@ -123,47 +88,23 @@ static void * const LCCKConversationViewControllerMembersCountContext = (void*)&
         [conversation removeObserver:weakSelf forKeyPath:@"members.@count"];
     }];
     
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     [self.containerView layoutIfNeeded];//fix member count view won't display when conversationNameView is too long
     return self;
 }
 
 - (instancetype)initWithConversation:(AVIMConversation *)conversation navigationController:(UINavigationController *)navigationController {
     if (self = [super init]) {
-<<<<<<< HEAD
-        CGFloat membersCount = conversation.members.count;
-        NSString *conversationName;
-        if ([conversation.lcck_displayName lcck_containsString:@","]) {
-            self.membersCountView.hidden = NO;
-            conversationName = conversation.lcck_displayName;
-        } else {
-            conversationName = conversation.lcck_title;
-        }
-        if (conversationName.length == 0 || !conversationName) {
-            conversationName = LCCKLocalizedStrings(@"Chat");
-        }
-        [self setupWithConversationName:conversationName membersCount:membersCount navigationController:navigationController];
-=======
         _conversation = conversation;
         [self resetConversationName];
         [self setupWithNavigationController:navigationController];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         self.remindMuteImageView.hidden = !conversation.muted;
     }
     return self;
 }
 
-<<<<<<< HEAD
-- (void)setupWithConversationName:(NSString *)conversationName membersCount:(NSInteger)membersCount navigationController:(UINavigationController *)navigationController {
-    self.conversationNameView.text = conversationName;
-    self.membersCountView.text = [NSString stringWithFormat:@"(%@)", @(membersCount)];
-    self.navigationController = navigationController;
-    [self sharedInit];
-=======
 - (void)setupWithNavigationController:(UINavigationController *)navigationController {
     self.navigationController = navigationController;
     [self sharedInitWithConversation:self.conversation];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 }
 
 - (UIImageView *)remindMuteImageView {
@@ -185,10 +126,6 @@ static void * const LCCKConversationViewControllerMembersCountContext = (void*)&
         UILabel *conversationNameView = [[UILabel alloc] initWithFrame:CGRectZero];
         conversationNameView.font = [UIFont boldSystemFontOfSize:kLCCKTitleFontSize];
         conversationNameView.textColor = [UIColor whiteColor];
-<<<<<<< HEAD
-        //        conversationNameView.backgroundColor = [UIColor redColor];
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         conversationNameView.textAlignment = NSTextAlignmentCenter;
         [conversationNameView sizeToFit];
         conversationNameView.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -205,17 +142,11 @@ static void * const LCCKConversationViewControllerMembersCountContext = (void*)&
         membersCountView.textAlignment = NSTextAlignmentCenter;
         [membersCountView sizeToFit];
         membersCountView.hidden = YES;
-<<<<<<< HEAD
-//        membersCountView.backgroundColor = [UIColor blueColor];
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         _membersCountView = membersCountView;
     }
     return _membersCountView;
 }
 
-<<<<<<< HEAD
-=======
 #pragma mark -
 #pragma mark - Private Methods
 
@@ -242,5 +173,4 @@ static void * const LCCKConversationViewControllerMembersCountContext = (void*)&
     }
 }
 
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @end

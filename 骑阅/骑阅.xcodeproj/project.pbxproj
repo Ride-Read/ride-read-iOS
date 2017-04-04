@@ -1848,50 +1848,6 @@
 			path = "骑阅/Compoents/Protocol";
 			sourceTree = SOURCE_ROOT;
 		};
-		BAD30DFE1E8FF4A0004CF67F /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				BAD30DFF1E8FF4A0004CF67F /* Controller */,
-				BAD30E001E8FF4A0004CF67F /* Model */,
-				BAD30E011E8FF4A0004CF67F /* Tool */,
-				BAD30E021E8FF4A0004CF67F /* View */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
-		BAD30DFF1E8FF4A0004CF67F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		BAD30E001E8FF4A0004CF67F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		BAD30E011E8FF4A0004CF67F /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-				BAD30E0B1E8FFB48004CF67F /* QYChatkExample.h */,
-				BAD30E0C1E8FFB48004CF67F /* QYChatkExample.m */,
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
-		BAD30E021E8FF4A0004CF67F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BAD30E031E8FF4A0004CF67F /* QYRecentConversaionCell.h */,
-				BAD30E041E8FF4A0004CF67F /* QYRecentConversaionCell.m */,
-				BAD30E051E8FF4A0004CF67F /* QYRecentConversaionCell.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EB82BA38347459AD24D7B13E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2299,7 +2255,6 @@
 				BAC8716B1E798F2B00C5F800 /* QYRegisterLogic.m in Sources */,
 				BAC871681E797DBC00C5F800 /* QYUserRegisterApiManager.m in Sources */,
 				BA8059521E8D59260009A4D7 /* QYRecentConversaionCell.m in Sources */,
-
 				BA354DA11E6C6BDF00EE8189 /* QYFrIendStatusMessage.m in Sources */,
 				BA354D9D1E6C6A0400EE8189 /* QYFriendCycleCellLayout.m in Sources */,
 				BA9AAAA41E692C7000D7A5BB /* YYTextMagnifier.m in Sources */,
@@ -2311,7 +2266,6 @@
 				BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */,
 				BAA001791E50725B0067A894 /* CTApiProxy.m in Sources */,
 				BA354D781E6BE20000EE8189 /* QNHijackingDetectWrapper.m in Sources */,
-
 				BAD314221E9010A3004CF67F /* QYChatkExample.m in Sources */,
 				EC94C25B1E5155F900F2454F /* QYLoginOrRegisterFatherController.m in Sources */,
 				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
@@ -2624,7 +2578,7 @@
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "www.aspmcll.--";
+				PRODUCT_BUNDLE_IDENTIFIER = www.aspmcll.llll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -2644,7 +2598,7 @@
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "www.aspmcll.--";
+				PRODUCT_BUNDLE_IDENTIFIER = www.aspmcll.llll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

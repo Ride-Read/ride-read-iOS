@@ -8,20 +8,13 @@
 
 #import "QYChatkExample.h"
 #import "CTAppContext.h"
-<<<<<<< HEAD
 #import "define.h"
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @implementation QYChatkExample
 
 static NSString *const LCCKAPPID = @"dYRQ8YfHRiILshUnfFJu2eQM-gzGzoHsz";
 static NSString *const LCCKAPPKEY = @"ye24iIK6ys8IvaISMC4Bs5WK";
-<<<<<<< HEAD
 NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
-=======
-
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 + (instancetype)sharedInstance {
     static QYChatkExample *_sharedLCChatKitExample = nil;
@@ -41,11 +34,6 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
     //    [AVOSCloudIM handleRemoteNotificationsWithDeviceToken:nil];
     [[LCChatKit sharedInstance] removeAllCachedProfiles];
     [[LCChatKit sharedInstance] closeWithCallback:^(BOOL succeeded, NSError *error) {
-<<<<<<< HEAD
-=======
-        
-        
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         if (succeeded)
             !success?:success();
         else
@@ -68,17 +56,10 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
     [[LCChatKit sharedInstance] openWithClientId:clientId
                                         callback:^(BOOL succeeded, NSError *error) {
                                             if (succeeded) {
-<<<<<<< HEAD
-                                                
                                                 success();
                                             } else {
                                                 
                                                 failed(error);
-=======
-                                                !success ?: success();
-                                            } else {
-                                                !failed ?: failed(error);
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
                                             }
                                         }];
     // TODO:
@@ -93,7 +74,6 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
         
         
 #warning test user message
-<<<<<<< HEAD
     
         for (NSString *userid in userIds) {
             NSMutableArray *array = @[].mutableCopy;
@@ -124,23 +104,10 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
             
             [array addObject:user];
 
-=======
-        
-        for (NSString *userid in userIds) {
-            NSMutableArray *array = @[].mutableCopy;
-#warning do you net working to fetch the use message
-            if (userid) {
-                
-                QYUser * user = [CTAppContext sharedInstance].currentUser;
-                [array addObject:user];
-            }
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
-            completionHandler(array,nil);
         }
     }];
 }
 
-<<<<<<< HEAD
 + (void)fetchUnreadMessageNumber:(void (^)(NSUInteger))unreadBlock {
     
     [[LCCKConversationListService sharedInstance] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
@@ -168,7 +135,5 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
     }];
   
 }
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 @end

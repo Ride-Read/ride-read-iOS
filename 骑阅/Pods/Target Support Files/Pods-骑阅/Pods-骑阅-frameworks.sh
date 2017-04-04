@@ -89,12 +89,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloudIM/AVOSCloudIM.framework"
-<<<<<<< HEAD
-=======
   install_framework "$BUILT_PRODUCTS_DIR/CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.framework"
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
   install_framework "$BUILT_PRODUCTS_DIR/ChatKit/ChatKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DACircularProgress/DACircularProgress.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FDStackView/FDStackView.framework"
@@ -109,12 +107,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloud/AVOSCloud.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AVOSCloudIM/AVOSCloudIM.framework"
-<<<<<<< HEAD
-=======
   install_framework "$BUILT_PRODUCTS_DIR/CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.framework"
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
   install_framework "$BUILT_PRODUCTS_DIR/ChatKit/ChatKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DACircularProgress/DACircularProgress.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FDStackView/FDStackView.framework"

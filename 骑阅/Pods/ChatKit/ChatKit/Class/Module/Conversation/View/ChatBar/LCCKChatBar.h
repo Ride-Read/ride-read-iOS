@@ -6,10 +6,6 @@
 //  Copyright (c) 2015年 https://LeanCloud.cn . All rights reserved.
 //
 
-<<<<<<< HEAD
-
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 static CGFloat const kChatBarBottomOffset = 8.f;
 static CGFloat const kChatBarTextViewBottomOffset = 6;
 static CGFloat const kLCCKChatBarTextViewFrameMinHeight = 37.f; //kLCCKChatBarMinHeight - 2*kChatBarTextViewBottomOffset;
@@ -43,21 +39,15 @@ typedef NS_ENUM(NSUInteger, LCCKFunctionViewShowType){
 
 @property (weak, nonatomic) id<LCCKChatBarDelegate> delegate;
 @property (nonatomic, readonly) UIViewController *controllerRef;
-<<<<<<< HEAD
+@property (strong, nonatomic) UITextView *textView;
+@property (nonatomic, strong) UIView *inputBarBackgroundView; /**< 输入栏目背景视图 */
 @property (strong, nonatomic) UIButton *voiceButton; /**< 切换录音模式按钮 */
 @property (strong, nonatomic) UIButton *voiceRecordButton; /**< 录音按钮 */
 
 @property (strong, nonatomic) UIButton *faceButton; /**< 表情按钮 */
 @property (strong, nonatomic) UIButton *moreButton; /**< 更多按钮 */
-@property (strong, nonatomic) UITextView *textView;
-@property (nonatomic, strong) UIView *inputBarBackgroundView; /**< 输入栏目背景视图 */
 
 
-- (void)setupConstraints;
-- (void)sendTextMessage:(NSString *)text;
-
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 /*!
  *
@@ -67,6 +57,8 @@ typedef NS_ENUM(NSUInteger, LCCKFunctionViewShowType){
 @property (copy, nonatomic) NSString *cachedText;
 @property (nonatomic, assign) LCCKFunctionViewShowType showType;
 
+- (void)setupConstraints;
+- (void)sendTextMessage:(NSString *)text;
 /*!
  * 在 `-presentViewController:animated:completion:` 的completion回调中调用该方法，屏蔽来自其它 ViewController 的键盘通知事件。
  */

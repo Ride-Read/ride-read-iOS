@@ -30,16 +30,12 @@
 #else
     #import "UIImageView+WebCache.h"
 #endif
-<<<<<<< HEAD
-#import "LCCKDeallocBlockExecutor.h"
-=======
 
 #if __has_include(<CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>)
 #import <CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>
 #else
 #import "CYLDeallocBlockExecutor.h"
 #endif
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 
 
@@ -64,13 +60,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:LCCKNotificationMessageReceived object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:LCCKNotificationUnreadsUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:LCCKNotificationConversationListDataSourceUpdated object:nil];
-<<<<<<< HEAD
-    __unsafe_unretained typeof(self) weakSelf = self;
-    [self lcck_executeAtDealloc:^{
-=======
     __unsafe_unretained __typeof(self) weakSelf = self;
     [self cyl_executeAtDealloc:^{
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
     }];
     _conversationListViewController = conversationListViewController;
@@ -116,11 +107,7 @@
         NSURL *conversationGroupAvatarURL = [NSURL URLWithString:conversationGroupAvatarURLKey];
         [cell.avatarImageView sd_setImageWithURL:conversationGroupAvatarURL placeholderImage:[self imageInBundleForImageName:@"Placeholder_Group" ]];
     }
-<<<<<<< HEAD
-    
-=======
     cell.remindMuteImageView.hidden = !conversation.muted;
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     cell.nameLabel.text = conversation.lcck_displayName;
     if (conversation.lcck_lastMessage) {
         cell.messageTextLabel.attributedText = [LCCKLastMessageTypeManager attributedStringWithMessage:conversation.lcck_lastMessage conversation:conversation userName:displayName];
@@ -133,12 +120,6 @@
             cell.badgeView.badgeText = conversation.lcck_badgeText;
         }
     }
-<<<<<<< HEAD
-    if (conversation.muted == YES) {
-        cell.remindMuteImageView.hidden = NO;
-    }
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     LCCKConfigureCellBlock configureCellBlock = [[LCCKConversationListService sharedInstance] configureCellBlock];
     if (configureCellBlock) {
         configureCellBlock(cell, tableView, indexPath, conversation);

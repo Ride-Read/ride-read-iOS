@@ -27,20 +27,6 @@ NSString *const kLCCKBatchDeleteTextSuffix = @"kLCCKBatchDeleteTextSuffix";
 @interface LCCKChatBar () <UITextViewDelegate, UINavigationControllerDelegate, Mp3RecorderDelegate, LCCKChatFaceViewDelegate>
 
 @property (strong, nonatomic) Mp3Recorder *MP3;
-<<<<<<< HEAD
-//@property (strong, nonatomic) UIButton *voiceButton; /**< 切换录音模式按钮 */
-//@property (strong, nonatomic) UIButton *voiceRecordButton; /**< 录音按钮 */
-//
-//@property (strong, nonatomic) UIButton *faceButton; /**< 表情按钮 */
-//@property (strong, nonatomic) UIButton *moreButton; /**< 更多按钮 */
-=======
-@property (nonatomic, strong) UIView *inputBarBackgroundView; /**< 输入栏目背景视图 */
-@property (strong, nonatomic) UIButton *voiceButton; /**< 切换录音模式按钮 */
-@property (strong, nonatomic) UIButton *voiceRecordButton; /**< 录音按钮 */
-
-@property (strong, nonatomic) UIButton *faceButton; /**< 表情按钮 */
-@property (strong, nonatomic) UIButton *moreButton; /**< 更多按钮 */
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @property (weak, nonatomic) LCCKChatFaceView *faceView; /**< 当前活跃的底部view,用来指向faceView */
 @property (weak, nonatomic) LCCKChatMoreView *moreView; /**< 当前活跃的底部view,用来指向moreView */
 
@@ -49,11 +35,6 @@ NSString *const kLCCKBatchDeleteTextSuffix = @"kLCCKBatchDeleteTextSuffix";
 
 @property (assign, nonatomic) CGSize keyboardSize;
 
-<<<<<<< HEAD
-//@property (strong, nonatomic) UITextView *textView;
-=======
-@property (strong, nonatomic) UITextView *textView;
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @property (assign, nonatomic) CGFloat oldTextViewHeight;
 @property (nonatomic, assign, getter=shouldAllowTextViewContentOffset) BOOL allowTextViewContentOffset;
 @property (nonatomic, assign, getter=isClosed) BOOL close;
@@ -716,11 +697,7 @@ NSString *const kLCCKBatchDeleteTextSuffix = @"kLCCKBatchDeleteTextSuffix";
 }
 
 - (UIImage *)imageInBundlePathForImageName:(NSString *)imageName {
-<<<<<<< HEAD
-    UIImage *image = [UIImage lcck_imageNamed:imageName bundleName:@"ChatKeyboard" bundleForClass:[LCCKChatBar class]];
-=======
     UIImage *image = [UIImage lcck_imageNamed:imageName bundleName:@"ChatKeyboard" bundleForClass:[self class]];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     return image;
 }
 

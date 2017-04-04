@@ -25,10 +25,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-<<<<<<< HEAD
-
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     // Configure the view for the selected state
 }
 

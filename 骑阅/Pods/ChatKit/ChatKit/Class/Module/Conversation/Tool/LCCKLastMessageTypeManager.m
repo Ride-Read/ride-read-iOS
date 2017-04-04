@@ -63,20 +63,12 @@ static NSMutableDictionary *attributedStringCache = nil;
     do {
         if (typeTitleKey.length > 0) {
             title = typeTitleKey;
-<<<<<<< HEAD
-            title = [NSString stringWithFormat:@"[%@]",title];
-=======
             title = [NSString stringWithFormat:@"[%@]", title];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
             break;
         }
         
         title = LCCKLocalizedStrings(@"unknownMessageType");
-<<<<<<< HEAD
-        title = [NSString stringWithFormat:@"[%@]",title];
-=======
         title = [NSString stringWithFormat:@"[%@]", title];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
         break;
     } while (NO);
     return title;

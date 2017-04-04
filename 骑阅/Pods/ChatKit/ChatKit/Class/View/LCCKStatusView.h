@@ -6,12 +6,6 @@
 //  Copyright © 2016年 LeanCloud. All rights reserved.
 //
 
-<<<<<<< HEAD
-@import UIKit;
-@import Foundation;
-
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @protocol LCCKStatusViewDelegate <NSObject>
 
 @optional

@@ -8,16 +8,12 @@
 
 #import "UIImageView+LCCKExtension.h"
 #import <objc/runtime.h>
-<<<<<<< HEAD
-#import "LCCKDeallocBlockExecutor.h"
-=======
 
 #if __has_include(<CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>)
 #import <CYLDeallocBlockExecutor/CYLDeallocBlockExecutor.h>
 #else
 #import "CYLDeallocBlockExecutor.h"
 #endif
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
 #pragma mark -
 #pragma mark - Private Methods
@@ -57,22 +53,13 @@
 
 @implementation LCCKImageObserver
 
-<<<<<<< HEAD
-- (instancetype)initWithImageView:(UIImageView *)imageView{
-=======
 - (instancetype)initWithImageView:(UIImageView *)imageView {
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     if (self = [super init]) {
         self.originImageView = imageView;
         [imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:nil];
         [imageView addObserver:self forKeyPath:@"contentMode" options:NSKeyValueObservingOptionNew context:nil];
-<<<<<<< HEAD
-        __unsafe_unretained typeof(self) weakSelf = self;
-        [self lcck_executeAtDealloc:^{
-=======
         __unsafe_unretained __typeof(self) weakSelf = self;
         [self cyl_executeAtDealloc:^{
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
             [weakSelf.originImageView removeObserver:weakSelf forKeyPath:@"image"];
             [weakSelf.originImageView removeObserver:weakSelf forKeyPath:@"contentMode"];
         }];

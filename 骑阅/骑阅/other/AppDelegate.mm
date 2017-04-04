@@ -10,13 +10,10 @@
 #import "QYLoginOrRegisterFatherController.h"
 #import "QYHomeTabBarViewController.h"
 #import "CTAppContext.h"
-<<<<<<< HEAD
 #import <AVOSCloud/AVOSCloud.h>
 #import "QYChatkExample.h"
 #import "MBProgressHUD+LLHud.h"
 
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @interface AppDelegate ()
 
 @end
@@ -26,17 +23,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-<<<<<<< HEAD
     [QYChatkExample invokeThisMethodInDidFinishLaunching];
-=======
-    //[QYChatKit invokeThisMethodInDidFinishLaunching];
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     QYUser *curentUser = [CTAppContext sharedInstance].currentUser;
     if (curentUser) {
         
-<<<<<<< HEAD
         QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
         self.window.rootViewController = tab;
         
@@ -47,24 +39,7 @@
     }
     
     [self.window makeKeyAndVisible];
-=======
-//           [QYChatKit invokeThisMethodAfterLoginSuccessWithClientId:@"1" success:^{
-//        
-//           QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
-//             self.window.rootViewController = tab;
-//        
-//        } failed:^(NSError *error) {
-//        
-//            
-//          //[MBProgressHUD showMessageAutoHide:@"登录失败" view:nil];
-//        QYLoginOrRegisterFatherController *logFather = [[QYLoginOrRegisterFatherController alloc] init];
-//        self.window.rootViewController = logFather;
-//        
-//        }];
-//    }
-    }
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
-    return YES;
+   return YES;
 }
 
 

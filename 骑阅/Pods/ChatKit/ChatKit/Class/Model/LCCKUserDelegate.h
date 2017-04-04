@@ -6,10 +6,6 @@
 //  Copyright © 2016年 LeanCloud. All rights reserved.
 //  User Model Delegate.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 @protocol LCCKUserDelegate <NSObject, NSCopying, NSCoding>
 
 @required

@@ -15,7 +15,6 @@
 @synthesize name = _name;
 @synthesize avatarURL = _avatarURL;
 @synthesize clientId = _clientId;
-<<<<<<< HEAD
 
 + (instancetype)userWithUserId:(NSString *)userId name:(NSString *)name avatarURL:(NSURL *)avatarURL clientId:(NSString *)clientId {
     
@@ -31,23 +30,7 @@
     _clientId = clientId;
     return self;
 }
-=======
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
 
-+ (instancetype)userWithUserId:(NSString *)userId name:(NSString *)name avatarURL:(NSURL *)avatarURL clientId:(NSString *)clientId {
-    
-    return [[self alloc] initWithUserId:userId name:name avatarURL:avatarURL clientId:clientId];
-}
-- (instancetype)initWithUserId:(NSString *)userId name:(NSString *)name avatarURL:(NSURL *)avatarURL clientId:(NSString *)clientId {
-    
-    self = [super init];
-    
-    _userId = userId;
-    _name = name;
-    _avatarURL = avatarURL;
-    _clientId = clientId;
-    return self;
-}
 + (instancetype)userWithDict:(NSDictionary *)dict {
     
     
@@ -113,56 +96,6 @@
         return [NSString stringWithFormat:@"%@",self.uid];
     }
 
-<<<<<<< HEAD
-=======
-- (BOOL)isEqualToUer:(QYUser *)user {
-    return (user.userId == self.userId);
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return [[QYUser alloc] initWithUserId:self.userId
-                                     name:self.name
-                                avatarURL:self.avatarURL
-                                 clientId:self.clientId
-            ];
-}
-
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:self.userId forKey:@"userId"];
-    [aCoder encodeObject:self.name forKey:@"name"];
-    [aCoder encodeObject:self.avatarURL forKey:@"avatarURL"];
-    [aCoder encodeObject:self.clientId forKey:@"clientId"];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    if(self = [super init]){
-        _userId = [aDecoder decodeObjectForKey:@"userId"];
-        _name = [aDecoder decodeObjectForKey:@"name"];
-        _avatarURL = [aDecoder decodeObjectForKey:@"avatarURL"];
-        _clientId = [aDecoder decodeObjectForKey:@"clientId"];
-    }
-    return self;
-}
-
-#pragma mark - getter
-- (NSString *)userId {
-    
-    if (self.uid) {
-        
-        return [NSString stringWithFormat:@"%@",self.uid];
-    }
-    return nil;
-}
-
-- (NSString *)clientId {
-    
-    if (self.uid) {
-        
-        return [NSString stringWithFormat:@"%@",self.uid];
-    }
-    
->>>>>>> bf40f696574c7f06d8a1232e3f9594c56573ffde
     return nil;
 }
 
