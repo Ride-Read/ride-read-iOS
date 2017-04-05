@@ -17,9 +17,11 @@
 #import "QYGetQiNiuTokenApiManager.h"
 #import "NSString+QYRegular.h"
 #import "QYGetQiNiuTokenApiManager.h"
+
 #import "QYQiuNiuUploadTool.h"
 #import "QYQiuniuUploadCommand.h"
 #import "QYQiuniuTokenCommand.h"
+
 #import "NSString+QYDateString.h"
 #import "QYUserRegisterApiManager.h"
 #import "QYRegisterLogic.h"
@@ -162,7 +164,6 @@
 }
 
 #pragma mark - CLCoommandDataSource
-
 - (NSDictionary *)paramsForcommand:(CLCommands *)command {
     
     return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@"jsonsnow"};
@@ -170,7 +171,6 @@
 }
 
 #pragma mark - CLCommandDelegate
-
 - (void)command:(CLCommands *)commands didSuccess:(CTAPIBaseManager *)apiManager {
     
     
@@ -340,7 +340,9 @@
     };
     self.filename = [NSString uploadFilename];
     self.commad.nextParams = @{kdata:data,kfilename:self.filename};
+    
     [self.commad execute];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

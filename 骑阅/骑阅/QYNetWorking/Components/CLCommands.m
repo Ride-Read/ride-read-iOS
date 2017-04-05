@@ -25,9 +25,7 @@
             
             self.child = (id<CLCommandDataDelegate>)self;
         }
-        
     }
-    
     return self;
     
 }

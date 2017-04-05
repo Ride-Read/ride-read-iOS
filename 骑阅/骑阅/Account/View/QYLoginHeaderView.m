@@ -57,7 +57,6 @@
 -(void)setUpUI {
     
     [self addSubview:self.bgView];
-    //    [self addSubview:self.titleLabel];
     [self addSubview:self.QYLogoImageView];
     [self addSubview:self.logButton];
     [self addSubview:self.registButton];
@@ -75,13 +74,7 @@
         make.height.mas_equalTo(cl_caculation_y(30 * 2));
         make.width.mas_equalTo(cl_caculation_x(64 * 2));
     }];
-    
-    //    [self.QYLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //        make.centerX.equalTo(self.mas_centerX);
-    //        make.top.mas_equalTo(cl_caculation_y(57 * 2));
-    //    }];
-    
+        
     [self.logButton mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.mas_equalTo(45);
@@ -96,8 +89,7 @@
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(45);
     }];
-    
-    
+
 }
 #pragma mark - targart action
 

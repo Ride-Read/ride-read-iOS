@@ -88,7 +88,9 @@
         
         NSString *username = self.loginView.phoneTextField.text;
         NSString *password = self.loginView.passwordTextField.text;
-        return @{kphonenumber:username?:@"",kpassword:password?:@"",klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+        return @{kphonenumber:username?:@"",
+                 kpassword:password?:@"",
+                 klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     }
     return nil;
 }

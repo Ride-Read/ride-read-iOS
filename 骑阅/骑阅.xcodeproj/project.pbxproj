@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3191A31E938C4E0004F4E9 /* QYUpdateAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */; };
 		2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D4FF71E704612003FD8BD /* UIView+Frame.m */; };
 		2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BB344361E8BB69A00BB8C40 /* meizi2.png */; };
 		2BB71EB71E7946AA00187565 /* QYTagPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB71EB61E7946AA00187565 /* QYTagPromptView.m */; };
@@ -253,6 +254,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B3191A11E938C4E0004F4E9 /* QYUpdateAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUpdateAPIManager.h; sourceTree = "<group>"; };
+		2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUpdateAPIManager.m; sourceTree = "<group>"; };
 		2B4D4FF61E704612003FD8BD /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		2B4D4FF71E704612003FD8BD /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		2BB344361E8BB69A00BB8C40 /* meizi2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meizi2.png; sourceTree = "<group>"; };
@@ -1725,6 +1728,8 @@
 				BAC36FBB1E82AC46007D1FF4 /* QYRideUserApiManager.m */,
 				BA995D0D1E843410002FA3B2 /* QYCycleCollectApiManager.h */,
 				BA995D0E1E843411002FA3B2 /* QYCycleCollectApiManager.m */,
+				2B3191A11E938C4E0004F4E9 /* QYUpdateAPIManager.h */,
+				2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -2299,6 +2304,7 @@
 				BAD3142E1E90ADEF004CF67F /* QYConversaitonListViewController.m in Sources */,
 				BA12CC9B1E867F6400DDB8CF /* QYTableViewControllerTraslutNo.m in Sources */,
 				BAC959751E766282007E171E /* QYDetailCycleLayout.m in Sources */,
+				2B3191A31E938C4E0004F4E9 /* QYUpdateAPIManager.m in Sources */,
 				BA354D361E6BE12A00EE8189 /* QNUrlSafeBase64.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
 				BA354D301E6BE12A00EE8189 /* QNCrc32.m in Sources */,

@@ -13,12 +13,16 @@
 #import "QYPersonalDataCell.h"
 #import "QYTextPromptView.h"
 #import "QYTagPromptView.h"
+#import "QYUpdateAPIManager.h"
 
 
-@interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
 /** tableView */
 @property(nonatomic,strong) UITableView * tableView;
+
+/** UpdatAPIManager */
+@property(nonatomic,strong) QYUpdateAPIManager * updateAPIManager;
 
 @end
 
@@ -44,6 +48,9 @@
 - (void) clickSaveButton:(UIButton *) sender {
     
     NSLog(@"%s",__func__);
+    [self.updateAPIManager loadData];
+    
+    
 }
 - (void) setupTableView {
     
@@ -59,6 +66,21 @@
     [self.tableView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
     [self.view addSubview:self.tableView];
 }
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.updateAPIManager) {
+        MyLog(@"failed");
+    }
+}
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.updateAPIManager) {
+        MyLog(@"success");
+    }
+
+}
+
 
 #pragma -- <UITableViewDataSource>
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -169,12 +191,63 @@
                 
                 self.user.signature = targetString;
                 [self.tableView reloadData];
-                
             }];
 
         }
     }
 }
+
+#pragma -- <CTAPIManagerParamSource>
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.updateAPIManager) {
+        
+        NSArray  * tags = @[@"学生",@"代码大神",@"月薪过万"];
+        NSString * hometown = @"阳春";
+        NSString * birthday = @"1992.02.18";
+        NSNumber * uid = self.user.uid;
+        NSString * school = @"关公";
+        NSString * signature = @"个性其阿明";
+        NSString * phonenumber = self.user.phonenumber;
+        NSNumber * sex = self.user.sex;
+        NSString * career = @"学生";
+        NSString * location = @"广州";
+        NSString * nickname = @"升阳";
+        NSString * face_url = @"http://attach.bbs.miui.com/forum/201703/30/154935wkwmkllupipzwmuz.jpg";
+        
+        return @{khometown:hometown?:@"",
+                 kbirthday:birthday?:@"",
+                 klatitude:@(self.location.coordinate.latitude),
+                 klongitude:@(self.location.coordinate.longitude),
+                 kuid:uid?:@"",
+                 kschool:school?:@"",
+                 ksignature:signature?:@"",
+                 ksex:sex?:@(0),
+                 kphonenumber:phonenumber?:@"",
+                 kcareer:career?:@"",
+                 ktags:tags?:@[],
+                 knickname:nickname?:@"",
+                 kface_url:face_url?:@"",
+                 klocation:location?:@""};
+        
+    }
+    return nil;
+
+    
+}
+
+
+#pragma -- <setter and getter>
+- (QYUpdateAPIManager *)updateAPIManager {
+    
+    if (!_updateAPIManager) {
+        _updateAPIManager = [[QYUpdateAPIManager alloc]init];
+        _updateAPIManager.paramSource = self;
+        _updateAPIManager.delegate = self;
+    }
+    return _updateAPIManager;
+}
+
 
 
 - (void)didReceiveMemoryWarning {
