@@ -8,6 +8,7 @@
 
 #import "QYFansUserViewController.h"
 #import "define.h"
+#import "QYLoodFansViewController.h"
 
 @interface QYFansUserViewController ()
 
@@ -25,6 +26,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QYLoodFansViewController *look = [[QYLoodFansViewController alloc] init];
+    NSDictionary *info = self.userArrays[indexPath.row];
+    QYUser *user = info[kdata];
+    look.user = user;
+    [self.navigationController pushViewController:look animated:YES];
+    
 }
 
 #pragma mark - life cycle

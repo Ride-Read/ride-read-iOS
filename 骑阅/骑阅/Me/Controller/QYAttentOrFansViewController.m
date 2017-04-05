@@ -76,19 +76,6 @@
 
 #pragma mark - tableView delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    QYConversationViewController *conver = [[QYConversationViewController alloc] initWithPeerId:@"1000"];
-    conver.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:conver animated:YES];
-
-//    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
-//    NSDictionary *info = self.userArrays[indexPath.row];
-//    QYUser *user = info[kdata];
-//    look.user = user;
-//    [self.navigationController pushViewController:look animated:YES];
-    
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     

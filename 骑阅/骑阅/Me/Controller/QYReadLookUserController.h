@@ -6,11 +6,11 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYTranslucentNoViewController.h"
+#import "QYBasicNeedLocationController.h"
 #import "QYUser.h"
 #import "QYReadMeHeaderView.h"
 
-@interface QYReadLookUserController : QYTranslucentNoViewController
+@interface QYReadLookUserController : QYBasicNeedLocationController
 @property (nonatomic, strong) QYUser *user;
 @property (nonatomic, strong) QYReadMeHeaderView *headerView;
 

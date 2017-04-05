@@ -14,8 +14,10 @@
 #import "YYBasicTableView.h"
 #import "define.h"
 #import "QYAttentionViewCell.h"
+#import "QYReadLookUserController.h"
+#import "QYNavigationController.h"
 
-@interface QYSearchViewController ()<QYSearchActionDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface QYSearchViewController ()<QYSearchActionDelegate,UITableViewDelegate,UITableViewDataSource,QYViewClickProtocol>
 @property (nonatomic, strong) QYSearchView *searchView;
 @property (nonatomic, strong) QYSearchApiManager *searchApi;
 @property (nonatomic, assign) NSUInteger requstId;
@@ -44,6 +46,12 @@
     [super viewWillAppear:animated];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+#pragma mark - click custom 
+
+- (void)clickCustomView:(UIView *)customView index:(NSInteger)index {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - private method
 - (void)setContentView {
@@ -80,10 +88,21 @@
     
     QYAttentionViewCell *searchCell = (QYAttentionViewCell *)cell;
     NSDictionary *info = self.searchArrays[indexPath.row];
-    searchCell.info = info;
+    searchCell.info = info[@"result"];
 }
 
 #pragma mark - tableView delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary *info = self.searchArrays[indexPath.row];
+    QYUser *user = info[kdata];
+    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
+    look.user = user;
+    QYNavigationController *navc = [[QYNavigationController alloc] initWithRootViewController:look];
+    [self presentViewController:navc animated:YES completion:nil];
+
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -93,11 +112,13 @@
 
 - (void)searchStart:(NSInteger)searchId manager:(CTAPIBaseManager *)manager {
     
+    self.hud = [MBProgressHUD showMessage:@"搜索中" toView:nil];
     self.requstId = searchId;
 }
 
 - (void)searchFailed:(NSInteger)searchId manager:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     if (searchId == self.requstId) {
         
         [self.serialQueue addOperationWithBlock:^{
@@ -116,6 +137,7 @@
 
 - (void)searchSuccess:(NSInteger)searchId manager:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     if (searchId == self.requstId) {
         
         [self.serialQueue addOperationWithBlock:^{
@@ -139,6 +161,7 @@
     if (!_searchView) {
         
         _searchView = [QYSearchView searchViewLogic:self.searchApi];
+        _searchView.delegate = self;
        
     }
     return _searchView;
