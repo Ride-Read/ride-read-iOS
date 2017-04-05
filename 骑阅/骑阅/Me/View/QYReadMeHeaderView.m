@@ -313,7 +313,7 @@
 - (void)anlayseData{
     
     self.username.text = _user.username;
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"] forState:UIControlStateNormal placeholderImage:nil];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:self.user.face_url] forState:UIControlStateNormal placeholderImage:nil];
     self.personSignature.text = _user.signature;
     [self initialTagsView];
     [self layoutAttention];

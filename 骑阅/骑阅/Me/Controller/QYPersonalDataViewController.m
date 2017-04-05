@@ -21,9 +21,10 @@
 
 /** tableView */
 @property(nonatomic,strong) UITableView * tableView;
-
 /** UpdatAPIManager */
 @property(nonatomic,strong) QYUpdateAPIManager * updateAPIManager;
+/** headImage */
+@property(nonatomic,strong) UIImage * headImage;
 
 @end
 
@@ -121,7 +122,8 @@
         if (indexPath.row == 0) {
             
             cell.cellType = QYPersonalDataCellImageView;
-            cell.subImageView.image = [UIImage imageNamed:@"meizi2.png"];
+            [cell.subImageView sd_setImageWithURL:[NSURL URLWithString:self.user.face_url ] placeholderImage:[UIImage imageNamed:@"meizi2.png"]];
+//            cell.subImageView.image = [UIImage imageNamed:@"meizi2.png"];
             
         } else {
             
@@ -238,8 +240,6 @@
         
     }
     return nil;
-
-    
 }
 
 
@@ -253,7 +253,6 @@
     }
     return _updateAPIManager;
 }
-
 
 
 - (void)didReceiveMemoryWarning {
