@@ -14,6 +14,7 @@
 #import "QYTextPromptView.h"
 #import "QYTagPromptView.h"
 #import "QYUpdateAPIManager.h"
+#import "QYTakePhotoViewController.h"
 
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
@@ -170,9 +171,14 @@
                 
                 self.user.username = targetString;
                 [self.tableView reloadData];
-                
             }];
+        } else {
+            
+            QYTakePhotoViewController * takeVC = [[QYTakePhotoViewController alloc]init];
+            [self.navigationController pushViewController:takeVC animated:YES];
+            
         }
+        
     } else if (indexPath.section == 1) {
         
         if (indexPath.row == 1) {
