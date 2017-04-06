@@ -44,7 +44,7 @@
 - (NSDictionary *)reformParams:(NSDictionary *)params {
     
     NSString *msg = params[kmsg];
-    msg = [NSString encodeString:msg];
+    //msg = [NSString encodeString:msg];
     NSNumber *uid = params[kuid];
     NSInteger type = 0;
     NSString *video = params[kvideo_url];

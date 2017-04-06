@@ -10,7 +10,7 @@
 
 @implementation UIAlertController (QYQuickAlert)
 
-+ (void)alertControler:(NSString *)title leftTitle:(NSString *)left rightTitle:(NSString *)right from:(UIViewController *)from action:(void (^)(NSUInteger))actionHandler{
++ (void)alertControler:(NSString *)title message:(NSString *)message leftTitle:(NSString *)left rightTitle:(NSString *)right from:(UIViewController *)from action:(void (^)(NSUInteger))actionHandler {
     
     if ((!left&&!right) || !from) {
         
@@ -33,7 +33,7 @@
         }];
     }
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"无法获取位置信息" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     if (leftAction) {
         
         [alert addAction:leftAction];
@@ -44,5 +44,7 @@
         [alert addAction:rightAction];
     }
     [from presentViewController:alert animated:YES completion:nil];
+
+    
 }
 @end

@@ -12,13 +12,29 @@
 #import "UIView+YYAdd.h"
 #import "define.h"
 #import "UIButton+QYTitleButton.h"
-#import "UIButton+QYTitleButton.h"
+#import "QYFollowApiManager.h"
+#import "QYUnfollowApiManager.h"
+
+@interface QYCircleViewPeople ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@property (nonatomic, strong) QYUnfollowApiManager *unApi;
+@property (nonatomic, strong) QYFollowApiManager *followApi;
+@property (nonatomic, copy) NSString *cuAttN;
+@end
 @implementation QYCircleViewPeople
 -(instancetype)init {
     
     self = [super init];
     [self setupUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attentionSuccess:) name:kAttetionSuccess object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unAttentionSuccess:) name:kUnAtteionSuccess object:nil];
+    
     return self;
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Private method
@@ -30,7 +46,107 @@
     [self addSubview:self.attention];
 }
 
+#pragma mark - paramSource
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    NSDictionary *info = self.cell.layout.status;
+    NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
+    return @{kuser_id:info[kuid],kuid:cuid};
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    if ([self.cuAttN isEqualToString:@"attention"]) {
+        
+        [self attentionSuccess:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAttetionSuccess object:nil userInfo:@{kuid:self.cell.layout.status[kuid]}];
+
+        return;
+    }
+    
+    [self unAttentionSuccess:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUnAtteionSuccess object:nil userInfo:@{kuid:self.cell.layout.status[kuid]}];
+
+}
+
+- (void)attentionSuccess:(NSNotification *)info {
+    
+    if (info) {
+        
+        NSDictionary *dic = info.userInfo;
+        NSNumber *usid = dic[kuid];
+        NSNumber *cuCyuid = self.cell.layout.status[kuid];
+        if (usid.integerValue == cuCyuid.integerValue) {
+            
+            [self.attention setBackgroundImage:[UIImage imageNamed:@"attentioned"] forState:UIControlStateNormal];
+            self.cell.layout.status[kstatus] = @"attentioned";
+            self.attention.tag = 1;
+            self.cuAttN = @"attentioned";
+
+        }
+        return;
+    }
+    [self.attention setBackgroundImage:[UIImage imageNamed:@"attentioned"] forState:UIControlStateNormal];
+    self.cell.layout.status[kstatus] = @"attentioned";
+    self.attention.tag = 1;
+    self.cuAttN = @"attentioned";
+
+    
+}
+
+- (void)unAttentionSuccess:(NSNotification *)info {
+    
+    if (info) {
+        
+        NSDictionary *dic = info.userInfo;
+        NSNumber *usid = dic[kuid];
+        NSNumber *cuCyuid = self.cell.layout.status[kuid];
+        if (usid.integerValue == cuCyuid.integerValue) {
+            
+            [self.attention setBackgroundImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
+            self.cell.layout.status[kstatus] = @"attention";
+            self.attention.tag = 0;
+            self.cuAttN = @"attention";
+            
+        }
+        return;
+    }
+    [self.attention setBackgroundImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
+    self.cell.layout.status[kstatus] = @"attention";
+    self.attention.tag = 0;
+    self.cuAttN = @"attention";
+    
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    
+}
 #pragma mark - Setter and Getters
+
+- (QYUnfollowApiManager *)unApi {
+    
+    if (!_unApi) {
+        
+        _unApi = [[QYUnfollowApiManager alloc] init];
+        _unApi.delegate = self;
+        _unApi.paramSource = self;
+    }
+    return _unApi;
+}
+
+- (QYFollowApiManager *)followApi {
+    
+    if (!_followApi) {
+        
+        _followApi = [[QYFollowApiManager alloc] init];
+        _followApi.delegate = self;
+        _followApi.paramSource = self;
+    }
+    return _followApi;
+}
+
 -(UIImageView *)icon {
     
     if (!_icon) {
@@ -65,6 +181,7 @@
     if (!_attention) {
         
         _attention = [[UIButton alloc] init];
+        [_attention addTarget:self action:@selector(clickAttent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _attention;
 }
@@ -82,6 +199,8 @@
         [self layoutIcon];
         [self layoutNikeName];
         [self layoutTime];
+        [self layoutAttention];
+        
         return;
     }
     
@@ -132,7 +251,39 @@
     self.attention.top = 20;
     self.attention.width = 41;
     self.attention.height = 28.6;
+    self.cuAttN = _cell.layout.status[kstatus];
+    self.attention.tag = [_cell.layout.status[@"tag"] integerValue];
     [self.attention setBackgroundImage:[UIImage imageNamed:_cell.layout.status[kstatus]] forState:UIControlStateNormal];
+}
+
+- (void)clickAttent:(UIButton *)sender {
+    
+    if (sender.tag == 1) {
+        
+        [UIAlertController alertControler:@"提示" message:@"是否取消关注" leftTitle:@"取消" rightTitle:@"确认" from:self.cell.delegate action:^(NSUInteger index) {
+            
+            if (index == 1) {
+                
+                [self.unApi loadData];
+                
+            }
+        }];
+        
+       
+    }
+    
+    if (sender.tag == 0) {
+        
+        [UIAlertController alertControler:@"提示" message:@"关注该用户" leftTitle:@"取消" rightTitle:@"确认" from:self.cell.delegate action:^(NSUInteger index) {
+            
+            if (index == 1) {
+                
+                [self.followApi loadData];
+                
+            }
+        }];
+
+    }
 }
 
 @end

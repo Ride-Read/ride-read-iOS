@@ -55,7 +55,7 @@
 
 - (void)locationServiceError:(NSNotification *)info {
     
-    [UIAlertController alertControler:@"提示" leftTitle:@"取消" rightTitle:@"去设置" from:self action:^(NSUInteger index) {
+    [UIAlertController alertControler:@"提示" message:@"无法获取位置信息" leftTitle:@"取消" rightTitle:@"去设置" from:self action:^(NSUInteger index) {
         
         if (index == 1) {
             

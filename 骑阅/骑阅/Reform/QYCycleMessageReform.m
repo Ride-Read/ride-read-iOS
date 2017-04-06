@@ -36,8 +36,28 @@
         NSArray *comment = dic[kcomment];
         NSArray *thumbs_up = dic[@"thumbs_up"];
         NSString *leght = dic[@"distanceString"];
-        NSDictionary *cycle = @{kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:comment?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght};
-        [cycleInfos addObject:cycle];
+        NSNumber *atte = dic[@"user"][@"is_followed"];
+        NSString *attName;
+        NSNumber *attTag;
+        if (atte.integerValue == 1 || atte.integerValue == 0) {
+            
+            attName = @"attentioned";
+            attTag = @(1);
+        }
+        
+        if (atte.integerValue == -1) {
+            
+            attName = @"attention";
+            attTag = @(0);
+            NSNumber *cuui = [CTAppContext sharedInstance].currentUser.uid;
+            if (cuui.integerValue == uid.integerValue) {
+                
+                attName = @"";
+                attTag = @(-1);
+            }
+        }
+        NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:comment?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght,kstatus:attName};
+        [cycleInfos addObject:[cycle mutableCopy]];
         
     }
     return cycleInfos;

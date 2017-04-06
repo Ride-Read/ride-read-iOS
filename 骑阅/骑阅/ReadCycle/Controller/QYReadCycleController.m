@@ -45,6 +45,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpContentView];
     [self loadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attentionSuccess:) name:kAttetionSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unAttentionSuccess:) name:kUnAtteionSuccess object:nil];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,11 +56,59 @@
  
 }
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - notifation
+
+- (void)attentionSuccess:(NSNotification *)info {
+    
+
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.layoutArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+           
+            QYCycleBasicLayout *layout = obj;
+            NSMutableDictionary *dict = layout.status;
+            NSNumber *uid = dict[kuid];
+            NSNumber *noti_id = info.userInfo[kuid];
+            if (uid.integerValue == noti_id.integerValue) {
+                
+                dict[kstatus] = @"attentioned";
+                dict[@"tag"] = @"1";
+            }
+        }];
+    }];
+}
+
+- (void)unAttentionSuccess:(NSNotification *)info {
+    
+  
+    [self.serialQueue addOperationWithBlock:^{
+        
+        [self.layoutArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            QYCycleBasicLayout *layout = obj;
+            NSMutableDictionary *dict = layout.status;
+            NSNumber *uid = dict[kuid];
+            NSNumber *noti_id = info.userInfo[kuid];
+            if (uid.integerValue == noti_id.integerValue) {
+                
+                dict[kstatus] = @"attention";
+                dict[@"tag"] = @"0";
+            }
+        }];
+    }];
+
+}
 
 #pragma mark - CTAPIManagParamSource 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {

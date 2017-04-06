@@ -22,6 +22,8 @@ typedef NS_ENUM(NSUInteger,QYFriendCycleType) {
 
 - (void)clickPraiseButton:(QYCircleViewCell *)cell dict:(NSDictionary *)dict;
 - (void)clickCommpentButton:(QYCircleViewCell *)cell dict:(NSDictionary *)dict;
+- (void)clickAttion:(QYCircleViewCell *)cell dic:(NSDictionary *)dict;
+- (void)clickUnattention:(QYCircleViewCell *)cell dic:(NSDictionary *)dict;
 - (void)clickPictureView:(QYCircleViewCell *)cell imageView:(UIImageView *)imageView;
 
 @end

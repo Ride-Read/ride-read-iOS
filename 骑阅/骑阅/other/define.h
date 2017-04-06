@@ -18,6 +18,9 @@
 #import "UIButton+WebCache.h"
 #import "UIAlertController+QYQuickAlert.h"
 
+static NSString *const kAttetionSuccess = @"AttetionSuccess";
+static NSString *const kUnAtteionSuccess = @"UnAtteionSuccess";
+
 #define RGB(R,G,B) [UIColor colorWithRed:R/255. green:G/255. blue:B/255. alpha:1.0]
 #define IOS10_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
 #define IOS9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)

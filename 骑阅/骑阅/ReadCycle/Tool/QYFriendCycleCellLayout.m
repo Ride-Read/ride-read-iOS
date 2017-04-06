@@ -104,6 +104,13 @@
    // CGFloat linePdding = 0.f;
     NSArray *picturs = self.status[kthumbs];
     switch (picturs.count) {
+            case 0:
+        {
+            
+            self.picSize = CGSizeZero;
+            self.picHeight = 0;
+            break;
+        }
         case 1:
         {
             self.picSize = CGSizeMake(self.pictureLayoutOneWidth, self.pictureLayoutOneWidth);

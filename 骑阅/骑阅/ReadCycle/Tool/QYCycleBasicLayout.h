@@ -78,7 +78,7 @@
 
 
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, strong) NSDictionary *status;
+@property (nonatomic, strong) NSMutableDictionary *status;
 
 @property (nonatomic, assign) CGFloat marginTop;
 //个人信息

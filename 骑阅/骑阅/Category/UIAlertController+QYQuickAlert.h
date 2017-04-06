@@ -10,5 +10,5 @@
 
 @interface UIAlertController (QYQuickAlert)
 
-+ (void)alertControler:(NSString *)title leftTitle:(NSString *)left rightTitle:(NSString *)right from:(UIViewController *)from action:(void(^)(NSUInteger index))actionHandler;
++ (void)alertControler:(NSString *)title message:(NSString *)message leftTitle:(NSString *)left rightTitle:(NSString *)right from:(UIViewController *)from action:(void(^)(NSUInteger index))actionHandler;
 @end

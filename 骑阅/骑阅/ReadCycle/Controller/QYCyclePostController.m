@@ -80,7 +80,7 @@
         int rand = arc4random() % 4;
         NSMutableArray *array = [NSMutableArray array];
         for (int i = 0; i < rand; i ++) {
-            [array addObject:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"];
+            [array addObject:@"http://om1ccbp21.bkt.clouddn.com/icon_20170321212010.jpg"];
         }
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
         NSString *msg = @"测试测试测试测试测试测试测试测试上厕所测试测试测试测试";
