@@ -259,7 +259,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
     NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp * 1000];
-    [dic setObject:timetamp forKey:@"timestamp"];
+    [dic setObject:@(timetamp.integerValue) forKey:@"timestamp"];
     return dic;
 
 }

@@ -13,7 +13,7 @@
 
 - (id)manager:(CTAPIBaseManager *)manager reformData:(NSDictionary *)data {
     
-    NSString *token = data[@"qiniu_token"];
+    NSString *token = data[@"data"][@"upToken"];
     return token;
 }
 @end

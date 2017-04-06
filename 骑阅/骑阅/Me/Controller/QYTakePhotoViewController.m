@@ -148,7 +148,7 @@
 #pragma mark - CLCoommandDataSource
 - (NSDictionary *)paramsForcommand:(CLCommands *)command {
     
-    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@"jsonsnow"};
+    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@(1)};
 }
 
 
