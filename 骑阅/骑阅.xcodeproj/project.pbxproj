@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3191A31E938C4E0004F4E9 /* QYUpdateAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */; };
 		2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D4FF71E704612003FD8BD /* UIView+Frame.m */; };
+		2BAE5D7C1E951A820089ECF1 /* QYTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D7B1E951A820089ECF1 /* QYTakePhotoViewController.m */; };
+		2BAE5D851E9537310089ECF1 /* QYSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D7F1E9537310089ECF1 /* QYSelectModel.m */; };
+		2BAE5D861E9537310089ECF1 /* QYSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D811E9537310089ECF1 /* QYSelectView.m */; };
+		2BAE5D871E9537310089ECF1 /* QYTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D831E9537310089ECF1 /* QYTableViewCell.m */; };
+		2BAE5D881E9537310089ECF1 /* QYTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BAE5D841E9537310089ECF1 /* QYTableViewCell.xib */; };
 		2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BB344361E8BB69A00BB8C40 /* meizi2.png */; };
 		2BB71EB71E7946AA00187565 /* QYTagPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB71EB61E7946AA00187565 /* QYTagPromptView.m */; };
 		2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */; };
@@ -256,8 +262,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B3191A11E938C4E0004F4E9 /* QYUpdateAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUpdateAPIManager.h; sourceTree = "<group>"; };
+		2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUpdateAPIManager.m; sourceTree = "<group>"; };
 		2B4D4FF61E704612003FD8BD /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		2B4D4FF71E704612003FD8BD /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		2BAE5D7A1E951A820089ECF1 /* QYTakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTakePhotoViewController.h; sourceTree = "<group>"; };
+		2BAE5D7B1E951A820089ECF1 /* QYTakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTakePhotoViewController.m; sourceTree = "<group>"; };
+		2BAE5D7E1E9537310089ECF1 /* QYSelectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSelectModel.h; sourceTree = "<group>"; };
+		2BAE5D7F1E9537310089ECF1 /* QYSelectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSelectModel.m; sourceTree = "<group>"; };
+		2BAE5D801E9537310089ECF1 /* QYSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSelectView.h; sourceTree = "<group>"; };
+		2BAE5D811E9537310089ECF1 /* QYSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSelectView.m; sourceTree = "<group>"; };
+		2BAE5D821E9537310089ECF1 /* QYTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTableViewCell.h; sourceTree = "<group>"; };
+		2BAE5D831E9537310089ECF1 /* QYTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTableViewCell.m; sourceTree = "<group>"; };
+		2BAE5D841E9537310089ECF1 /* QYTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYTableViewCell.xib; sourceTree = "<group>"; };
 		2BB344361E8BB69A00BB8C40 /* meizi2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meizi2.png; sourceTree = "<group>"; };
 		2BB71EB51E7946AA00187565 /* QYTagPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTagPromptView.h; sourceTree = "<group>"; };
 		2BB71EB61E7946AA00187565 /* QYTagPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTagPromptView.m; sourceTree = "<group>"; };
@@ -768,6 +785,20 @@
 				FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2BAE5D7D1E9537310089ECF1 /* QYSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				2BAE5D7E1E9537310089ECF1 /* QYSelectModel.h */,
+				2BAE5D7F1E9537310089ECF1 /* QYSelectModel.m */,
+				2BAE5D801E9537310089ECF1 /* QYSelectView.h */,
+				2BAE5D811E9537310089ECF1 /* QYSelectView.m */,
+				2BAE5D821E9537310089ECF1 /* QYTableViewCell.h */,
+				2BAE5D831E9537310089ECF1 /* QYTableViewCell.m */,
+				2BAE5D841E9537310089ECF1 /* QYTableViewCell.xib */,
+			);
+			path = QYSelectView;
 			sourceTree = "<group>";
 		};
 		2BBD52ED1E6EFB83007313E7 /* ApiManager */ = {
@@ -1482,6 +1513,7 @@
 		BAA0012B1E506FFD0067A894 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BAE5D7D1E9537310089ECF1 /* QYSelectView */,
 				BACBA8511E50780F00D2E848 /* YYBaiscTableViewCell.h */,
 				BACBA8521E50780F00D2E848 /* YYBaiscTableViewCell.m */,
 				BACBA8531E50780F00D2E848 /* YYBasicTableView.h */,
@@ -1736,6 +1768,8 @@
 				BAC36FBB1E82AC46007D1FF4 /* QYRideUserApiManager.m */,
 				BA995D0D1E843410002FA3B2 /* QYCycleCollectApiManager.h */,
 				BA995D0E1E843411002FA3B2 /* QYCycleCollectApiManager.m */,
+				2B3191A11E938C4E0004F4E9 /* QYUpdateAPIManager.h */,
+				2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1925,6 +1959,8 @@
 				EC7AA1611E5C8E3400EA54AA /* QYReadMeController.m */,
 				2BBD52E41E6EF265007313E7 /* QYPersonalDataViewController.h */,
 				2BBD52E51E6EF265007313E7 /* QYPersonalDataViewController.m */,
+				2BAE5D7A1E951A820089ECF1 /* QYTakePhotoViewController.h */,
+				2BAE5D7B1E951A820089ECF1 /* QYTakePhotoViewController.m */,
 				BAC36F5F1E815770007D1FF4 /* QYAttentOrFansViewController.h */,
 				BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */,
 				BAC36F621E815789007D1FF4 /* QYAttentionViewController.h */,
@@ -2114,7 +2150,7 @@
 				TargetAttributes = {
 					BA55BFE01E4F37D600F1027B = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = LUYMC6AG7V;
+						DevelopmentTeam = G9ZA67R3GV;
 						ProvisioningStyle = Automatic;
 					};
 					BA55BFF91E4F37D600F1027B = {
@@ -2155,6 +2191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAA0018D1E50725B0067A894 /* CTNetworkingConfiguration.plist in Resources */,
+				2BAE5D881E9537310089ECF1 /* QYTableViewCell.xib in Resources */,
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
@@ -2234,6 +2271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC7047F11E5AC89100FB92D8 /* QYResetOrSetPwdView.m in Sources */,
+				2BAE5D851E9537310089ECF1 /* QYSelectModel.m in Sources */,
 				BA995D041E842BED002FA3B2 /* QYRequstFrindViewController.m in Sources */,
 				BA354D921E6C4A8000EE8189 /* QYCycleTableHeaderView.m in Sources */,
 				EC43E7C71E59EEB400DCCBB9 /* QYRegisterView.m in Sources */,
@@ -2314,6 +2352,7 @@
 				BAD3142E1E90ADEF004CF67F /* QYConversaitonListViewController.m in Sources */,
 				BA12CC9B1E867F6400DDB8CF /* QYTableViewControllerTraslutNo.m in Sources */,
 				BAC959751E766282007E171E /* QYDetailCycleLayout.m in Sources */,
+				2B3191A31E938C4E0004F4E9 /* QYUpdateAPIManager.m in Sources */,
 				BA354D361E6BE12A00EE8189 /* QNUrlSafeBase64.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
 				BA354D301E6BE12A00EE8189 /* QNCrc32.m in Sources */,
@@ -2329,6 +2368,7 @@
 				BAC36FBC1E82AC46007D1FF4 /* QYRideUserApiManager.m in Sources */,
 				BA995D0F1E843411002FA3B2 /* QYCycleCollectApiManager.m in Sources */,
 				ECA4B42E1E52EE9E00D06D35 /* QYRegisterViewController.m in Sources */,
+				2BAE5D861E9537310089ECF1 /* QYSelectView.m in Sources */,
 				BAD314481E940107004CF67F /* QYLoodFansViewController.m in Sources */,
 				BA354D321E6BE12A00EE8189 /* QNFile.m in Sources */,
 				BA9AAA9F1E692C7000D7A5BB /* YYTextEffectWindow.m in Sources */,
@@ -2401,6 +2441,7 @@
 				BAD314371E924190004CF67F /* UIAlertController+QYQuickAlert.m in Sources */,
 				BA354D731E6BE20000EE8189 /* QNLruCache.m in Sources */,
 				BAC8711E1E76E65100C5F800 /* QYSendCommentView.m in Sources */,
+				2BAE5D871E9537310089ECF1 /* QYTableViewCell.m in Sources */,
 				2BBD52FE1E6EFCD6007313E7 /* QYPersonalDataCell.m in Sources */,
 				2BB71EB71E7946AA00187565 /* QYTagPromptView.m in Sources */,
 				BAC8714A1E7836BF00C5F800 /* QYUserLogLogic.m in Sources */,
@@ -2434,6 +2475,7 @@
 				BAC8715B1E7856CB00C5F800 /* QYQiuNiuUploadTool.m in Sources */,
 				BA354D951E6C4CEE00EE8189 /* UIButton+QYTitleButton.m in Sources */,
 				BA12CC951E867E4E00DDB8CF /* QYTableViewTrasYesViewController.m in Sources */,
+				2BAE5D7C1E951A820089ECF1 /* QYTakePhotoViewController.m in Sources */,
 				BAC36FB01E816281007D1FF4 /* QYAttentionReform.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
@@ -2587,7 +2629,7 @@
 			baseConfigurationReference = DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = LUYMC6AG7V;
+				DEVELOPMENT_TEAM = G9ZA67R3GV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/骑阅/Venders/Class/Tool/Vendor/VoiceLib",
@@ -2607,7 +2649,7 @@
 			baseConfigurationReference = 9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = LUYMC6AG7V;
+				DEVELOPMENT_TEAM = G9ZA67R3GV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/骑阅/Venders/Class/Tool/Vendor/VoiceLib",

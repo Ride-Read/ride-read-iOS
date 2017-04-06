@@ -8,8 +8,9 @@
 
 #import "QYTranslucentNoViewController.h"
 #import "QYUser.h"
+#import "QYBasicNeedLocationController.h"
 
-@interface QYPersonalDataViewController : QYTranslucentNoViewController
+@interface QYPersonalDataViewController : QYBasicNeedLocationController
 @property (nonatomic, weak) QYUser *user;
 
 @end

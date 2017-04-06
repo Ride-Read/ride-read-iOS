@@ -96,5 +96,19 @@ static NSString * const kcomment = @"comment";
 static NSString * const kpages = @"pages";
 static NSString * const kfrom = @"from";
 
+#pragma - personal
+static NSString * const khometown = @"hometown";
+static NSString * const kbirthday = @"birthday";
+static NSString * const kschool = @"school";
+static NSString * const kcarre = @"carre";
+static NSString * const ktags = @"tagString";
+static NSString * const ksex = @"sex";
+static NSString * const kcareer = @"career";
+static NSString * const klocation = @"location";
+
+
+
+
+
 
 #endif /* define_h */
