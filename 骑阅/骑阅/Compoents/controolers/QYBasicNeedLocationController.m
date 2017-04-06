@@ -62,13 +62,14 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]];
         }
     }];
+    
 }
 
 - (void)locationResult:(NSNotification *)info {
     
     self.location = [CTLocationManager sharedInstance].currentLocation;
+    
 }
-
 
 #pragma mark - getter
 - (CLLocation *)location {

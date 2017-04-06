@@ -78,6 +78,7 @@ static NSString * const ktoken = @"token";
 static NSString * const kfilename = @"filename";
 static NSString * const ksignature = @"signature";
 static NSString * const ktime = @"time";
+static NSString * const kmid = @"mid";
 
 #pragma mark - cycl
 static NSString * const kuser = @"user";

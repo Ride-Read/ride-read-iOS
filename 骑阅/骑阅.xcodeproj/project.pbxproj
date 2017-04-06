@@ -216,6 +216,7 @@
 		BAD3143A1E926E8F004CF67F /* QYBasicNeedLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314391E926E8E004CF67F /* QYBasicNeedLocationController.m */; };
 		BAD314451E9400F2004CF67F /* QYLookAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */; };
 		BAD314481E940107004CF67F /* QYLoodFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314471E940107004CF67F /* QYLoodFansViewController.m */; };
+		BAD3144B1E954B7F004CF67F /* QYNeedSiteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */; };
 		EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */; };
 		EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */; };
 		EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */; };
@@ -677,6 +678,8 @@
 		BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLookAttentionViewController.m; sourceTree = "<group>"; };
 		BAD314461E940107004CF67F /* QYLoodFansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLoodFansViewController.h; sourceTree = "<group>"; };
 		BAD314471E940107004CF67F /* QYLoodFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoodFansViewController.m; sourceTree = "<group>"; };
+		BAD314491E954B7F004CF67F /* QYNeedSiteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYNeedSiteViewController.h; path = "骑阅/Compoents/controolers/QYNeedSiteViewController.h"; sourceTree = SOURCE_ROOT; };
+		BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYNeedSiteViewController.m; path = "骑阅/Compoents/controolers/QYNeedSiteViewController.m"; sourceTree = SOURCE_ROOT; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
 		EC2026021E5E723A00AE2528 /* QYTabBarControlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTabBarControlerDelegate.h; sourceTree = "<group>"; };
 		EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTabBarControlerDelegate.m; sourceTree = "<group>"; };
@@ -1554,6 +1557,8 @@
 				BA12CC9A1E867F6400DDB8CF /* QYTableViewControllerTraslutNo.m */,
 				BAD314381E926E8E004CF67F /* QYBasicNeedLocationController.h */,
 				BAD314391E926E8E004CF67F /* QYBasicNeedLocationController.m */,
+				BAD314491E954B7F004CF67F /* QYNeedSiteViewController.h */,
+				BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */,
 			);
 			name = Controolers;
 			path = controolers;
@@ -2475,6 +2480,7 @@
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
+				BAD3144B1E954B7F004CF67F /* QYNeedSiteViewController.m in Sources */,
 				BAA0017B1E50725B0067A894 /* CTCache.m in Sources */,
 				BA12CCBD1E87A7DB00DDB8CF /* QYSearchApiManager.m in Sources */,
 				BA9D1D811E7D356B00276E76 /* QYCyclePostController.m in Sources */,

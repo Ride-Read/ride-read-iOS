@@ -45,6 +45,9 @@
 - (NSDictionary *)reformParams:(NSDictionary *)params {
     
     NSNumber *uid = params[kuid];
+    NSNumber *lati = params[klatitude];
+    NSNumber *longit = params[klongitude];
+    NSNumber *user_id = params[kuser_id];
     if (self.isLoadMore) {
         
         self.pages = self.pages + 1;
@@ -53,7 +56,7 @@
         
         self.pages = 0;
     }
-    return @{kuid:uid,kpages:@(_pages)};
+    return @{kuid:uid,kpages:@(_pages),klongitude:longit,klatitude:lati,kuser_id:user_id};
     
     return nil;
 }

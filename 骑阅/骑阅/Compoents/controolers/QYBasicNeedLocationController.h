@@ -11,4 +11,7 @@
 
 @interface QYBasicNeedLocationController : QYBasicViewController
 
+//for sublcass call
+- (void)locationServiceError:(NSNotification *)info;
+- (void)locationResult:(NSNotification *)info;
 @end

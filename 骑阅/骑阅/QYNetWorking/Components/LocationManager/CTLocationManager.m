@@ -56,6 +56,20 @@ NSString * const kLocationResultNotifationl = @"LocationResultNotifationl";
     [self startLocation];
 }
 
+- (void)reverseGeocodeLocation:(void (^)(NSArray *, NSError *))complteHander {
+    
+    CLGeocoder *geo = [[CLGeocoder alloc] init];
+    [geo reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        if (placemarks.count > 0) {
+            
+            CLPlacemark *plcase = placemarks[0];
+            NSLog(@"plcate:%@",plcase);
+            NSLog(@"name:%@,%@,%@,%@,%@",plcase.name,plcase.administrativeArea,plcase.subAdministrativeArea,plcase.locality,plcase.subLocality);
+        }
+    }];
+}
+
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {

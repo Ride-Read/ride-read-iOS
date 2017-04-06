@@ -44,4 +44,6 @@ typedef NS_ENUM(NSUInteger, CTLocationManagerLocationResult) {
 - (void)stopLocation;
 - (void)restartLocation;
 
+- (void)reverseGeocodeLocation:(void(^)(NSArray *array, NSError *error))complteHander;
+
 @end

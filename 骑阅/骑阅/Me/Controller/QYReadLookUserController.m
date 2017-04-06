@@ -115,7 +115,8 @@
     
     if (manager == self.cycleApiManager) {
         NSNumber *uid = self.user.uid;
-        return @{kuid:uid};
+        NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
+        return @{kuid:cuid?:@(-1),kuser_id:uid?:@(-1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     }
     
     return nil;

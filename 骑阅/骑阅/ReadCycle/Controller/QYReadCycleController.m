@@ -22,13 +22,16 @@
 #import "QYUserCycleLayout.h"
 #import "QYCycleMessageReform.h"
 #import "QYSearchViewController.h"
+#import "MBProgressHUD+LLHud.h"
 
 @interface QYReadCycleController ()<QYViewClickProtocol,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCycleSelectView *selectView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
+@property (nonatomic, strong) NSMutableArray *attentArray;
 @property (nonatomic, strong) QYReadFriendCycleApiManager *friendCycleApi;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
+@property (nonatomic, assign) NSUInteger type;
 
 @end
 
@@ -48,6 +51,7 @@
     
     [super viewWillAppear:animated];
     [self setNavc];
+ 
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,16 +64,24 @@
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{kuid:uid?:@(-1),ktype:@(0)};
+    return @{kuid:uid?:@(-1),ktype:@(1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
 }
 
 #pragma mark - CTAPIManagerCallback
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
+
+    if (manager == self.friendCycleApi) {
+        
+        [MBProgressHUD showMessageAutoHide:@"阅圈获取失败" view:self.view];
+    }
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
-#warning test ui
     [self.serialQueue addOperationWithBlock:^{
-    
+        
+        NSUInteger originCount = self.layoutArray.count;
         NSArray *cycles = [self.friendCycleApi fetchDataWithReformer:self.cycleReform];
         for (NSDictionary *info in cycles) {
             
@@ -79,15 +91,33 @@
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             
-            [self.tableView reloadData];
+            if (!self.tableView.startFooter) {
+                
+                self.tableView.startFooter = YES;
+                [self.tableView reloadData];
+                return ;
+            }
             
+            if (self.friendCycleApi.isLoadMore) {
+                
+                [self.tableView.mj_footer endRefreshing];
+                if (cycles.count < 10) {
+                    
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+                
+                NSMutableArray *indexpaths = @[].mutableCopy;
+                for (int i = 0; i < cycles.count; i++) {
+                    
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:originCount + i inSection:0];
+                    [indexpaths addObject:path];
+                 }
+                [self.tableView insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationFade];
+            }
+
         }];
     }];
-}
 
-- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
-    
-    
 }
 #pragma mark - private method
 
@@ -171,7 +201,11 @@
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.layoutArray.count;
+    if (self.type == 0) {
+        
+        return self.layoutArray.count;
+    }
+    return self.attentArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -210,7 +244,7 @@
 
 - (void)tableViewFooterRefesh:(YYBasicTableView *)tableView {
     
-    
+    [self.friendCycleApi loadNext];
 }
 
 #pragma mark - setters and getters
@@ -267,6 +301,15 @@
         _cycleReform = [[QYCycleMessageReform alloc] init];
     }
     return _cycleReform;
+}
+
+- (NSMutableArray *)attentArray {
+    
+    if (!_attentArray) {
+        
+        _attentArray = [NSMutableArray array];
+    }
+    return _attentArray;
 }
 
 /*
