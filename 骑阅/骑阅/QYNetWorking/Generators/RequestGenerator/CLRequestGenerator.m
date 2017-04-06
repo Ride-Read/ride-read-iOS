@@ -243,13 +243,14 @@
 //    NSTimeInterval interval = date.timeIntervalSince1970;
   
 //    int rand = arc4random();
-    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp];
+    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp * 1000];
+
     NSString *token = [CTAppContext sharedInstance].currentUser.token;
     //NSString *sign = [NSString stringWithFormat:@"%@%@%@",timetamp,token,SALT];
    // sign = [NSString getMD5String:sign];
     //[dic setObject:timetamp?:@"error" forKey:@"timestamp"];
     [dic setObject:token?:@"error" forKey:@"token"];
-    [dic setObject:timetamp forKey:@"timestamp"];
+    [dic setObject:@(timetamp.integerValue) forKey:@"timestamp"];
     //[dic setObject:sign?:@"error" forKey:@"sign"];
     return dic;
     
@@ -257,7 +258,7 @@
 - (NSDictionary *)setRequestTimestamp:(NSDictionary *)params {
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
-    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp];
+    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp * 1000];
     [dic setObject:timetamp forKey:@"timestamp"];
     return dic;
 

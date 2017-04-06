@@ -6,8 +6,8 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYTranslucentNoViewController.h"
+#import "QYBasicNeedLocationController.h"
 
-@interface QYReadCycleController : QYTranslucentNoViewController
+@interface QYReadCycleController : QYBasicNeedLocationController
 
 @end

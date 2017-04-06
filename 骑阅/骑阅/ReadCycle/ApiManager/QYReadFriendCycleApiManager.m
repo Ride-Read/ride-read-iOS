@@ -46,6 +46,8 @@
     
     NSNumber *type = params[ktype];
     NSString *uid = params[kuid];
+    NSNumber *lati = params[klatitude];
+    NSNumber *longit = params[klongitude];
     if (self.isLoadMore) {
         
         self.pages = self.pages + 1;
@@ -54,7 +56,7 @@
         
         self.pages = 0;
     }
-    return @{ktype:type,kuid:uid,kpages:@(_pages)};
+    return @{ktype:type,kuid:uid,kpages:@(_pages),klongitude:longit,klatitude:lati};
     
 }
 #pragma mark - public method
