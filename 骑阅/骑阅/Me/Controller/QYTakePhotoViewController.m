@@ -126,15 +126,10 @@
     NSData *data = UIImageJPEGRepresentation(image, 0.3);
     
     self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
-        
-//        [_self.hud hide:YES];
-        
+    
         if (info.isOK) {
             
             NSLog(@"++++++>>上传成功%@",key);
-//            [_self.rideInviteCodeView.icon.icon setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-//            _self.rideInviteCodeView.icon.title.hidden = YES;
-//            _self.url = key;
             
         } else {
             
@@ -147,9 +142,6 @@
     self.filename = [NSString uploadFilename];
     self.commad.nextParams = @{kdata:data,kfilename:self.filename};
     [self.commad execute];
-
-    
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -157,7 +149,6 @@
 - (NSDictionary *)paramsForcommand:(CLCommands *)command {
     
     return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@"jsonsnow"};
-    
 }
 
 

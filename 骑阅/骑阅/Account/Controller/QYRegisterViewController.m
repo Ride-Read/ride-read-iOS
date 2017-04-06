@@ -425,7 +425,6 @@
     self.currentView = self.setView;
 }
 
-
 - (void)presentSetInvitCodeView {
     
     
