@@ -68,7 +68,6 @@
     
     [QYSelectView QY_showSelectViewWithTitle:nil cancelButttonTitle:@"取消" actionContent:array selectBlock:^(QYSelectView *selectView, NSInteger index, NSString *selectedTitle) {
         
-        NSLog(@"%zd",index);
         if (index == 0) {
             
             //判断设备是否支持摄像头
@@ -86,8 +85,6 @@
             
             self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         } else if (index == 2){
-            
-            NSLog(@"录像");
             return ;
         }
         [self presentViewController:self.pickerController animated:YES completion:nil];
@@ -98,11 +95,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
     NSString * mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    NSLog(@"--->%@",mediaType);
+//    NSLog(@"--->%@",mediaType);
     
     UIImage * image;
     if (self.pickerController.allowsEditing) {//如果是拍照
-        NSLog(@"%s",__func__);
+//        NSLog(@"%s",__func__);
         image = [info objectForKey:UIImagePickerControllerEditedImage];
     } else {
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
