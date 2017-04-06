@@ -7,11 +7,10 @@
 //
 
 #import "QYBasicViewController.h"
-
+#import "QYUser.h"
 
 @interface QYTakePhotoViewController : QYBasicViewController
 
-/** headImage */
-@property(nonatomic,strong) UIImage * headImage;
-
+/** User */
+@property(nonatomic,strong) QYUser * user;
 @end

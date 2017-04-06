@@ -10,13 +10,22 @@
 #import <Masonry/Masonry.h>
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "QYSelectView.h"
+#import "QYQiuniuTokenCommand.h"
+#import "define.h"
+#import "QYNavigationController.h"
+#import "NSString+QYDateString.h"
+#import "MBProgressHUD+LLHud.h"
 
-@interface QYTakePhotoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface QYTakePhotoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLCommandDataSource,CLCommandDelegate>
+
 /** headImageView */
 @property(nonatomic,strong) UIImageView * headImageView;
 /** pickVC */
 @property(nonatomic,strong) UIImagePickerController * pickerController;
-
+/** QYQiuniuTokenCommand */
+@property (nonatomic, strong) QYQiuniuTokenCommand * commad;
+/** filename */
+@property(nonatomic,strong) NSString * filename;
 
 @end
 
@@ -39,7 +48,9 @@
 
 - (void)setupUI {
     
-    self.headImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"meizi2.png"]];
+    NSLog(@" self.user.face_url --== %@",self.user.face_url);
+    
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.user.face_url] placeholderImage:[UIImage imageNamed:@"meizi2.png"]];
     [self.view addSubview:self.headImageView];
     self.headImageView.userInteractionEnabled = YES;
 //    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewClick:)];
@@ -87,14 +98,17 @@
         } else if (index == 2){
             return ;
         }
+        
+//        QYNavigationController * navc = [[QYNavigationController alloc]initWithRootViewController:self.pickerController];
         [self presentViewController:self.pickerController animated:YES completion:nil];
+//        [self.navigationController pushViewController:navc animated:YES];
     }];
 
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    NSString * mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+//    NSString * mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 //    NSLog(@"--->%@",mediaType);
     
     UIImage * image;
@@ -105,9 +119,46 @@
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
     self.headImageView.image = image;
+    
+    //上传图片
+
+    WEAKSELF(_self);
+    NSData *data = UIImageJPEGRepresentation(image, 0.3);
+    
+    self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
+        
+//        [_self.hud hide:YES];
+        
+        if (info.isOK) {
+            
+            NSLog(@"++++++>>上传成功%@",key);
+//            [_self.rideInviteCodeView.icon.icon setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+//            _self.rideInviteCodeView.icon.title.hidden = YES;
+//            _self.url = key;
+            
+        } else {
+            
+            [MBProgressHUD showMessageAutoHide:@"上传失败" view:nil];
+            
+        }
+        MyLog(@"%@",info);
+    };
+
+    self.filename = [NSString uploadFilename];
+    self.commad.nextParams = @{kdata:data,kfilename:self.filename};
+    [self.commad execute];
+
+    
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - CLCoommandDataSource
+- (NSDictionary *)paramsForcommand:(CLCommands *)command {
+    
+    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@"jsonsnow"};
+    
+}
 
 
 #pragma -- <setter and getter>
@@ -120,6 +171,24 @@
     return _pickerController;
 }
 
+- (UIImageView *)headImageView {
+    
+    if (!_headImageView) {
+        _headImageView = [[UIImageView alloc]init];
+    }
+    return _headImageView;
+}
+
+- (QYQiuniuTokenCommand *)commad {
+    
+    if (!_commad) {
+        
+        _commad = [[QYQiuniuTokenCommand alloc] init];
+        _commad.dataSource = self;
+        _commad.delegate = self;
+    }
+    return _commad;
+}
 
 
 - (void)didReceiveMemoryWarning {

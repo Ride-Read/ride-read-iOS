@@ -173,7 +173,6 @@
 #pragma mark - CLCommandDelegate
 - (void)command:(CLCommands *)commands didSuccess:(CTAPIBaseManager *)apiManager {
     
-    
 }
 
 - (void)command:(CLCommands *)commands didFaildWith:(CTAPIBaseManager *)apiManager {
@@ -204,7 +203,6 @@
 
 #pragma mark - CTAPIManagerCallback
 -(void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
-    
     
     if (manager == self.verifyInviteCodeApiManager) {
         
@@ -342,7 +340,6 @@
     self.commad.nextParams = @{kdata:data,kfilename:self.filename};
     
     [self.commad execute];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
