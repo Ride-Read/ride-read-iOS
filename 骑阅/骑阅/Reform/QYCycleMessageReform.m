@@ -21,14 +21,22 @@
         NSNumber *uid = dic[kuid];
         NSNumber *mid = dic[kmid];
         NSString *msg = dic[kmsg];
+        NSString *name = dic[@"user"][kusername];
+        NSString *avater = dic[@"user"][kface_url];
         NSString *pics = dic[@"pictureString"];
-        NSArray *picA = [pics componentsSeparatedByString:@","];
+        NSArray *picA;
+        if ([pics isKindOfClass:[NSNull class]]) {
+            
+            picA = @[];
+        } else
+            picA = [pics componentsSeparatedByString:@","];
+        
         NSNumber *time = dic[kcreated_at];
         NSString *timeS = [NSString dateStringWithTime:time.doubleValue];
-        NSArray *comment = data[kcomment];
-        NSArray *thumbs_up = data[@"thumbs_up"];
-        NSString *leght = data[@"distanceString"];
-        NSDictionary *cycle = @{ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,ktime:timeS,kcomment:comment,kpraise:thumbs_up,ksiteLength:leght};
+        NSArray *comment = dic[kcomment];
+        NSArray *thumbs_up = dic[@"thumbs_up"];
+        NSString *leght = dic[@"distanceString"];
+        NSDictionary *cycle = @{kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:comment?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght};
         [cycleInfos addObject:cycle];
         
     }

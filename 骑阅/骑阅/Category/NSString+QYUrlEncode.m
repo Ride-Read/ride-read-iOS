@@ -11,7 +11,7 @@
 @implementation NSString (QYUrlEncode)
 + (NSString *)encodeString:(NSString *)string {
     
-    NSString *encode =    [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"`#%^{}\"[]|\\<> "].invertedSet];
+    NSString *encode = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"`#%^{}\"[]|\\<> "].invertedSet];
     return encode;
 }
 @end

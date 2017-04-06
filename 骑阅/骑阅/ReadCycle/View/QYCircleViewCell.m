@@ -123,7 +123,7 @@
     self.icon.top = 16;
     self.icon.width = 35;
     self.icon.height = 35;
-    [self.icon sd_setImageWithURL:_cell.layout.status[kavater] placeholderImage:[UIImage imageNamed:@"defalut_avatar"]];
+    [self.icon sd_setImageWithURL:_cell.layout.status[kface_url] placeholderImage:[UIImage imageNamed:@"defalut_avatar"]];
 }
 
 - (void)layoutAttention {
