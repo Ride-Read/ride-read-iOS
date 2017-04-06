@@ -123,7 +123,6 @@
             
             cell.cellType = QYPersonalDataCellImageView;
             [cell.subImageView sd_setImageWithURL:[NSURL URLWithString:self.user.face_url ] placeholderImage:[UIImage imageNamed:@"meizi2.png"]];
-//            cell.subImageView.image = [UIImage imageNamed:@"meizi2.png"];
             
         } else {
             
@@ -177,6 +176,7 @@
         } else {
             
             QYTakePhotoViewController * takeVC = [[QYTakePhotoViewController alloc]init];
+            takeVC.user = self.user;
             [self.navigationController pushViewController:takeVC animated:YES];
             
         }
