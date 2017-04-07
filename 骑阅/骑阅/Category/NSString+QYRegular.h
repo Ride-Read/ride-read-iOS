@@ -20,4 +20,6 @@
  */
 - (NSString *)verifyPhoneNumber:(NSString *)phoneNumber;
 
+- (BOOL)checkSpaceText;
+
 @end

@@ -40,7 +40,7 @@
 
 - (void)layoutNikeName {
     
-    NSString *nikeName = self.status[knickname];
+    NSString *nikeName = self.status[kusername];
     NSMutableAttributedString *nickNameText = [[NSMutableAttributedString alloc] initWithString:nikeName];
     nickNameText.yy_font = [UIFont systemFontOfSize:12];
     nickNameText.yy_color = [UIColor colorWithHexString:@"#555555"];

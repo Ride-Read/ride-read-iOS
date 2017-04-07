@@ -95,6 +95,8 @@
 		BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF21E4F37D600F1027B /* LaunchScreen.storyboard */; };
 		BA55BFFF1E4F37D600F1027B /* __Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFFE1E4F37D600F1027B /* __Tests.m */; };
 		BA55C00A1E4F37D600F1027B /* __UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55C0091E4F37D600F1027B /* __UITests.m */; };
+		BA6FC6041E97F6B800CF4ECC /* QYAddCommnetApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */; };
+		BA6FC6071E97F9D300CF4ECC /* QYAddThumbApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */; };
 		BA8055431E8969D30009A4D7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055421E8969D30009A4D7 /* libc++.tbd */; };
 		BA8055451E8969E60009A4D7 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055441E8969E60009A4D7 /* libsqlite3.tbd */; };
 		BA8055471E8969F30009A4D7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */; };
@@ -444,6 +446,10 @@
 		BA55C0051E4F37D600F1027B /* 骑阅UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "骑阅UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA55C0091E4F37D600F1027B /* __UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = __UITests.m; sourceTree = "<group>"; };
 		BA55C00B1E4F37D600F1027B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA6FC6021E97F6B800CF4ECC /* QYAddCommnetApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAddCommnetApiManager.h; sourceTree = "<group>"; };
+		BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAddCommnetApiManager.m; sourceTree = "<group>"; };
+		BA6FC6051E97F9D300CF4ECC /* QYAddThumbApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAddThumbApiManager.h; sourceTree = "<group>"; };
+		BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAddThumbApiManager.m; sourceTree = "<group>"; };
 		BA8055421E8969D30009A4D7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		BA8055441E8969E60009A4D7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1277,6 +1283,10 @@
 				BAD841451E969A5400DACB35 /* QYFollowApiManager.m */,
 				BAD841471E969A6500DACB35 /* QYUnfollowApiManager.h */,
 				BAD841481E969A6500DACB35 /* QYUnfollowApiManager.m */,
+				BA6FC6021E97F6B800CF4ECC /* QYAddCommnetApiManager.h */,
+				BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */,
+				BA6FC6051E97F9D300CF4ECC /* QYAddThumbApiManager.h */,
+				BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -2310,6 +2320,7 @@
 				EC7047EE1E5A919100FB92D8 /* QYForgertPwdController.m in Sources */,
 				BAA0018B1E50725B0067A894 /* CTAppContext.m in Sources */,
 				2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */,
+				BA6FC6041E97F6B800CF4ECC /* QYAddCommnetApiManager.m in Sources */,
 				BAC9590E1E75825C007E171E /* NSString+QYDateString.m in Sources */,
 				BACBA8581E50780F00D2E848 /* YYBasicTableView.m in Sources */,
 				BA9AAAB01E692C7000D7A5BB /* YYTextTransaction.m in Sources */,
@@ -2460,6 +2471,7 @@
 				2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BAC871211E76FD4100C5F800 /* QYBasicPromptView.m in Sources */,
+				BA6FC6071E97F9D300CF4ECC /* QYAddThumbApiManager.m in Sources */,
 				BA9AAAAA1E692C7000D7A5BB /* YYTextRunDelegate.m in Sources */,
 				BAC36F611E815770007D1FF4 /* QYAttentOrFansViewController.m in Sources */,
 				EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */,

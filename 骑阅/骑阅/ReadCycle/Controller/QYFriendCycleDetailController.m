@@ -20,7 +20,7 @@
 #import "UIColor+QYHexStringColor.h"
 #import "QYCyclePostController.h"
 
-@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate>
+@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate>
 @property (nonatomic, strong) QYCircleViewCell *cell;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
@@ -206,6 +206,22 @@
     return 43;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QYCommpentCellLayout *layout = self.layoutArray[indexPath.row];
+    self.sendView.info = layout.status;
+}
+
+#pragma mark - sendView delegate
+
+- (void)sendView:(QYSendCommentView *)view acitonSuccess:(NSMutableDictionary *)info {
+    
+    self.layout = [QYFriendCycleCellLayout friendStatusCellLayout:info];
+    self.cell.layout = self.layout;
+    [self.layoutArray removeAllObjects];
+    [self analyseData];
+}
+
 #pragma mark - setter and getter
 - (QYCircleViewCell *)cell {
     
@@ -254,6 +270,8 @@
     if (!_sendView) {
         
         _sendView = [[QYSendCommentView alloc] init];
+        _sendView.status = self.layout.status;
+        _sendView.delegate = self;
     }
     return _sendView;
 }

@@ -44,4 +44,15 @@
     }
 }
 
+- (BOOL)checkSpaceText {
+    
+    NSCharacterSet *set = [NSCharacterSet whitespaceCharacterSet];
+    if ([self stringByTrimmingCharactersInSet:set].length == 0) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
 @end

@@ -1,18 +1,19 @@
 //
-//  QYRideUserApiManager.m
+//  QYaAddThumbApiManager.m
 //  骑阅
 //
-//  Created by chen liang on 2017/3/22.
+//  Created by chen liang on 2017/4/8.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYRideUserApiManager.h"
+#import "QYAddThumbApiManager.h"
 #import "define.h"
 
-@interface QYRideUserApiManager ()<CTAPIManagerValidator>
+@interface QYAddThumbApiManager ()<CTAPIManagerValidator>
 
 @end
-@implementation QYRideUserApiManager
+@implementation QYAddThumbApiManager
+
 - (instancetype)init {
     
     self = [super init];
@@ -22,7 +23,7 @@
 
 - (NSString *)methodName {
     
-    return @"users/show_self";
+    return @"moments/add_thumbsup";
 }
 
 - (NSString *)serviceType {
@@ -50,5 +51,6 @@
     }
     return NO;
 }
+
 
 @end

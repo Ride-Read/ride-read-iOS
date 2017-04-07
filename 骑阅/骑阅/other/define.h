@@ -82,6 +82,7 @@ static NSString * const kfilename = @"filename";
 static NSString * const ksignature = @"signature";
 static NSString * const ktime = @"time";
 static NSString * const kmid = @"mid";
+static NSString * const kreply_uid = @"reply_uid";
 
 #pragma mark - cycl
 static NSString * const kuser = @"user";

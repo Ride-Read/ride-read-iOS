@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+@class QYSendCommentView;
+@protocol QYSendCommentViewDelegate <NSObject>
+
+@required;
+
+- (void)sendView:(QYSendCommentView *)view acitonSuccess:(NSMutableDictionary *)info;
+@optional;
+- (void)sendView:(QYSendCommentView *)view button:(UIButton *)sender;
+
+- (void)sendView:(QYSendCommentView *)view text:(NSString *)text;
+
+@end
 
 @interface QYSendCommentView : UIView
+@property (nonatomic, weak) NSMutableDictionary *status;//该阅圈的用户信息
+@property (nonatomic, weak) NSDictionary *info;//点击用户的信息
+@property (nonatomic, weak) id <QYSendCommentViewDelegate> delegate;
 
 @end

@@ -1,18 +1,18 @@
 //
-//  QYRideUserApiManager.m
+//  QYAddCommnetApiManager.m
 //  骑阅
 //
-//  Created by chen liang on 2017/3/22.
+//  Created by chen liang on 2017/4/8.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYRideUserApiManager.h"
+#import "QYAddCommnetApiManager.h"
 #import "define.h"
 
-@interface QYRideUserApiManager ()<CTAPIManagerValidator>
+@interface QYAddCommnetApiManager ()<CTAPIManagerValidator>
 
 @end
-@implementation QYRideUserApiManager
+@implementation QYAddCommnetApiManager
 - (instancetype)init {
     
     self = [super init];
@@ -22,7 +22,7 @@
 
 - (NSString *)methodName {
     
-    return @"users/show_self";
+    return @"moments/add_comment";
 }
 
 - (NSString *)serviceType {
@@ -50,5 +50,6 @@
     }
     return NO;
 }
+
 
 @end

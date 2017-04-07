@@ -72,6 +72,13 @@
     self.isRefesh = YES;
     [self loadData];
 }
+
+- (void)resetStatus {
+    
+    self.pages = 0;
+    self.isRefesh = NO;
+    self.isLoadMore = NO;
+}
 #pragma mark -CTAPIManagerValidator
 - (BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
    
@@ -94,7 +101,7 @@
     [super afterPerformFailWithResponse:response];
     if (self.pages != 0 && self.isLoadMore) {
         
-        self.pages = self.pages - 10;
+        self.pages = self.pages - 1;
     }
 }
 

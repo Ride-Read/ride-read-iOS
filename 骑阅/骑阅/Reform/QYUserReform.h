@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "CLAppLogic.h"
+#import "CTAPIBaseManager.h"
 
-@interface QYUserReform : NSObject<CLAppLogicDataReform>
+@interface QYUserReform : NSObject<CLAppLogicDataReform,CTAPIManagerDataReformer>
 
 @end

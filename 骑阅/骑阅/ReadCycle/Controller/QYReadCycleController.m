@@ -42,6 +42,7 @@
     [super viewDidLoad];
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     MyLog(@"%@",path);
+    self.type = 1;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpContentView];
     [self loadData];
@@ -114,7 +115,7 @@
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{kuid:uid?:@(-1),ktype:@(1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+    return @{kuid:uid?:@(-1),ktype:@(self.type),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
 }
 
 #pragma mark - CTAPIManagerCallback
@@ -171,6 +172,16 @@
 }
 #pragma mark - private method
 
+- (void)resetTableView {
+    
+    [self.layoutArray removeAllObjects];
+    [self.tableView.mj_footer endRefreshing];
+    [self.tableView reloadData];
+    self.tableView.startFooter = NO;
+    [self.friendCycleApi resetStatus];
+    
+}
+
 - (void)setUpContentView {
     
     [self.view addSubview:self.selectView];
@@ -226,6 +237,14 @@
 
 - (void)clickCustomView:(UIView *)customView index:(NSInteger)index {
     
+    [self resetTableView];
+    if (index == 1) {
+        
+        self.type = 0;
+        
+    } else
+        self.type = 1;
+    [self loadData];
     MyLog(@"%ld",index);
 }
 
@@ -251,11 +270,8 @@
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (self.type == 0) {
-        
-        return self.layoutArray.count;
-    }
-    return self.attentArray.count;
+ 
+    return self.layoutArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

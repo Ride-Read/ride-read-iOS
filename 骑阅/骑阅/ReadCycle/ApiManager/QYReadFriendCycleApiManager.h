@@ -12,7 +12,8 @@
 @property (nonatomic, assign) BOOL isRefesh;
 @property (nonatomic, assign) BOOL isLoadMore;
 
--(void)loadNext;
--(void)loadLaste;
+- (void)loadNext;
+- (void)loadLaste;
 
+- (void)resetStatus;
 @end

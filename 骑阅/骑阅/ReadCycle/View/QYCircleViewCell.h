@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger,QYFriendCycleType) {
 
 @protocol QYFriendCycleDelegate <NSObject>
 
+@optional;
 - (void)clickPraiseButton:(QYCircleViewCell *)cell dict:(NSDictionary *)dict;
 - (void)clickCommpentButton:(QYCircleViewCell *)cell dict:(NSDictionary *)dict;
 - (void)clickAttion:(QYCircleViewCell *)cell dic:(NSDictionary *)dict;
