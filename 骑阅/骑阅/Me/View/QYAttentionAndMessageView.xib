@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QYAttentionAndMessageView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcn-gC-TCP">
+                    <rect key="frame" x="15" y="15" width="157.5" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                    <state key="normal" title="关注" image="check_yes" backgroundImage="attention_select">
+                        <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" title="关注" backgroundImage="attention_no_select">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAttention:" destination="iN0-l3-epB" eventType="touchUpInside" id="hci-2V-ARb"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDo-eE-13f">
+                    <rect key="frame" x="202.5" y="15" width="157.5" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                    <state key="normal" title="消息" image="message_icon" backgroundImage="attention_no_select"/>
+                    <state key="selected" title="消息" image="message_icon" backgroundImage="attention_select">
+                        <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="clickMessage:" destination="iN0-l3-epB" eventType="touchUpInside" id="8rz-Yo-Shk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XDo-eE-13f" firstAttribute="height" secondItem="Xcn-gC-TCP" secondAttribute="height" id="1Qi-5x-Juo"/>
+                <constraint firstItem="Xcn-gC-TCP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="8Hp-Vc-HyU"/>
+                <constraint firstItem="XDo-eE-13f" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="F5l-f6-INF"/>
+                <constraint firstItem="XDo-eE-13f" firstAttribute="width" secondItem="Xcn-gC-TCP" secondAttribute="width" id="JJU-3u-gHr"/>
+                <constraint firstAttribute="trailing" secondItem="XDo-eE-13f" secondAttribute="trailing" constant="15" id="Lu7-88-7qn"/>
+                <constraint firstItem="Xcn-gC-TCP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ON2-mC-7Rn"/>
+                <constraint firstItem="XDo-eE-13f" firstAttribute="leading" secondItem="Xcn-gC-TCP" secondAttribute="trailing" constant="30" id="ghP-Ow-pIR"/>
+                <constraint firstItem="Xcn-gC-TCP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="ubX-8Q-79I"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="attention" destination="Xcn-gC-TCP" id="nDC-V1-JFq"/>
+                <outlet property="message" destination="XDo-eE-13f" id="jbA-Z7-GYh"/>
+            </connections>
+            <point key="canvasLocation" x="35.5" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="attention_no_select" width="160" height="40"/>
+        <image name="attention_select" width="160" height="40"/>
+        <image name="check_yes" width="14" height="9"/>
+        <image name="message_icon" width="13" height="10"/>
+    </resources>
+</document>

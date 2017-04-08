@@ -97,6 +97,12 @@
 		BA55C00A1E4F37D600F1027B /* __UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55C0091E4F37D600F1027B /* __UITests.m */; };
 		BA6FC6041E97F6B800CF4ECC /* QYAddCommnetApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */; };
 		BA6FC6071E97F9D300CF4ECC /* QYAddThumbApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */; };
+		BA6FC60A1E9922E600CF4ECC /* QYFansApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6091E9922E600CF4ECC /* QYFansApiManager.m */; };
+		BA6FC60D1E9922FD00CF4ECC /* QYFollowingApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC60C1E9922FD00CF4ECC /* QYFollowingApiManager.m */; };
+		BA6FC6101E99430600CF4ECC /* QYCommentNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC60F1E99430600CF4ECC /* QYCommentNumberView.m */; };
+		BA6FC6121E99447600CF4ECC /* QYCommentNumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6FC6111E99447600CF4ECC /* QYCommentNumberView.xib */; };
+		BA6FC6151E994B5500CF4ECC /* QYAttentionAndMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6141E994B5500CF4ECC /* QYAttentionAndMessageView.m */; };
+		BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6FC6161E994B6400CF4ECC /* QYAttentionAndMessageView.xib */; };
 		BA8055431E8969D30009A4D7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055421E8969D30009A4D7 /* libc++.tbd */; };
 		BA8055451E8969E60009A4D7 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055441E8969E60009A4D7 /* libsqlite3.tbd */; };
 		BA8055471E8969F30009A4D7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */; };
@@ -450,6 +456,16 @@
 		BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAddCommnetApiManager.m; sourceTree = "<group>"; };
 		BA6FC6051E97F9D300CF4ECC /* QYAddThumbApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAddThumbApiManager.h; sourceTree = "<group>"; };
 		BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAddThumbApiManager.m; sourceTree = "<group>"; };
+		BA6FC6081E9922E600CF4ECC /* QYFansApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFansApiManager.h; sourceTree = "<group>"; };
+		BA6FC6091E9922E600CF4ECC /* QYFansApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFansApiManager.m; sourceTree = "<group>"; };
+		BA6FC60B1E9922FD00CF4ECC /* QYFollowingApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFollowingApiManager.h; sourceTree = "<group>"; };
+		BA6FC60C1E9922FD00CF4ECC /* QYFollowingApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFollowingApiManager.m; sourceTree = "<group>"; };
+		BA6FC60E1E99430600CF4ECC /* QYCommentNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCommentNumberView.h; sourceTree = "<group>"; };
+		BA6FC60F1E99430600CF4ECC /* QYCommentNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCommentNumberView.m; sourceTree = "<group>"; };
+		BA6FC6111E99447600CF4ECC /* QYCommentNumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYCommentNumberView.xib; sourceTree = "<group>"; };
+		BA6FC6131E994B5500CF4ECC /* QYAttentionAndMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionAndMessageView.h; sourceTree = "<group>"; };
+		BA6FC6141E994B5500CF4ECC /* QYAttentionAndMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentionAndMessageView.m; sourceTree = "<group>"; };
+		BA6FC6161E994B6400CF4ECC /* QYAttentionAndMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYAttentionAndMessageView.xib; sourceTree = "<group>"; };
 		BA8055421E8969D30009A4D7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		BA8055441E8969E60009A4D7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		BA8055461E8969F30009A4D7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -899,6 +915,12 @@
 				BA074B511E801AB800E5DE0D /* QYReadMeHeaderView.m */,
 				BAC36FA41E8158E4007D1FF4 /* QYAttentionViewCell.h */,
 				BAC36FA51E8158E4007D1FF4 /* QYAttentionViewCell.m */,
+				BA6FC6131E994B5500CF4ECC /* QYAttentionAndMessageView.h */,
+				BA6FC6141E994B5500CF4ECC /* QYAttentionAndMessageView.m */,
+				BA6FC6161E994B6400CF4ECC /* QYAttentionAndMessageView.xib */,
+				BA6FC60E1E99430600CF4ECC /* QYCommentNumberView.h */,
+				BA6FC60F1E99430600CF4ECC /* QYCommentNumberView.m */,
+				BA6FC6111E99447600CF4ECC /* QYCommentNumberView.xib */,
 				BA995D081E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.h */,
 				BA995D091E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.m */,
 				BA995D0A1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib */,
@@ -1784,6 +1806,10 @@
 			children = (
 				BAC36FAB1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.h */,
 				BAC36FAC1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m */,
+				BA6FC6081E9922E600CF4ECC /* QYFansApiManager.h */,
+				BA6FC6091E9922E600CF4ECC /* QYFansApiManager.m */,
+				BA6FC60B1E9922FD00CF4ECC /* QYFollowingApiManager.h */,
+				BA6FC60C1E9922FD00CF4ECC /* QYFollowingApiManager.m */,
 				BAC36FBA1E82AC46007D1FF4 /* QYRideUserApiManager.h */,
 				BAC36FBB1E82AC46007D1FF4 /* QYRideUserApiManager.m */,
 				BA995D0D1E843410002FA3B2 /* QYCycleCollectApiManager.h */,
@@ -2210,12 +2236,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6FC6121E99447600CF4ECC /* QYCommentNumberView.xib in Resources */,
 				BAA0018D1E50725B0067A894 /* CTNetworkingConfiguration.plist in Resources */,
 				2BAE5D881E9537310089ECF1 /* QYTableViewCell.xib in Resources */,
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
+				BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */,
 				BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 			);
@@ -2350,6 +2378,7 @@
 				2BBD52E61E6EF265007313E7 /* QYPersonalDataViewController.m in Sources */,
 				BAC871241E76FF5200C5F800 /* QYButtonSheetPromptView.m in Sources */,
 				BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */,
+				BA6FC60A1E9922E600CF4ECC /* QYFansApiManager.m in Sources */,
 				BAC36FC31E82BBF0007D1FF4 /* QYUserReform.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
@@ -2380,12 +2409,14 @@
 				BAC36FB31E81653B007D1FF4 /* QYReadLookUserController.m in Sources */,
 				BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */,
 				EC94C2651E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m in Sources */,
+				BA6FC6151E994B5500CF4ECC /* QYAttentionAndMessageView.m in Sources */,
 				BAA001811E50725B0067A894 /* NSString+AXNetworkingMethods.m in Sources */,
 				EC7AA1621E5C8E3400EA54AA /* QYReadMeController.m in Sources */,
 				BAD314281E90A36E004CF67F /* QYChatBar.m in Sources */,
 				BAA0017F1E50725B0067A894 /* NSMutableString+AXNetworkingMethods.m in Sources */,
 				BA9AAAA11E692C7000D7A5BB /* YYTextKeyboardManager.m in Sources */,
 				BA9AAAB41E692C7000D7A5BB /* YYTextView.m in Sources */,
+				BA6FC6101E99430600CF4ECC /* QYCommentNumberView.m in Sources */,
 				BAC36FBC1E82AC46007D1FF4 /* QYRideUserApiManager.m in Sources */,
 				BA995D0F1E843411002FA3B2 /* QYCycleCollectApiManager.m in Sources */,
 				ECA4B42E1E52EE9E00D06D35 /* QYRegisterViewController.m in Sources */,
@@ -2457,6 +2488,7 @@
 				BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
+				BA6FC60D1E9922FD00CF4ECC /* QYFollowingApiManager.m in Sources */,
 				BA354D7F1E6BE20000EE8189 /* QNGetAddrInfo.m in Sources */,
 				BAC36FC01E82AD61007D1FF4 /* QYRideUserLogic.m in Sources */,
 				BA9AAAB11E692C7000D7A5BB /* YYTextUtilities.m in Sources */,

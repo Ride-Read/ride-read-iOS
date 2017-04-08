@@ -7,6 +7,7 @@
 //
 
 #import "QYAttentOrFansViewController.h"
+#import "QYFollowingApiManager.h"
 
 @interface QYAttentionViewController : QYAttentOrFansViewController
 

@@ -7,6 +7,7 @@
 //
 
 #import "QYRideMyCycleController.h"
+#import "define.h"
 
 @interface QYRideMyCycleController ()
 
@@ -17,6 +18,8 @@
 #pragma mark -life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.attentionAndMessageView.hidden = YES;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -28,6 +31,21 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
+    return @{kuid:cuid?:@(-1),kuser_id:cuid?:@(-1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+    
+}
+
+#pragma mark - publice method
+
+- (void)setContentView {
+    
+    [self.view addSubview:self.tableView];
+    self.tableView.frame = self.view.bounds;
 }
 
 #pragma mark - setter and getter

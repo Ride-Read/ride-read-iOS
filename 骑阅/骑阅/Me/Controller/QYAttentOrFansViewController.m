@@ -7,16 +7,16 @@
 //
 
 #import "QYAttentOrFansViewController.h"
-#import "QYAttentionOrFansApiManager.h"
 #import "QYAttentionViewCell.h"
 #import "QYAttentionReform.h"
 #import "QYReadLookUserController.h"
 #import "define.h"
 #import "QYConversationViewController.h"
+#import "MBProgressHUD+LLHud.h"
 
-@interface QYAttentOrFansViewController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,YYBaseicTableViewRefeshDelegate,UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) QYAttentionOrFansApiManager *userApiManager;
+@interface QYAttentOrFansViewController ()<YYBaseicTableViewRefeshDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) QYAttentionReform *attenionReform;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -27,6 +27,7 @@
     [super viewDidLoad];
     [self setContentView];
     [self loadData];
+    self.hud = [MBProgressHUD showMessage:@"加载中..." toView:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -47,6 +48,7 @@
 - (void)setContentView {
     
     [self.view addSubview:self.tableView];
+   
 }
 #pragma mark - Publick method
 - (NSDictionary *)paramForUserApi {
@@ -71,7 +73,7 @@
     
     QYAttentionViewCell *useCell = (QYAttentionViewCell *)cell;
     NSDictionary *info = self.userArrays[indexPath.row];
-    useCell.info = info[@"result"];
+    useCell.info = info;
 }
 
 #pragma mark - tableView delegate
@@ -98,9 +100,10 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     if (manager == self.userApiManager) {
         
-        if (self.tableView.startFooter) {
+        if (!self.tableView.startFooter) {
             
             NSArray *users = [self.userApiManager fetchDataWithReformer:self.attenionReform];
             [self.userArrays addObjectsFromArray:users];
@@ -135,12 +138,8 @@
     
     
     if (manager == self.userApiManager) {
-#warning test ui
-        NSArray *users = [self.userApiManager fetchDataWithReformer:self.attenionReform];
-        [self.userArrays addObjectsFromArray:users];
-        [self.tableView reloadData];
-        [self.tableView.mj_footer endRefreshing];
         
+        [MBProgressHUD showMessageAutoHide:@"加载失败" view:nil];
     }
 }
 

@@ -16,6 +16,7 @@
 
 @implementation QYAttentionViewController
 
+@synthesize userApiManager;
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,9 +32,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     QYLookAttentionViewController *look = [[QYLookAttentionViewController alloc] init];
-    NSDictionary *info = self.userArrays[indexPath.row];
-    QYUser *user = info[kdata];
-    look.user = user;
+    NSMutableDictionary *info = self.userArrays[indexPath.row];
+    look.user = info;
     [self.navigationController pushViewController:look animated:YES];
     
 }
@@ -44,9 +44,19 @@
 - (NSDictionary *)paramForUserApi {
     
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{ktype:@(0),kuid:uid?:@(-1)};
+    return @{kuid:uid?:@(-1)};
 }
 
+- (QYAttentionOrFansApiManager *)userApiManager {
+    
+    if (!userApiManager) {
+        
+        userApiManager = [[QYFollowingApiManager alloc] init];
+        userApiManager.delegate = self;
+        userApiManager.paramSource = self;
+    }
+    return userApiManager;
+}
 /*
 #pragma mark - Navigation
 

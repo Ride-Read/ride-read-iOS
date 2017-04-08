@@ -7,6 +7,7 @@
 //
 
 #import "QYLookAttentionViewController.h"
+#import "QYAttentionAndMessageView.h"
 
 @interface QYLookAttentionViewController ()
 

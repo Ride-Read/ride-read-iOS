@@ -81,10 +81,10 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
 #warning do you net working to fetch the use message
             QYUser * user;
             
-            if ([userid isEqualToString:@"1000"]) {
+            if ([userid isEqualToString:@"7"]) {
                 
                 user = [[QYUser alloc] init];
-                user.uid = @(1000);
+                user.uid = @(7);
                 user.face_url = @"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg";
                 user.username = @"snow";
               //  if ([userid isEqualToString:@"1000"]) {
@@ -96,7 +96,7 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
             } else {
                 
                 user = [[QYUser alloc] init];
-                user.uid = @(1001);
+                user.uid = @(6);
                 user.face_url = @"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg";
                 user.username = @"json";
                 

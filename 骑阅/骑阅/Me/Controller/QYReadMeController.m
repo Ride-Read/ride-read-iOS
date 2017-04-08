@@ -40,7 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setContentView];
-    [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addUnreadMessage) name:KReciveMessagNotiFation object:nil];
     // Do any additional setup after loading the view.
 }
@@ -49,6 +48,7 @@
     
     [super viewWillAppear:animated];
     [self setNavc];
+    [self loadData];
     [self loadUnreadMessage];
 }
 - (void)didReceiveMemoryWarning {

@@ -10,20 +10,22 @@
 #import "QYShowUserCycleApiManager.h"
 #import "QYCircleViewCell.h"
 #import "QYUserCycleLayout.h"
-#import "YYBasicTableView.h"
 #import "QYFriendCycleDetailController.h"
 #import "QYCommentSectionView.h"
 #import "QYCycleMessageReform.h"
 #import "QYFansUserViewController.h"
 #import "QYAttentionViewController.h"
 #import "QYDetailCycleLayout.h"
+#import "QYCommentNumberView.h"
+#import "MBProgressHUD+LLHud.h"
 
 @interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate>
-@property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, strong) QYShowUserCycleApiManager *cycleApiManager;
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
+@property (nonatomic, strong) QYCommentNumberView *numberView;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -34,6 +36,7 @@
     [super viewDidLoad];
     [self setContentView];
     [self loadData];
+    self.hud = [MBProgressHUD showMessage:@"加载中..." toView:self.view];
     
     // Do any additional setup after loading the view.
 }
@@ -53,8 +56,20 @@
 }
 - (void)setContentView {
     
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-}
+    [self.view addSubview:self.attentionAndMessageView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.and.left.and.right.mas_equalTo(0);
+    }];
+    [self.attentionAndMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.tableView.mas_bottom);
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(cl_caculation_3y(130));
+    }];}
 
 
 #pragma mark - tableView datasource
@@ -82,7 +97,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    return self.sectionView;
+    return self.numberView;
 }
 
 #pragma mark - tableView delegate
@@ -114,7 +129,7 @@
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
     if (manager == self.cycleApiManager) {
-        NSNumber *uid = self.user.uid;
+        NSNumber *uid = self.user[kuid];
         NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
         return @{kuid:cuid?:@(-1),kuser_id:uid?:@(-1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     }
@@ -126,11 +141,13 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     if (manager == self.cycleApiManager) {
         
-        if (self.tableView.startFooter) {
+        if (!self.tableView.startFooter) {
             
             NSArray *cycles = [self.cycleApiManager fetchDataWithReformer:self.cycleReform];
+            self.attentionAndMessageView.info = cycles[0];
             [self.serialQueue addOperationWithBlock:^{
                
                 for (NSDictionary *info in cycles) {
@@ -142,6 +159,7 @@
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
 
                     [self.tableView reloadData];
+                    self.numberView.data = cycles;
                     
                 }];
             }];
@@ -184,24 +202,11 @@
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     
     if (manager == self.cycleApiManager) {
-#warning test ui
-        NSArray *cycles = [self.cycleApiManager fetchDataWithReformer:self.cycleReform];
-        [self.serialQueue addOperationWithBlock:^{
-            
-            for (NSDictionary *info in cycles) {
-                
-                QYUserCycleLayout *layout = [QYUserCycleLayout friendStatusCellLayout:info];
-                [self.layoutArray addObject:layout];
-            }
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
-                [self.tableView reloadData];
-                
-            }];
-        }];
+
+        [MBProgressHUD showMessageAutoHide:@"加载失败" view:nil];
         return;
     }
 }
@@ -227,7 +232,6 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.refesh = self;
-        _tableView.frame = self.view.bounds;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 45, 0);
         _tableView.tableHeaderView = self.headerView;
         _tableView.tableFooterView = [UIView new];
@@ -268,11 +272,29 @@
         _headerView = [[QYReadMeHeaderView alloc] init];
         _headerView.delegate = self;
         _headerView.frame = CGRectMake(0, 0, kScreenWidth, 270);
-        _headerView.user = self.user;
+        
     }
     return _headerView;
 }
 
+- (QYCommentNumberView *)numberView {
+    
+    if (!_numberView) {
+        
+        _numberView = [QYCommentNumberView loadCommentNumberView];
+    }
+    return _numberView;
+}
+
+- (QYAttentionAndMessageView *)attentionAndMessageView {
+    
+    if (!_attentionAndMessageView) {
+        
+        _attentionAndMessageView = [QYAttentionAndMessageView loadAttentionAndMessage];
+        _attentionAndMessageView.userController = self;
+    }
+    return _attentionAndMessageView;
+}
 
 
 /*

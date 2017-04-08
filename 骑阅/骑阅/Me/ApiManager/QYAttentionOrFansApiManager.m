@@ -24,7 +24,7 @@
 
 - (NSString *)methodName {
     
-    return @"";
+    return nil;
 }
 
 - (NSString *)serviceType {
@@ -39,7 +39,6 @@
 
 - (NSDictionary *)reformParams:(NSDictionary *)params {
     
-    NSNumber *type = params[ktype];
     NSString *uid = params[kuid];
     if (self.isLoadMore) {
         
@@ -49,7 +48,7 @@
         
         self.pages = 0;
     }
-    return @{ktype:type,kuid:uid,kpages:@(_pages)};
+    return @{kuid:uid};
     
 }
 #pragma mark - public method

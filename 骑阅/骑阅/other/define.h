@@ -17,6 +17,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "UIAlertController+QYQuickAlert.h"
+#import "MBProgressHUD+LLHud.h"
 
 static NSString *const kAttetionSuccess = @"AttetionSuccess";
 static NSString *const kUnAtteionSuccess = @"UnAtteionSuccess";
@@ -88,6 +89,7 @@ static NSString * const kreply_uid = @"reply_uid";
 static NSString * const kuser = @"user";
 static NSString * const kmsg = @"msg";
 static NSString * const kcreated_at = @"created_at";
+static NSString * const kupdated_at = @"updated_at";
 static NSString * const kthumbs = @"thumbs";
 static NSString * const kvideo_url = @"video_url";
 static NSString * const ktype = @"type";
@@ -109,7 +111,7 @@ static NSString * const ktags = @"tagString";
 static NSString * const ksex = @"sex";
 static NSString * const kcareer = @"career";
 static NSString * const klocation = @"location";
-
+static NSString * const kfid = @"fid";
 
 
 

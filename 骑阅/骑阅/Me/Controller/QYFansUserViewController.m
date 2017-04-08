@@ -16,6 +16,7 @@
 
 @implementation QYFansUserViewController
 
+@synthesize userApiManager;
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,9 +32,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     QYLoodFansViewController *look = [[QYLoodFansViewController alloc] init];
-    NSDictionary *info = self.userArrays[indexPath.row];
-    QYUser *user = info[kdata];
-    look.user = user;
+    NSMutableDictionary *info = self.userArrays[indexPath.row];
+    look.user = info;
     [self.navigationController pushViewController:look animated:YES];
     
 }
@@ -43,8 +43,21 @@
 - (NSDictionary *)paramForUserApi {
     
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{ktype:@(1),kuid:uid};
+    return @{kuid:uid};
 }
+
+- (QYAttentionOrFansApiManager *)userApiManager {
+    
+    if (!userApiManager) {
+        
+        userApiManager = [[QYFansApiManager alloc] init];
+        userApiManager.delegate = self;
+        userApiManager.paramSource = self;
+    }
+    return userApiManager;
+}
+
+
 /*
 #pragma mark - Navigation
 

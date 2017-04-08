@@ -19,6 +19,7 @@
 - (instancetype)init {
     
     self = [super init];
+    self.backgroundColor = [UIColor whiteColor];
     [self setupUI];
     return self;
 }

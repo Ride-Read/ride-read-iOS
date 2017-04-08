@@ -118,8 +118,7 @@
     
     _info = info;
     MyLog(@"%@",info[kface_url]);
-#warning test image
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"] placeholderImage:nil];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:info[kface_url]] placeholderImage:nil];
     self.username.text = info[kusername];
     self.personSiguare.text = info[ksignature];
     self.timelabel.text = info[ktime];

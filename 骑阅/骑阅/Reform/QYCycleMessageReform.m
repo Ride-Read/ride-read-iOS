@@ -35,10 +35,14 @@
         NSString *timeS = [NSString dateStringWithTime:time.doubleValue];
         NSArray *comment = dic[kcomment];
         NSArray *thumbs_up = dic[@"thumbs_up"];
-        NSString *leght = dic[@"distanceString"];
+        NSString *leght = dic[@"distance_string"];
         NSNumber *atte = dic[@"user"][@"is_followed"];
         NSString *attName;
         NSNumber *attTag;
+        if ([atte isKindOfClass:[NSNull class]]) {
+            
+            atte = @(-1);
+        }
         if (atte.integerValue == 1 || atte.integerValue == 0) {
             
             attName = @"attentioned";
@@ -56,7 +60,7 @@
                 attTag = @(-1);
             }
         }
-        NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:comment?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght,kstatus:attName};
+        NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:comment?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght?:@"",kstatus:attName};
         [cycleInfos addObject:[cycle mutableCopy]];
         
     }
