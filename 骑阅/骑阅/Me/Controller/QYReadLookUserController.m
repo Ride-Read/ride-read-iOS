@@ -7,7 +7,6 @@
 //
 
 #import "QYReadLookUserController.h"
-#import "QYShowUserCycleApiManager.h"
 #import "QYCircleViewCell.h"
 #import "QYUserCycleLayout.h"
 #import "QYFriendCycleDetailController.h"
@@ -19,13 +18,14 @@
 #import "QYCommentNumberView.h"
 #import "MBProgressHUD+LLHud.h"
 
+
 @interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate>
 @property (nonatomic, strong) NSMutableArray *layoutArray;
-@property (nonatomic, strong) QYShowUserCycleApiManager *cycleApiManager;
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
 @property (nonatomic, strong) QYCommentNumberView *numberView;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) QYUser *user_info;
 
 @end
 
@@ -50,9 +50,14 @@
 - (void)loadData {
     
     [self.serialQueue addOperationWithBlock:^{
+        
+        [self.userApi loadData];
+    }];
+    [self.serialQueue addOperationWithBlock:^{
        
         [self.cycleApiManager loadData];
     }];
+    
 }
 - (void)setContentView {
     
@@ -133,6 +138,11 @@
         NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
         return @{kuid:cuid?:@(-1),kuser_id:uid?:@(-1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     }
+    if (manager == self.userApi) {
+        
+        NSNumber *uid = self.user[kuid];
+        return @{kuid:uid};
+    }
     
     return nil;
 }
@@ -160,7 +170,7 @@
 
                     [self.tableView reloadData];
                     self.numberView.data = cycles;
-                    
+                     
                 }];
             }];
             return;
@@ -198,6 +208,13 @@
             }];
         }
     }
+    
+    if (manager == self.userApi) {
+        
+       self.user_info = [self.userApi fetchDataWithReformer:self.userReform];
+        self.headerView.user = self.user_info;
+        self.attentionAndMessageView.user = self.user_info;
+    }
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
@@ -206,9 +223,25 @@
     
     if (manager == self.cycleApiManager) {
 
-        [MBProgressHUD showMessageAutoHide:@"加载失败" view:nil];
+        [MBProgressHUD showMessageAutoHide:@"列表加载失败" view:nil];
         return;
     }
+    
+    if (manager == self.userApi) {
+        
+        [MBProgressHUD showMessageAutoHide:@"用户信息加载失败" view:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - dataRerfresh 
+
+- (void)customView:(UIView *)customView refresh:(id)data {
+    
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.userApi loadData];
+    }];
 }
 
 #pragma mark - getter and setter
@@ -291,9 +324,28 @@
     if (!_attentionAndMessageView) {
         
         _attentionAndMessageView = [QYAttentionAndMessageView loadAttentionAndMessage];
-        _attentionAndMessageView.userController = self;
+        _attentionAndMessageView.dataRefresh = self;
     }
     return _attentionAndMessageView;
+}
+
+- (QYUserReform *)userReform {
+    
+    if (!_userReform) {
+        
+        _userReform = [[QYUserReform alloc] init];
+    }
+    return _userReform;
+}
+- (QYRideUserApiManager *)userApi {
+    
+    if (!_userApi) {
+        
+        _userApi = [[QYRideUserApiManager alloc] init];
+        _userApi.delegate = self;
+        _userApi.paramSource = self;
+    }
+    return _userApi;
 }
 
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QYBasicViewController.h"
+#import "QYUser.h"
 typedef NS_ENUM(NSUInteger,QYAttentionAndMessageViewType) {
     
     QYAttentionAndMessageViewNoselect,
@@ -19,7 +20,8 @@ typedef NS_ENUM(NSUInteger,QYAttentionAndMessageViewType) {
 @property (weak, nonatomic) IBOutlet UIButton *message;
 @property (nonatomic, weak) NSDictionary *info;
 @property (nonatomic, assign) QYAttentionAndMessageViewType type;
-@property (nonatomic, weak) UIViewController *userController;
+@property (nonatomic, weak) id <QYDataRefreshProtocol> dataRefresh;
+@property (nonatomic, weak) QYUser *user;
 
 + (instancetype)loadAttentionAndMessage;
 @end

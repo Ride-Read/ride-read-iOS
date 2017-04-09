@@ -19,8 +19,9 @@
 #import "QYButtonSheetPromptView.h"
 #import "UIColor+QYHexStringColor.h"
 #import "QYCyclePostController.h"
+#import "QYDetailCycleLayout.h"
 
-@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate>
+@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate,QYCommentViewCellDelegate>
 @property (nonatomic, strong) QYCircleViewCell *cell;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
@@ -180,6 +181,7 @@
         
         cell = [[QYCommentViewCell alloc] init];
     }
+    cell.delegate = self;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -212,11 +214,20 @@
     self.sendView.info = layout.status;
 }
 
+#pragma mark - commentCellDeleagte
+
+//点击回复者用户信息
+- (void)commentCell:(QYCommentViewCell *)cell data:(NSDictionary *)data {
+    
+    self.sendView.info = data[kreply];
+
+}
+
 #pragma mark - sendView delegate
 
 - (void)sendView:(QYSendCommentView *)view acitonSuccess:(NSMutableDictionary *)info {
     
-    self.layout = [QYFriendCycleCellLayout friendStatusCellLayout:info];
+    self.layout = [QYDetailCycleLayout friendStatusCellLayout:info];
     self.cell.layout = self.layout;
     [self.layoutArray removeAllObjects];
     [self analyseData];

@@ -710,6 +710,7 @@
             }
             button.layer.masksToBounds = YES;
             button.layer.cornerRadius = 13;
+            NSString *url = dict[kface_url];
             [self addSubview:button];
             pre = button;
         }

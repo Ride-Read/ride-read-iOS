@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface QYCommentNumberView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *number;
 @property (nonatomic, weak) NSArray * data;
+
 
 + (instancetype)loadCommentNumberView;
 @end

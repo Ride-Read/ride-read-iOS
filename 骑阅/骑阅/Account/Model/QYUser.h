@@ -31,6 +31,7 @@
 @property (nonatomic, strong) NSNumber *latitude;
 @property (nonatomic, strong) NSNumber *longitude;
 @property (nonatomic, strong) NSString *rideReadId;
+@property (nonatomic, strong) NSNumber *is_followed;
 
 
 

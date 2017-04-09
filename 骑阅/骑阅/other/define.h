@@ -101,6 +101,7 @@ static NSString * const kpraise = @"praise";
 static NSString * const kcomment = @"comment";
 static NSString * const kpages = @"pages";
 static NSString * const kfrom = @"from";
+static NSString * const kreply = @"reply";
 
 #pragma - personal
 static NSString * const khometown = @"hometown";

@@ -41,9 +41,11 @@
 }
 - (IBAction)clickAttention:(UIButton *)sender {
     
+    QYBasicViewController *contr = (QYBasicViewController *)self.dataRefresh;
+    
     if (self.type == QYAttentionAndMessageViewNoselect) {
         
-        [UIAlertController alertControler:nil message:@"是否取消关注" leftTitle:@"取消" rightTitle:@"确认" from:self.userController action:^(NSUInteger index) {
+        [UIAlertController alertControler:nil message:@"是否取消关注" leftTitle:@"取消" rightTitle:@"确认" from:contr action:^(NSUInteger index) {
            
             if (index == 1) {
                 
@@ -53,7 +55,7 @@
         return;
     }
     
-    [UIAlertController alertControler:nil message:@"关注该用户" leftTitle:@"取消" rightTitle:@"确认" from:self.userController action:^(NSUInteger index) {
+    [UIAlertController alertControler:nil message:@"关注该用户" leftTitle:@"取消" rightTitle:@"确认" from:contr action:^(NSUInteger index) {
         
         if (index == 1) {
             
@@ -64,9 +66,10 @@
 }
 - (IBAction)clickMessage:(UIButton *)sender {
     
-    NSNumber *uid = self.info[kuid];
+    NSNumber *uid = self.user.uid;
     QYConversationViewController *conver = [[QYConversationViewController alloc] initWithPeerId:[NSString stringWithFormat:@"%@",uid]];
-    [self.userController.navigationController pushViewController:conver animated:YES];
+    QYBasicViewController *contr = (QYBasicViewController *)self.dataRefresh;
+    [contr.navigationController pushViewController:conver animated:YES];
 }
 
 #pragma mark - paramSource
@@ -74,7 +77,7 @@
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
     NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{kuser_id:self.info[kuid],kuid:cuid};
+    return @{kuser_id:self.user.uid,kuid:cuid};
 
 }
 
@@ -82,7 +85,7 @@
     
     if (self.type == QYAttentionAndMessageViewNoselect) {
         
-        self.type = QYAttentionAndMessageViewSelect;
+       
     } else {
         
         self.type = QYAttentionAndMessageViewNoselect;
@@ -125,7 +128,30 @@
     return _followApi;
 }
 
+- (void)setUser:(QYUser *)user {
+    
+    _user = user;
+    [self analyze];
 
+}
+
+- (void)analyze {
+    
+    NSNumber *is_followd = self.user.is_followed;
+    if (is_followd.integerValue == 0) {
+        
+        self.attention.selected = NO;
+        self.message.selected = NO;
+        return;
+    }
+    
+    if (is_followd.integerValue == 1) {
+        
+        self.attention.selected = YES;
+        self.message.selected = NO;
+    }
+    
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

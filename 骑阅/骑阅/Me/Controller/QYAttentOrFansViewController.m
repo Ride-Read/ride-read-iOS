@@ -137,6 +137,7 @@
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
     
+    [self.hud hide:YES];
     if (manager == self.userApiManager) {
         
         [MBProgressHUD showMessageAutoHide:@"加载失败" view:nil];

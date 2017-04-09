@@ -33,12 +33,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
-    
-    NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
-    return @{kuid:cuid?:@(-1),kuser_id:cuid?:@(-1),klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
-    
-}
 
 #pragma mark - publice method
 
@@ -48,11 +42,31 @@
     self.tableView.frame = self.view.bounds;
 }
 
+- (void)loadData {
+    
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.cycleApiManager loadData];
+    }];
+}
+
+//not need refresh user data rewrite super method do nothing
+- (void)customView:(UIView *)customView refresh:(id)data {
+    
+    
+}
+
 #pragma mark - setter and getter
 
 - (QYReadMeHeaderView *)headerView {
     
     return nil;
+}
+
+- (NSMutableDictionary *)user {
+    
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    return @{kuid:uid}.mutableCopy;
 }
 
 /*

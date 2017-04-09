@@ -39,6 +39,7 @@
 		BA12CCB41E87882900DDB8CF /* QYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCB31E87882900DDB8CF /* QYSearchViewController.m */; };
 		BA12CCB71E87893C00DDB8CF /* QYSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCB61E87893C00DDB8CF /* QYSearchView.m */; };
 		BA12CCBD1E87A7DB00DDB8CF /* QYSearchApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA12CCBC1E87A7DB00DDB8CF /* QYSearchApiManager.m */; };
+		BA1542B51E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA1542B41E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard */; };
 		BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */; };
 		BA354D2D1E6BE12A00EE8189 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFD1E6BE12A00EE8189 /* QN_GTM_Base64.m */; };
 		BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BA354CFF1E6BE12A00EE8189 /* QNALAssetFile.m */; };
@@ -333,6 +334,8 @@
 		BA12CCBA1E87A44000DDB8CF /* QYSearchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchDelegate.h; sourceTree = "<group>"; };
 		BA12CCBB1E87A7DB00DDB8CF /* QYSearchApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchApiManager.h; sourceTree = "<group>"; };
 		BA12CCBC1E87A7DB00DDB8CF /* QYSearchApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSearchApiManager.m; sourceTree = "<group>"; };
+		BA1542AE1E9A5D0100F7CBF5 /* QYDataRefreshProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYDataRefreshProtocol.h; sourceTree = "<group>"; };
+		BA1542B41E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = QYPostCycleStoryboard.storyboard; sourceTree = "<group>"; };
 		BA354CF71E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CreatUIBarButtonItem.h"; sourceTree = "<group>"; };
 		BA354CF81E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CreatUIBarButtonItem.m"; sourceTree = "<group>"; };
 		BA354CFC1E6BE12A00EE8189 /* QN_GTM_Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QN_GTM_Base64.h; sourceTree = "<group>"; };
@@ -543,10 +546,10 @@
 		BA9AAA9C1E692C7000D7A5BB /* YYTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextView.m; sourceTree = "<group>"; };
 		BA9D1D761E7CE18100276E76 /* QYShowUserCycleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYShowUserCycleApiManager.h; sourceTree = "<group>"; };
 		BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYShowUserCycleApiManager.m; sourceTree = "<group>"; };
-		BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCylePostMonentApiManager.h; sourceTree = "<group>"; };
-		BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCylePostMonentApiManager.m; sourceTree = "<group>"; };
-		BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCyclePostController.h; sourceTree = "<group>"; };
-		BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCyclePostController.m; sourceTree = "<group>"; };
+		BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYCylePostMonentApiManager.h; path = ../../ReadCycle/ApiManager/QYCylePostMonentApiManager.h; sourceTree = "<group>"; };
+		BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYCylePostMonentApiManager.m; path = ../../ReadCycle/ApiManager/QYCylePostMonentApiManager.m; sourceTree = "<group>"; };
+		BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYCyclePostController.h; path = ../../ReadCycle/Controller/QYCyclePostController.h; sourceTree = "<group>"; };
+		BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYCyclePostController.m; path = ../../ReadCycle/Controller/QYCyclePostController.m; sourceTree = "<group>"; };
 		BA9D1D821E7D44E400276E76 /* YYJsonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYJsonService.h; sourceTree = "<group>"; };
 		BA9D1D831E7D44E400276E76 /* YYJsonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYJsonService.m; sourceTree = "<group>"; };
 		BA9D1D851E7D92A500276E76 /* QYPictureLookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPictureLookView.h; sourceTree = "<group>"; };
@@ -1082,6 +1085,50 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		BA1542AF1E9A65EC00F7CBF5 /* PostCycle */ = {
+			isa = PBXGroup;
+			children = (
+				BA1542B01E9A65EC00F7CBF5 /* ApiManager */,
+				BA1542B11E9A65EC00F7CBF5 /* Controller */,
+				BA1542B21E9A65EC00F7CBF5 /* Model */,
+				BA1542B31E9A65EC00F7CBF5 /* View */,
+			);
+			path = PostCycle;
+			sourceTree = "<group>";
+		};
+		BA1542B01E9A65EC00F7CBF5 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */,
+				BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */,
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		BA1542B11E9A65EC00F7CBF5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */,
+				BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BA1542B21E9A65EC00F7CBF5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA1542B31E9A65EC00F7CBF5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA1542B41E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BA354CFA1E6BE12A00EE8189 /* QiniuSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1299,8 +1346,6 @@
 				BA354D991E6C69E000EE8189 /* QYReadFriendCycleApiManager.m */,
 				BA9D1D761E7CE18100276E76 /* QYShowUserCycleApiManager.h */,
 				BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */,
-				BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */,
-				BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */,
 				BAD841441E969A5400DACB35 /* QYFollowApiManager.h */,
 				BAD841451E969A5400DACB35 /* QYFollowApiManager.m */,
 				BAD841471E969A6500DACB35 /* QYUnfollowApiManager.h */,
@@ -1347,6 +1392,7 @@
 		BA55BFE31E4F37D600F1027B /* 骑阅 */ = {
 			isa = PBXGroup;
 			children = (
+				BA1542AF1E9A65EC00F7CBF5 /* PostCycle */,
 				BA8056A01E8D4E310009A4D7 /* Message */,
 				BA12CCAD1E87876700DDB8CF /* Search */,
 				BA12CC861E867CE900DDB8CF /* Set */,
@@ -1934,6 +1980,7 @@
 			isa = PBXGroup;
 			children = (
 				BACBA8691E50C9BF00D2E848 /* QYViewClickProtocol.h */,
+				BA1542AE1E9A5D0100F7CBF5 /* QYDataRefreshProtocol.h */,
 			);
 			name = Protocol;
 			path = "骑阅/Compoents/Protocol";
@@ -2049,8 +2096,6 @@
 				BAC959131E7599B1007E171E /* QYFriendCycleDetailController.m */,
 				EC7AA15D1E5C8E1F00EA54AA /* QYReadCycleController.h */,
 				EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */,
-				BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */,
-				BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2245,6 +2290,7 @@
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
 				BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */,
 				BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */,
+				BA1542B51E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

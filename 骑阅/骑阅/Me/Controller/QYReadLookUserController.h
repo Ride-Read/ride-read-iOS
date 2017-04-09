@@ -12,15 +12,22 @@
 #import "CTAPIBaseManager.h"
 #import "QYAttentionAndMessageView.h"
 #import "YYBasicTableView.h"
-
+#import "QYShowUserCycleApiManager.h"
+#import "QYRideUserApiManager.h"
+#import "QYUserReform.h"
+#import "define.h"
 
 @interface QYReadLookUserController : QYBasicNeedLocationController
 @property (nonatomic, strong) NSMutableDictionary *user;
 @property (nonatomic, strong) QYReadMeHeaderView *headerView;
+@property (nonatomic, strong) QYShowUserCycleApiManager *cycleApiManager;
 @property (nonatomic, strong) QYAttentionAndMessageView *attentionAndMessageView;
 @property (nonatomic, strong) YYBasicTableView *tableView;
+@property (nonatomic, strong) QYRideUserApiManager *userApi;
+@property (nonatomic, strong) QYUserReform *userReform;
 
 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager;
 - (void)setContentView;
+- (void)loadData;
 @end

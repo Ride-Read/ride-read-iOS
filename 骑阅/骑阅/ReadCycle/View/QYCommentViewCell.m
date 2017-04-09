@@ -116,9 +116,13 @@
         
         _comment = [[YYLabel alloc] init];
         _comment.displaysAsynchronously = YES;
+        WEAKSELF(_self);
         _comment.highlightTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect){
             
-            NSLog(@"-------");
+            if ([_self.delegate respondsToSelector:@selector(commentCell:data:)]) {
+               
+                [_self.delegate commentCell:_self data:_self.layout.status];
+            }
         };
     }
     return _comment;
