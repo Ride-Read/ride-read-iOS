@@ -323,7 +323,7 @@
 
 - (void)initialTagsView {
     
-    NSArray *array = self.user.tagString;
+    NSArray *array = [self.user.tagString componentsSeparatedByString:@","];
     UIButton *pre;
     NSMutableSet *set = [NSMutableSet setWithArray:self.tagsView.subviews];
     for (NSString *tag in array) {

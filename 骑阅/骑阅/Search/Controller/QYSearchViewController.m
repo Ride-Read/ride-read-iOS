@@ -14,7 +14,8 @@
 #import "YYBasicTableView.h"
 #import "define.h"
 #import "QYAttentionViewCell.h"
-#import "QYReadLookUserController.h"
+#import "QYLookAttentionViewController.h"
+#import "QYLoodFansViewController.h"
 #import "QYNavigationController.h"
 
 @interface QYSearchViewController ()<QYSearchActionDelegate,UITableViewDelegate,UITableViewDataSource,QYViewClickProtocol>
@@ -24,7 +25,7 @@
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) QYAttentionReform *reform;
 @property (nonatomic, strong) YYBasicTableView *tableView;
-@property (nonatomic, strong) NSMutableArray *searchArrays;
+@property (nonatomic, strong) NSDictionary *searResult;
 @end
 
 @implementation QYSearchViewController
@@ -44,14 +45,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 #pragma mark - click custom 
 
 - (void)clickCustomView:(UIView *)customView index:(NSInteger)index {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - private method
 - (void)setContentView {
@@ -73,9 +74,24 @@
 
 #pragma mark - tableView dataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return self.searResult.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.searchArrays.count;
+    if (section == 0) {
+        
+        NSArray *ats = self.searResult[kfolloweds];
+        return ats.count;
+        
+    } else {
+        
+        NSArray *fans = self.searResult[kfollowers];
+        return fans.count;
+    }
+   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,22 +103,44 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     QYAttentionViewCell *searchCell = (QYAttentionViewCell *)cell;
-    NSDictionary *info = self.searchArrays[indexPath.row];
-    searchCell.info = info[@"result"];
+    if (indexPath.section == 0) {
+        
+        NSArray *ats = self.searResult[kfolloweds];
+        NSDictionary *info = ats[indexPath.row];
+        searchCell.info = info;
+
+    } else {
+        
+        NSArray *fans = self.searResult[kfollowers];
+        NSDictionary *info = fans[indexPath.row];
+        searchCell.info = info;
+
+    }
+  
 }
 
 #pragma mark - tableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSDictionary *info = self.searchArrays[indexPath.row];
-    QYUser *user = info[kdata];
-    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
-    look.user = user;
-    QYNavigationController *navc = [[QYNavigationController alloc] initWithRootViewController:look];
-    [self presentViewController:navc animated:YES completion:nil];
+    if (indexPath.section == 0) {
+        
+        NSArray *ats = self.searResult[kfolloweds];
+        NSDictionary *info = ats[indexPath.row];
+        QYLookAttentionViewController *look = [[QYLookAttentionViewController alloc] init];
+        look.user = info.mutableCopy;
+        [self.navigationController pushViewController:look animated:YES];
 
-}
+    } else {
+        
+        NSArray *ats = self.searResult[kfolloweds];
+        NSDictionary *info = ats[indexPath.row];
+        QYLoodFansViewController *look = [[QYLoodFansViewController alloc] init];
+        look.user = info.mutableCopy;
+        [self.navigationController pushViewController:look animated:YES];
+
+    }
+ }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -119,20 +157,7 @@
 - (void)searchFailed:(NSInteger)searchId manager:(CTAPIBaseManager *)manager {
     
     [self.hud hide:YES];
-    if (searchId == self.requstId) {
-        
-        [self.serialQueue addOperationWithBlock:^{
-           
-            [self.searchArrays removeAllObjects];
-            self.searchArrays = [manager fetchDataWithReformer:self.reform];
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-               
-                [self.tableView reloadData];
-            }];
-        }];
-    }
-
+    [MBProgressHUD showMessageAutoHide:@"搜索失败" view:nil];
 }
 
 - (void)searchSuccess:(NSInteger)searchId manager:(CTAPIBaseManager *)manager {
@@ -142,8 +167,7 @@
         
         [self.serialQueue addOperationWithBlock:^{
             
-            [self.searchArrays removeAllObjects];
-            self.searchArrays = [manager fetchDataWithReformer:self.reform];
+            self.searResult = [manager fetchDataWithReformer:self.reform];
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 

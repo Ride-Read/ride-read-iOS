@@ -711,6 +711,7 @@
             button.layer.masksToBounds = YES;
             button.layer.cornerRadius = 13;
             NSString *url = dict[kface_url];
+            [button sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:kdefault_icon]];
             [self addSubview:button];
             pre = button;
         }

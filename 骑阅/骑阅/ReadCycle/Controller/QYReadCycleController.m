@@ -222,6 +222,7 @@
     self.navigationItem.title = @"阅圈";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStyleDone target:self action:@selector(clickSearchButton:)];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationItem.rightBarButtonItem = searchButton;
 }
 
@@ -231,7 +232,8 @@
     
     
     QYSearchViewController *search = [[QYSearchViewController alloc] init];
-    [self presentViewController:search animated:YES completion:nil];
+    search.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:search animated:YES];
 }
 #pragma mark - ClickCutom delegate
 

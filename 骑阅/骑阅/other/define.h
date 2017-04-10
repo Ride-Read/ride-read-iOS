@@ -64,6 +64,7 @@ static float cl_caculation_3y(float x)  {
 #define Basic_Qiniu_URL @"http://om1ccbp21.bkt.clouddn.com/"
 
 #pragma mark - custom keys
+static NSString * const kdefault_icon = @"default_icon";
 static NSString * const kdata = @"data";
 static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
@@ -88,6 +89,7 @@ static NSString * const kreply_uid = @"reply_uid";
 #pragma mark - cycl
 static NSString * const kuser = @"user";
 static NSString * const kmsg = @"msg";
+static NSString * kshortname = @"shortname";
 static NSString * const kcreated_at = @"created_at";
 static NSString * const kupdated_at = @"updated_at";
 static NSString * const kthumbs = @"thumbs";
@@ -102,6 +104,9 @@ static NSString * const kcomment = @"comment";
 static NSString * const kpages = @"pages";
 static NSString * const kfrom = @"from";
 static NSString * const kreply = @"reply";
+static NSString * const kfolloweds = @"followeds";
+static NSString * const kfollowers = @"followers";
+
 
 #pragma - personal
 static NSString * const khometown = @"hometown";

@@ -12,6 +12,7 @@
 #import "QYFansApiManager.h"
 #import "QYFollowingApiManager.h"
 #import "NSString+QYDateString.h"
+#import "QYSearchApiManager.h"
 
 @implementation QYAttentionReform
 
@@ -37,9 +38,12 @@
             NSMutableDictionary *user = @{kuid:fid,kusername:username?:@"",ksignature:sigature?:@"",kface_url:avater?:@"",ktime:timeText}.mutableCopy;
             [result addObject:user];
         }
-
-    } else
-    {
+        
+        return result;
+    }
+    
+    if ([manager isKindOfClass:[QYFollowingApiManager class]]) {
+        
         
         for (NSDictionary *info in users) {
             
@@ -56,8 +60,59 @@
             NSMutableDictionary *user = @{kuid:fid,kusername:username?:@"",ksignature:sigature?:@"",kface_url:avater?:@"",ktime:timeText}.mutableCopy;
             [result addObject:user];
         }
+        
+        return result;
+        
     }
-    return result;
+    
+    if ([manager isKindOfClass:[QYSearchApiManager class]]) {
+        
+        
+        NSDictionary *dict = data[kdata];
+        NSArray *followed = dict[kfolloweds];
+        NSArray *follower = dict[kfollowers];
+        NSMutableArray *attetion = @[].mutableCopy;
+        NSMutableArray *fans = @[].mutableCopy;
+        for (NSDictionary *att in followed) {
+            
+            NSMutableDictionary *at = att.mutableCopy;
+            at[kusername] = att[@"follower_username"];
+            NSString *sigature = att[@"follower_signature"];
+            if ([sigature isKindOfClass:[NSNull class]]) {
+                
+                sigature = @"";
+            }
+            at[ksignature] = sigature;
+            NSString *avater = att[@"follower_face_url"];
+            at[kface_url] = avater;
+            at[ktime] = @"关注";
+            at[kuid] = att[@"tid"];
+            
+            [attetion addObject:at];
+        }
+        
+        for (NSDictionary *fan in follower) {
+            
+            NSMutableDictionary *fn = fan.mutableCopy;
+            fn[kusername] = fan[@"follower_username"];
+            NSString *sigature = fan[@"follower_signature"];
+            if ([sigature isKindOfClass:[NSNull class]]) {
+                
+                sigature = @"";
+            }
+            fn[ksignature] = sigature;
+            fn[kface_url] = fan[@"follower_face_url"];
+            fn[ktime] = @"粉丝";
+            fn[kuid] = fan[@"fid"];
+            
+            [fans addObject:fn];
+            
+        }
+        
+        return @{kfolloweds:attetion,kfollowers:fans};
+    }
+    
+    return nil;
     
 }
 @end

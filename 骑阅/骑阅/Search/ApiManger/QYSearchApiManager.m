@@ -27,7 +27,7 @@
 
 - (NSString *)methodName {
     
-    return @"";
+    return @"users/search_follower_or_following";
 }
 
 - (NSString *)serviceType {
@@ -57,7 +57,8 @@
 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
-    return @{kmsg:self.text?:@""};
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    return @{kshortname:self.text?:@"",kuid:uid};
 }
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
@@ -79,7 +80,8 @@
 }
 - (void)searchView:(UIView *)search textDidChange:(NSString *)text {
     
-   NSUInteger requestId = [self loadData];
+    self.text = text;
+    NSUInteger requestId = [self loadData];
     if ([self.search respondsToSelector:@selector(searchStart:manager:)]) {
         
         [self.search searchStart:requestId manager:self];
@@ -88,6 +90,7 @@
 
 - (void)searchView:(UIView *)search textEndChange:(NSString *)text {
     
+    self.text = text;
     NSUInteger requestId = [self loadData];
     if ([self.search respondsToSelector:@selector(searchStart:manager:)]) {
         

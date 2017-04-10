@@ -112,6 +112,8 @@
 		BA80554D1E896A160009A4D7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA80554C1E896A160009A4D7 /* CoreLocation.framework */; };
 		BA8059521E8D59260009A4D7 /* QYRecentConversaionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8059501E8D59260009A4D7 /* QYRecentConversaionCell.m */; };
 		BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8059511E8D59260009A4D7 /* QYRecentConversaionCell.xib */; };
+		BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8DE1BC1E9BDEEC0032FC88 /* QYSearchSectionView.xib */; };
+		BA8DE1C01E9BDF590032FC88 /* QYSearchSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8DE1BF1E9BDF590032FC88 /* QYSearchSectionView.m */; };
 		BA995D011E84264D002FA3B2 /* QYRideMyCycleController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */; };
 		BA995D041E842BED002FA3B2 /* QYRequstFrindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D031E842BED002FA3B2 /* QYRequstFrindViewController.m */; };
 		BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D061E842F71002FA3B2 /* QYCycleCollectViewController.m */; };
@@ -478,6 +480,9 @@
 		BA80594F1E8D59260009A4D7 /* QYRecentConversaionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRecentConversaionCell.h; sourceTree = "<group>"; };
 		BA8059501E8D59260009A4D7 /* QYRecentConversaionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRecentConversaionCell.m; sourceTree = "<group>"; };
 		BA8059511E8D59260009A4D7 /* QYRecentConversaionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYRecentConversaionCell.xib; sourceTree = "<group>"; };
+		BA8DE1BC1E9BDEEC0032FC88 /* QYSearchSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYSearchSectionView.xib; sourceTree = "<group>"; };
+		BA8DE1BE1E9BDF590032FC88 /* QYSearchSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchSectionView.h; sourceTree = "<group>"; };
+		BA8DE1BF1E9BDF590032FC88 /* QYSearchSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSearchSectionView.m; sourceTree = "<group>"; };
 		BA995CFF1E84264D002FA3B2 /* QYRideMyCycleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRideMyCycleController.h; sourceTree = "<group>"; };
 		BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRideMyCycleController.m; sourceTree = "<group>"; };
 		BA995D021E842BED002FA3B2 /* QYRequstFrindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRequstFrindViewController.h; sourceTree = "<group>"; };
@@ -1073,6 +1078,9 @@
 			children = (
 				BA12CCB51E87893C00DDB8CF /* QYSearchView.h */,
 				BA12CCB61E87893C00DDB8CF /* QYSearchView.m */,
+				BA8DE1BE1E9BDF590032FC88 /* QYSearchSectionView.h */,
+				BA8DE1BF1E9BDF590032FC88 /* QYSearchSectionView.m */,
+				BA8DE1BC1E9BDEEC0032FC88 /* QYSearchSectionView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2285,6 +2293,7 @@
 				BAA0018D1E50725B0067A894 /* CTNetworkingConfiguration.plist in Resources */,
 				2BAE5D881E9537310089ECF1 /* QYTableViewCell.xib in Resources */,
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
+				BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */,
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
@@ -2556,6 +2565,7 @@
 				BA12CCA91E869A5300DDB8CF /* QYAboutRideViewController.m in Sources */,
 				BAC959141E7599B1007E171E /* QYFriendCycleDetailController.m in Sources */,
 				BA354D311E6BE12A00EE8189 /* QNEtag.m in Sources */,
+				BA8DE1C01E9BDF590032FC88 /* QYSearchSectionView.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
 				BA354D721E6BE20000EE8189 /* QNDomain.m in Sources */,
 				BA995D011E84264D002FA3B2 /* QYRideMyCycleController.m in Sources */,
