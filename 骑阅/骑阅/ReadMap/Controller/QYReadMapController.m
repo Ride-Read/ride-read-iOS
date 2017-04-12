@@ -8,30 +8,63 @@
 
 #import "QYReadMapController.h"
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
+#import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import "define.h"
 
 @interface QYReadMapController ()
+@property (nonatomic, strong) MAMapView *mapView;
 
 @end
 
 @implementation QYReadMapController
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
-    /** test */
-//    UIBarButtonItem * right = [UIBarButtonItem creatItemWithImage:@"read_map_normal" highLightImage:@"read_map_selected" target:self action:@selector(clickItem)];
-//    self.navigationItem.rightBarButtonItem = right;
+    [self setContentView];
+    [self locationUser];
 }
 
-/** test */
-- (void)clickItem {
-    NSLog(@"%s",__func__);
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self setNavc];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+#pragma mark - private method
+
+- (void)setNavc {
+  
+    self.navigationItem.title = @"阅圈";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0.00 green:0.82 blue:0.77 alpha:0.5];
+
+
+}
+- (void)setContentView {
+    
+    [self.view addSubview:self.mapView];
+}
+
+//定位用户的地点
+- (void)locationUser {
+    
+    _mapView.showsUserLocation = YES;
+    _mapView.userTrackingMode = MAUserTrackingModeFollow;
+}
+
+#pragma mark - getter and setter
+- (MAMapView *)mapView {
+    
+    if (!_mapView) {
+        _mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+    }
+    return _mapView;
 }
 
 /*

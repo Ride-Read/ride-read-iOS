@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIImageView *icon;
 @property (nonatomic, strong) UIButton *delegateButton;
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, assign) NSUInteger count;
 
 
 - (void)deleteSelf;

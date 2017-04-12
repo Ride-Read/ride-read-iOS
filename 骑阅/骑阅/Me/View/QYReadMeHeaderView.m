@@ -97,7 +97,7 @@
     
     [self.personSignature mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.mas_equalTo(75 + 10 + 15);
+        make.left.mas_equalTo(cl_caculation_3x(200));
         make.top.mas_equalTo(8);
     }];
     

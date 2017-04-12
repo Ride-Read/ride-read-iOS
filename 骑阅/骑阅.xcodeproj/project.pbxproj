@@ -182,6 +182,16 @@
 		BAA001941E50725B0067A894 /* CLRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001751E50725B0067A894 /* CLRequestGenerator.m */; };
 		BAA001951E50725B0067A894 /* CTUDIDGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001781E50725B0067A894 /* CTUDIDGenerator.m */; };
 		BAA001981E5072B20067A894 /* QYBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA001971E5072B20067A894 /* QYBasicViewController.m */; };
+		BAC02A601E9E782C007F6760 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A5D1E9E782C007F6760 /* AMapFoundationKit.framework */; };
+		BAC02A611E9E782C007F6760 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A5E1E9E782C007F6760 /* AMapSearchKit.framework */; };
+		BAC02A621E9E782C007F6760 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A5F1E9E782C007F6760 /* MAMapKit.framework */; };
+		BAC02A641E9E7B12007F6760 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BAC02A631E9E7B12007F6760 /* AMap.bundle */; };
+		BAC02A661E9E7B82007F6760 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A651E9E7B82007F6760 /* QuartzCore.framework */; };
+		BAC02A681E9E7BA1007F6760 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A671E9E7BA1007F6760 /* Security.framework */; };
+		BAC02A6A1E9E7BAD007F6760 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A691E9E7BAD007F6760 /* AdSupport.framework */; };
+		BAC02A6C1E9E7BB4007F6760 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A6B1E9E7BB4007F6760 /* JavaScriptCore.framework */; };
+		BAC02A6E1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A6D1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd */; };
+		BAC02A701E9E8564007F6760 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A6F1E9E8564007F6760 /* OpenGLES.framework */; };
 		BAC36F611E815770007D1FF4 /* QYAttentOrFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */; };
 		BAC36F641E815789007D1FF4 /* QYAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36F631E815789007D1FF4 /* QYAttentionViewController.m */; };
 		BAC36FA61E8158E4007D1FF4 /* QYAttentionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FA51E8158E4007D1FF4 /* QYAttentionViewCell.m */; };
@@ -622,6 +632,16 @@
 		BAA001781E50725B0067A894 /* CTUDIDGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUDIDGenerator.m; sourceTree = "<group>"; };
 		BAA001961E5072B20067A894 /* QYBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYBasicViewController.h; sourceTree = "<group>"; };
 		BAA001971E5072B20067A894 /* QYBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYBasicViewController.m; sourceTree = "<group>"; };
+		BAC02A5D1E9E782C007F6760 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		BAC02A5E1E9E782C007F6760 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		BAC02A5F1E9E782C007F6760 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
+		BAC02A631E9E7B12007F6760 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = ../AMap.bundle; sourceTree = "<group>"; };
+		BAC02A651E9E7B82007F6760 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BAC02A671E9E7BA1007F6760 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BAC02A691E9E7BAD007F6760 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		BAC02A6B1E9E7BB4007F6760 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		BAC02A6D1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		BAC02A6F1E9E8564007F6760 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BAC36F5F1E815770007D1FF4 /* QYAttentOrFansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentOrFansViewController.h; sourceTree = "<group>"; };
 		BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentOrFansViewController.m; sourceTree = "<group>"; };
 		BAC36F621E815789007D1FF4 /* QYAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionViewController.h; sourceTree = "<group>"; };
@@ -785,15 +805,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAC02A701E9E8564007F6760 /* OpenGLES.framework in Frameworks */,
+				BAC02A6E1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd in Frameworks */,
+				BA354D851E6BE4BC00EE8189 /* libz.tbd in Frameworks */,
+				BAC02A6C1E9E7BB4007F6760 /* JavaScriptCore.framework in Frameworks */,
+				BAC02A6A1E9E7BAD007F6760 /* AdSupport.framework in Frameworks */,
+				BAC02A681E9E7BA1007F6760 /* Security.framework in Frameworks */,
 				BA80554D1E896A160009A4D7 /* CoreLocation.framework in Frameworks */,
+				BAC02A661E9E7B82007F6760 /* QuartzCore.framework in Frameworks */,
+				BAC02A601E9E782C007F6760 /* AMapFoundationKit.framework in Frameworks */,
 				BA80554B1E896A090009A4D7 /* CoreTelephony.framework in Frameworks */,
 				BA8055491E8969FF0009A4D7 /* MobileCoreServices.framework in Frameworks */,
 				BA8055471E8969F30009A4D7 /* SystemConfiguration.framework in Frameworks */,
 				BA8055451E8969E60009A4D7 /* libsqlite3.tbd in Frameworks */,
 				BA8055431E8969D30009A4D7 /* libc++.tbd in Frameworks */,
 				BA354D871E6BE4CE00EE8189 /* libresolv.9.tbd in Frameworks */,
-				BA354D851E6BE4BC00EE8189 /* libz.tbd in Frameworks */,
+				BAC02A611E9E782C007F6760 /* AMapSearchKit.framework in Frameworks */,
 				BA354D831E6BE4B200EE8189 /* libcurses.tbd in Frameworks */,
+				BAC02A621E9E782C007F6760 /* MAMapKit.framework in Frameworks */,
 				980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -818,6 +847,12 @@
 		22E49B671CD68E6F04C41DAA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BAC02A6F1E9E8564007F6760 /* OpenGLES.framework */,
+				BAC02A6D1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd */,
+				BAC02A6B1E9E7BB4007F6760 /* JavaScriptCore.framework */,
+				BAC02A691E9E7BAD007F6760 /* AdSupport.framework */,
+				BAC02A671E9E7BA1007F6760 /* Security.framework */,
+				BAC02A651E9E7B82007F6760 /* QuartzCore.framework */,
 				BA80554C1E896A160009A4D7 /* CoreLocation.framework */,
 				BA80554A1E896A090009A4D7 /* CoreTelephony.framework */,
 				BA8055481E8969FF0009A4D7 /* MobileCoreServices.framework */,
@@ -1436,6 +1471,7 @@
 		BA55BFE41E4F37D600F1027B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BAC02A631E9E7B12007F6760 /* AMap.bundle */,
 				BA55BFF21E4F37D600F1027B /* LaunchScreen.storyboard */,
 				BA55BFF51E4F37D600F1027B /* Info.plist */,
 				BA55BFF01E4F37D600F1027B /* Assets.xcassets */,
@@ -1517,6 +1553,7 @@
 		BA9AAA671E692C4400D7A5BB /* Venders */ = {
 			isa = PBXGroup;
 			children = (
+				BAC02A5C1E9E782C007F6760 /* Frameworks */,
 				BA354D411E6BE20000EE8189 /* HappyDNS */,
 				BA354CFA1E6BE12A00EE8189 /* QiniuSDK */,
 				BA9AAA681E692C7000D7A5BB /* YYText */,
@@ -1868,6 +1905,16 @@
 				BAA001781E50725B0067A894 /* CTUDIDGenerator.m */,
 			);
 			path = UDIDGenerator;
+			sourceTree = "<group>";
+		};
+		BAC02A5C1E9E782C007F6760 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BAC02A5D1E9E782C007F6760 /* AMapFoundationKit.framework */,
+				BAC02A5E1E9E782C007F6760 /* AMapSearchKit.framework */,
+				BAC02A5F1E9E782C007F6760 /* MAMapKit.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		BAC36FAA1E815DAE007D1FF4 /* ApiManager */ = {
@@ -2310,6 +2357,7 @@
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
 				BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */,
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
+				BAC02A641E9E7B12007F6760 /* AMap.bundle in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
 				BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */,
@@ -2764,11 +2812,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/骑阅/Venders/Class/Tool/Vendor/VoiceLib",
 					"$(PROJECT_DIR)/骑阅/Venders/ChatKit/Class/Tool/Vendor/VoiceLib",
+					"$(PROJECT_DIR)/骑阅/Venders/Frameworks",
 				);
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = www.aspmcll.llll;
+				PRODUCT_BUNDLE_IDENTIFIER = me.ursb.rideread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -2784,11 +2833,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/骑阅/Venders/Class/Tool/Vendor/VoiceLib",
 					"$(PROJECT_DIR)/骑阅/Venders/ChatKit/Class/Tool/Vendor/VoiceLib",
+					"$(PROJECT_DIR)/骑阅/Venders/Frameworks",
 				);
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = www.aspmcll.llll;
+				PRODUCT_BUNDLE_IDENTIFIER = me.ursb.rideread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

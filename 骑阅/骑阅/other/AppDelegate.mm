@@ -13,6 +13,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "QYChatkExample.h"
 #import "MBProgressHUD+LLHud.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 @interface AppDelegate ()
 
@@ -24,6 +25,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [QYChatkExample invokeThisMethodInDidFinishLaunching];
+    [AMapServices sharedServices].apiKey = @"3e8ca612e8fffc3a0fcae49b60c5bb31";
+    [[AMapServices sharedServices] setEnableHTTPS:YES];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     QYUser *curentUser = [CTAppContext sharedInstance].currentUser;

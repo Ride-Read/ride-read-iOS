@@ -161,6 +161,11 @@
 - (IBAction)clickImageView:(id)sender {
     
     [self.view endEditing:YES];
+    if (self.iamgeView.count > 9) {
+        
+        [MBProgressHUD showMessageAutoHide:@"已经查过最大限制" view:nil];
+        return;
+    }
     NSArray *array = @[
                        [QYSelectModel QYSelectModelWithTitle:@"拍照" titleColor:nil],
                        [QYSelectModel QYSelectModelWithTitle:@"相册" titleColor:nil],
@@ -273,8 +278,6 @@
                 _self.iamgeView = icon;
             } else {
                 
-                icon.last = nil;
-                icon.next = nil;
                 _self.iamgeView = icon;
                 [icon mas_makeConstraints:^(MASConstraintMaker *make) {
                     

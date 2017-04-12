@@ -42,6 +42,7 @@
 
 - (void)deleteSelf {
     
+    _count--;
     if (self.next && self.last) {
         
         [self.next mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -73,7 +74,7 @@
             
             
         }];
-        self.last.last = nil;
+        self.next.last = nil;
         [self removeFromSuperview];
         return;
 
@@ -130,6 +131,17 @@
         make.top.equalTo(self.mas_top);
         make.bottom.equalTo(self.mas_bottom);
     }];
+}
+
+- (NSUInteger)count {
+    
+    QYimageView *view = self.last;
+    while (view) {
+        
+        _count++;
+        view = view.last;
+    }
+    return _count + 2;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

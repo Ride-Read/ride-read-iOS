@@ -6,8 +6,8 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYTranslucentNoViewController.h"
+#import "QYTranslucentYesViewController.h"
 
-@interface QYReadMapController : QYTranslucentNoViewController
+@interface QYReadMapController : QYTranslucentYesViewController
 
 @end
