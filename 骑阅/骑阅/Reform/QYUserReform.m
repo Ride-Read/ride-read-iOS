@@ -11,6 +11,7 @@
 #import "QYAddCommnetApiManager.h"
 #import "QYRideUserApiManager.h"
 #import "define.h"
+#import "QYGetUsersInfoApiManager.h"
 
 @implementation QYUserReform
 
@@ -46,6 +47,22 @@
         NSDictionary *dict = data[kdata];
         QYUser *user = [QYUser userWithDict:dict];
         return user;
+    }
+    
+    if ([manager isKindOfClass:[QYGetUsersInfoApiManager class]]) {
+        
+        NSArray *infos = data[kdata];
+        NSMutableArray *result = @[].mutableCopy;
+        for (NSDictionary *info in infos) {
+            
+            QYUser *user = [[QYUser alloc] init];
+            user.uid = info[kuid];
+            user.face_url = info[kface_url];
+            user.username = info[kusername];
+            [result addObject:user];
+        }
+        
+        return result;
     }
     return nil;
 }

@@ -1,18 +1,20 @@
 //
-//  QYRideUserApiManager.m
+//  QYGetUsersInfoApiManager.m
 //  骑阅
 //
-//  Created by chen liang on 2017/3/22.
+//  Created by chen liang on 2017/4/11.
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
-#import "QYRideUserApiManager.h"
+#import "QYGetUsersInfoApiManager.h"
 #import "define.h"
 
-@interface QYRideUserApiManager ()<CTAPIManagerValidator>
+@interface QYGetUsersInfoApiManager ()<CTAPIManagerValidator>
 
 @end
-@implementation QYRideUserApiManager
+
+@implementation QYGetUsersInfoApiManager
+
 - (instancetype)init {
     
     self = [super init];
@@ -22,7 +24,7 @@
 
 - (NSString *)methodName {
     
-    return @"users/show_user_info";
+    return @"users/show_user_info_list";
 }
 
 - (NSString *)serviceType {
@@ -50,5 +52,6 @@
     }
     return NO;
 }
+
 
 @end

@@ -36,7 +36,8 @@
     
     [super locationResult:info];
     [[CTLocationManager sharedInstance] reverseGeocodeLocation:^(NSArray *array, NSError *error) {
-        
+       
+        self.site = array[0];
     }];
 }
 

@@ -66,6 +66,8 @@ NSString * const kLocationResultNotifationl = @"LocationResultNotifationl";
             CLPlacemark *plcase = placemarks[0];
             NSLog(@"plcate:%@",plcase);
             NSLog(@"name:%@,%@,%@,%@,%@",plcase.name,plcase.administrativeArea,plcase.subAdministrativeArea,plcase.locality,plcase.subLocality);
+            NSString *site = [NSString stringWithFormat:@"%@.%@",plcase.locality,plcase.name];
+            complteHander(@[site],nil);
         }
     }];
 }

@@ -146,8 +146,9 @@
     }
     if (manager == self.userApi) {
         
+        NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
         NSNumber *uid = self.user[kuid];
-        return @{kuid:uid};
+        return @{kuid:cuid,kuser_id:uid,ktype:@(2)};
     }
     
     return nil;

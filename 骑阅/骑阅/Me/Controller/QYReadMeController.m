@@ -101,7 +101,7 @@
     if (manager == self.userLogic.apiManager) {
         
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-        return @{kuid:uid?:@(-1)};
+        return @{kuid:uid?:@(-1),ktype:@(1)};
     }
     return nil;
 }
@@ -225,15 +225,14 @@
             case 0:
         {
             
-            QYCyclePostController *post = [[QYCyclePostController alloc] init];
-            post.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:post animated:YES];
+            UIStoryboard *post = [UIStoryboard storyboardWithName:@"QYPostCycleStoryboard" bundle:nil];
+            QYCyclePostController *postCtr = [post instantiateViewControllerWithIdentifier:@"postCntr"];;
+            [self presentViewController:postCtr animated:YES completion:nil];
             break;
         }
         case 1:
         {
             QYRideMyCycleController *myCycle = [[QYRideMyCycleController alloc] init];
-            myCycle.user = [CTAppContext sharedInstance].currentUser;
             myCycle.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:myCycle animated:YES];
             

@@ -11,34 +11,40 @@
 #import "define.h"
 #import "QYCylePostMonentApiManager.h"
 #import "MBProgressHUD+LLHud.h"
+#import "UIAlertController+QYQuickAlert.h"
+#import "YYReplyView.h"
+#import "QYQiuniuTokenCommand.h"
+#import "QYSelectView.h"
+#import "NSString+QYDateString.h"
+#import "QYimageView.h"
+#import "NSString+QYRegular.h"
 
-@interface QYCyclePostController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@interface QYCyclePostController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,CLCommandDataSource,CLCommandDelegate>
 @property (nonatomic, strong) QYCylePostMonentApiManager *postApiManager;
+@property (weak, nonatomic) IBOutlet UIButton *check_button;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (nonatomic, strong) NSDictionary *params;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet YYReplyTextView *messageView;
+@property (nonatomic,strong) UIImagePickerController * pickerController;
+@property (nonatomic, strong) QYQiuniuTokenCommand *commad;
+@property (nonatomic, copy) NSString *filename;
+@property (nonatomic, weak) QYimageView *iamgeView;
+
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @end
 
 @implementation QYCyclePostController
 
+@synthesize site = _site;
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    UIButton *text = [UIButton buttonTitle:@"发表文字" font:15 colco:[UIColor greenColor]];
-    text.frame = CGRectMake(0, 64,kScreenWidth , 45);
-    [text addTarget:self action:@selector(clickPostAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *image = [UIButton buttonTitle:@"发表图文" font:15 colco:[UIColor redColor]];
-    image.frame = CGRectOffset(text.frame, 0, 64);
-    image.tag = 1;
-    [image addTarget:self action:@selector(clickPostAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-   // UIButton *vido = [UIButton buttonTitle:@"发表视频" font:15 colco:[UIColor greenColor]];
-    
-    [self.view addSubview:text];
-    [self.view addSubview:image];
-    //[self.view addSubview:vido];
+    self.messageView.placeHolder = @"分享精彩时刻";
+    self.scrollView.contentSize = CGSizeMake(100 * 9 + 200, 100);
     // Do any additional setup after loading the view.
 }
 
@@ -47,51 +53,284 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self addNotifaction];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [self removeNotifation];
+}
+
+#pragma mark - private method
+- (void)addNotifaction {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeNotifation {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+}
+
+#pragma mark - traget action
+
+- (void)keyBoardShow:(NSNotification *)info {
+    // 动画时长
+    CGFloat duration = [info.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger option = [info.userInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
+    // 键盘高度
+    CGFloat keyboardH = [info.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-keyboardH);
+        make.height.mas_equalTo(50);
+    }];
+    [UIView animateKeyframesWithDuration:duration delay:0 options:option animations:^{
+        
+        [self.view layoutIfNeeded];
+        
+    } completion:nil];
+    
+}
+
+- (void)keyBoardHide:(NSNotification *)info {
+    
+    // 动画时长
+    CGFloat duration = [info.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger option = [info.userInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
+    // 键盘高度
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(50);
+    }];
+    [UIView animateKeyframesWithDuration:duration delay:0 options:option animations:^{
+        
+        [self.view layoutIfNeeded];
+        
+    } completion:nil];
+}
+
 #pragma mark - CTAPIManagerParamSource
 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    NSArray *array = self.scrollView.subviews;
+    NSMutableArray *urls = @[].mutableCopy;
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+       
+        if ([obj isKindOfClass:[QYimageView class]]) {
+            
+            QYimageView *icon = (QYimageView *)obj;
+            [urls addObject:icon.url];
+        }
+    }];
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    NSString *msg = self.messageView.lasteString;
+    self.params = @{kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     
     return self.params;
 }
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self.hud hide:YES];
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
+    [MBProgressHUD showMessageAutoHide:@"发表失败" view:nil];
     [self.hud hide:YES];
 }
 
 #pragma mark - target action
 
-- (void)clickPostAction:(UIButton *)sender {
+- (IBAction)clickLocationAction:(UIButton *)sender {
     
-    if (sender.tag == 0) {
+    
+}
+- (IBAction)clickImageView:(id)sender {
+    
+    [self.view endEditing:YES];
+    NSArray *array = @[
+                       [QYSelectModel QYSelectModelWithTitle:@"拍照" titleColor:nil],
+                       [QYSelectModel QYSelectModelWithTitle:@"相册" titleColor:nil],
+                       ];
+    
+    
+    [QYSelectView QY_showSelectViewWithTitle:nil cancelButttonTitle:@"取消" actionContent:array selectBlock:^(QYSelectView *selectView, NSInteger index, NSString *selectedTitle) {
         
-        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-        NSString *msg = @"测试测试测试测试测试测试测试测试上厕所测试测试测试测试";
-        self.params = @{kuid:uid,kmsg:msg,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+        if (index == 0) {
+            
+            //判断设备是否支持摄像头
+            if ( [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera]) {
+                //调用摄像头
+                self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                
+            } else {
+                
+                MyLog(@"该设备不支持摄像头");
+                return;
+            }
+            
+        } else if (index == 1) {
+            
+            self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        } else if (index == 2){
+            return ;
+        }
         
+        //        QYNavigationController * navc = [[QYNavigationController alloc]initWithRootViewController:self.pickerController];
+        [self presentViewController:self.pickerController animated:YES completion:nil];
+        //        [self.navigationController pushViewController:navc animated:YES];
+    }];
+
+}
+- (IBAction)clickCheckAction:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    btn.selected = !btn.selected;
+    if (btn.selected) {
+        
+        self.locationLabel.text = @"不显示位置";
     } else {
         
-        int rand = arc4random() % 4;
-        NSMutableArray *array = [NSMutableArray array];
-        for (int i = 0; i < rand; i ++) {
-            [array addObject:@"http://om1ccbp21.bkt.clouddn.com/icon_20170321212010.jpg"];
-        }
-        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-        NSString *msg = @"测试测试测试测试测试测试测试测试上厕所测试测试测试测试";
-        self.params = @{kuid:uid,kmsg:msg,kpictures_url:array,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+        self.locationLabel.text = self.site;
     }
-    [self.serialQueue addOperationWithBlock:^{
+}
+- (IBAction)clickLeftItem:(id)sender {
+    
+    
+     [UIAlertController alertControler:nil message:@"您确定要退出编辑" leftTitle:@"取消" rightTitle:@"确定" from:self action:^(NSUInteger index) {
         
-        [self.postApiManager loadData];
+         if (index == 1) {
+             
+             [self dismissViewControllerAnimated:YES completion:nil];
 
+         }
     }];
+ 
+}
+- (IBAction)clickRightItem:(id)sender {
+    
+    if (!self.messageView.lasteString) {
+        
+        [MBProgressHUD showMessageAutoHide:@"文字不能为空" view:nil];
+        return;
+    }
+    BOOL space = [self.messageView.lasteString checkSpaceText];
+    if (space) {
+        
+        [MBProgressHUD showMessageAutoHide:@"文字不能为空" view:nil];
+    }
     self.hud = [MBProgressHUD showMessage:@"发表中" toView:nil];
+    [self.postApiManager loadData];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    UIImage * image;
+    if (self.pickerController.allowsEditing) {//如果是拍照
+    
+        image = [info objectForKey:UIImagePickerControllerEditedImage];
+    } else {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    
+    //上传图片
+    
+    WEAKSELF(_self);
+    NSData *data = UIImageJPEGRepresentation(image, 0.3);
+    self.hud  = [MBProgressHUD showMessage:@"上传中" toView:nil];
+    _commad = [[QYQiuniuTokenCommand alloc] init];
+    _commad.dataSource = self;
+    _commad.delegate = self;
+    self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
+        
+        [_self.hud hide:YES];
+        if (info.isOK) {
+            
+            MyLog(@"++++++>>上传成功%@",key);
+            QYimageView *icon = [[QYimageView alloc] init];
+            icon.icon.image = image;
+            icon.url = [Basic_Qiniu_URL stringByAppendingString:key];
+            [_self.scrollView addSubview:icon];
+            if (_self.iamgeView) {
+                
+                _self.iamgeView.next = icon;
+                icon.last = _self.iamgeView;
+                //icon.next = nil;
+                _self.iamgeView = icon;
+            } else {
+                
+                icon.last = nil;
+                icon.next = nil;
+                _self.iamgeView = icon;
+                [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.mas_equalTo(15);
+                    make.centerY.equalTo(_self.scrollView);
+                    make.width.mas_equalTo(100);
+                    make.height.equalTo(icon.mas_width);
+                    
+                }];
+                
+            }
+            
+        } else {
+            
+            [MBProgressHUD showMessageAutoHide:@"上传失败" view:nil];
+            
+        }
+        MyLog(@"%@",info);
+        _self.commad.complete = nil;
+    };
+    
+    self.filename = [NSString uploadFilename];
+    self.commad.nextParams = @{kdata:data,kfilename:self.filename};
+    [self.commad execute];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - CLCoommandDataSource
+- (NSDictionary *)paramsForcommand:(CLCommands *)command {
+    
+    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@(1)};
+}
+
+- (void)command:(CLCommands *)commands didSuccess:(CTAPIBaseManager *)apiManager {
+    
+    
+}
+
+- (void)command:(CLCommands *)commands didFaildWith:(CTAPIBaseManager *)apiManager {
+    
+    [self.hud hide:YES];
+    [MBProgressHUD showMessageAutoHide:@"图片保存失败" view:nil];
+}
+
+#pragma -- <setter and getter>
+- (UIImagePickerController *)pickerController{
+    if (!_pickerController) {
+        _pickerController = [[UIImagePickerController alloc] init];
+        _pickerController.allowsEditing = YES; // 允许编辑
+        _pickerController.delegate = self; //设置代理，检测操作
+    }
+    return _pickerController;
 }
 
 #pragma mark - getter and setter
@@ -106,6 +345,13 @@
     }
     return _postApiManager;
 }
+- (void)setSite:(NSString *)site {
+    
+    _site = site;
+    self.locationLabel.text = site;
+}
+
+
 /*
 #pragma mark - Navigation
 

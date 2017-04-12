@@ -59,7 +59,7 @@
     NSString *picture = [pictures componentsJoinedByString:@","];
     if (pictures.count > 0) {
         type = 1;
-        return @{kuid:uid,kmsg:msg,kpictures_url:picture,ktype:@(type),klatitude:latitude,klongitude:longitude};
+        return @{kmoment_location:@"深圳",kuid:uid,kmsg:msg,kpictures_url:picture,ktype:@(type),klatitude:latitude,klongitude:longitude};
     }
     
     return @{kuid:uid,kmsg:msg,ktype:@(type),klatitude:latitude,klongitude:longitude};

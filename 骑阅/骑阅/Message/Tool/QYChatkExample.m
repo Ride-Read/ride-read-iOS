@@ -9,7 +9,17 @@
 #import "QYChatkExample.h"
 #import "CTAppContext.h"
 #import "define.h"
+#import "QYUserReform.h"
+#import "QYGetUsersInfoApiManager.h"
 
+@interface QYChatkExample ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@property (nonatomic, strong) QYGetUsersInfoApiManager *usersApi;
+@property (nonatomic, strong) LCCKFetchProfilesCompletionHandler complete;
+@property (nonatomic, strong) NSDictionary *params;
+@property (nonatomic, strong) QYUserReform *reform;
+@property (nonatomic, assign) BOOL isLoading;
+
+@end
 @implementation QYChatkExample
 
 static NSString *const LCCKAPPID = @"dYRQ8YfHRiILshUnfFJu2eQM-gzGzoHsz";
@@ -73,39 +83,17 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
     [[LCChatKit sharedInstance] setFetchProfilesBlock:^(NSArray<NSString *> *userIds, LCCKFetchProfilesCompletionHandler completionHandler) {
         
         
-#warning test user message
-
-        NSMutableArray *array = @[].mutableCopy;
-        for (NSString *userid in userIds) {
-            MyLog(@"the user id :%@",userid);
-#warning do you net working to fetch the use message
-            QYUser * user;
+        if (self.isLoading) {
             
-            if ([userid isEqualToString:@"7"]) {
-                
-                user = [[QYUser alloc] init];
-                user.uid = @(7);
-                user.face_url = @"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg";
-                user.username = @"snow";
-              //  if ([userid isEqualToString:@"1000"]) {
-                    
-                   // user = [QYUser userWithUserId:@"1000" name:@"snow" avatarURL:[NSURL URLWithString:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg"] clientId:@"1000"];
-                //}
-               // QYUser * user = [CTAppContext sharedInstance].currentUser;
-              
-            } else {
-                
-                user = [[QYUser alloc] init];
-                user.uid = @(6);
-                user.face_url = @"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg";
-                user.username = @"json";
-                
-            }
-            
-            [array addObject:user];
-            completionHandler(array,nil);
-
+            self.complete = completionHandler;
+            return ;
         }
+        self.complete = completionHandler;
+        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+        self.params = @{kuser_ids:[userIds componentsJoinedByString:@","],kuid:uid};
+        [self.usersApi loadData];
+        self.isLoading = YES;
+   
     }];
 }
 
@@ -137,4 +125,44 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
   
 }
 
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    
+    return self.params;
+}
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    NSError *error = [NSError errorWithDomain:@"error" code:500 userInfo:nil];
+    self.complete(nil,error);
+  
+    self.isLoading = NO;
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    self.isLoading = NO;
+   NSArray *array =  [self.usersApi fetchDataWithReformer:self.reform];
+    self.complete(array,nil);
+}
+
+
+- (QYGetUsersInfoApiManager *)usersApi {
+    
+    if (!_usersApi) {
+        
+        _usersApi = [[QYGetUsersInfoApiManager alloc] init];
+        _usersApi.delegate = self;
+        _usersApi.paramSource = self;
+    }
+    return _usersApi;
+}
+
+- (QYUserReform *)reform {
+    
+    if (!_reform) {
+        
+        _reform = [[QYUserReform alloc] init];
+    }
+    return _reform;
+}
 @end

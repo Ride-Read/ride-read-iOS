@@ -75,6 +75,7 @@ static NSString * const kstatus = @"status";
 static NSString * const kcode = @"code";
 static NSString * const kavater = @"avater";
 static NSString * const kuid = @"uid";
+static NSString * const kuser_ids = @"user_ids";
 static NSString * const kuser_id = @"user_id";
 static NSString * const knickname = @"nickname";
 static NSString * const kphonenumber = @"phonenumber";
@@ -106,6 +107,7 @@ static NSString * const kfrom = @"from";
 static NSString * const kreply = @"reply";
 static NSString * const kfolloweds = @"followeds";
 static NSString * const kfollowers = @"followers";
+static NSString * const kmoment_location = @"moment_location";
 
 
 #pragma - personal
