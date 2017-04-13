@@ -60,6 +60,19 @@
     }
     return _commentNumber;
 }
+
+- (void)setData:(NSArray *)data {
+    
+    NSString *numberString;
+    if (data.count > 0) {
+        
+        numberString = [NSString stringWithFormat:@"评论  %ld",data.count];
+    } else
+        numberString = @"评论";
+    
+    self.commentNumber.text = numberString;
+
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

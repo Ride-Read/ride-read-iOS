@@ -6,10 +6,12 @@
 //  Copyright © 2017年 chen liang. All rights reserved.
 //
 
+typedef void(^refreshBlock)();
 #import "QYTranslucentNoViewController.h"
 #import "QYFriendCycleCellLayout.h"
 
 @interface QYFriendCycleDetailController :QYTranslucentNoViewController
 @property (nonatomic, strong) QYFriendCycleCellLayout *layout;
+@property (nonatomic, copy) refreshBlock refresh;
 
 @end

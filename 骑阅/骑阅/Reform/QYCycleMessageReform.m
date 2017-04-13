@@ -43,6 +43,7 @@
             NSArray *comment = dic[kcomment];
             NSArray *thumbs_up = dic[@"thumbs_up"];
             NSString *leght = dic[@"distance_string"];
+            leght = [NSString stringWithFormat:@"距离我%@",leght];
             NSNumber *atte = dic[@"user"][@"is_followed"];
             NSString *attName;
             NSNumber *attTag;
@@ -85,7 +86,10 @@
                     attTag = @(-1);
                 }
             }
-            NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:commResutl?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght?:@"",kstatus:attName};
+            attName = @"";
+            attTag = @(-1);
+            NSString *site = dic[kmoment_location];
+            NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:commResutl?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght?:@"",kstatus:attName,ksite:site?:@""};
             [cycleInfos addObject:[cycle mutableCopy]];
             
         }
@@ -113,6 +117,7 @@
             NSArray *comment = dic[kcomment];
             NSArray *thumbs_up = dic[@"thumbs_up"];
             NSString *leght = dic[@"distance_string"];
+            leght = [NSString stringWithFormat:@"距离我%@",leght];
             NSNumber *atte = dic[@"user"][@"is_followed"];
             NSString *attName;
             NSNumber *attTag;
@@ -157,7 +162,8 @@
             }
             attName = @"";
             attTag = @(-1);
-            NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",ksite:@"广州",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:commResutl?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght?:@"",kstatus:attName};
+            NSString *site = dic[kmoment_location];
+            NSDictionary *cycle = @{@"tag":attTag,kface_url:avater?:@"",kusername:name?:@"",ksite:site?:@"",kuid:uid,kmid:mid,kmsg:msg?:@"",kthumbs:picA,kcreated_at:timeS,kcomment:commResutl?:@[],kpraise:thumbs_up?:@[],ksiteLength:leght?:@"",kstatus:attName};
             [cycleInfos addObject:[cycle mutableCopy]];
             
         }

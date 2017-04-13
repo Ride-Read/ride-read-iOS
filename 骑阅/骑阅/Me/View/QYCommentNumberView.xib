@@ -16,21 +16,32 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部阅圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cy-PO-zqH">
-                    <rect key="frame" x="10" y="41" width="65.5" height="19.5"/>
+                    <rect key="frame" x="10" y="40" width="66" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ciO-ct-9eD">
+                    <rect key="frame" x="0.0" y="99" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Eqz-j3-olr"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="4cy-PO-zqH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="MDf-kn-ZzS"/>
+                <constraint firstAttribute="trailing" secondItem="ciO-ct-9eD" secondAttribute="trailing" id="MfX-hK-uEJ"/>
+                <constraint firstItem="ciO-ct-9eD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="p6h-TF-9NS"/>
                 <constraint firstItem="4cy-PO-zqH" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="pDf-yZ-V8w"/>
+                <constraint firstAttribute="bottom" secondItem="ciO-ct-9eD" secondAttribute="bottom" id="wKx-Nv-ZvU"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="number" destination="4cy-PO-zqH" id="p7K-ra-f7k"/>
             </connections>
+            <point key="canvasLocation" x="33.5" y="101"/>
         </view>
     </objects>
 </document>

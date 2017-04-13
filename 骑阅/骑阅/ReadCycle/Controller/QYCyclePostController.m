@@ -135,7 +135,7 @@
     }];
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     NSString *msg = self.messageView.lasteString;
-    self.params = @{kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+    self.params = @{kmoment_location:self.check_button.selected?@"":self.site,kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     
     return self.params;
 }
@@ -161,7 +161,7 @@
 - (IBAction)clickImageView:(id)sender {
     
     [self.view endEditing:YES];
-    if (self.iamgeView.count > 9) {
+    if (self.iamgeView.count == 8) {
         
         [MBProgressHUD showMessageAutoHide:@"已经查过最大限制" view:nil];
         return;

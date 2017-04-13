@@ -119,6 +119,12 @@
     QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
     QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
     detail.layout = detailLayout;
+    detail.refresh = ^() {
+        
+        [self.layoutArray replaceObjectAtIndex:indexPath.row withObject:[QYFriendCycleCellLayout friendStatusCellLayout:layout.status]];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    
     [self.navigationController pushViewController:detail animated:YES];
     
 }
@@ -311,7 +317,7 @@
         
         _headerView = [[QYReadMeHeaderView alloc] init];
         _headerView.delegate = self;
-        _headerView.frame = CGRectMake(0, 0, kScreenWidth, 270);
+        _headerView.frame = CGRectMake(0, 0, kScreenWidth, cl_caculation_3y(560));
         
     }
     return _headerView;

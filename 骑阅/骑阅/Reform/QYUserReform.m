@@ -12,6 +12,7 @@
 #import "QYRideUserApiManager.h"
 #import "define.h"
 #import "QYGetUsersInfoApiManager.h"
+#import "QYPhoneCodeApiManager.h"
 
 @implementation QYUserReform
 
@@ -23,10 +24,6 @@
 - (id)manager:(CTAPIBaseManager *)manager reformData:(NSDictionary *)data {
     
     
-    if ([manager isKindOfClass:[QYAddThumbApiManager class]]) {
-        
-        return nil;
-    }
     
     if ([manager isKindOfClass:[QYAddCommnetApiManager class]]) {
         
@@ -40,6 +37,12 @@
             
         }
         return comm;;
+    }
+    
+    if ([manager isKindOfClass:[QYAddThumbApiManager class]]) {
+        
+        NSDictionary *thumb = data[kdata];
+        return thumb;
     }
     
     if ([manager isKindOfClass:[QYRideUserApiManager class]]) {
@@ -63,6 +66,22 @@
         }
         
         return result;
+    }
+    
+    if ([manager isKindOfClass:[QYPhoneCodeApiManager class]]) {
+        
+        
+        if (manager.errorType == CTAPIBaseManagerErrorTypeSuccess) {
+            
+            NSString *text = data[kdata][krand_code];
+            return text;
+            
+        } else {
+            
+            NSString *msg = data[kmsg];
+            return msg;
+            
+        }
     }
     return nil;
 }

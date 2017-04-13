@@ -86,6 +86,9 @@ static NSString * const ksignature = @"signature";
 static NSString * const ktime = @"time";
 static NSString * const kmid = @"mid";
 static NSString * const kreply_uid = @"reply_uid";
+static NSString * const krand_code = @"rand_code";
+static NSString * const kride_read_id = @"ride_read_id";
+static NSString * const kmoment_location = @"moment_location";
 
 #pragma mark - cycl
 static NSString * const kuser = @"user";
@@ -107,7 +110,6 @@ static NSString * const kfrom = @"from";
 static NSString * const kreply = @"reply";
 static NSString * const kfolloweds = @"followeds";
 static NSString * const kfollowers = @"followers";
-static NSString * const kmoment_location = @"moment_location";
 
 
 #pragma - personal

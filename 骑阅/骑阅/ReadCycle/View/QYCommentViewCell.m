@@ -36,7 +36,7 @@
     self.icon.left = 15;
     self.icon.top = 11;
     self.icon.size = CGSizeMake(30, 30);
-    NSString *urlString = _layout.status[kavater];
+    NSString *urlString = _layout.status[kface_url];
     [self.icon sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@""]];
 }
 

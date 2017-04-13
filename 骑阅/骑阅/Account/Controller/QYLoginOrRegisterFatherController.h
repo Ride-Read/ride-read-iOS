@@ -10,4 +10,6 @@
 
 @interface QYLoginOrRegisterFatherController : QYBasicViewController
 
+- (void)removeRegisterController;
+- (void)backCreateController;
 @end

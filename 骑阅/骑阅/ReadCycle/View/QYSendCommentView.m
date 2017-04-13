@@ -113,6 +113,14 @@
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
     
+    if (manager == self.addThump) {
+        
+        [MBProgressHUD showMessageAutoHide:@"点赞失败" view:nil];
+    }
+    if (manager == self.addComment) {
+        
+        [MBProgressHUD showMessageAutoHide:@"回复失败" view:nil];
+    }
  }
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
@@ -122,7 +130,8 @@
         
         NSArray *thumbs = self.status[kpraise];
         NSMutableArray *thums = thumbs.mutableCopy;
-        [thums addObject:@{}];
+        NSDictionary *info = [self.addThump fetchDataWithReformer:self.reform];
+        [thums insertObject:info atIndex:0];
         self.status[kpraise] = thums;
     }
     
@@ -132,7 +141,7 @@
        NSDictionary *info =  [self.addComment fetchDataWithReformer:self.reform];
         NSArray *comments = self.status[kcomment];
         NSMutableArray *comms = comments.mutableCopy;
-        [comms addObject:info];
+        [comms insertObject:info atIndex:0];
         self.status[kcomment] = comms;
 
     }

@@ -141,7 +141,7 @@
         _count++;
         view = view.last;
     }
-    return _count + 2;
+    return _count + 1;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

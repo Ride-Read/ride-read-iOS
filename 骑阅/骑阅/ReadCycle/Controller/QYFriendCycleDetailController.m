@@ -162,8 +162,8 @@
     
     QYButtonSheetPromptView *prompt = [QYButtonSheetPromptView promptWithButtonTitles:@[@"分享",@"收藏"] action:^(UIButton *button) {
         
-        QYCyclePostController *post = [[QYCyclePostController alloc] init];
-        [self.navigationController pushViewController:post animated:YES];
+//        QYCyclePostController *post = [[QYCyclePostController alloc] init];
+//        [self.navigationController pushViewController:post animated:YES];
     }];
     [prompt show];
 }
@@ -231,6 +231,8 @@
     self.cell.layout = self.layout;
     [self.layoutArray removeAllObjects];
     [self analyseData];
+    self.sectionView.data = info[kcomment];
+    self.refresh();
 }
 
 #pragma mark - setter and getter

@@ -192,6 +192,7 @@
 		BAC02A6C1E9E7BB4007F6760 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A6B1E9E7BB4007F6760 /* JavaScriptCore.framework */; };
 		BAC02A6E1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A6D1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd */; };
 		BAC02A701E9E8564007F6760 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC02A6F1E9E8564007F6760 /* OpenGLES.framework */; };
+		BAC02A731E9FB021007F6760 /* QYPhoneCodeApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC02A721E9FB021007F6760 /* QYPhoneCodeApiManager.m */; };
 		BAC36F611E815770007D1FF4 /* QYAttentOrFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */; };
 		BAC36F641E815789007D1FF4 /* QYAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36F631E815789007D1FF4 /* QYAttentionViewController.m */; };
 		BAC36FA61E8158E4007D1FF4 /* QYAttentionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC36FA51E8158E4007D1FF4 /* QYAttentionViewCell.m */; };
@@ -642,6 +643,8 @@
 		BAC02A6B1E9E7BB4007F6760 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		BAC02A6D1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		BAC02A6F1E9E8564007F6760 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		BAC02A711E9FB021007F6760 /* QYPhoneCodeApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPhoneCodeApiManager.h; sourceTree = "<group>"; };
+		BAC02A721E9FB021007F6760 /* QYPhoneCodeApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPhoneCodeApiManager.m; sourceTree = "<group>"; };
 		BAC36F5F1E815770007D1FF4 /* QYAttentOrFansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentOrFansViewController.h; sourceTree = "<group>"; };
 		BAC36F601E815770007D1FF4 /* QYAttentOrFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAttentOrFansViewController.m; sourceTree = "<group>"; };
 		BAC36F621E815789007D1FF4 /* QYAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAttentionViewController.h; sourceTree = "<group>"; };
@@ -2204,6 +2207,8 @@
 				EC94C2511E50851500F2454F /* QYLoginApiManager.m */,
 				EC7AA1301E5C3C0500EA54AA /* QYVerifyCodeApiManager.h */,
 				EC7AA1311E5C3C0500EA54AA /* QYVerifyCodeApiManager.m */,
+				BAC02A711E9FB021007F6760 /* QYPhoneCodeApiManager.h */,
+				BAC02A721E9FB021007F6760 /* QYPhoneCodeApiManager.m */,
 				BAC871661E797DBC00C5F800 /* QYUserRegisterApiManager.h */,
 				BAC871671E797DBC00C5F800 /* QYUserRegisterApiManager.m */,
 				BA10B02E1E7ADC180089133F /* QYForgetApiManager.h */,
@@ -2630,6 +2635,7 @@
 				EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */,
 				BA12CCA91E869A5300DDB8CF /* QYAboutRideViewController.m in Sources */,
 				BAC959141E7599B1007E171E /* QYFriendCycleDetailController.m in Sources */,
+				BAC02A731E9FB021007F6760 /* QYPhoneCodeApiManager.m in Sources */,
 				BA354D311E6BE12A00EE8189 /* QNEtag.m in Sources */,
 				BA8DE1C01E9BDF590032FC88 /* QYSearchSectionView.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,

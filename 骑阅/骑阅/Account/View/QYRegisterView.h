@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger,QYRegisterOrForgertType) {
 @property (nonatomic, strong) QYLoginTextField *verifyTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIButton *protocolButton;
+@property (nonatomic, strong) UIButton *codeButton;
 @property (nonatomic, assign) QYRegisterOrForgertType type;
 @property (nonatomic, weak) id <QYViewClickProtocol> delegate;
 @end

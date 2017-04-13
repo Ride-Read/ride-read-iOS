@@ -10,4 +10,5 @@
 
 @interface QYCommentSectionView : UIView
 @property (nonatomic, strong) UILabel *commentNumber;
+@property (nonatomic, weak) NSArray *data;
 @end

@@ -26,7 +26,9 @@
 #import "QYUserRegisterApiManager.h"
 #import "QYRegisterLogic.h"
 #import "QYHomeTabBarViewController.h"
-
+#import "QYPhoneCodeApiManager.h"
+#import "QYUserReform.h"
+#import "QYLoginOrRegisterFatherController.h"
 
 @interface QYRegisterViewController ()<QYViewClickProtocol,UIGestureRecognizerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLCommandDataSource,CLCommandDelegate>
 @property (nonatomic, strong) QYRegisterView *registerView;
@@ -44,6 +46,9 @@
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) QYRegisterLogic *registerLogic;
+@property (nonatomic, strong) QYPhoneCodeApiManager *phoneApi;
+@property (nonatomic, copy) NSString *phoneCode;
+@property (nonatomic, strong) QYUserReform *userReform;
 
 /**
  标记是否通过手机验证的验证 default NO ,在对应API进行设置
@@ -99,29 +104,33 @@
         
         if (index == 0) {
             
-            NSString *string = self.registerView.phoneTextField.text;
-           NSString *code =  [string verifyPhoneNumber:string];
-            if (code) {
+            self.hud = [MBProgressHUD showMessage:@"发送中..." toView:nil];
+            [self.serialQueue addOperationWithBlock:^{
+               
+                [self.phoneApi loadData];
+            }];
+            self.registerView.codeButton.enabled = NO;
+            WEAKSELF(_self);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                self.correctSMSCode = YES;
-                self.registerView.verifyTextField.textField.text = code;
-            } else
-            {
-                self.correctSMSCode = NO;
-                [MBProgressHUD showMessageAutoHide:@"获取失败" view:nil];
-            }
-            MyLog(@"code send");
+                _self.registerView.codeButton.enabled = YES;
+            });
         }
         if (index == 1) {
             MyLog(@"click next setup");
-            if (self.isCorrectSMSCode)
+            if (self.isCorrectSMSCode && [self.registerView.verifyTextField.text isEqualToString:self.phoneCode])
             {
                 
                 [self presentSetView];
             } else
             {
-                //[self presentSetView];
-                [MBProgressHUD showMessageAutoHide:@"请先通过手机验证" view:nil];
+                if (!self.isCorrectSMSCode)
+                {
+                    [MBProgressHUD showMessageAutoHide:@"请先获取验证码" view:nil];
+                    return;
+                }
+                
+                [MBProgressHUD showMessageAutoHide:@"验证码输入错误" view:nil];
             }
 
             return;
@@ -166,17 +175,20 @@
 #pragma mark - CLCoommandDataSource
 - (NSDictionary *)paramsForcommand:(CLCommands *)command {
     
-    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@"jsonsnow"};
+    return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@(1)};
     
 }
 
 #pragma mark - CLCommandDelegate
 - (void)command:(CLCommands *)commands didSuccess:(CTAPIBaseManager *)apiManager {
     
+    
+    [self.hud hide:YES];
 }
 
 - (void)command:(CLCommands *)commands didFaildWith:(CTAPIBaseManager *)apiManager {
     
+    [self.hud hide:YES];
     [MBProgressHUD showMessageAutoHide:@"图片上传失败" view:nil];
 }
 
@@ -192,10 +204,20 @@
     if (manager == self.registerLogic.apiManager) {
         
         NSString *phone = self.registerView.phoneTextField.text;
-        NSString *nickname = self.rideInviteCodeView.inviteCodeView.text;
+        NSString *ride_read_id = self.rideInviteCodeView.inviteCodeView.text;
         NSString *url = self.url;
         NSString *pwd = self.setView.pwd.text;
-        return @{kphonenumber:phone?:@"",knickname:nickname?:@"",kface_url:url?:@"",kpassword:pwd?:@""};
+        return @{kride_read_id:ride_read_id?:@"",
+                 kphonenumber:phone?:@"",
+                 kusername:phone?:@"",
+                 kface_url:url?:@"",
+                 kpassword:pwd?:@""};
+    }
+    
+    if (manager == self.phoneApi) {
+        
+        NSString *string = self.registerView.phoneTextField.text;
+        return @{kphonenumber:string?:@""};
     }
     
     return nil;
@@ -214,8 +236,17 @@
     
     if (manager == self.registerLogic.apiManager) {
         
+        [self.hud hide:YES];
         [MBProgressHUD showMessageAutoHide:@"注册成功" view:nil];
         [self gotoMainController];
+    }
+    
+    if (manager == self.phoneApi) {
+        
+        [self.hud hide:YES];
+        self.phoneCode = [self.phoneApi fetchDataWithReformer:self.userReform];
+        [MBProgressHUD showMessageAutoHide:@"验证码发送成功" view:nil];
+        self.correctSMSCode = YES;
     }
 }
 
@@ -242,8 +273,17 @@
         
     }
     
+    if (manager == self.phoneApi) {
+        
+        [self.hud hide:YES];
+        NSString *msg = [self.phoneApi fetchDataWithReformer:self.userReform];
+        [MBProgressHUD showMessageAutoHide:msg view:nil];
+        
+    }
+    
     if (manager == self.registerLogic.apiManager) {
         
+        [self.hud hide:YES];
         if (self.url.length <= 0) {
             
             [MBProgressHUD showMessageAutoHide:@"请上传图像" view:nil];
@@ -251,10 +291,11 @@
         }
         if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
             
-            [MBProgressHUD showMessageAutoHide:@"昵称错误" view:nil];
+            [MBProgressHUD showMessageAutoHide:@"骑阅号错误" view:nil];
             return;
         }
-        [MBProgressHUD showMessageAutoHide:@"注册失败" view:nil];
+        NSDictionary *msg = manager.response.content;
+        [MBProgressHUD showMessageAutoHide:msg[kmsg] view:nil];
     }
     
 }
@@ -351,8 +392,11 @@
 
 -(void)gotoMainController {
     
-    QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
-    [UIApplication sharedApplication].keyWindow.rootViewController = tab;
+    QYLoginOrRegisterFatherController *fat = (QYLoginOrRegisterFatherController *)self.parentViewController;
+    [fat backCreateController];
+    [fat removeRegisterController];
+//    QYHomeTabBarViewController *tab = [[QYHomeTabBarViewController alloc] init];
+//    [UIApplication sharedApplication].keyWindow.rootViewController = tab;
 }
 
 - (void)handleReadIconClick:(NSInteger)index {
@@ -533,6 +577,25 @@
     return _registerLogic;
 }
 
+- (QYPhoneCodeApiManager *)phoneApi {
+    
+    if (!_phoneApi) {
+        
+        _phoneApi = [[QYPhoneCodeApiManager alloc] init];
+        _phoneApi.delegate = self;
+        _phoneApi.paramSource = self;
+    }
+    return _phoneApi;
+}
+
+- (QYUserReform *)userReform {
+    
+    if (!_userReform) {
+        
+        _userReform = [[QYUserReform alloc] init];
+    }
+    return _userReform;
+}
 /*
 #pragma mark - Navigation
 

@@ -50,28 +50,30 @@
 
 - (NSDictionary *)reformParams:(NSDictionary *)params {
     
-    NSString *nickname = params[knickname];
+    NSString *nickname = params[kusername];
     if (nickname.length > 0)
     nickname = [NSString encodeString:nickname];
     NSString *phone = params[kphonenumber];
     NSString *url = params[kface_url];
+    NSString *ride_id = params[kride_read_id];
     url = [Basic_Qiniu_URL stringByAppendingString:url];
     NSString *pwd = params[kpassword];
     if (pwd.length > 0) {
         
        pwd =  [pwd sha1];
     }
-    return @{knickname:nickname,kphonenumber:phone,kface_url:url,kpassword:pwd};
+    return @{kusername:nickname,kphonenumber:phone,kface_url:url,kpassword:pwd,kride_read_id:ride_id};
 }
 
 #pragma mark - APIManagerValidator
 -(BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
     
-    NSString *nickname = data[knickname];
+    NSString *nickname = data[kusername];
     NSString *url = data[kface_url];
     NSString *pwd = data[kpassword];
     NSString *phone = data[kphonenumber];
-    if (nickname.length <= 0 || url.length <= 0 || pwd.length < 6||phone.length < 11) {
+    NSString *ride_id = data[kride_read_id];
+    if (nickname.length <= 0 || url.length <= 0 || pwd.length < 6||phone.length < 11||ride_id.length < 3) {
         return NO;
     }
     

@@ -13,6 +13,9 @@
 #import "QYForgetApiManager.h"
 #import "NSString+QYRegular.h"
 #import "MBProgressHUD+LLHud.h"
+#import "QYUserReform.h"
+#import "QYPhoneCodeApiManager.h"
+#import "MBProgressHUD+LLHud.h"
 
 @interface QYForgertPwdController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYRegisterView *forgertView;
@@ -22,6 +25,11 @@
 @property (nonatomic, weak) UIView *currentView;//记录当前所处的viw;
 @property (nonatomic, strong) QYForgetApiManager *forgetApi;
 @property (nonatomic, getter=isCorrectSMSCode) BOOL correctSMSCode;
+@property (nonatomic, strong) QYPhoneCodeApiManager *phoneApi;
+@property (nonatomic, copy) NSString *phoneCode;
+@property (nonatomic, strong) QYUserReform *userReform;
+@property (nonatomic, strong) MBProgressHUD *hud;
+
 
 @end
 
@@ -225,6 +233,11 @@
         NSString *pwd = self.resetView.pwd.text;
         return @{kusername:username?:@"",knew_password:pwd?:@""};
     }
+    if (manager == self.phoneApi) {
+        
+        NSString *string = self.forgertView.phoneTextField.text;
+        return @{kphonenumber:string?:@""};
+    }
     return nil;
 }
 
@@ -232,11 +245,30 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    if (manager == self.phoneApi) {
+        
+        self.forgertView.codeButton.enabled = YES;
+        [self.hud hide:YES];
+        self.phoneCode = [self.phoneApi fetchDataWithReformer:self.userReform];
+        [MBProgressHUD showMessageAutoHide:@"验证码发送成功" view:nil];
+        self.correctSMSCode = YES;
+        return;
+    }
     [MBProgressHUD showMessageAutoHide:@"修改成功" view:self.view];
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
+    if (manager == self.phoneApi) {
+        
+        [self.hud hide:YES];
+        self.forgertView.codeButton.enabled = YES;
+        NSString *msg = [self.phoneApi fetchDataWithReformer:self.userReform];
+        [MBProgressHUD showMessageAutoHide:msg view:nil];
+        return;
+        
+    }
+
     [MBProgressHUD showMessageAutoHide:@"修改失败" view:self.view];
 }
 #pragma mark - QYCustomClickDelegate
@@ -247,22 +279,35 @@
         
         if (index == 0) {
             
-            NSString *string = self.forgertView.phoneTextField.text;
-            NSString *code =  [string verifyPhoneNumber:string];
-            if (code) {
+            self.hud = [MBProgressHUD showMessage:@"发送中..." toView:nil];
+            [self.serialQueue addOperationWithBlock:^{
                 
-                self.correctSMSCode = YES;
-                self.forgertView.verifyTextField.textField.text = code;
-            } else
-            {
-                self.correctSMSCode = NO;
-                [MBProgressHUD showMessageAutoHide:@"获取失败" view:self.view];
-            }
-            MyLog(@"code send");
+                [self.phoneApi loadData];
+            }];
+            self.forgertView.codeButton.enabled = NO;
+            WEAKSELF(_self);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                _self.forgertView.codeButton.enabled = YES;
+            });
         }
         if (index == 1) {
             MyLog(@"click next setup");
-            [self presentResetView];
+            if (self.isCorrectSMSCode && [self.forgertView.verifyTextField.text isEqualToString:self.phoneCode])
+            {
+                
+                [self presentResetView];
+            } else
+            {
+                if (!self.isCorrectSMSCode)
+                {
+                    [MBProgressHUD showMessageAutoHide:@"请先获取验证码" view:nil];
+                    return;
+                }
+                
+                [MBProgressHUD showMessageAutoHide:@"验证码输入错误" view:nil];
+            }
+            
             return;
         }
     }
@@ -372,6 +417,26 @@
         _forgetApi.paramSource = self;
     }
     return _forgetApi;
+}
+
+- (QYPhoneCodeApiManager *)phoneApi {
+    
+    if (!_phoneApi) {
+        
+        _phoneApi = [[QYPhoneCodeApiManager alloc] init];
+        _phoneApi.delegate = self;
+        _phoneApi.paramSource = self;
+    }
+    return _phoneApi;
+}
+
+- (QYUserReform *)userReform {
+    
+    if (!_userReform) {
+        
+        _userReform = [[QYUserReform alloc] init];
+    }
+    return _userReform;
 }
 
 /*

@@ -11,7 +11,8 @@
 #import "UIButton+QYTitleButton.h"
 #import "define.h"
 #import "UIView+YYAdd.h"
-
+#import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 @interface QYReadMeHeaderView ()
 @property (nonatomic, strong) UIButton *icon;
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UIView *grayView;
 @property (nonatomic, strong) UIView *tagsView;
+@property (nonatomic, strong) MAMapView *mapView;
 @end
 @implementation QYReadMeHeaderView
 
@@ -37,6 +39,7 @@
 
 - (void)setupUI {
     
+    [self addSubview:self.mapView];
     [self addSubview:self.bottomView];
     [self addSubview:self.icon];
     [self addSubview:self.username];
@@ -45,6 +48,12 @@
     [self addSubview:self.grayView];
     [self addSubview:self.tagsView];
     [self.bottomView addSubview:self.personSignature];
+    
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.and.right.and.left.mas_equalTo(0);
+        make.bottom.equalTo(self.bottomView.mas_top);
+    }];
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.mas_equalTo(15);
@@ -194,6 +203,7 @@
         
         _icon = [[UIButton alloc] init];
         _icon.layer.cornerRadius = 4.0;
+        _icon.layer.masksToBounds = YES;
         _icon.backgroundColor = [UIColor colorWithRed:0.00 green:0.81 blue:0.77 alpha:1.00];
         [_icon addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -302,6 +312,18 @@
         _tagsView.backgroundColor = [UIColor clearColor];
     }
     return _tagsView;
+}
+
+- (MAMapView *)mapView {
+    
+    if (!_mapView) {
+        
+        _mapView= [[MAMapView alloc] init];
+        //_mapView.scrollEnabled = NO;
+        _mapView.zoomEnabled = YES;
+        _mapView.zoomLevel = 5;
+    }
+    return _mapView;
 }
 
 - (void)setUser:(QYUser *)user {

@@ -476,7 +476,7 @@
 - (void)layoutPraise {
     
    
-    self.praiseButton.size = CGSizeMake(cl_caculation_3x(29), cl_caculation_3x(26));
+    self.praiseButton.size = CGSizeMake(cl_caculation_3x(35), cl_caculation_3x(32));
     self.praiseButton.top = 44;
     self.praiseButton.right = self.praiseNumber.left - 5;
 }

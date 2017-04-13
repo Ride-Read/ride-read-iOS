@@ -50,6 +50,7 @@
     NSString *video = params[kvideo_url];
     NSNumber *longitude = params[klongitude];
     NSNumber *latitude = params[klatitude];
+    NSString *site = params[kmoment_location];
     if (video) {
         type = 2;
         NSString *cover = params[kcover];
@@ -59,10 +60,21 @@
     NSString *picture = [pictures componentsJoinedByString:@","];
     if (pictures.count > 0) {
         type = 1;
-        return @{kmoment_location:@"深圳",kuid:uid,kmsg:msg,kpictures_url:picture,ktype:@(type),klatitude:latitude,klongitude:longitude};
+        return @{kmoment_location:site,
+                 kuid:uid,
+                 kmsg:msg,
+                 kpictures_url:picture,
+                 ktype:@(type),
+                 klatitude:latitude,
+                 klongitude:longitude};
     }
     
-    return @{kuid:uid,kmsg:msg,ktype:@(type),klatitude:latitude,klongitude:longitude};
+    return @{kmoment_location:site,
+             kuid:uid,
+             kmsg:msg,
+             ktype:@(type),
+             klatitude:latitude,
+             klongitude:longitude};
 }
 
 #pragma mark - CTAPIValidator

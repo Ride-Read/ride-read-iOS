@@ -21,5 +21,6 @@
 - (NSString *)verifyPhoneNumber:(NSString *)phoneNumber;
 
 - (BOOL)checkSpaceText;
+- (BOOL)checkPhoneText;
 
 @end

@@ -273,7 +273,7 @@
         
         _headerView = [[QYReadMeHeaderView alloc] init];
         _headerView.delegate = self;
-        _headerView.frame = CGRectMake(0, 0, kScreenWidth, cl_caculation_3y(548));
+        _headerView.frame = CGRectMake(0, 0, kScreenWidth, cl_caculation_3y(560));
     }
     return _headerView;
 }

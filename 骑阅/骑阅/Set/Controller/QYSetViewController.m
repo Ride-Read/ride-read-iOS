@@ -16,6 +16,7 @@
 #import "MBProgressHUD+LLHud.h"
 #import "YYFMPromptView.h"
 #import "QYChatkExample.h"
+#import "QYLoginOrRegisterFatherController.h"
 @interface QYSetViewController ()<UIAlertViewDelegate>
 @property (nonatomic, strong) QYSetFooterView *footerView;
 @property (nonatomic, weak) UILabel *ramLabel;
@@ -72,12 +73,17 @@
     }];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        [QYChatkExample invokeThisMethodAfterLoginSuccessWithClientId:@"" success:^{
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
             
             MyLog(@"登出成功");
+            QYLoginOrRegisterFatherController *login = [[QYLoginOrRegisterFatherController alloc] init];
+            [UIApplication sharedApplication].keyWindow.rootViewController = login;
             
         } failed:^(NSError *error) {
             
+            [MBProgressHUD showMessageAutoHide:@"退出失败" view:nil];
             MyLog(@"登出失败");
         }];
     }];

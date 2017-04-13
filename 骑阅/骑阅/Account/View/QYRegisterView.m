@@ -13,7 +13,6 @@
 
 @interface QYRegisterView ()
 @property (nonatomic, strong) UIView *centerLine;
-@property (nonatomic, strong) UIButton *codeButton;
 
 @end
 @implementation QYRegisterView

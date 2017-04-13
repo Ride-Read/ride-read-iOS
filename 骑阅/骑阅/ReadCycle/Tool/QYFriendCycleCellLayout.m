@@ -157,7 +157,7 @@
     sizeLegthText.yy_font = [UIFont systemFontOfSize:11];
     sizeLegthText.yy_color = [UIColor colorWithHexString:@"#555555"];
     
-    YYTextContainer *siteContainer = [YYTextContainer containerWithSize:CGSizeMake(95, 999)];
+    YYTextContainer *siteContainer = [YYTextContainer containerWithSize:CGSizeMake(320, 999)];
     YYTextContainer *siteLengthContainer = [YYTextContainer containerWithSize:CGSizeMake(95, 999)];
     self.sizeLayout = [YYTextLayout layoutWithContainer:siteContainer text:siteText];
     self.sizeLengthLayout = [YYTextLayout layoutWithContainer:siteLengthContainer text:sizeLegthText];

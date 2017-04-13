@@ -124,6 +124,7 @@
 
     if (manager == self.friendCycleApi) {
         
+        [self.tableView.mj_footer endRefreshing];
         [MBProgressHUD showMessageAutoHide:@"阅圈获取失败" view:self.view];
     }
 }
@@ -152,7 +153,7 @@
             if (self.friendCycleApi.isLoadMore) {
                 
                 [self.tableView.mj_footer endRefreshing];
-                if (cycles.count < 10) {
+                if (cycles.count < 20) {
                     
                     [self.tableView.mj_footer endRefreshingWithNoMoreData];
                 }
@@ -296,10 +297,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     QYFriendCycleDetailController *detail = [[QYFriendCycleDetailController alloc] init];
-    QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
+    __block QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
     QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
     detail.hidesBottomBarWhenPushed = YES;
     detail.layout = detailLayout;
+    detail.refresh = ^() {
+      
+        [self.layoutArray replaceObjectAtIndex:indexPath.row withObject:[QYFriendCycleCellLayout friendStatusCellLayout:layout.status]];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

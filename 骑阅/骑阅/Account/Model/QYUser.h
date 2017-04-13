@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString *rideReadId;
 @property (nonatomic, strong) NSNumber *is_followed;
 @property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, copy) NSString *ride_read_id;
 
 
 
