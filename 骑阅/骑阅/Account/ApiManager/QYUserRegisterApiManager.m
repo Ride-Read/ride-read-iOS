@@ -9,7 +9,7 @@
 #import "QYUserRegisterApiManager.h"
 #import "define.h"
 #import "NSString+QYMD5.h"
-
+#import "NSString+QYRegular.h"
 
 @interface QYUserRegisterApiManager ()<CTAPIManagerValidator>
 
@@ -73,6 +73,9 @@
     NSString *pwd = data[kpassword];
     NSString *phone = data[kphonenumber];
     NSString *ride_id = data[kride_read_id];
+    BOOL correct =  [ride_id checkRide_read_id];
+    if (!correct)
+        return NO;
     if (nickname.length <= 0 || url.length <= 0 || pwd.length < 6||phone.length < 11||ride_id.length < 3) {
         return NO;
     }

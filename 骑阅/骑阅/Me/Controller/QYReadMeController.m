@@ -48,8 +48,14 @@
     
     [super viewWillAppear:animated];
     [self setNavc];
-    [self loadData];
     [self loadUnreadMessage];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    [self loadData];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

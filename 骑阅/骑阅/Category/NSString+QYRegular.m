@@ -62,4 +62,12 @@
     return NO;
 }
 
+- (BOOL)checkRide_read_id {
+    
+    NSString *pattern = @"^[A-Za-z0-9]{3,20}$";
+    NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL correct = [test evaluateWithObject:self];
+    return correct;
+}
+
 @end

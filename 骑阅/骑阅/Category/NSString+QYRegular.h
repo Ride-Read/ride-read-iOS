@@ -22,5 +22,6 @@
 
 - (BOOL)checkSpaceText;
 - (BOOL)checkPhoneText;
+- (BOOL)checkRide_read_id;
 
 @end
