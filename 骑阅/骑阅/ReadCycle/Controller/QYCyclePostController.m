@@ -18,6 +18,8 @@
 #import "NSString+QYDateString.h"
 #import "QYimageView.h"
 #import "NSString+QYRegular.h"
+#import "UIButton+QYTitleButton.h"
+#import "QYLocationViewController.h"
 
 @interface QYCyclePostController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,CLCommandDataSource,CLCommandDelegate>
 @property (nonatomic, strong) QYCylePostMonentApiManager *postApiManager;
@@ -33,12 +35,13 @@
 @property (nonatomic, weak) QYimageView *iamgeView;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (nonatomic, weak) QYLocationViewController *locCtr;
+
 
 @end
 
 @implementation QYCyclePostController
 
-@synthesize site = _site;
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,6 +60,14 @@
     
     [super viewWillAppear:animated];
     [self addNotifaction];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#555555"],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    UIButton *button = [UIButton buttonTitle:@"发送" font:16 colco:[UIColor whiteColor]];
+    [button addTarget:self action:@selector(clickRightItem:) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0, 0, 50, 25);
+    [button setBackgroundImage:[UIImage imageNamed:@"post_send_bg"] forState:UIControlStateNormal];
+    //button.layer.cornerRadius = 5.0;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+  
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -135,7 +146,7 @@
     }];
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     NSString *msg = self.messageView.lasteString;
-    self.params = @{kmoment_location:self.check_button.selected?@"":self.site,kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+    self.params = @{kmoment_location:self.check_button.selected?@"":self.locationLabel.text,kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
     
     return self.params;
 }
@@ -202,15 +213,15 @@
 }
 - (IBAction)clickCheckAction:(id)sender {
     
-    UIButton *btn = (UIButton *)sender;
-    btn.selected = !btn.selected;
-    if (btn.selected) {
-        
-        self.locationLabel.text = @"不显示位置";
-    } else {
-        
-        self.locationLabel.text = self.site;
-    }
+//    UIButton *btn = (UIButton *)sender;
+//    btn.selected = !btn.selected;
+//    if (btn.selected) {
+//        
+//        self.locationLabel.text = @"不显示位置";
+//    } else {
+//        
+//        self.locationLabel.text = self.site;
+//    }
 }
 - (IBAction)clickLeftItem:(id)sender {
     
@@ -348,21 +359,28 @@
     }
     return _postApiManager;
 }
-- (void)setSite:(NSString *)site {
-    
-    _site = site;
-    self.locationLabel.text = site;
-}
 
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    QYLocationViewController *location = [segue destinationViewController];
+    self.locCtr = location;
+    location.location = self.location;
+    location.handler = ^(NSInteger index,NSString *title) {
+        
+        if ([title isEqualToString:@""]) {
+            
+            self.locationLabel.text = @"不显示位置";
+            self.check_button.selected = YES;
+            return ;
+        }
+        self.locationLabel.text = title;
+        self.check_button.selected = NO;
+    };
 }
-*/
+
 
 @end

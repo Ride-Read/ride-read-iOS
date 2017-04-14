@@ -9,6 +9,7 @@
 #import "QYConversationViewController.h"
 #import "QYChatBar.h"
 #import "QYReadLookUserController.h"
+#import "define.h"
 
 @interface QYConversationViewController ()
 
@@ -30,21 +31,28 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
     [self configLeftItem];
 }
 
 #pragma mark - private method
 - (void)configLeftItem {
     
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStyleDone target:self action:@selector(clickLeftItem:)];
-    self.navigationController.navigationItem.leftBarButtonItem = left;
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Placeholder_Avatar"] style:UIBarButtonItemStyleDone target:self action:@selector(clickRightItem:)];
+    self.navigationController.navigationItem.rightBarButtonItem = right;
 }
 
 #pragma mark - target action
 
-- (void)clickLeftItem:(UIBarButtonItem *)sender {
+- (void)clickRightItem:(UIBarButtonItem *)sender {
     
     QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
+    look.user = @{kuid:@(self.peerId.integerValue)}.mutableCopy;
     [self.navigationController pushViewController:look animated:YES];
 }
 #pragma mark - getter

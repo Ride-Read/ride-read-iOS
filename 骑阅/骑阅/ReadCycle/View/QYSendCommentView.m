@@ -143,6 +143,8 @@
         NSMutableArray *comms = comments.mutableCopy;
         [comms insertObject:info atIndex:0];
         self.status[kcomment] = comms;
+        self.info = nil;
+        self.textField.placeholder = @"说的什么";
 
     }
     if ([self.delegate respondsToSelector:@selector(sendView:acitonSuccess:)]) {

@@ -27,7 +27,7 @@
     [self addSubview:self.placeLabel];
     [self.placeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.mas_equalTo(cl_caculation_x(5));
+        make.left.mas_equalTo(cl_caculation_x(35));
         make.top.mas_equalTo(cl_caculation_y(15));
     }];
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,14 +100,15 @@
     
     [self updateLasteString];
 }
+
 #pragma mark - gettrs and setters
 -(UILabel *)placeLabel {
     
     if (!_placeLabel) {
         
         _placeLabel = [[UILabel alloc] init];
-        _placeLabel.textColor = [UIColor colorWithRed:155./255 green:155./255 blue:155./255 alpha:1.0];
-        _placeLabel.font = [UIFont systemFontOfSize:14];
+        _placeLabel.textColor = [UIColor colorWithHexString:@"#555555"];
+        _placeLabel.font = [UIFont systemFontOfSize:16 * SizeScale3x];
         _placeLabel.text = self.placeHolder;
     }
     return _placeLabel;
@@ -118,8 +119,9 @@
         
         _textView = [[UITextView alloc] init];
         _textView.delegate = self;
-        _textView.font = [UIFont systemFontOfSize:14];
+        _textView.font = [UIFont systemFontOfSize:16 * SizeScale3x];
         _textView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+        
     }
     return _textView;
 }

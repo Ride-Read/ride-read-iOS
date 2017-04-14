@@ -8,6 +8,6 @@
 
 #import "QYNeedSiteViewController.h"
 
-@interface QYCyclePostController : QYNeedSiteViewController
+@interface QYCyclePostController : QYBasicNeedLocationController
 
 @end

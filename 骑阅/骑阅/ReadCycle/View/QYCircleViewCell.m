@@ -14,6 +14,7 @@
 #import "UIButton+QYTitleButton.h"
 #import "QYFollowApiManager.h"
 #import "QYUnfollowApiManager.h"
+#import "QYReadLookUserController.h"
 
 @interface QYCircleViewPeople ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYUnfollowApiManager *unApi;
@@ -153,6 +154,9 @@
         
         _icon = [[UIImageView alloc] init];
         _icon.backgroundColor = [UIColor blueColor];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIcon:)];
+        [_icon addGestureRecognizer:tap];
+        _icon.userInteractionEnabled = YES;
     }
     return _icon;
 }
@@ -284,6 +288,18 @@
         }];
 
     }
+}
+
+- (void)clickIcon:(UIImageView *)sender {
+    
+    UIViewController *ctr = (UIViewController *)self.cell.delegate;
+    QYReadLookUserController *useCtr = [[QYReadLookUserController alloc] init];
+    NSMutableDictionary *info = @{kusername:self.cell.layout.status[kusername]?:@"",kuid:_cell.layout.status[kuid]}.mutableCopy;
+    useCtr.user = info;
+    useCtr.hidesBottomBarWhenPushed = YES;
+    useCtr.title = useCtr.user[kusername];
+    [ctr.navigationController pushViewController:useCtr animated:YES];
+    
 }
 
 @end

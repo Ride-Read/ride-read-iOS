@@ -35,8 +35,8 @@
        
         make.right.equalTo(self.icon.mas_right);
         make.top.equalTo(self.icon.mas_top);
-        make.width.mas_equalTo(15);
-        make.height.mas_equalTo(15);
+        make.width.mas_equalTo(cl_caculation_x(30));
+        make.height.mas_equalTo(cl_caculation_x(30));
     }];
 }
 
