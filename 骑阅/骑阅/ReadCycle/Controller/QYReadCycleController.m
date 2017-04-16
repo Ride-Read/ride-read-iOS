@@ -301,6 +301,11 @@
     QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
     detail.hidesBottomBarWhenPushed = YES;
     detail.layout = detailLayout;
+    if (self.type == 1) {
+        
+        detail.type = 3;
+    } else
+        detail.type = 1;
     detail.refresh = ^() {
       
         [self.layoutArray replaceObjectAtIndex:indexPath.row withObject:[QYFriendCycleCellLayout friendStatusCellLayout:layout.status]];

@@ -20,13 +20,15 @@
 #import "UIColor+QYHexStringColor.h"
 #import "QYCyclePostController.h"
 #import "QYDetailCycleLayout.h"
+#import "QYCollocetionApiManager.h"
 
-@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate,QYCommentViewCellDelegate>
+@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate,QYCommentViewCellDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYCircleViewCell *cell;
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
 @property (nonatomic, strong) QYSendCommentView *sendView;
+@property (nonatomic, strong) QYCollocetionApiManager *collectionApi;
 
 @end
 
@@ -117,6 +119,34 @@
     }];
 }
 
+- (void)loadData {
+    
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.collectionApi loadData];
+    }];
+}
+
+#pragma mark
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    NSNumber *mid = self.layout.status[kmid];
+    return @{kuid:uid,kmid:mid,ktype:@(self.type)};
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    
+    [MBProgressHUD showMessageAutoHide:@"收藏失败" view:nil];
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    [MBProgressHUD showMessageAutoHide:@"收藏成功" view:nil];
+}
+
+
 #pragma mark - traget action
 
 - (void)keyBoardShow:(NSNotification *)info {
@@ -162,6 +192,7 @@
     
     QYButtonSheetPromptView *prompt = [QYButtonSheetPromptView promptWithButtonTitles:@[@"分享",@"收藏"] action:^(UIButton *button) {
         
+        [self loadData];
 //        QYCyclePostController *post = [[QYCyclePostController alloc] init];
 //        [self.navigationController pushViewController:post animated:YES];
     }];
@@ -295,6 +326,17 @@
         _layoutArray = [NSMutableArray array];
     }
     return _layoutArray;
+}
+
+- (QYCollocetionApiManager *)collectionApi {
+    
+    if (!_collectionApi) {
+        
+        _collectionApi = [[QYCollocetionApiManager alloc] init];
+        _collectionApi.delegate = self;
+        _collectionApi.paramSource = self;
+    }
+    return _collectionApi;
 }
 
 /*

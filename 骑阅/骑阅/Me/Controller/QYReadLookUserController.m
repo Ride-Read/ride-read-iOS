@@ -19,7 +19,7 @@
 #import "MBProgressHUD+LLHud.h"
 
 
-@interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate>
+@interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
@@ -97,6 +97,7 @@
         
         cell = [[QYCircleViewCell alloc] initWithCycleType:QYFriendCycleTypeUser];
     }
+    cell.delegate = self;
     return cell;
 }
 
@@ -119,6 +120,7 @@
     QYFriendCycleCellLayout *layout = self.layoutArray[indexPath.row];
     QYDetailCycleLayout *detailLayout = [QYDetailCycleLayout friendStatusCellLayout:layout.status];
     detail.layout = detailLayout;
+    detail.type = self.type;
     detail.refresh = ^() {
         
         [self.layoutArray replaceObjectAtIndex:indexPath.row withObject:[QYFriendCycleCellLayout friendStatusCellLayout:layout.status]];

@@ -14,7 +14,9 @@
 #import "UIButton+QYTitleButton.h"
 #import "QYFollowApiManager.h"
 #import "QYUnfollowApiManager.h"
-#import "QYReadLookUserController.h"
+#import "QYFromIconLickViewController.h"
+#import "QYPictureLookController.h"
+#import "QYLookPictureTransionDelegate.h"
 
 @interface QYCircleViewPeople ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYUnfollowApiManager *unApi;
@@ -292,8 +294,14 @@
 
 - (void)clickIcon:(UIImageView *)sender {
     
+    NSNumber *uid = _cell.layout.status[kuid];
+    NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
+    if (uid.integerValue == cuid.integerValue) {
+        
+        return;
+    }
     UIViewController *ctr = (UIViewController *)self.cell.delegate;
-    QYReadLookUserController *useCtr = [[QYReadLookUserController alloc] init];
+    QYFromIconLickViewController *useCtr = [[QYFromIconLickViewController alloc] init];
     NSMutableDictionary *info = @{kusername:self.cell.layout.status[kusername]?:@"",kuid:_cell.layout.status[kuid]}.mutableCopy;
     useCtr.user = info;
     useCtr.hidesBottomBarWhenPushed = YES;
@@ -356,6 +364,11 @@
 @end
 
 #pragma mark -
+
+@interface QYCircleViewImageView ()
+@property (nonatomic, strong) QYLookPictureTransionDelegate *tranasion;
+
+@end
 @implementation QYCircleViewImageView
 
 - (instancetype)init {
@@ -440,12 +453,37 @@
 }
 
 - (void)clickPicture:(UITapGestureRecognizer *)tap {
+
     
-    if ([self.cell.delegate respondsToSelector:@selector(clickPictureView:imageView:)]) {
+    QYPictureLookController *look = [[QYPictureLookController alloc] init];
+    self.tranasion = [[QYLookPictureTransionDelegate alloc] init];
+    NSMutableArray *imageArray = @[].mutableCopy;
+    NSMutableArray *rectArray = @[].mutableCopy;
+    NSInteger index  = [self.subviews indexOfObject:tap.view];
+    look.currentIndex = index;
+    look.transitioningDelegate = self.tranasion;
+    UIViewController *ctr = (UIViewController *)self.cell.delegate;
+    for (UIImageView *imageView in self.subviews) {
         
-        UIImageView *view = (UIImageView *)tap.view;
-        [self.cell.delegate clickPictureView:self.cell imageView:view];
+        if ([imageView isKindOfClass:[UIImageView class]]) {
+            
+            [imageArray addObject:imageView.image];
+            CGRect rect = [self convertRect:imageView.frame toView:ctr.view];
+            rect = CGRectOffset(rect, 0, 64);
+            NSValue *value = [NSValue valueWithCGRect:rect];
+            [rectArray addObject:value];
+
+        }
     }
+    NSValue *value = [rectArray objectAtIndex:index];
+    self.tranasion.from = value.CGRectValue;
+    MyLog(@"%@",value);
+    self.tranasion.to = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    look.transitioningDelegate = self.tranasion;
+    look.modalTransitionStyle = UIModalPresentationCustom;
+    look.imageArray = imageArray;
+    look.rectFrame = rectArray;
+    [ctr presentViewController:look animated:YES completion:nil];
     
 }
 
@@ -873,6 +911,10 @@
 }
 - (void)setLayout:(QYFriendCycleCellLayout *)layout {
     
+    if (!_layout) {
+        
+        return;
+    }
     _layout = layout;
     if (self.type == QYFriendCycleTypelist || self.type == QYFriendCycleTypeUser) {
         

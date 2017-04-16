@@ -22,7 +22,8 @@
 #import "QYSetViewController.h"
 #import "QYConversaitonListViewController.h"
 #import "QYChatkExample.h"
-
+#import "QYPersionMapApiManager.h"
+#import "QYRecentlyCycleReform.h"
 
 @interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
@@ -32,6 +33,8 @@
 @property (nonatomic, strong) QYUserReform *userReform;
 @property (nonatomic, strong) QYUser *user;
 @property (nonatomic, assign) NSUInteger unreadCount;
+@property (nonatomic, strong) QYPersionMapApiManager  *personApi;
+@property (nonatomic, strong) QYRecentlyCycleReform *personReform;
 @end
 
 @implementation QYReadMeController
@@ -66,6 +69,10 @@
 - (void)loadData {
     
     [self.userLogic loadData];
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.personApi loadData];
+    }];
 }
 
 - (void)loadUnreadMessage {
@@ -109,6 +116,13 @@
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
         return @{kuid:uid?:@(-1),ktype:@(1)};
     }
+    
+    if (manager == self.personApi) {
+        
+        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+        return @{kuid:uid?:@(-1)};
+
+    }
     return nil;
 }
 
@@ -121,11 +135,21 @@
         self.user = [self.userLogic fetchDataWithReformer:self.userReform];
         self.headerView.user = self.user;
     }
+    
+    if (manager == self.personApi) {
+        
+        
+    }
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
     if (manager == self.userLogic.apiManager) {
+        
+        
+    }
+    
+    if (manager == self.personApi) {
         
         
     }
@@ -314,6 +338,25 @@
         _userLogic.paramSource = self;
     }
     return _userLogic;
+}
+
+- (QYRecentlyCycleReform *)personReform {
+    
+    if (!_personReform) {
+        
+        _personReform = [[QYRecentlyCycleReform alloc] init];
+    }
+    return _personReform;
+}
+- (QYPersionMapApiManager *)personApi {
+    
+    if (!_personApi) {
+        
+        _personApi = [[QYPersionMapApiManager alloc] init];
+        _personApi.paramSource = self;
+        _personApi.delegate = self;
+    }
+    return _personApi;
 }
 
 /*

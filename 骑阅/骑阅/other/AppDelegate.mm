@@ -14,6 +14,7 @@
 #import "QYChatkExample.h"
 #import "MBProgressHUD+LLHud.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
 
 @interface AppDelegate ()
 

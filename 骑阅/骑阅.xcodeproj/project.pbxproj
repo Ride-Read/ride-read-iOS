@@ -242,11 +242,28 @@
 		BAD314451E9400F2004CF67F /* QYLookAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */; };
 		BAD314481E940107004CF67F /* QYLoodFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314471E940107004CF67F /* QYLoodFansViewController.m */; };
 		BAD3144B1E954B7F004CF67F /* QYNeedSiteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */; };
+		BAD572E11EA3A4FD00F1F7BB /* QYMapSignView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD572E01EA3A4FD00F1F7BB /* QYMapSignView.m */; };
+		BAD572E31EA3A50F00F1F7BB /* QYMapSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD572E21EA3A50F00F1F7BB /* QYMapSignView.xib */; };
+		BAD572E61EA3AEDA00F1F7BB /* QYSendCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD572E51EA3AEDA00F1F7BB /* QYSendCycleView.m */; };
+		BAD572E81EA3AEF900F1F7BB /* QYSendCycleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD572E71EA3AEF900F1F7BB /* QYSendCycleView.xib */; };
 		BAD841461E969A5400DACB35 /* QYFollowApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD841451E969A5400DACB35 /* QYFollowApiManager.m */; };
 		BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD841481E969A6500DACB35 /* QYUnfollowApiManager.m */; };
+		BAE766481EA3C149007A0A64 /* QYRecentlyCycleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE766471EA3C149007A0A64 /* QYRecentlyCycleApiManager.m */; };
+		BAE7664B1EA3C3A1007A0A64 /* QYRecentlyCycleReform.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7664A1EA3C3A1007A0A64 /* QYRecentlyCycleReform.m */; };
+		BAE7664E1EA3C40E007A0A64 /* QYFromIconLickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7664D1EA3C40E007A0A64 /* QYFromIconLickViewController.m */; };
+		BAE766511EA3CAC8007A0A64 /* QYPersionMapApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE766501EA3CAC8007A0A64 /* QYPersionMapApiManager.m */; };
+		BAE766541EA3CD46007A0A64 /* QYMapSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE766531EA3CD46007A0A64 /* QYMapSearchView.m */; };
+		BAE766561EA3CD59007A0A64 /* QYMapSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAE766551EA3CD59007A0A64 /* QYMapSearchView.xib */; };
+		BAE766591EA3E143007A0A64 /* QYCollocetionApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE766581EA3E143007A0A64 /* QYCollocetionApiManager.m */; };
+		BAE7665C1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7665B1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m */; };
+		BAE7665F1EA3EB40007A0A64 /* QYCycleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7665E1EA3EB40007A0A64 /* QYCycleDetailViewController.m */; };
 		BAF572CF1EA121CF00129E49 /* QYLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */; };
 		BAF572D11EA126BF00129E49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF572D01EA126BF00129E49 /* MapKit.framework */; };
 		BAF572D91EA12F3F00129E49 /* QYLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572D81EA12F3F00129E49 /* QYLocationCell.m */; };
+		BAF572DD1EA30D4D00129E49 /* QYPictureLookController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572DB1EA30D4D00129E49 /* QYPictureLookController.m */; };
+		BAF572DE1EA30D4D00129E49 /* QYPictureLookController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF572DC1EA30D4D00129E49 /* QYPictureLookController.xib */; };
+		BAF572E11EA322EB00129E49 /* QYLookPictureTransitoonAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572E01EA322EB00129E49 /* QYLookPictureTransitoonAnimation.m */; };
+		BAF572E41EA323AF00129E49 /* QYLookPictureTransionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572E31EA323AF00129E49 /* QYLookPictureTransionDelegate.m */; };
 		EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */; };
 		EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026061E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m */; };
 		EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2026091E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m */; };
@@ -747,15 +764,45 @@
 		BAD314471E940107004CF67F /* QYLoodFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoodFansViewController.m; sourceTree = "<group>"; };
 		BAD314491E954B7F004CF67F /* QYNeedSiteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYNeedSiteViewController.h; path = "骑阅/Compoents/controolers/QYNeedSiteViewController.h"; sourceTree = SOURCE_ROOT; };
 		BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYNeedSiteViewController.m; path = "骑阅/Compoents/controolers/QYNeedSiteViewController.m"; sourceTree = SOURCE_ROOT; };
+		BAD572DF1EA3A4FD00F1F7BB /* QYMapSignView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYMapSignView.h; path = "骑阅/ReadCycle/Tool/QYMapSignView.h"; sourceTree = SOURCE_ROOT; };
+		BAD572E01EA3A4FD00F1F7BB /* QYMapSignView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYMapSignView.m; path = "骑阅/ReadCycle/Tool/QYMapSignView.m"; sourceTree = SOURCE_ROOT; };
+		BAD572E21EA3A50F00F1F7BB /* QYMapSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QYMapSignView.xib; path = "骑阅/ReadCycle/Tool/QYMapSignView.xib"; sourceTree = SOURCE_ROOT; };
+		BAD572E41EA3AEDA00F1F7BB /* QYSendCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYSendCycleView.h; path = "骑阅/ReadCycle/Tool/QYSendCycleView.h"; sourceTree = SOURCE_ROOT; };
+		BAD572E51EA3AEDA00F1F7BB /* QYSendCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYSendCycleView.m; path = "骑阅/ReadCycle/Tool/QYSendCycleView.m"; sourceTree = SOURCE_ROOT; };
+		BAD572E71EA3AEF900F1F7BB /* QYSendCycleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QYSendCycleView.xib; path = "骑阅/ReadCycle/Tool/QYSendCycleView.xib"; sourceTree = SOURCE_ROOT; };
 		BAD841441E969A5400DACB35 /* QYFollowApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFollowApiManager.h; sourceTree = "<group>"; };
 		BAD841451E969A5400DACB35 /* QYFollowApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFollowApiManager.m; sourceTree = "<group>"; };
 		BAD841471E969A6500DACB35 /* QYUnfollowApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUnfollowApiManager.h; sourceTree = "<group>"; };
 		BAD841481E969A6500DACB35 /* QYUnfollowApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUnfollowApiManager.m; sourceTree = "<group>"; };
+		BAE766461EA3C149007A0A64 /* QYRecentlyCycleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYRecentlyCycleApiManager.h; path = "骑阅/ReadCycle/Tool/QYRecentlyCycleApiManager.h"; sourceTree = SOURCE_ROOT; };
+		BAE766471EA3C149007A0A64 /* QYRecentlyCycleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYRecentlyCycleApiManager.m; path = "骑阅/ReadCycle/Tool/QYRecentlyCycleApiManager.m"; sourceTree = SOURCE_ROOT; };
+		BAE766491EA3C3A1007A0A64 /* QYRecentlyCycleReform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRecentlyCycleReform.h; sourceTree = "<group>"; };
+		BAE7664A1EA3C3A1007A0A64 /* QYRecentlyCycleReform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRecentlyCycleReform.m; sourceTree = "<group>"; };
+		BAE7664C1EA3C40E007A0A64 /* QYFromIconLickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFromIconLickViewController.h; sourceTree = "<group>"; };
+		BAE7664D1EA3C40E007A0A64 /* QYFromIconLickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFromIconLickViewController.m; sourceTree = "<group>"; };
+		BAE7664F1EA3CAC8007A0A64 /* QYPersionMapApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersionMapApiManager.h; sourceTree = "<group>"; };
+		BAE766501EA3CAC8007A0A64 /* QYPersionMapApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersionMapApiManager.m; sourceTree = "<group>"; };
+		BAE766521EA3CD46007A0A64 /* QYMapSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYMapSearchView.h; path = "骑阅/Me/ApiManager/QYMapSearchView.h"; sourceTree = SOURCE_ROOT; };
+		BAE766531EA3CD46007A0A64 /* QYMapSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYMapSearchView.m; path = "骑阅/Me/ApiManager/QYMapSearchView.m"; sourceTree = SOURCE_ROOT; };
+		BAE766551EA3CD59007A0A64 /* QYMapSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QYMapSearchView.xib; path = "骑阅/Me/ApiManager/QYMapSearchView.xib"; sourceTree = SOURCE_ROOT; };
+		BAE766571EA3E143007A0A64 /* QYCollocetionApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCollocetionApiManager.h; sourceTree = "<group>"; };
+		BAE766581EA3E143007A0A64 /* QYCollocetionApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCollocetionApiManager.m; sourceTree = "<group>"; };
+		BAE7665A1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYShowOneMonentApiManager.h; sourceTree = "<group>"; };
+		BAE7665B1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYShowOneMonentApiManager.m; sourceTree = "<group>"; };
+		BAE7665D1EA3EB40007A0A64 /* QYCycleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCycleDetailViewController.h; sourceTree = "<group>"; };
+		BAE7665E1EA3EB40007A0A64 /* QYCycleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCycleDetailViewController.m; sourceTree = "<group>"; };
 		BAF572CD1EA121CF00129E49 /* QYLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLocationViewController.h; sourceTree = "<group>"; };
 		BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLocationViewController.m; sourceTree = "<group>"; };
 		BAF572D01EA126BF00129E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BAF572D71EA12F3F00129E49 /* QYLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLocationCell.h; sourceTree = "<group>"; };
 		BAF572D81EA12F3F00129E49 /* QYLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLocationCell.m; sourceTree = "<group>"; };
+		BAF572DA1EA30D4D00129E49 /* QYPictureLookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPictureLookController.h; sourceTree = "<group>"; };
+		BAF572DB1EA30D4D00129E49 /* QYPictureLookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPictureLookController.m; sourceTree = "<group>"; };
+		BAF572DC1EA30D4D00129E49 /* QYPictureLookController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYPictureLookController.xib; sourceTree = "<group>"; };
+		BAF572DF1EA322EB00129E49 /* QYLookPictureTransitoonAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLookPictureTransitoonAnimation.h; sourceTree = "<group>"; };
+		BAF572E01EA322EB00129E49 /* QYLookPictureTransitoonAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLookPictureTransitoonAnimation.m; sourceTree = "<group>"; };
+		BAF572E21EA323AF00129E49 /* QYLookPictureTransionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLookPictureTransionDelegate.h; sourceTree = "<group>"; };
+		BAF572E31EA323AF00129E49 /* QYLookPictureTransionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLookPictureTransionDelegate.m; sourceTree = "<group>"; };
 		DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.debug.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.debug.xcconfig"; sourceTree = "<group>"; };
 		EC2026021E5E723A00AE2528 /* QYTabBarControlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTabBarControlerDelegate.h; sourceTree = "<group>"; };
 		EC2026031E5E723A00AE2528 /* QYTabBarControlerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTabBarControlerDelegate.m; sourceTree = "<group>"; };
@@ -897,6 +944,8 @@
 		2BBD52ED1E6EFB83007313E7 /* ApiManager */ = {
 			isa = PBXGroup;
 			children = (
+				BAE766461EA3C149007A0A64 /* QYRecentlyCycleApiManager.h */,
+				BAE766471EA3C149007A0A64 /* QYRecentlyCycleApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -934,6 +983,15 @@
 		2BBD52F21E6EFB83007313E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAD572DF1EA3A4FD00F1F7BB /* QYMapSignView.h */,
+				BAD572E01EA3A4FD00F1F7BB /* QYMapSignView.m */,
+				BAD572E21EA3A50F00F1F7BB /* QYMapSignView.xib */,
+				BAD572E41EA3AEDA00F1F7BB /* QYSendCycleView.h */,
+				BAD572E51EA3AEDA00F1F7BB /* QYSendCycleView.m */,
+				BAD572E71EA3AEF900F1F7BB /* QYSendCycleView.xib */,
+				BAE766521EA3CD46007A0A64 /* QYMapSearchView.h */,
+				BAE766531EA3CD46007A0A64 /* QYMapSearchView.m */,
+				BAE766551EA3CD59007A0A64 /* QYMapSearchView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1408,6 +1466,10 @@
 				BAC9590A1E757716007E171E /* QYCommpentCellLayout.m */,
 				BA074B4A1E7EF1D900E5DE0D /* QYUserCycleLayout.h */,
 				BA074B4B1E7EF1D900E5DE0D /* QYUserCycleLayout.m */,
+				BAF572DF1EA322EB00129E49 /* QYLookPictureTransitoonAnimation.h */,
+				BAF572E01EA322EB00129E49 /* QYLookPictureTransitoonAnimation.m */,
+				BAF572E21EA323AF00129E49 /* QYLookPictureTransionDelegate.h */,
+				BAF572E31EA323AF00129E49 /* QYLookPictureTransionDelegate.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1427,6 +1489,8 @@
 				BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */,
 				BA6FC6051E97F9D300CF4ECC /* QYAddThumbApiManager.h */,
 				BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */,
+				BAE766571EA3E143007A0A64 /* QYCollocetionApiManager.h */,
+				BAE766581EA3E143007A0A64 /* QYCollocetionApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1949,6 +2013,10 @@
 				BA995D0E1E843411002FA3B2 /* QYCycleCollectApiManager.m */,
 				2B3191A11E938C4E0004F4E9 /* QYUpdateAPIManager.h */,
 				2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */,
+				BAE7664F1EA3CAC8007A0A64 /* QYPersionMapApiManager.h */,
+				BAE766501EA3CAC8007A0A64 /* QYPersionMapApiManager.m */,
+				BAE7665A1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.h */,
+				BAE7665B1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1975,6 +2043,8 @@
 				BAC36FC21E82BBF0007D1FF4 /* QYUserReform.m */,
 				BA995D101E843462002FA3B2 /* QYCycleCollectReform.h */,
 				BA995D111E843462002FA3B2 /* QYCycleCollectReform.m */,
+				BAE766491EA3C3A1007A0A64 /* QYRecentlyCycleReform.h */,
+				BAE7664A1EA3C3A1007A0A64 /* QYRecentlyCycleReform.m */,
 			);
 			path = Reform;
 			sourceTree = "<group>";
@@ -2155,6 +2225,8 @@
 				BAD314471E940107004CF67F /* QYLoodFansViewController.m */,
 				BA995CFF1E84264D002FA3B2 /* QYRideMyCycleController.h */,
 				BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */,
+				BAE7664C1EA3C40E007A0A64 /* QYFromIconLickViewController.h */,
+				BAE7664D1EA3C40E007A0A64 /* QYFromIconLickViewController.m */,
 				BA995D021E842BED002FA3B2 /* QYRequstFrindViewController.h */,
 				BA995D031E842BED002FA3B2 /* QYRequstFrindViewController.m */,
 				BA995D051E842F71002FA3B2 /* QYCycleCollectViewController.h */,
@@ -2181,8 +2253,13 @@
 			children = (
 				BAC959121E7599B1007E171E /* QYFriendCycleDetailController.h */,
 				BAC959131E7599B1007E171E /* QYFriendCycleDetailController.m */,
+				BAE7665D1EA3EB40007A0A64 /* QYCycleDetailViewController.h */,
+				BAE7665E1EA3EB40007A0A64 /* QYCycleDetailViewController.m */,
 				EC7AA15D1E5C8E1F00EA54AA /* QYReadCycleController.h */,
 				EC7AA15E1E5C8E1F00EA54AA /* QYReadCycleController.m */,
+				BAF572DA1EA30D4D00129E49 /* QYPictureLookController.h */,
+				BAF572DB1EA30D4D00129E49 /* QYPictureLookController.m */,
+				BAF572DC1EA30D4D00129E49 /* QYPictureLookController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2382,10 +2459,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA6FC6121E99447600CF4ECC /* QYCommentNumberView.xib in Resources */,
+				BAF572DE1EA30D4D00129E49 /* QYPictureLookController.xib in Resources */,
 				BAA0018D1E50725B0067A894 /* CTNetworkingConfiguration.plist in Resources */,
+				BAD572E81EA3AEF900F1F7BB /* QYSendCycleView.xib in Resources */,
 				2BAE5D881E9537310089ECF1 /* QYTableViewCell.xib in Resources */,
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
 				BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */,
+				BAE766561EA3CD59007A0A64 /* QYMapSearchView.xib in Resources */,
 				BA55BFF11E4F37D600F1027B /* Assets.xcassets in Resources */,
 				BAC02A641E9E7B12007F6760 /* AMap.bundle in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
@@ -2393,6 +2473,7 @@
 				BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */,
 				BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */,
 				BA1542B51E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard in Resources */,
+				BAD572E31EA3A50F00F1F7BB /* QYMapSignView.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2549,6 +2630,7 @@
 				BA354D791E6BE20000EE8189 /* QNHosts.m in Sources */,
 				BAD3142E1E90ADEF004CF67F /* QYConversaitonListViewController.m in Sources */,
 				BA12CC9B1E867F6400DDB8CF /* QYTableViewControllerTraslutNo.m in Sources */,
+				BAE766481EA3C149007A0A64 /* QYRecentlyCycleApiManager.m in Sources */,
 				BAC959751E766282007E171E /* QYDetailCycleLayout.m in Sources */,
 				BAF572D91EA12F3F00129E49 /* QYLocationCell.m in Sources */,
 				BAC9DD381E9D1B600062A5BC /* QYGetUsersInfoApiManager.m in Sources */,
@@ -2575,6 +2657,7 @@
 				BA354D321E6BE12A00EE8189 /* QNFile.m in Sources */,
 				BA9AAA9F1E692C7000D7A5BB /* YYTextEffectWindow.m in Sources */,
 				BA9AAAAD1E692C7000D7A5BB /* UIPasteboard+YYText.m in Sources */,
+				BAE7664B1EA3C3A1007A0A64 /* QYRecentlyCycleReform.m in Sources */,
 				BA995D121E843462002FA3B2 /* QYCycleCollectReform.m in Sources */,
 				EC7AA15F1E5C8E1F00EA54AA /* QYReadCycleController.m in Sources */,
 				BAD841461E969A5400DACB35 /* QYFollowApiManager.m in Sources */,
@@ -2582,6 +2665,7 @@
 				BA9AAAA61E692C7000D7A5BB /* YYTextArchiver.m in Sources */,
 				BAD3142B1E90ACD1004CF67F /* QYConversationViewController.m in Sources */,
 				BAC36FA61E8158E4007D1FF4 /* QYAttentionViewCell.m in Sources */,
+				BAD572E11EA3A4FD00F1F7BB /* QYMapSignView.m in Sources */,
 				BA9AAAA51E692C7000D7A5BB /* YYTextSelectionView.m in Sources */,
 				BA9AAAB31E692C7000D7A5BB /* YYLabel.m in Sources */,
 				BACBA85D1E507A2B00D2E848 /* MBProgressHUD+LLHud.m in Sources */,
@@ -2601,6 +2685,7 @@
 				BA12CCB71E87893C00DDB8CF /* QYSearchView.m in Sources */,
 				BA9AAA9E1E692C7000D7A5BB /* YYTextDebugOption.m in Sources */,
 				BA354D761E6BE20000EE8189 /* QNDnspodEnterprise.m in Sources */,
+				BAD572E61EA3AEDA00F1F7BB /* QYSendCycleView.m in Sources */,
 				BA354D2F1E6BE12A00EE8189 /* QNAsyncRun.m in Sources */,
 				BA354D401E6BE12A00EE8189 /* QNUpToken.m in Sources */,
 				BA9AAAA01E692C7000D7A5BB /* YYTextInput.m in Sources */,
@@ -2626,6 +2711,7 @@
 				BAC9590B1E757716007E171E /* QYCommpentCellLayout.m in Sources */,
 				BA354D3B1E6BE12A00EE8189 /* QNConfiguration.m in Sources */,
 				2BCF72461E79026900E9B3CE /* QYTextPromptView.m in Sources */,
+				BAE766591EA3E143007A0A64 /* QYCollocetionApiManager.m in Sources */,
 				BA9D1D871E7D92A500276E76 /* QYPictureLookView.m in Sources */,
 				EC7AA1351E5C3DDB00EA54AA /* NSString+QYMD5.m in Sources */,
 				BA354D391E6BE12A00EE8189 /* QNUserAgent.m in Sources */,
@@ -2637,8 +2723,10 @@
 				BA12CCA31E868A3B00DDB8CF /* QYSetFooterView.m in Sources */,
 				BA354D341E6BE12A00EE8189 /* QNPHAssetResource.m in Sources */,
 				BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */,
+				BAF572E41EA323AF00129E49 /* QYLookPictureTransionDelegate.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
+				BAF572E11EA322EB00129E49 /* QYLookPictureTransitoonAnimation.m in Sources */,
 				BA6FC60D1E9922FD00CF4ECC /* QYFollowingApiManager.m in Sources */,
 				BAC9DD3E1E9D34980062A5BC /* QYimageView.m in Sources */,
 				BA354D7F1E6BE20000EE8189 /* QNGetAddrInfo.m in Sources */,
@@ -2656,14 +2744,17 @@
 				2BBD52F51E6EFBA9007313E7 /* QYReadMapController.m in Sources */,
 				EC94C2621E51EE8200F2454F /* QYCustomPresentDelegate.m in Sources */,
 				BAC871211E76FD4100C5F800 /* QYBasicPromptView.m in Sources */,
+				BAE7664E1EA3C40E007A0A64 /* QYFromIconLickViewController.m in Sources */,
 				BA6FC6071E97F9D300CF4ECC /* QYAddThumbApiManager.m in Sources */,
 				BA9AAAAA1E692C7000D7A5BB /* YYTextRunDelegate.m in Sources */,
 				BAC36F611E815770007D1FF4 /* QYAttentOrFansViewController.m in Sources */,
+				BAE766511EA3CAC8007A0A64 /* QYPersionMapApiManager.m in Sources */,
 				EC2026041E5E723A00AE2528 /* QYTabBarControlerDelegate.m in Sources */,
 				BA12CCA91E869A5300DDB8CF /* QYAboutRideViewController.m in Sources */,
 				BAC959141E7599B1007E171E /* QYFriendCycleDetailController.m in Sources */,
 				BAC02A731E9FB021007F6760 /* QYPhoneCodeApiManager.m in Sources */,
 				BA354D311E6BE12A00EE8189 /* QNEtag.m in Sources */,
+				BAE7665F1EA3EB40007A0A64 /* QYCycleDetailViewController.m in Sources */,
 				BA8DE1C01E9BDF590032FC88 /* QYSearchSectionView.m in Sources */,
 				BAA0017C1E50725B0067A894 /* CTCachedObject.m in Sources */,
 				BA354D721E6BE20000EE8189 /* QNDomain.m in Sources */,
@@ -2681,17 +2772,20 @@
 				BA9D1D841E7D44E400276E76 /* YYJsonService.m in Sources */,
 				BA55BFE61E4F37D600F1027B /* main.m in Sources */,
 				BA354D9A1E6C69E000EE8189 /* QYReadFriendCycleApiManager.m in Sources */,
+				BAF572DD1EA30D4D00129E49 /* QYPictureLookController.m in Sources */,
 				BA9AAAAE1E692C7000D7A5BB /* UIView+YYText.m in Sources */,
 				BA354D6F1E6BE20000EE8189 /* QNAssessment.m in Sources */,
 				BAC8715B1E7856CB00C5F800 /* QYQiuNiuUploadTool.m in Sources */,
 				BA354D951E6C4CEE00EE8189 /* UIButton+QYTitleButton.m in Sources */,
 				BA12CC951E867E4E00DDB8CF /* QYTableViewTrasYesViewController.m in Sources */,
+				BAE766541EA3CD46007A0A64 /* QYMapSearchView.m in Sources */,
 				2BAE5D7C1E951A820089ECF1 /* QYTakePhotoViewController.m in Sources */,
 				BAC36FB01E816281007D1FF4 /* QYAttentionReform.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
 				BAD3144B1E954B7F004CF67F /* QYNeedSiteViewController.m in Sources */,
+				BAE7665C1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m in Sources */,
 				BAA0017B1E50725B0067A894 /* CTCache.m in Sources */,
 				BA12CCBD1E87A7DB00DDB8CF /* QYSearchApiManager.m in Sources */,
 				BA9D1D811E7D356B00276E76 /* QYCyclePostController.m in Sources */,

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QYMapSignView">
+            <rect key="frame" x="0.0" y="0.0" width="356" height="76"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9z-pc-Tlz">
+                    <rect key="frame" x="15" y="2" width="59" height="59"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="E9z-pc-Tlz" secondAttribute="height" multiplier="1:1" id="ib8-31-raO"/>
+                    </constraints>
+                    <state key="normal" image="map_location_icon"/>
+                    <connections>
+                        <action selector="clickLocationButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="UK0-hL-a8y"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvb-UO-sob">
+                    <rect key="frame" x="292" y="2" width="49" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Gvb-UO-sob" secondAttribute="height" multiplier="1:1" id="45k-Fz-3ha"/>
+                    </constraints>
+                    <state key="normal" image="map_recently_people"/>
+                    <connections>
+                        <action selector="clickRecentButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="bbO-SS-7Od"/>
+                    </connections>
+                </button>
+                <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSm-Os-bsV">
+                    <rect key="frame" x="108" y="2" width="141" height="59"/>
+                    <color key="backgroundColor" red="0.32156862749999998" green="0.79215686269999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="HSm-Os-bsV" secondAttribute="height" multiplier="240:100" id="Ab3-M4-hcn"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="签到" image="map_fingerprint"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HSm-Os-bsV" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Nae-EP-H2h"/>
+                <constraint firstItem="E9z-pc-Tlz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Rou-Fw-hsl"/>
+                <constraint firstItem="E9z-pc-Tlz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="SPZ-JH-oJ4"/>
+                <constraint firstAttribute="bottom" secondItem="Gvb-UO-sob" secondAttribute="bottom" constant="25" id="gn5-XK-e94"/>
+                <constraint firstAttribute="bottom" secondItem="HSm-Os-bsV" secondAttribute="bottom" constant="15" id="hWV-pi-YoP"/>
+                <constraint firstAttribute="trailing" secondItem="Gvb-UO-sob" secondAttribute="trailing" constant="15" id="kdD-Sk-SvW"/>
+                <constraint firstItem="Gvb-UO-sob" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="lzJ-NO-OlF"/>
+                <constraint firstAttribute="bottom" secondItem="E9z-pc-Tlz" secondAttribute="bottom" constant="15" id="pBF-dA-chC"/>
+                <constraint firstItem="HSm-Os-bsV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="rh5-aB-OCw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="locationButton" destination="E9z-pc-Tlz" id="Tr4-7c-fS4"/>
+                <outlet property="recentlyButton" destination="Gvb-UO-sob" id="KOc-C1-EwV"/>
+                <outlet property="sginButton" destination="HSm-Os-bsV" id="Xyj-PF-uOK"/>
+            </connections>
+            <point key="canvasLocation" x="24" y="93"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="map_fingerprint" width="26" height="26"/>
+        <image name="map_location_icon" width="44" height="44"/>
+        <image name="map_recently_people" width="44" height="44"/>
+    </resources>
+</document>

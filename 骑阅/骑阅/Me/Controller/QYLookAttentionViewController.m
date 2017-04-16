@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.type = 1;
     // Do any additional setup after loading the view.
 }
 

@@ -10,5 +10,6 @@
 
 @interface QYNeedSiteViewController : QYBasicNeedLocationController
 @property (nonatomic, strong) NSString *site;
+@property (nonatomic, strong) NSString *city;
 
 @end

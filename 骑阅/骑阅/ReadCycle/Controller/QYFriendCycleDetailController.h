@@ -9,9 +9,13 @@
 typedef void(^refreshBlock)();
 #import "QYTranslucentNoViewController.h"
 #import "QYFriendCycleCellLayout.h"
+#import "QYSendCommentView.h"
 
 @interface QYFriendCycleDetailController :QYTranslucentNoViewController
 @property (nonatomic, strong) QYFriendCycleCellLayout *layout;
 @property (nonatomic, copy) refreshBlock refresh;
+@property (nonatomic, assign) NSInteger type;
+- (void)analyseData;
+- (void)sendView:(QYSendCommentView *)view acitonSuccess:(NSMutableDictionary *)info;
 
 @end

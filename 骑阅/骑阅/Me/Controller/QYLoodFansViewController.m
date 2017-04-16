@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.attentionAndMessageView.type = QYAttentionAndMessageViewSelect;
-    
+    self.type = 2;
     // Do any additional setup after loading the view.
 }
 

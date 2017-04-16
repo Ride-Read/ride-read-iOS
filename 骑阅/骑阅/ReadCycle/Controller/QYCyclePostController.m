@@ -337,7 +337,8 @@
     [MBProgressHUD showMessageAutoHide:@"图片保存失败" view:nil];
 }
 
-#pragma -- <setter and getter>
+#pragma mark - getter and setter
+
 - (UIImagePickerController *)pickerController{
     if (!_pickerController) {
         _pickerController = [[UIImagePickerController alloc] init];
@@ -347,7 +348,6 @@
     return _pickerController;
 }
 
-#pragma mark - getter and setter
 
 - (QYCylePostMonentApiManager *)postApiManager {
     
@@ -358,6 +358,11 @@
         _postApiManager.paramSource = self;
     }
     return _postApiManager;
+}
+- (void)setLocation:(CLLocation *)location {
+    
+    [super setLocation:location];
+    self.locCtr.location = location;
 }
 
 

@@ -17,7 +17,7 @@
 #import "QYUserReform.h"
 #import "define.h"
 
-@interface QYReadLookUserController : QYBasicNeedLocationController
+@interface QYReadLookUserController : QYBasicNeedLocationController<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableDictionary *user;
 @property (nonatomic, strong) QYReadMeHeaderView *headerView;
 @property (nonatomic, strong) QYShowUserCycleApiManager *cycleApiManager;
@@ -25,6 +25,7 @@
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) QYRideUserApiManager *userApi;
 @property (nonatomic, strong) QYUserReform *userReform;
+@property (nonatomic, assign) NSInteger type;
 
 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager;

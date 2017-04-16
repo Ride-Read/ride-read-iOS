@@ -11,7 +11,9 @@
 
 @interface QYBasicPromptView : UIView
 @property (nonatomic, assign) CGFloat sideMargin;
+@property (nonatomic, copy) void(^closeAction)();
 
 - (void)show;
 - (void)closeView;
+- (void)clickMaskView;
 @end

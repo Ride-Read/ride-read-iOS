@@ -7,6 +7,7 @@
 //
 
 #import "QYTranslucentYesViewController.h"
+#import "QYNeedSiteViewController.h"
 
 @interface QYReadMapController : QYTranslucentYesViewController
 

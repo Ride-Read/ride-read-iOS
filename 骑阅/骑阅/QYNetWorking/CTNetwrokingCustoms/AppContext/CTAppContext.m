@@ -102,7 +102,7 @@
        
         if ([obj isKindOfClass:[NSNull class]]) {
             
-            if ([key isEqualToString:@"tagString"]) {
+            if ([key isEqualToString:@"tags"]) {
                 
                 dic[key] = @[];
             } else {

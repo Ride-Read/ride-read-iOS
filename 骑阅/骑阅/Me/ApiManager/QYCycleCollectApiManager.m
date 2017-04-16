@@ -22,7 +22,7 @@
 
 - (NSString *)methodName {
     
-    return @"";
+    return @"moments/show_collection";
 }
 
 - (NSString *)serviceType {
@@ -45,7 +45,7 @@
         
         self.pages = 0;
     }
-    return @{kuid:uid,kpages:@(_pages)};
+    return @{kuid:uid};
     
 }
 

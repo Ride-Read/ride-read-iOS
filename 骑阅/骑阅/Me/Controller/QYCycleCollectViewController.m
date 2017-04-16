@@ -18,6 +18,7 @@
 @property (nonatomic, strong) QYCycleCollectApiManager *collectApi;
 @property (nonatomic, strong) QYCycleCollectReform *collectReform;
 @property (nonatomic, strong) NSMutableArray *collectArrays;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation QYCycleCollectViewController
@@ -27,6 +28,7 @@
     [super viewDidLoad];
     [self setContentView];
     [self loadData];
+    self.hud = [MBProgressHUD showMessage:@"加载中..." toView:self.view];
     // Do any additional setup after loading the view.
 }
 
@@ -73,9 +75,10 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     if (manager == self.collectApi) {
         
-        if (self.tableView.startFooter) {
+        if (!self.tableView.startFooter) {
             
             NSArray *collects = [self.collectApi fetchDataWithReformer:self.collectReform];
             [self.collectArrays addObjectsFromArray:collects];
@@ -109,13 +112,10 @@
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
     
+    [self.hud hide:YES];
     if (manager == self.collectApi) {
-#warning test ui
-        NSArray *collects = [self.collectApi fetchDataWithReformer:self.collectReform];
-        [self.collectArrays addObjectsFromArray:collects];
-        [self.tableView reloadData];
-        [self.tableView.mj_footer endRefreshing];
-        
+
+        [MBProgressHUD showMessageAutoHide:@"加载失败" view:nil];
     }
 }
 
