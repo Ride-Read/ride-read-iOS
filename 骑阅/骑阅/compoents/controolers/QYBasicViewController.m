@@ -15,6 +15,27 @@
 
 @implementation QYBasicViewController
 
+- (instancetype)init {
+    
+    self = [super init];
+    self.dataRefresh = self;
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super initWithCoder:aDecoder];
+    
+    self.dataRefresh = self;
+    return self;
+}
+
+- (void)awakeFromNib {
+    
+    [super awakeFromNib];
+    self.dataRefresh = self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

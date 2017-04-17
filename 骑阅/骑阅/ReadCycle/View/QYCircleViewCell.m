@@ -17,6 +17,7 @@
 #import "QYFromIconLickViewController.h"
 #import "QYPictureLookController.h"
 #import "QYLookPictureTransionDelegate.h"
+#import "QYThumbsViewController.h"
 
 @interface QYCircleViewPeople ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYUnfollowApiManager *unApi;
@@ -767,9 +768,19 @@
             NSString *url = dict[kface_url];
             [button sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:kdefault_icon]];
             [self addSubview:button];
+            [button addTarget:self action:@selector(clickPraise:) forControlEvents:UIControlEventTouchUpInside];
             pre = button;
         }
     }
+}
+- (void)clickPraise:(UIButton *)send{
+    
+    UIViewController *ctr = (UIViewController *)self.cell.delegate;
+    QYThumbsViewController *thumbs = [[QYThumbsViewController alloc] init];
+    NSDictionary *info = self.cell.layout.status;
+    thumbs.mid = info[kmid];
+    [ctr.navigationController pushViewController:thumbs animated:YES];
+    
 }
 - (UIButton *)praiseButton {
     

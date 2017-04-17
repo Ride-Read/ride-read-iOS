@@ -8,12 +8,19 @@
 
 #import "QYAttentionViewCell.h"
 #import "define.h"
+#import "UIView+YYAdd.h"
+#import "UIAlertController+QYQuickAlert.h"
+#import "QYFollowApiManager.h"
+#import "QYUnfollowApiManager.h"
 
-@interface QYAttentionViewCell ()
+@interface QYAttentionViewCell ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@property (nonatomic, strong) QYUnfollowApiManager *unApi;
+@property (nonatomic, strong) QYFollowApiManager *followApi;
 @property (nonatomic, strong) UIImageView *icon;
 @property (nonatomic, strong) UILabel *username;
 @property (nonatomic, strong) UILabel *personSiguare;
 @property (nonatomic, strong) UILabel *timelabel;
+@property (nonatomic, strong) UIButton *attenion;
 
 @end
 @implementation QYAttentionViewCell
@@ -42,6 +49,7 @@
     [self.contentView addSubview:self.username];
     [self.contentView addSubview:self.personSiguare];
     [self.contentView addSubview:self.timelabel];
+    [self.contentView addSubview:self.attenion];
 }
 
 - (void)layoutContent {
@@ -68,6 +76,11 @@
         make.top.mas_equalTo(22);
         make.right.mas_equalTo(-15);
     }];
+    self.attenion.left = kScreenWidth - 16 - 41;
+    self.attenion.top = 20;
+    self.attenion.width = 41;
+    self.attenion.height = 28.6;
+    
 }
 
 #pragma mark - setter and getter
@@ -113,8 +126,140 @@
     }
     return _timelabel;
 }
+- (UIButton *)attenion {
+    
+    if (!_attenion) {
+        
+        _attenion = [[UIButton alloc] init];
+        [_attenion addTarget:self action:@selector(clickAttention:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _attenion;
+}
 
-- (void)setInfo:(NSDictionary *)info {
+- (void)clickAttention:(UIButton *)sender {
+    
+    
+    NSNumber *tag = _info[@"tag"];
+    if (tag.integerValue == 0) {
+        
+        [UIAlertController alertControler:@"提示" message:@"是否关注该用户" leftTitle:@"取消" rightTitle:@"确定" from:_ctr action:^(NSUInteger index) {
+           
+            if (index == 1) {
+                
+                [self.followApi loadData];
+                
+            }
+        }];
+        
+    } else {
+        
+        
+        [UIAlertController alertControler:@"提示" message:@"是否取消关注该用户" leftTitle:@"取消" rightTitle:@"确定" from:_ctr action:^(NSUInteger index) {
+            
+            if (index == 1) {
+                
+                [self.unApi loadData];
+            }
+        }];
+
+    }
+    
+}
+
+#pragma mark - paramSource
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    NSDictionary *info = self.info;
+    NSNumber *cuid = [CTAppContext sharedInstance].currentUser.uid;
+    return @{kuser_id:info[kuid],kuid:cuid};
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    
+    if ([manager isKindOfClass:[QYFollowApiManager class]]) {
+        
+        
+        [MBProgressHUD showMessageAutoHide:@"关注成功" view:nil];
+        _info[@"tag"] = @(1);
+        _info[kstatus] = @"attention";
+        [_ctr.dataRefresh customView:self refresh:nil];
+    }
+    
+    if (manager == self.unApi) {
+        
+        [MBProgressHUD showMessageAutoHide:@"取消关注成功" view:nil];
+        _info[@"tag"] = @(0);
+        _info[kstatus] = @"attentioned";
+        [_ctr.dataRefresh customView:self refresh:nil];
+        
+        
+    }
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.unApi) {
+        
+        [MBProgressHUD showMessageAutoHide:@"取消关注失败" view:nil];
+    }
+    
+    if (manager == self.followApi) {
+        
+        [MBProgressHUD showMessageAutoHide:@"关注失败" view:nil];
+    }
+}
+
+//- (void)attentionSuccess:(NSNotification *)info {
+//    
+//    if (info) {
+//        
+//        NSDictionary *dic = info.userInfo;
+//        NSNumber *usid = dic[kuid];
+//        NSNumber *cuCyuid = self.cell.layout.status[kuid];
+//        if (usid.integerValue == cuCyuid.integerValue) {
+//            
+//            [self.attention setBackgroundImage:[UIImage imageNamed:@"attentioned"] forState:UIControlStateNormal];
+//            self.cell.layout.status[kstatus] = @"attentioned";
+//            self.attention.tag = 1;
+//            self.cuAttN = @"attentioned";
+//            
+//        }
+//        return;
+//    }
+//    [self.attention setBackgroundImage:[UIImage imageNamed:@"attentioned"] forState:UIControlStateNormal];
+//    self.cell.layout.status[kstatus] = @"attentioned";
+//    self.attention.tag = 1;
+//    self.cuAttN = @"attentioned";
+//    
+//    
+//}
+
+- (QYUnfollowApiManager *)unApi {
+    
+    if (!_unApi) {
+        
+        _unApi = [[QYUnfollowApiManager alloc] init];
+        _unApi.delegate = self;
+        _unApi.paramSource = self;
+    }
+    return _unApi;
+}
+
+- (QYFollowApiManager *)followApi {
+    
+    if (!_followApi) {
+        
+        _followApi = [[QYFollowApiManager alloc] init];
+        _followApi.delegate = self;
+        _followApi.paramSource = self;
+    }
+    return _followApi;
+}
+
+
+- (void)setInfo:(NSMutableDictionary *)info {
     
     _info = info;
     MyLog(@"%@",info[kface_url]);
@@ -122,6 +267,9 @@
     self.username.text = info[kusername];
     self.personSiguare.text = info[ksignature];
     self.timelabel.text = info[ktime];
+    NSString *attention = info[kstatus];
+    [self.attenion setBackgroundImage:[UIImage imageNamed:attention] forState:UIControlStateNormal];
+    
     
 }
 @end

@@ -59,7 +59,7 @@
                                             <segue destination="fkK-T9-gMz" kind="push" id="v49-Jc-rae"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEO-K0-9hU">
+                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEO-K0-9hU">
                                         <rect key="frame" x="107" y="8.5" width="21" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="8zN-6C-ZBE"/>

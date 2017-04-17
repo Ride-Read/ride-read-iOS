@@ -7,9 +7,11 @@
 //
 
 #import "YYBaiscTableViewCell.h"
+#import "QYBasicViewController.h"
 
 @interface QYAttentionViewCell : YYBaiscTableViewCell
-@property (nonatomic, weak) NSDictionary *info;
+@property (nonatomic, weak) NSMutableDictionary *info;
+@property (nonatomic, weak) QYBasicViewController *ctr;
 
 
 @end

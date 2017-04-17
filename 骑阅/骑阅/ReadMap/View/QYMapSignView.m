@@ -26,7 +26,7 @@
     [super awakeFromNib];
     self.sginButton.layer.cornerRadius = 30;
     UILongPressGestureRecognizer *getsture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pressAction:)];
-    getsture.minimumPressDuration = 1.7;
+    getsture.minimumPressDuration = 1.2;
     [self.sginButton addGestureRecognizer:getsture];
 }
 

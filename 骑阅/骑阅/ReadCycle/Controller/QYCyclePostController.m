@@ -153,6 +153,20 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    if (self.postResult) {
+    
+        NSMutableDictionary *info = @{}.mutableCopy;
+        NSArray *pics = self.params[kpictures_url];
+        NSInteger type = 0;
+        if (pics.count > 0) {
+            
+            type = 1;
+            info[kcover] = pics[0];
+        }
+        info[ktype] = @(type);
+        self.postResult(info,nil);
+        self.postResult = nil;
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.hud hide:YES];
 }
@@ -230,6 +244,11 @@
         
          if (index == 1) {
              
+             if (self.postResult) {
+                 
+                 self.postResult(nil,nil);
+                 self.postResult = nil;
+             }
              [self dismissViewControllerAnimated:YES completion:nil];
 
          }

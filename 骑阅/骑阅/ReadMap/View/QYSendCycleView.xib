@@ -16,10 +16,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkE-Eb-dUF">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WQr-Yi-dz2">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -43,16 +43,16 @@
                         <constraint firstAttribute="trailing" secondItem="WQr-Yi-dz2" secondAttribute="trailing" id="Ct6-VA-Rr4"/>
                         <constraint firstItem="WQr-Yi-dz2" firstAttribute="leading" secondItem="JkE-Eb-dUF" secondAttribute="leading" id="DgE-4R-Ihf"/>
                         <constraint firstAttribute="bottom" secondItem="WQr-Yi-dz2" secondAttribute="bottom" id="fSz-66-hmz"/>
-                        <constraint firstAttribute="height" constant="155" id="x7M-cI-cab"/>
+                        <constraint firstAttribute="height" id="x7M-cI-cab"/>
                         <constraint firstAttribute="trailing" secondItem="ra1-By-IQJ" secondAttribute="trailing" constant="12" id="zQF-Gn-gdv"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wQK-Iw-8J9">
-                    <rect key="frame" x="0.0" y="155" width="375" height="45"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m17-wd-H5d">
                             <rect key="frame" x="0.0" y="0.0" width="187" height="45"/>
-                            <state key="normal" title="分享">
+                            <state key="normal" title="取消">
                                 <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>

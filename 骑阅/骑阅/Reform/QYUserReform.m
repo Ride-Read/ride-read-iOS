@@ -42,6 +42,10 @@
     if ([manager isKindOfClass:[QYAddThumbApiManager class]]) {
         
         NSDictionary *thumb = data[kdata];
+        if ([thumb isKindOfClass:[NSNull class]]) {
+            
+            return nil;
+        }
         return thumb;
     }
     

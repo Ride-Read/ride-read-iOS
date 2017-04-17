@@ -23,7 +23,7 @@
 
 - (NSString *)methodName {
     
-    return @"moments/add_thumbsup";
+    return @"moments/update_thumbsup";
 }
 
 - (NSString *)serviceType {

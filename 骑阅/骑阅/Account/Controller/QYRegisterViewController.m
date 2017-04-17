@@ -265,8 +265,6 @@
         if (manager.errorType == CTAPIBaseManagerErrorTypeNoContent) {
             
             [MBProgressHUD showMessageAutoHide:@"邀请码不存在" view:nil];
-            [self presentRegisterView];
-            
             return;
         }
         [MBProgressHUD showMessageAutoHide:@"认证失败" view:nil];

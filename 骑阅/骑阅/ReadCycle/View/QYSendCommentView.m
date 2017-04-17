@@ -131,7 +131,25 @@
         NSArray *thumbs = self.status[kpraise];
         NSMutableArray *thums = thumbs.mutableCopy;
         NSDictionary *info = [self.addThump fetchDataWithReformer:self.reform];
-        [thums insertObject:info atIndex:0];
+        if (!info) {
+        
+            NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+            [thumbs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+               
+                NSDictionary *info = obj;
+                NSNumber *cuid = info[kuid];
+                if (cuid.integerValue == uid.integerValue) {
+                    
+                    [thums removeObject:obj];
+                }
+            
+            }];
+            
+        } else {
+        
+            [thums insertObject:info atIndex:0];
+            
+        }
         self.status[kpraise] = thums;
     }
     

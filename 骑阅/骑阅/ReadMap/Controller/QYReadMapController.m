@@ -17,6 +17,9 @@
 #import "QYCyclePostController.h"
 #import "QYRecentlyCycleApiManager.h"
 #import "QYMapSearchView.h"
+#import "QYAnnotationView.h"
+#import "QYAnimationSign.h"
+#import "QYSignAnnotion.h"
 
 @interface QYReadMapController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYMapSearchViewDelegate,AMapSearchDelegate,MAMapViewDelegate>
 @property (nonatomic, strong) MAMapView *mapView;
@@ -25,6 +28,7 @@
 @property (nonatomic, strong) QYRecentlyCycleApiManager *recentApi;
 @property (nonatomic, strong) QYMapSearchView *searchView;
 @property (nonatomic, strong) AMapSearchAPI *searchApi;
+@property (nonatomic, strong) QYAnnotionModel *sendAnnotion;
 
 @end
 
@@ -107,7 +111,7 @@
 - (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response {
     
     if (response.count == 0) {
-        
+        [MBProgressHUD showMessageAutoHide:@"搜索失败" view:nil];
         return;
     }
     
@@ -127,6 +131,49 @@
     self.location = userLocation.location;
 }
 
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
+    
+    if ([annotation isKindOfClass:[QYAnnotionModel class]]) {
+        
+        QYAnnotationView *view = [QYAnnotationView annotionViewMapView:mapView];
+        view.annotation = annotation;
+        return view;
+        
+    }
+    return nil;
+}
+- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    
+    
+    //获取到mapview的frame
+    CGRect visibleRect = [mapView annotationVisibleRect];
+    
+    for (QYAnnotationView *view in views) {
+        
+        if ([view isKindOfClass:[QYAnnotationView class]]) {
+            
+            if ([view.annotation isKindOfClass:[QYAnimationSign class]]) {
+
+                    CGRect endFrame = view.frame;
+                    CGRect startFrame = endFrame;
+                    startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
+                    view.frame = startFrame;
+                    [UIView animateWithDuration:1.0 animations:^{
+                    
+                    view.frame = endFrame;
+                    
+                    } completion:^(BOOL finished) {
+                    
+                    [self.mapView removeAnnotation:view.annotation];
+                }];
+                
+                
+            }
+            
+        }
+       
+    }
+}
 
 #pragma mark - CTApiManagerParmSource
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
@@ -158,18 +205,47 @@
         
         if (self.showSendCycleView)
             return;
+        
+        QYAnnotionModel *annotion = [[QYAnimationSign alloc] init];
+        annotion.coordinate = self.location.coordinate;
+        [self.mapView addAnnotation:annotion];
+        self.sendAnnotion = annotion;
         QYSendCycleView *send = [QYSendCycleView sendCycle:^(QYSendCycleView *cycle, NSInteger index) {
             
             if (index == 1) {
                 
                 UIStoryboard *post = [UIStoryboard storyboardWithName:@"QYPostCycleStoryboard" bundle:nil];
-                QYCyclePostController *postCtr = [post instantiateViewControllerWithIdentifier:@"postCntr"];;
-                [self presentViewController:postCtr animated:YES completion:nil];
+                UINavigationController *navc = [post instantiateViewControllerWithIdentifier:@"postCntr"];
+                QYCyclePostController * postCtr = (QYCyclePostController *)navc.topViewController;
+                postCtr.postResult = ^(NSDictionary *info,NSError *error) {
+                
+                    if (info) {
+                        
+                        QYSignAnnotion *sigin = [[QYSignAnnotion alloc] init];
+                        sigin.info = info;
+                        sigin.coordinate = self.sendAnnotion.coordinate;
+                        self.sendAnnotion = nil;
+                        [self.mapView addAnnotation:sigin];
+                        
+                    } else {
+                        
+                        self.sendAnnotion = nil;
+                    }
+                };
+                [self presentViewController:navc animated:YES completion:nil];
+            } else {
+                
+                self.sendAnnotion = nil;
+                
             }
             self.showSendCycleView = NO;
         }];
-        send.frame = CGRectMake(45, cl_caculation_3y(400), kScreenWidth-90, 200);
-        [send show];
+        send.frame = CGRectMake(45, cl_caculation_3y(500), kScreenWidth-90, 45);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+            [send show];
+            
+        });
         send.closeAction = ^() {
             
             self.showSendCycleView = NO;
