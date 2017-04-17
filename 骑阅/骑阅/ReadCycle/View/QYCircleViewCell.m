@@ -911,7 +911,7 @@
 }
 - (void)setLayout:(QYFriendCycleCellLayout *)layout {
     
-    if (!_layout) {
+    if (!layout) {
         
         return;
     }

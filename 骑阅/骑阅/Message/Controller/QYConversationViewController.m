@@ -44,7 +44,7 @@
 - (void)configLeftItem {
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Placeholder_Avatar"] style:UIBarButtonItemStyleDone target:self action:@selector(clickRightItem:)];
-    self.navigationItem.rightBarButtonItem = right;
+    //self.navigationItem.rightBarButtonItem = right;
 }
 
 #pragma mark - target action

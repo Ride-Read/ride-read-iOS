@@ -46,6 +46,13 @@
     
     [self.view addSubview:self.tableView];
     self.tableView.frame = self.view.bounds;
+    [self.attentionAndMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.tableView.mas_bottom);
+        make.left.and.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(cl_caculation_3y(130));
+    }];
 }
 
 

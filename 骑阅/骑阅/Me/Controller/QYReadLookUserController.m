@@ -80,7 +80,8 @@
         make.left.and.right.mas_equalTo(0);
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(cl_caculation_3y(130));
-    }];}
+    }];
+}
 
 
 #pragma mark - tableView datasource
