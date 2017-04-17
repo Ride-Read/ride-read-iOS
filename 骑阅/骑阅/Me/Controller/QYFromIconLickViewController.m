@@ -46,6 +46,7 @@
     
     [self.view addSubview:self.tableView];
     self.tableView.frame = self.view.bounds;
+    [self.view addSubview:self.attentionAndMessageView];
     [self.attentionAndMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.tableView.mas_bottom);
