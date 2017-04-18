@@ -44,6 +44,8 @@
     [super viewDidLoad];
     [self setContentView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addUnreadMessage) name:KReciveMessagNotiFation object:nil];
+    [self loadPersonData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPersonData) name:kPostCycleSuccessNotifation object:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -65,6 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - private method
 - (void)loadData {
     
@@ -75,6 +82,13 @@
     }];
 }
 
+- (void)loadPersonData {
+    
+    [self.serialQueue addOperationWithBlock:^{
+       
+        [self.personApi loadData];
+    }];
+}
 - (void)loadUnreadMessage {
     
     [QYChatkExample fetchUnreadMessageNumber:^(NSUInteger unread) {
@@ -138,7 +152,8 @@
     
     if (manager == self.personApi) {
         
-        
+       NSArray *array = [self.personApi fetchDataWithReformer:self.personReform];
+        self.headerView.annotions = array;
     }
 }
 

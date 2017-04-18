@@ -42,7 +42,7 @@
     if ([manager isKindOfClass:[QYAddThumbApiManager class]]) {
         
         NSDictionary *thumb = data[kdata];
-        if ([thumb isKindOfClass:[NSNull class]]) {
+        if ([thumb isKindOfClass:[NSNull class]] || thumb.count == 0 || !thumb) {
             
             return nil;
         }

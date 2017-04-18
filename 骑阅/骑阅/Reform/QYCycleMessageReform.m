@@ -12,6 +12,7 @@
 #import "QYReadFriendCycleApiManager.h"
 #import "QYShowUserCycleApiManager.h"
 #import "QYUser.h"
+#import "QYShowOneMonentApiManager.h"
 
 @implementation QYCycleMessageReform
 
@@ -169,6 +170,9 @@
         }
         return cycleInfos;
       }
+    
+  
+    return nil;
     
 }
 

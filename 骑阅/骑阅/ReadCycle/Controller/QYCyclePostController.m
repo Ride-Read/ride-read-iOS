@@ -153,6 +153,7 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     if (self.postResult) {
     
         NSMutableDictionary *info = @{}.mutableCopy;
@@ -167,8 +168,9 @@
         self.postResult(info,nil);
         self.postResult = nil;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPostCycleSuccessNotifation object:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.hud hide:YES];
+    
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {

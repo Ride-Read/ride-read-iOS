@@ -22,5 +22,6 @@
 @property (nonatomic, weak) id <QYReadMeHeaderViewDelegate> delegate;
 @property (nonatomic, weak) QYUser *user;
 @property (nonatomic, strong) UIButton *messageButton;
+@property (nonatomic, strong) NSArray *annotions;
 
 @end

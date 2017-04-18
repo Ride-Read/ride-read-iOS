@@ -7,6 +7,7 @@
 //
 
 #import "QYMapSignView.h"
+#import "define.h"
 
 @interface QYMapSignView ()
 @property (weak, nonatomic) IBOutlet UIButton *locationButton;
@@ -24,7 +25,7 @@
 - (void)awakeFromNib {
     
     [super awakeFromNib];
-    self.sginButton.layer.cornerRadius = 30;
+    self.sginButton.layer.cornerRadius = cl_caculation_3x(50);
     UILongPressGestureRecognizer *getsture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pressAction:)];
     getsture.minimumPressDuration = 1.2;
     [self.sginButton addGestureRecognizer:getsture];

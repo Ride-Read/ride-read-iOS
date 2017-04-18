@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIButton *attentionButton;
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UIView *centerLine;
+@property (nonatomic, assign) NSInteger type;
 
 @end
 @implementation QYCycleSelectView
@@ -68,6 +69,10 @@
 
 - (void)clickButton:(UIButton *)sender {
     
+    if (self.type == sender.tag) {
+        
+        return;
+    }
         if (sender.tag == 0) {
             
             [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -94,6 +99,7 @@
         [self layoutIfNeeded];
     }];
 
+    self.type = sender.tag;
     if ([self.delegate respondsToSelector:@selector(clickCustomView:index:)]) {
         
         [self.delegate clickCustomView:self index:sender.tag];

@@ -732,14 +732,17 @@
 - (instancetype)init {
     
     self = [super init];
-    [self addSubview:self.praiseButton];
-    [self addSubview:self.praiseNumber];
-    return self;
+     return self;
 }
 
 - (void)setCell:(QYCircleViewCell *)cell {
     
     _cell = cell;
+    [self removeAllSubviews];
+    self.praiseButton = nil;
+    self.praiseNumber = nil;
+    [self addSubview:self.praiseButton];
+    [self addSubview:self.praiseNumber];
     NSArray *array = _cell.layout.status[kpraise];
     if (array.count > 0) {
         

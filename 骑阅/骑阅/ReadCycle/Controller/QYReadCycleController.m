@@ -32,6 +32,7 @@
 @property (nonatomic, strong) QYReadFriendCycleApiManager *friendCycleApi;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
 @property (nonatomic, assign) NSUInteger type;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -119,7 +120,7 @@
 #pragma mark - CTAPIManagerCallback
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-
+    [self.hud hide:YES];
     if (manager == self.friendCycleApi) {
         
         [self.tableView.mj_footer endRefreshing];
@@ -129,6 +130,7 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
+    [self.hud hide:YES];
     [self.serialQueue addOperationWithBlock:^{
         
         NSUInteger originCount = self.layoutArray.count;
@@ -245,6 +247,8 @@
         
     } else
         self.type = 1;
+    
+    self.hud = [MBProgressHUD showMessage:@"加载中..." toView:nil];
     [self loadData];
     MyLog(@"%ld",index);
 }

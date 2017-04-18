@@ -18,6 +18,7 @@
 #import "UIButton+WebCache.h"
 #import "UIAlertController+QYQuickAlert.h"
 #import "MBProgressHUD+LLHud.h"
+#import "QYNotifationList.h"
 
 static NSString *const kAttetionSuccess = @"AttetionSuccess";
 static NSString *const kUnAtteionSuccess = @"UnAtteionSuccess";

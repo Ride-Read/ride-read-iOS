@@ -7,14 +7,22 @@
 //
 
 typedef void(^refreshBlock)();
-#import "QYTranslucentNoViewController.h"
-#import "QYFriendCycleCellLayout.h"
+#import "QYBasicNeedLocationController.h"
+#import "QYDetailCycleLayout.h"
 #import "QYSendCommentView.h"
+#import "QYCircleViewCell.h"
+#include "YYBasicTableView.h"
 
-@interface QYFriendCycleDetailController :QYTranslucentNoViewController
+
+@interface QYFriendCycleDetailController :QYBasicNeedLocationController<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYFriendCycleCellLayout *layout;
+@property (nonatomic, strong) QYCircleViewCell *cell;
 @property (nonatomic, copy) refreshBlock refresh;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) YYBasicTableView *tableView;
+@property (nonatomic, strong) QYSendCommentView *sendView;
+
+
 - (void)analyseData;
 - (void)sendView:(QYSendCommentView *)view acitonSuccess:(NSMutableDictionary *)info;
 

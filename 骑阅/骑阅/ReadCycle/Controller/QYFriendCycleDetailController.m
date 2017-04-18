@@ -7,13 +7,10 @@
 //
 
 #import "QYFriendCycleDetailController.h"
-#import "QYCircleViewCell.h"
-#include "YYBasicTableView.h"
 #import "define.h"
 #import "QYCommpentCellLayout.h"
 #import "QYCommentViewCell.h"
 #import "QYCommentSectionView.h"
-#import "QYSendCommentView.h"
 #import "QYHomeTabBarViewController.h"
 #import "UIBarButtonItem+CreatUIBarButtonItem.h"
 #import "QYButtonSheetPromptView.h"
@@ -22,12 +19,9 @@
 #import "QYDetailCycleLayout.h"
 #import "QYCollocetionApiManager.h"
 
-@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate,QYCommentViewCellDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
-@property (nonatomic, strong) QYCircleViewCell *cell;
-@property (nonatomic, strong) YYBasicTableView *tableView;
+@interface QYFriendCycleDetailController ()<UITableViewDelegate,UITableViewDataSource,YYBaseicTableViewRefeshDelegate,QYFriendCycleDelegate,QYSendCommentViewDelegate,QYCommentViewCellDelegate>
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
-@property (nonatomic, strong) QYSendCommentView *sendView;
 @property (nonatomic, strong) QYCollocetionApiManager *collectionApi;
 
 @end
@@ -87,12 +81,12 @@
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.sendView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
        
         make.top.and.left.and.right.mas_equalTo(0);
         make.bottom.equalTo(self.sendView.mas_top);
     }];
-    [self.sendView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.sendView mas_remakeConstraints:^(MASConstraintMaker *make) {
        
         make.left.and.right.and.bottom.mas_equalTo(0);
         make.height.mas_equalTo(50);
@@ -263,7 +257,10 @@
     [self.layoutArray removeAllObjects];
     [self analyseData];
     self.sectionView.data = info[kcomment];
-    self.refresh();
+    if (self.refresh) {
+        
+        self.refresh();
+    }
 }
 
 #pragma mark - setter and getter

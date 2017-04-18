@@ -12,6 +12,7 @@
 #import "YYBasicTableView.h"
 #import "QYCycleCollectCellTableViewCell.h"
 #import "define.h"
+#import "QYCycleDetailViewController.h"
 
 @interface QYCycleCollectViewController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) YYBasicTableView *tableView;
@@ -147,6 +148,13 @@
     return cl_caculation_3y(250);
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QYCycleDetailViewController *ctr = [[QYCycleDetailViewController alloc] init];
+    NSDictionary *info = self.collectArrays[indexPath.row];
+    ctr.user = @{kuid:info[kuid],kmid:info[kmid]};
+    [self.navigationController pushViewController:ctr animated:YES];
+}
 
 #pragma mark - getter and setter
 - (YYBasicTableView *)tableView {

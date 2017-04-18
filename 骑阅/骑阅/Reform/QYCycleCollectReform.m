@@ -14,11 +14,6 @@
 
 - (id)manager:(CTAPIBaseManager *)manager reformData:(NSDictionary *)data {
     
-//    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-10000];
-//    NSTimeInterval interval = [date timeIntervalSince1970] * 1000;
-//    NSString *time = [NSString dateStringWithTime:interval];
-//    return @[@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time},@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time},@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time},@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time},@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time},@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time},@{kcover:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kface_url:@"http://pic8.qiyipic.com/image/20160728/ed/a7/a_100013977_m_601_m5_195_260.jpg",kusername:@"snow",kmsg:@"这里很好看",kfrom:@"附近",ktime:time}];
-//
     
     NSArray *array = data[kdata];
     NSMutableArray *result = @[].mutableCopy;
@@ -38,7 +33,7 @@
             cover = @"";
         }
         NSString *username = info[kusername];
-        NSNumber *timeNu = info[kcreated_at];
+        NSNumber *timeNu = info[@"update_at"];
         NSString *time = [NSString dateStringWithTime:timeNu.doubleValue];
         NSNumber *type = info[ktype];
         NSString *face_url = info[kface_url];
@@ -60,6 +55,10 @@
         if (type.integerValue == 3) {
             
             from = @"附近";
+        }
+        if (type.integerValue == 0) {
+            
+            from = @"自己";
         }
         
         [result addObject:@{kface_url:face_url?:@"",kuid:uid,kmid:mid,kmsg:msg?:@"",kcover:cover?:@"",ktime:time,kfrom:from,kusername:username}];

@@ -13,8 +13,9 @@
 #import "UIView+YYAdd.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import "QYAnnotationView.h"
 
-@interface QYReadMeHeaderView ()
+@interface QYReadMeHeaderView ()<MAMapViewDelegate>
 @property (nonatomic, strong) UIButton *icon;
 @property (nonatomic, strong) UILabel *username;
 @property (nonatomic, strong) UIImageView *sexIcon;
@@ -319,9 +320,9 @@
     if (!_mapView) {
         
         _mapView= [[MAMapView alloc] init];
-        //_mapView.scrollEnabled = NO;
         _mapView.zoomEnabled = YES;
         _mapView.zoomLevel = 5;
+        _mapView.delegate = self;
     }
     return _mapView;
 }
@@ -330,6 +331,17 @@
     
     _user = user;
     [self anlayseData];
+}
+
+- (void)setAnnotions:(NSArray *)annotions {
+    
+    if (_annotions.count > 0) {
+        
+        [self.mapView removeAnnotations:_annotions];
+    }
+    _annotions = annotions;
+    [self.mapView addAnnotations:_annotions];
+    
 }
 
 - (void)anlayseData{
@@ -411,6 +423,25 @@
         
         self.sexIcon.image = [UIImage imageNamed:@"ride_man"];
     }
+}
+
+#pragma mark 
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
+    
+    if ([annotation isKindOfClass:[QYAnnotionModel class]]) {
+        
+        QYAnnotationView *view = [QYAnnotationView annotionViewMapView:mapView];
+        view.annotation = annotation;
+        return view;
+        
+    }
+    return nil;
+}
+
+- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    
+    
 }
 
 @end
