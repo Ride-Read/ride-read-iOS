@@ -55,7 +55,7 @@
 
 - (void)setNavc {
   
-    self.navigationItem.title = @"阅圈";
+    self.navigationItem.title = @"阅图";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0.00 green:0.82 blue:0.77 alpha:0.5];
 
