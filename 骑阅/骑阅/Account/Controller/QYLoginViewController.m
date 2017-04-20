@@ -187,6 +187,8 @@
     }
     return _logic;
 }
+
+
 /*
 #pragma mark - Navigation
 

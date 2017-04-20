@@ -17,9 +17,11 @@
 #import "YYFMPromptView.h"
 #import "QYChatkExample.h"
 #import "QYLoginOrRegisterFatherController.h"
-@interface QYSetViewController ()<UIAlertViewDelegate>
+#import "QYLogoutApiManager.h"
+@interface QYSetViewController ()<UIAlertViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYSetFooterView *footerView;
 @property (nonatomic, weak) UILabel *ramLabel;
+@property (nonatomic, strong) QYLogoutApiManager *logOutApi;
 @end
 
 @implementation QYSetViewController
@@ -39,6 +41,37 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - CTAPiManagerParamSource
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.logOutApi) {
+        
+        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+        return @{kuid:uid};
+    }
+    return nil;
+}
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
+        
+        MyLog(@"登出成功");
+        QYLoginOrRegisterFatherController *login = [[QYLoginOrRegisterFatherController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = login;
+        
+    } failed:^(NSError *error) {
+        
+        MyLog(@"登出失败");
+    }];
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    
 }
 
 #pragma mark - private method
@@ -75,17 +108,8 @@
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
-            
-            MyLog(@"登出成功");
-            QYLoginOrRegisterFatherController *login = [[QYLoginOrRegisterFatherController alloc] init];
-            [UIApplication sharedApplication].keyWindow.rootViewController = login;
-            
-        } failed:^(NSError *error) {
-            
-            [MBProgressHUD showMessageAutoHide:@"退出失败" view:nil];
-            MyLog(@"登出失败");
-        }];
+        
+        [self.logOutApi loadData];
     }];
     
     UIAlertController *al = [UIAlertController alertControllerWithTitle:nil message:@"您确定要退出账号?" preferredStyle:UIAlertControllerStyleAlert];
@@ -243,6 +267,17 @@
         _footerView.frame = CGRectMake(0, 0, kScreenWidth, cl_caculation_3y(144));
     }
     return _footerView;
+}
+
+- (QYLogoutApiManager *)logOutApi {
+    
+    if (!_logOutApi) {
+        
+        _logOutApi = [[QYLogoutApiManager alloc] init];
+        _logOutApi.delegate = self;
+        _logOutApi.paramSource = self;
+    }
+    return _logOutApi;
 }
 
 /*

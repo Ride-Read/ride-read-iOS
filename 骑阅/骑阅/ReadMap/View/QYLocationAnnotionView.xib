@@ -16,10 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="48" height="68"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sgin_image_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-SH-1Hk">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sgin_no_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-SH-1Hk">
                     <rect key="frame" x="0.0" y="0.0" width="48" height="68"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aS8-3c-UqQ">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aS8-3c-UqQ">
                     <rect key="frame" x="5" y="5" width="38" height="38"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="aS8-3c-UqQ" secondAttribute="height" multiplier="1:1" id="h2L-s6-lde"/>
@@ -30,11 +30,11 @@
             <constraints>
                 <constraint firstItem="Hwf-SH-1Hk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1EV-hS-Wtp"/>
                 <constraint firstAttribute="bottom" secondItem="Hwf-SH-1Hk" secondAttribute="bottom" id="1Hh-F5-PWX"/>
-                <constraint firstItem="aS8-3c-UqQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="AOY-wx-jUJ"/>
+                <constraint firstItem="aS8-3c-UqQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="EAh-Cv-ePq"/>
                 <constraint firstItem="Hwf-SH-1Hk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Lev-c0-RjJ"/>
-                <constraint firstItem="aS8-3c-UqQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="R9b-MC-9er"/>
+                <constraint firstAttribute="trailing" secondItem="aS8-3c-UqQ" secondAttribute="trailing" constant="5" id="VCp-RG-VPo"/>
+                <constraint firstItem="aS8-3c-UqQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="fsO-zQ-A4q"/>
                 <constraint firstAttribute="trailing" secondItem="Hwf-SH-1Hk" secondAttribute="trailing" id="k2q-kn-fXa"/>
-                <constraint firstAttribute="trailing" secondItem="aS8-3c-UqQ" secondAttribute="trailing" constant="5" id="wwB-xI-IPh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -43,6 +43,6 @@
         </view>
     </objects>
     <resources>
-        <image name="sgin_image_icon" width="54" height="66"/>
+        <image name="sgin_no_icon" width="45" height="62"/>
     </resources>
 </document>

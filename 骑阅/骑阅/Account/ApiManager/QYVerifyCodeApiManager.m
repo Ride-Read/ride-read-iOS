@@ -49,7 +49,7 @@
 #pragma mark - APIManagerValidator
 -(BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
     
-    NSString *code = data[kphonenumber];
+    NSString *code = data[kride_read_id];
     if (!code||code.length < 3) {
         
         return NO;

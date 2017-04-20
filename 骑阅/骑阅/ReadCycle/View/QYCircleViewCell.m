@@ -406,10 +406,11 @@
             UIImageView *pic = [set anyObject];
             if (!pic) {
                 pic = [UIImageView new];
+                pic.contentMode = UIViewContentModeScaleAspectFill;
+                pic.layer.masksToBounds = YES;
                 [self addSubview:pic];
                 [self addTapAction:pic];
             }
-            
             [pic sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
             [set removeObject:pic];
             if (!pre) {
@@ -432,16 +433,17 @@
             pic.backgroundColor = [UIColor blueColor];
 
         }
-               for (UIImageView *imageView in set) {
+        for (UIImageView *imageView in set) {
             
             imageView.frame = CGRectZero;
         }
         
     } else {
         
-        
-        UIImageView *pic = [set anyObject];
-        pic.frame = CGRectZero;
+        for (UIImageView *imageView in set) {
+            
+            imageView.frame = CGRectZero;
+        }
     }
    
 }
@@ -524,14 +526,19 @@
     
     self.siteLength.textLayout = _cell.layout.sizeLengthLayout;
     self.siteLength.top = 11.5;
-    self.siteLength.left = CGRectGetMaxX(self.site.frame) + 16;
+    CGFloat margin = 16;
+    if (self.site.frame.size.width < 5) {
+        
+        margin = 0;
+    }
+    self.siteLength.left = CGRectGetMaxX(self.site.frame) + margin;
     self.siteLength.size = _cell.layout.sizeLengthLayout.textBoundingSize;
     
 }
 - (void)layoutPraise {
     
    
-    self.praiseButton.size = CGSizeMake(cl_caculation_3x(35), cl_caculation_3x(32));
+    self.praiseButton.size = CGSizeMake(cl_caculation_3x(30), cl_caculation_3x(26));
     self.praiseButton.top = 44;
     self.praiseButton.right = self.praiseNumber.left - 5;
 }

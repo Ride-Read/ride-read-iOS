@@ -22,7 +22,7 @@
 
 - (NSString *)methodName {
     
-    return @"moments/show_collection";
+    return @"moments/show_collect_moment";
 }
 
 - (NSString *)serviceType {

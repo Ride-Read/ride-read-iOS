@@ -26,6 +26,7 @@
     if (!view) {
         
         view = [[QYAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:ID];
+        view.enabled = YES;
     }
     return view;
     

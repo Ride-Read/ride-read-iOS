@@ -13,9 +13,13 @@
 #import "UIView+YYAdd.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
-#import "QYAnnotationView.h"
+#import "QYPersonAnnotion.h"
+#import "QYPersionMapApiManager.h"
+#import "QYRecentlyCycleReform.h"
+#import "QYPersonAnnoationView.h"
+#import "QYPersonMapController.h"
 
-@interface QYReadMeHeaderView ()<MAMapViewDelegate>
+@interface QYReadMeHeaderView ()<MAMapViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) UIButton *icon;
 @property (nonatomic, strong) UILabel *username;
 @property (nonatomic, strong) UIImageView *sexIcon;
@@ -27,6 +31,9 @@
 @property (nonatomic, strong) UIView *grayView;
 @property (nonatomic, strong) UIView *tagsView;
 @property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) QYPersionMapApiManager  *personApi;
+@property (nonatomic, strong) QYRecentlyCycleReform *personReform;
+
 @end
 @implementation QYReadMeHeaderView
 
@@ -34,6 +41,7 @@
     
     self = [super init];
     self.backgroundColor = [UIColor clearColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPersonData) name:kPostCycleSuccessNotifation object:nil];
     [self setupUI];
     return self;
 }
@@ -154,10 +162,11 @@
             case 1:
         {
             
-            if ([self.delegate respondsToSelector:@selector(clickPersonMap:)]) {
-                
-                [self.delegate clickPersonMap:self];
-            }
+            QYPersonMapController *perMap = [[QYPersonMapController alloc] init];
+            perMap.annos = self.annotions;
+            perMap.user = self.user;
+            UIViewController *ctr = (UIViewController *)self.delegate;
+            [ctr presentViewController:perMap animated:YES completion:nil];
             break;
 
         }
@@ -196,6 +205,11 @@
             break;
     }
     
+}
+
+- (void)loadPersonData {
+    
+    [self.personApi loadData];
 }
 #pragma mark setter and getter
 - (UIButton *)icon {
@@ -330,6 +344,7 @@
 - (void)setUser:(QYUser *)user {
     
     _user = user;
+    [self.personApi loadData];
     [self anlayseData];
 }
 
@@ -425,23 +440,75 @@
     }
 }
 
-#pragma mark 
 
-- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
+#pragma mark - CTAPIManagerParamSource
+
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
-    if ([annotation isKindOfClass:[QYAnnotionModel class]]) {
+    
+    if (manager == self.personApi) {
         
-        QYAnnotationView *view = [QYAnnotationView annotionViewMapView:mapView];
-        view.annotation = annotation;
-        return view;
+        NSNumber *uid = self.user.uid;
+        return @{kuid:uid?:@(-1)};
         
     }
     return nil;
 }
 
-- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+#pragma mark - CTAPIManagerCallBackDelegate
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
     
+    if (manager == self.personApi) {
+        
+        NSArray *array = [self.personApi fetchDataWithReformer:self.personReform];
+        self.annotions = array;
+    }
 }
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    
+    if (manager == self.personApi) {
+        
+        
+    }
+}
+
+- (QYRecentlyCycleReform *)personReform {
+    
+    if (!_personReform) {
+        
+        _personReform = [[QYRecentlyCycleReform alloc] init];
+    }
+    return _personReform;
+}
+- (QYPersionMapApiManager *)personApi {
+    
+    if (!_personApi) {
+        
+        _personApi = [[QYPersionMapApiManager alloc] init];
+        _personApi.paramSource = self;
+        _personApi.delegate = self;
+    }
+    return _personApi;
+}
+
+
+#pragma mark -mapView delegate
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
+    
+    if ([annotation isKindOfClass:[QYPersonAnnotion class]]) {
+        
+        QYPersonAnnoationView *annoView = [QYPersonAnnoationView personAnnotionViewMapView:mapView];
+        annoView.annotation = annotation;
+        return annoView;
+        
+    }
+    return nil;
+}
+
 
 @end

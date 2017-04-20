@@ -22,8 +22,6 @@
 #import "QYSetViewController.h"
 #import "QYConversaitonListViewController.h"
 #import "QYChatkExample.h"
-#import "QYPersionMapApiManager.h"
-#import "QYRecentlyCycleReform.h"
 
 @interface QYReadMeController ()<UITableViewDelegate,UITableViewDataSource,QYReadMeHeaderViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
@@ -33,8 +31,6 @@
 @property (nonatomic, strong) QYUserReform *userReform;
 @property (nonatomic, strong) QYUser *user;
 @property (nonatomic, assign) NSUInteger unreadCount;
-@property (nonatomic, strong) QYPersionMapApiManager  *personApi;
-@property (nonatomic, strong) QYRecentlyCycleReform *personReform;
 @end
 
 @implementation QYReadMeController
@@ -44,8 +40,6 @@
     [super viewDidLoad];
     [self setContentView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addUnreadMessage) name:KReciveMessagNotiFation object:nil];
-    [self loadPersonData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPersonData) name:kPostCycleSuccessNotifation object:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -62,6 +56,11 @@
     [self loadData];
     
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    
+    return UIStatusBarStyleLightContent;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -76,18 +75,7 @@
 - (void)loadData {
     
     [self.userLogic loadData];
-    [self.serialQueue addOperationWithBlock:^{
-       
-        [self.personApi loadData];
-    }];
-}
-
-- (void)loadPersonData {
     
-    [self.serialQueue addOperationWithBlock:^{
-       
-        [self.personApi loadData];
-    }];
 }
 - (void)loadUnreadMessage {
     
@@ -131,12 +119,6 @@
         return @{kuid:uid?:@(-1),ktype:@(1)};
     }
     
-    if (manager == self.personApi) {
-        
-        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-        return @{kuid:uid?:@(-1)};
-
-    }
     return nil;
 }
 
@@ -150,11 +132,6 @@
         self.headerView.user = self.user;
     }
     
-    if (manager == self.personApi) {
-        
-       NSArray *array = [self.personApi fetchDataWithReformer:self.personReform];
-        self.headerView.annotions = array;
-    }
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
@@ -164,10 +141,6 @@
         
     }
     
-    if (manager == self.personApi) {
-        
-        
-    }
 }
 
 #pragma mark - headerView delegate
@@ -355,24 +328,6 @@
     return _userLogic;
 }
 
-- (QYRecentlyCycleReform *)personReform {
-    
-    if (!_personReform) {
-        
-        _personReform = [[QYRecentlyCycleReform alloc] init];
-    }
-    return _personReform;
-}
-- (QYPersionMapApiManager *)personApi {
-    
-    if (!_personApi) {
-        
-        _personApi = [[QYPersionMapApiManager alloc] init];
-        _personApi.paramSource = self;
-        _personApi.delegate = self;
-    }
-    return _personApi;
-}
 
 /*
 #pragma mark - Navigation

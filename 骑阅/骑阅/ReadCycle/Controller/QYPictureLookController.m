@@ -136,7 +136,8 @@
     if (!_icon) {
         
         _icon = [[UIImageView alloc] init];
-        _icon.contentMode = UIViewContentModeScaleToFill;
+        _icon.contentMode = UIViewContentModeScaleAspectFill;
+        _icon.layer.masksToBounds = YES;
         _icon.userInteractionEnabled = YES;
 
     }

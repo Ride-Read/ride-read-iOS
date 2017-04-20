@@ -11,13 +11,17 @@
 
 @implementation QYLocationAnnotionView
 
+- (void)awakeFromNib {
+    
+    [super awakeFromNib];
+}
 + (instancetype)locaView {
     
     QYLocationAnnotionView *locView = [[NSBundle mainBundle] loadNibNamed:@"QYLocationAnnotionView" owner:nil options:nil].firstObject;
-    locView.frame = CGRectMake(0, 0,cl_caculation_3x(54),cl_caculation_3y(67));
+    locView.frame = CGRectMake(0, 0,cl_caculation_3x(91),cl_caculation_3y(123));
     locView.backgroundColor = [UIColor clearColor];
     locView.currentIcon.layer.masksToBounds = YES;
-    locView.currentIcon.layer.cornerRadius = cl_caculation_3x(17);
+    locView.currentIcon.layer.cornerRadius = cl_caculation_3x(71)/2;
     return locView;
 }
 

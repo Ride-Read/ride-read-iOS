@@ -157,9 +157,10 @@
     sizeLegthText.yy_font = [UIFont systemFontOfSize:11];
     sizeLegthText.yy_color = [UIColor colorWithHexString:@"#555555"];
     
-    YYTextContainer *siteContainer = [YYTextContainer containerWithSize:CGSizeMake(320, 999)];
-    YYTextContainer *siteLengthContainer = [YYTextContainer containerWithSize:CGSizeMake(95, 999)];
+    YYTextContainer *siteContainer = [YYTextContainer containerWithSize:CGSizeMake(kScreenWidth-100, 999)];
     self.sizeLayout = [YYTextLayout layoutWithContainer:siteContainer text:siteText];
+    YYTextContainer *siteLengthContainer = [YYTextContainer containerWithSize:CGSizeMake(kScreenWidth-self.sizeLayout.textBoundingSize.width-100, 999)];
+    
     self.sizeLengthLayout = [YYTextLayout layoutWithContainer:siteLengthContainer text:sizeLegthText];
     self.toolHeight = 75;
     

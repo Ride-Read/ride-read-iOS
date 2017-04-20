@@ -87,7 +87,10 @@
     } else {
         
         NSDictionary *info = self.array[indexPath.row-1];
-        self.handler(indexPath.row,info[@"sub"]);
+        NSString *sub = info[@"sub"];
+        NSArray *array = [sub componentsSeparatedByString:@"."];
+        NSString *location = [NSString stringWithFormat:@"%@.%@",array[1],array[3]];
+        self.handler(indexPath.row,location);
         
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -108,7 +111,7 @@
                 
                 MyLog(@"plcate:%@",plcace);
                 MyLog(@"name:%@,%@,%@,%@,%@",plcace.name,plcace.administrativeArea,plcace.subAdministrativeArea,plcace.locality,plcace.subLocality);
-                NSString *site = [NSString stringWithFormat:@"%@%@%@%@"
+                NSString *site = [NSString stringWithFormat:@"%@.%@.%@.%@"
                                   ,plcace.administrativeArea?:plcace.subAdministrativeArea,
                                   plcace.locality,
                                   plcace.subLocality,

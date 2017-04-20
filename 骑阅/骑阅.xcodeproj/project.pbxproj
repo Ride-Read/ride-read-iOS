@@ -269,6 +269,11 @@
 		BAE766591EA3E143007A0A64 /* QYCollocetionApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE766581EA3E143007A0A64 /* QYCollocetionApiManager.m */; };
 		BAE7665C1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7665B1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m */; };
 		BAE7665F1EA3EB40007A0A64 /* QYCycleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7665E1EA3EB40007A0A64 /* QYCycleDetailViewController.m */; };
+		BAE7838A1EA7B72F00D169DC /* QYPersonAnnoationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE783891EA7B72F00D169DC /* QYPersonAnnoationView.m */; };
+		BAE7838D1EA7B74F00D169DC /* QYCustomPersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE7838C1EA7B74F00D169DC /* QYCustomPersonView.m */; };
+		BAE7838F1EA7B76600D169DC /* QYCustomPersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAE7838E1EA7B76600D169DC /* QYCustomPersonView.xib */; };
+		BAE783921EA7C64E00D169DC /* QYPersonMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE783911EA7C64E00D169DC /* QYPersonMapController.m */; };
+		BAE783951EA7CF9400D169DC /* QYLogoutApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE783941EA7CF9400D169DC /* QYLogoutApiManager.m */; };
 		BAF572CF1EA121CF00129E49 /* QYLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */; };
 		BAF572D11EA126BF00129E49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF572D01EA126BF00129E49 /* MapKit.framework */; };
 		BAF572D91EA12F3F00129E49 /* QYLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572D81EA12F3F00129E49 /* QYLocationCell.m */; };
@@ -826,6 +831,15 @@
 		BAE7665B1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYShowOneMonentApiManager.m; sourceTree = "<group>"; };
 		BAE7665D1EA3EB40007A0A64 /* QYCycleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCycleDetailViewController.h; sourceTree = "<group>"; };
 		BAE7665E1EA3EB40007A0A64 /* QYCycleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCycleDetailViewController.m; sourceTree = "<group>"; };
+		BAE783881EA7B72F00D169DC /* QYPersonAnnoationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonAnnoationView.h; sourceTree = "<group>"; };
+		BAE783891EA7B72F00D169DC /* QYPersonAnnoationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonAnnoationView.m; sourceTree = "<group>"; };
+		BAE7838B1EA7B74F00D169DC /* QYCustomPersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCustomPersonView.h; sourceTree = "<group>"; };
+		BAE7838C1EA7B74F00D169DC /* QYCustomPersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCustomPersonView.m; sourceTree = "<group>"; };
+		BAE7838E1EA7B76600D169DC /* QYCustomPersonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYCustomPersonView.xib; sourceTree = "<group>"; };
+		BAE783901EA7C64E00D169DC /* QYPersonMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonMapController.h; sourceTree = "<group>"; };
+		BAE783911EA7C64E00D169DC /* QYPersonMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonMapController.m; sourceTree = "<group>"; };
+		BAE783931EA7CF9400D169DC /* QYLogoutApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLogoutApiManager.h; sourceTree = "<group>"; };
+		BAE783941EA7CF9400D169DC /* QYLogoutApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLogoutApiManager.m; sourceTree = "<group>"; };
 		BAF572CD1EA121CF00129E49 /* QYLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLocationViewController.h; sourceTree = "<group>"; };
 		BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLocationViewController.m; sourceTree = "<group>"; };
 		BAF572D01EA126BF00129E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1129,6 +1143,11 @@
 				BA05A8211EA522FF00D89210 /* QYSendCycleView.h */,
 				BA05A8221EA522FF00D89210 /* QYSendCycleView.m */,
 				BA05A8231EA522FF00D89210 /* QYSendCycleView.xib */,
+				BAE783881EA7B72F00D169DC /* QYPersonAnnoationView.h */,
+				BAE783891EA7B72F00D169DC /* QYPersonAnnoationView.m */,
+				BAE7838B1EA7B74F00D169DC /* QYCustomPersonView.h */,
+				BAE7838C1EA7B74F00D169DC /* QYCustomPersonView.m */,
+				BAE7838E1EA7B76600D169DC /* QYCustomPersonView.xib */,
 				BA05A8331EA5283F00D89210 /* QYAnnotationView.h */,
 				BA05A8341EA5283F00D89210 /* QYAnnotationView.m */,
 				BA05A82E1EA5241C00D89210 /* QYLocationAnnotionView.h */,
@@ -2067,6 +2086,8 @@
 				BAE766501EA3CAC8007A0A64 /* QYPersionMapApiManager.m */,
 				BAE7665A1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.h */,
 				BAE7665B1EA3E9B4007A0A64 /* QYShowOneMonentApiManager.m */,
+				BAE783931EA7CF9400D169DC /* QYLogoutApiManager.h */,
+				BAE783941EA7CF9400D169DC /* QYLogoutApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -2287,6 +2308,8 @@
 				BA995D031E842BED002FA3B2 /* QYRequstFrindViewController.m */,
 				BA995D051E842F71002FA3B2 /* QYCycleCollectViewController.h */,
 				BA995D061E842F71002FA3B2 /* QYCycleCollectViewController.m */,
+				BAE783901EA7C64E00D169DC /* QYPersonMapController.h */,
+				BAE783911EA7C64E00D169DC /* QYPersonMapController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2532,6 +2555,7 @@
 				BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */,
 				BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */,
 				BA1542B51E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard in Resources */,
+				BAE7838F1EA7B76600D169DC /* QYCustomPersonView.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 				BA05A8321EA5249200D89210 /* QYLocationAnnotionView.xib in Resources */,
 			);
@@ -2740,6 +2764,7 @@
 				BAA001981E5072B20067A894 /* QYBasicViewController.m in Sources */,
 				BAD3143A1E926E8F004CF67F /* QYBasicNeedLocationController.m in Sources */,
 				BA05A80F1EA5147E00D89210 /* QYCircleViewCell.m in Sources */,
+				BAE783921EA7C64E00D169DC /* QYPersonMapController.m in Sources */,
 				BAA001951E50725B0067A894 /* CTUDIDGenerator.m in Sources */,
 				EC94C25E1E51741900F2454F /* QYOtherLoginView.m in Sources */,
 				BA354D801E6BE20000EE8189 /* QNHex.m in Sources */,
@@ -2770,6 +2795,7 @@
 				BAA0017E1E50725B0067A894 /* NSDictionary+AXNetworkingMethods.m in Sources */,
 				BA354D701E6BE20000EE8189 /* QNIpModel.m in Sources */,
 				BA9AAAAC1E692C7000D7A5BB /* NSParagraphStyle+YYText.m in Sources */,
+				BAE7838A1EA7B72F00D169DC /* QYPersonAnnoationView.m in Sources */,
 				BAC871271E7707FC00C5F800 /* UIView+QYShowBottomLine.m in Sources */,
 				EC43E7C41E59D32300DCCBB9 /* QYLoginView.m in Sources */,
 				BAA001851E50725B0067A894 /* CLCommands.m in Sources */,
@@ -2796,6 +2822,7 @@
 				BA6FC60D1E9922FD00CF4ECC /* QYFollowingApiManager.m in Sources */,
 				BAC9DD3E1E9D34980062A5BC /* QYimageView.m in Sources */,
 				BA354D7F1E6BE20000EE8189 /* QNGetAddrInfo.m in Sources */,
+				BAE783951EA7CF9400D169DC /* QYLogoutApiManager.m in Sources */,
 				BAC36FC01E82AD61007D1FF4 /* QYRideUserLogic.m in Sources */,
 				BA9AAAB11E692C7000D7A5BB /* YYTextUtilities.m in Sources */,
 				BAC36FAD1E815DCA007D1FF4 /* QYAttentionOrFansApiManager.m in Sources */,
@@ -2835,6 +2862,7 @@
 				BA354D7A1E6BE20000EE8189 /* QNResolver.m in Sources */,
 				BAC36FB91E818035007D1FF4 /* QYCycleMessageReform.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
+				BAE7838D1EA7B74F00D169DC /* QYCustomPersonView.m in Sources */,
 				BA354D741E6BE20000EE8189 /* QNNetworkInfo.m in Sources */,
 				EC94C2521E50851500F2454F /* QYLoginApiManager.m in Sources */,
 				BAD314451E9400F2004CF67F /* QYLookAttentionViewController.m in Sources */,

@@ -198,7 +198,7 @@
     if (manager == self.verifyInviteCodeApiManager) {
         
         NSString * username = self.invitePeopleView.invitePeople.text;
-        return @{kphonenumber:username?:@""};
+        return @{kride_read_id:username?:@""};
     }
     
     if (manager == self.registerLogic.apiManager) {
@@ -244,6 +244,7 @@
     if (manager == self.phoneApi) {
         
         [self.hud hide:YES];
+        self.registerView.codeButton.enabled = YES;
         self.phoneCode = [self.phoneApi fetchDataWithReformer:self.userReform];
         [MBProgressHUD showMessageAutoHide:@"验证码发送成功" view:nil];
         self.correctSMSCode = YES;
@@ -273,7 +274,13 @@
     
     if (manager == self.phoneApi) {
         
+        self.registerView.codeButton.enabled = YES;
         [self.hud hide:YES];
+        if (manager.errorType == CTAPIBaseManagerErrorTypeParamsError) {
+            
+            [MBProgressHUD showMessageAutoHide:@"手机号格式不正确" view:nil];
+            return;
+        }
         NSString *msg = [self.phoneApi fetchDataWithReformer:self.userReform];
         [MBProgressHUD showMessageAutoHide:msg view:nil];
         
