@@ -59,8 +59,16 @@
     if (self.user_info.is_followed.integerValue == 0 || self.user_info.is_followed.integerValue == 1) {
         
         [self loadCycleData];
+        if (self.attentionHandle)
+        {
+            self.attentionHandle(1);
+        }
     } else {
         
+        if (self.attentionHandle)
+        {
+            self.attentionHandle(0);
+        }
         [self unLoadCircleData];
     }
 }

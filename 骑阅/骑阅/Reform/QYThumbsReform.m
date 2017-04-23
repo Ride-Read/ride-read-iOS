@@ -28,11 +28,11 @@
         NSString *avater = info[@"face_url"];
         NSString *timeText = @"";
         NSNumber *is_followed = info[@"is_followed"];
-        NSString *stauts = @"attentioned";
+        NSString *stauts = @"attention";
         NSNumber *tag = @(0);
         if (is_followed.integerValue==0||is_followed.integerValue == 1) {
             
-            stauts = @"attention";
+            stauts = @"attentioned";
             tag = @(1);
         }
         

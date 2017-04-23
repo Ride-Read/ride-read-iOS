@@ -144,20 +144,27 @@
     
     NSMutableDictionary *info = self.dataArray[indexPath.row];
     NSNumber *tag = info[@"tag"];
-    if (tag.integerValue == 0) {
+    if (tag.integerValue == 0 || tag.integerValue == 1) {
         
         
         QYFromIconLickViewController *ctr = [[QYFromIconLickViewController alloc] init];
         ctr.user = @{kuid:info[kuid],kusername:info[kusername]}.mutableCopy;
         ctr.title = info[kusername];
+        ctr.attentionHandle = ^(NSInteger tag) {
+            
+            if (tag == 0) {
+                
+                info[kstatus] = @"attention";
+            } else {
+                
+                info[kstatus] = @"attentioned";
+            }
+            info[@"tag"] = @(tag);
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+        };
         [self.navigationController pushViewController:ctr animated:YES];
-    } else if (tag.integerValue == 1) {
         
-        QYReadLookUserController *ctr = [[QYReadLookUserController alloc] init];
-        ctr.user = @{kuid:info[kuid],kusername:info[kusername]}.mutableCopy;
-        ctr.title = info[kusername];
-        [self.navigationController pushViewController:ctr animated:YES];
-
     } else {
         
         QYRideMyCycleController *ctr = [[QYRideMyCycleController alloc] init];

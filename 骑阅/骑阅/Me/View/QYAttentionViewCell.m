@@ -183,7 +183,7 @@
         
         [MBProgressHUD showMessageAutoHide:@"关注成功" view:nil];
         _info[@"tag"] = @(1);
-        _info[kstatus] = @"attention";
+        _info[kstatus] = @"attentioned";
         [_ctr.dataRefresh customView:self refresh:nil];
     }
     
@@ -191,7 +191,7 @@
         
         [MBProgressHUD showMessageAutoHide:@"取消关注成功" view:nil];
         _info[@"tag"] = @(0);
-        _info[kstatus] = @"attentioned";
+        _info[kstatus] = @"attention";
         [_ctr.dataRefresh customView:self refresh:nil];
         
         

@@ -30,6 +30,8 @@
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, strong) QYUser *user_info;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
+@property (nonatomic, copy) void(^attentionHandle)(NSInteger tag);
+
 
 
 
