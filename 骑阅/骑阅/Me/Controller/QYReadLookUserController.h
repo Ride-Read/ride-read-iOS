@@ -16,8 +16,9 @@
 #import "QYRideUserApiManager.h"
 #import "QYUserReform.h"
 #import "define.h"
+#import "QYCommentNumberView.h"
 
-@interface QYReadLookUserController : QYBasicNeedLocationController<UITableViewDelegate,UITableViewDataSource>
+@interface QYReadLookUserController : QYBasicNeedLocationController<UITableViewDelegate,UITableViewDataSource,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) NSMutableDictionary *user;
 @property (nonatomic, strong) QYReadMeHeaderView *headerView;
 @property (nonatomic, strong) QYShowUserCycleApiManager *cycleApiManager;
@@ -25,7 +26,12 @@
 @property (nonatomic, strong) YYBasicTableView *tableView;
 @property (nonatomic, strong) QYRideUserApiManager *userApi;
 @property (nonatomic, strong) QYUserReform *userReform;
+@property (nonatomic, strong) QYCommentNumberView *numberView;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) QYUser *user_info;
+@property (nonatomic, strong) NSMutableArray *layoutArray;
+
+
 
 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager;

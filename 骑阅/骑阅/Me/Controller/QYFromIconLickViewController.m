@@ -9,13 +9,14 @@
 #import "QYFromIconLickViewController.h"
 
 @interface QYFromIconLickViewController ()
-
+@property (nonatomic, assign) NSInteger height;
 @end
 
 @implementation QYFromIconLickViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.height = 0;
     // Do any additional setup after loading the view.
 }
 
@@ -24,6 +25,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+   
+}
 - (void)loadData {
     
     [self.serialQueue addOperationWithBlock:^{
@@ -32,14 +37,62 @@
     }];
 }
 
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager{
+    
+    [super managerCallAPIDidSuccess:manager];
+    if (manager == self.userApi) {
+        
+        if (self.user_info.is_followed.integerValue == 0 || self.user_info.is_followed.integerValue == 1) {
+            
+            [self loadCycleData];
+        } else {
+            
+            [self unLoadCircleData];
+        }
+    }
+}
+
+- (void)customView:(UIView *)customView refresh:(id)data {
+    
+    [super customView:customView refresh:data];
+    
+    if (self.user_info.is_followed.integerValue == 0 || self.user_info.is_followed.integerValue == 1) {
+        
+        [self loadCycleData];
+    } else {
+        
+        [self unLoadCircleData];
+    }
+}
+
+#pragma mark - private method
+
+- (void)loadCycleData {
+    
+    [self.serialQueue addOperationWithBlock:^{
+    
+        [self.cycleApiManager loadData];
+        
+    }];
+    self.height = 43;
+    
+}
+
+- (void)unLoadCircleData {
+    
+    [self.layoutArray removeAllObjects];
+    self.height = 0;
+    [self.tableView reloadData];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    return nil;
+    return self.numberView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 0;
+    return self.height;
 }
 
 - (void)setContentView {

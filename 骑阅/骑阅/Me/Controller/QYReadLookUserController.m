@@ -15,17 +15,13 @@
 #import "QYFansUserViewController.h"
 #import "QYAttentionViewController.h"
 #import "QYDetailCycleLayout.h"
-#import "QYCommentNumberView.h"
 #import "MBProgressHUD+LLHud.h"
 
 
-@interface QYReadLookUserController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate,QYFriendCycleDelegate>
-@property (nonatomic, strong) NSMutableArray *layoutArray;
+@interface QYReadLookUserController ()<YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
-@property (nonatomic, strong) QYCommentNumberView *numberView;
 @property (nonatomic, strong) MBProgressHUD *hud;
-@property (nonatomic, strong) QYUser *user_info;
 
 @end
 
@@ -126,7 +122,7 @@
         
         [self.layoutArray replaceObjectAtIndex:indexPath.row withObject:[QYFriendCycleCellLayout friendStatusCellLayout:layout.status]];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    };
+     };
     
     [self.navigationController pushViewController:detail animated:YES];
     
@@ -254,10 +250,8 @@
 
 - (void)customView:(UIView *)customView refresh:(id)data {
     
-    [self.serialQueue addOperationWithBlock:^{
-       
-        [self.userApi loadData];
-    }];
+    
+    [self.headerView anlayseData];
 }
 
 #pragma mark - getter and setter

@@ -24,7 +24,7 @@ static NSString *CTKeychainServiceName = @"xxxxx";
 static NSString *CTUDIDName = @"xxxx";
 static NSString *CTPasteboardType = @"xxxx";
 
-static BOOL kCTShouldCache = YES;
+static BOOL kCTShouldCache = NO;
 static BOOL kCTServiceIsOnline = NO;
 static NSTimeInterval kCTNetworkingTimeoutSeconds = 20.0f;
 static NSTimeInterval kCTCacheOutdateTimeSeconds = 300; // 5分钟的cache过期时间

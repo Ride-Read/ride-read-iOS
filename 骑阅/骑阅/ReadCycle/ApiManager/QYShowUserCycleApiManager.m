@@ -39,7 +39,7 @@
 
 - (BOOL)shouldCache {
     
-    return NO;
+    return YES;
 }
 
 - (NSDictionary *)reformParams:(NSDictionary *)params {

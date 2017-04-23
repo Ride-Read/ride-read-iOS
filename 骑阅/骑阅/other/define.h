@@ -90,6 +90,7 @@ static NSString * const kreply_uid = @"reply_uid";
 static NSString * const krand_code = @"rand_code";
 static NSString * const kride_read_id = @"ride_read_id";
 static NSString * const kmoment_location = @"moment_location";
+static NSString * const kcount = @"count";
 
 #pragma mark - cycl
 static NSString * const kuser = @"user";
@@ -111,6 +112,7 @@ static NSString * const kfrom = @"from";
 static NSString * const kreply = @"reply";
 static NSString * const kfolloweds = @"followeds";
 static NSString * const kfollowers = @"followers";
+static NSString * const kscaling_ratio = @"scaling_ratio";
 
 
 #pragma - personal

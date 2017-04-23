@@ -16,7 +16,7 @@
 @interface QYAttentionAndMessageView ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYUnfollowApiManager *unApi;
 @property (nonatomic, strong) QYFollowApiManager *followApi;
-
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation QYAttentionAndMessageView
@@ -29,15 +29,7 @@
 - (void)setType:(QYAttentionAndMessageViewType)type {
     
     _type = type;
-    if (type == QYAttentionAndMessageViewNoselect) {
-        
-        self.attention.selected = NO;
-        self.message.selected = NO;
-    } else {
-        
-        self.attention.selected = YES;
-        self.attention.selected = YES;
-    }
+   
 }
 - (IBAction)clickAttention:(UIButton *)sender {
     
@@ -49,6 +41,7 @@
            
             if (index == 1) {
                 
+                self.hud = [MBProgressHUD showMessage:@"取关中..." toView:nil];
                 [self.unApi loadData];
             }
         }];
@@ -59,6 +52,7 @@
         
         if (index == 1) {
             
+            self.hud = [MBProgressHUD showMessage:@"关注中..." toView:nil];
             [self.followApi loadData];
         }
     }];
@@ -67,9 +61,15 @@
 - (IBAction)clickMessage:(UIButton *)sender {
     
     NSNumber *uid = self.user.uid;
-    QYConversationViewController *conver = [[QYConversationViewController alloc] initWithPeerId:[NSString stringWithFormat:@"%@",uid]];
-    QYBasicViewController *contr = (QYBasicViewController *)self.dataRefresh;
-    [contr.navigationController pushViewController:conver animated:YES];
+    if (self.user.is_followed.integerValue == 1 || self.user.is_followed.integerValue == 0) {
+        
+        QYConversationViewController *conver = [[QYConversationViewController alloc] initWithPeerId:[NSString stringWithFormat:@"%@",uid]];
+        QYBasicViewController *contr = (QYBasicViewController *)self.dataRefresh;
+        [contr.navigationController pushViewController:conver animated:YES];
+        return;
+    }
+    [MBProgressHUD showMessageAutoHide:@"还未关注该用户，无法操作" view:nil];
+   
 }
 
 #pragma mark - paramSource
@@ -83,12 +83,27 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
-    if (self.type == QYAttentionAndMessageViewNoselect) {
+    
+    [self.hud hide:YES];
+    [MBProgressHUD showMessageAutoHide:@"操作成功" view:nil];
+    if (manager == self.followApi) {
         
+        self.user.follower = @(self.user.follower.integerValue + 1);
+        self.user.is_followed = @(1);
+        [self analyze];
+        
+    }
+    
+    if (manager == self.unApi) {
+        
+        self.user.follower = @(self.user.follower.integerValue - 1);
+        self.user.is_followed = @(-1);
+        [self analyze];
        
-    } else {
+    }
+    if ([self.dataRefresh respondsToSelector:@selector(customView:refresh:)]) {
         
-        self.type = QYAttentionAndMessageViewNoselect;
+        [self.dataRefresh customView:self refresh:nil];
     }
 }
 
@@ -138,19 +153,17 @@
 - (void)analyze {
     
     NSNumber *is_followd = self.user.is_followed;
-    if (is_followd.integerValue == 0) {
+    if (is_followd.integerValue == 0 || is_followd.integerValue == 1) {
         
         self.attention.selected = NO;
         self.message.selected = NO;
+        self.type = QYAttentionAndMessageViewNoselect;
         return;
     }
     
-    if (is_followd.integerValue == 1) {
-        
-        self.attention.selected = YES;
-        self.message.selected = NO;
-    }
-    
+    self.type = QYAttentionAndMessageViewSelect;
+    self.attention.selected = YES;
+    self.message.selected = YES;
 }
 
 /*

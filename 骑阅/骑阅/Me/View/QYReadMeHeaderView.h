@@ -24,4 +24,6 @@
 @property (nonatomic, strong) UIButton *messageButton;
 @property (nonatomic, strong) NSArray *annotions;
 
+- (void)anlayseData;
+
 @end

@@ -130,6 +130,8 @@
 		BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8059511E8D59260009A4D7 /* QYRecentConversaionCell.xib */; };
 		BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8DE1BC1E9BDEEC0032FC88 /* QYSearchSectionView.xib */; };
 		BA8DE1C01E9BDF590032FC88 /* QYSearchSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8DE1BF1E9BDF590032FC88 /* QYSearchSectionView.m */; };
+		BA99376B1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99376A1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m */; };
+		BA99376E1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BA99376D1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.m */; };
 		BA995D011E84264D002FA3B2 /* QYRideMyCycleController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */; };
 		BA995D041E842BED002FA3B2 /* QYRequstFrindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D031E842BED002FA3B2 /* QYRequstFrindViewController.m */; };
 		BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA995D061E842F71002FA3B2 /* QYCycleCollectViewController.m */; };
@@ -564,6 +566,10 @@
 		BA8DE1BC1E9BDEEC0032FC88 /* QYSearchSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYSearchSectionView.xib; sourceTree = "<group>"; };
 		BA8DE1BE1E9BDF590032FC88 /* QYSearchSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSearchSectionView.h; sourceTree = "<group>"; };
 		BA8DE1BF1E9BDF590032FC88 /* QYSearchSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSearchSectionView.m; sourceTree = "<group>"; };
+		BA9937691EACB7CF00C0EDBD /* QYScaleApiManagerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYScaleApiManagerTool.h; path = "骑阅/ReadCycle/Controller/QYScaleApiManagerTool.h"; sourceTree = SOURCE_ROOT; };
+		BA99376A1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYScaleApiManagerTool.m; path = "骑阅/ReadCycle/Controller/QYScaleApiManagerTool.m"; sourceTree = SOURCE_ROOT; };
+		BA99376C1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYMapScaleApiManagerTool.h; path = "骑阅/ReadCycle/Controller/QYMapScaleApiManagerTool.h"; sourceTree = SOURCE_ROOT; };
+		BA99376D1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYMapScaleApiManagerTool.m; path = "骑阅/ReadCycle/Controller/QYMapScaleApiManagerTool.m"; sourceTree = SOURCE_ROOT; };
 		BA995CFF1E84264D002FA3B2 /* QYRideMyCycleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRideMyCycleController.h; sourceTree = "<group>"; };
 		BA995D001E84264D002FA3B2 /* QYRideMyCycleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYRideMyCycleController.m; sourceTree = "<group>"; };
 		BA995D021E842BED002FA3B2 /* QYRequstFrindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYRequstFrindViewController.h; sourceTree = "<group>"; };
@@ -1015,6 +1021,10 @@
 		2BBD52F11E6EFB83007313E7 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				BA9937691EACB7CF00C0EDBD /* QYScaleApiManagerTool.h */,
+				BA99376A1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m */,
+				BA99376C1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.h */,
+				BA99376D1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -2652,6 +2662,7 @@
 				BAC959081E7576AB007E171E /* QYCommentViewCell.m in Sources */,
 				2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */,
 				BA354D381E6BE12A00EE8189 /* QNSessionManager.m in Sources */,
+				BA99376B1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m in Sources */,
 				BAC871651E7961EF00C5F800 /* QYQiuniuUploadCommand.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
 				BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */,
@@ -2699,6 +2710,7 @@
 				EC7047F41E5AD4D300FB92D8 /* QYRideReadAccountView.m in Sources */,
 				BADA254E1EA63D11003406DA /* QYNotifationList.m in Sources */,
 				BA12CCB41E87882900DDB8CF /* QYSearchViewController.m in Sources */,
+				BA99376E1EACBDC700C0EDBD /* QYMapScaleApiManagerTool.m in Sources */,
 				BAC8716E1E7991A400C5F800 /* NSString+QYUrlEncode.m in Sources */,
 				BAC871571E78454000C5F800 /* QYQiuniuTokenCommand.m in Sources */,
 				BACBA8651E50C90100D2E848 /* QYLoginHeaderView.m in Sources */,
@@ -3044,6 +3056,7 @@
 			baseConfigurationReference = DC91A18D39CBFA69785AF272 /* Pods-骑阅.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = LUYMC6AG7V;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3065,6 +3078,7 @@
 			baseConfigurationReference = 9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = LUYMC6AG7V;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

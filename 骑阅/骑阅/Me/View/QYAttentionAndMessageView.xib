@@ -19,10 +19,10 @@
                     <rect key="frame" x="15" y="15" width="157.5" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
-                    <state key="normal" title="关注" image="check_yes" backgroundImage="attention_select">
+                    <state key="normal" title="关注" backgroundImage="attention_select">
                         <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="selected" title="关注" backgroundImage="attention_no_select">
+                    <state key="selected" title="+ 关注" backgroundImage="attention_no_select">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -32,6 +32,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDo-eE-13f">
                     <rect key="frame" x="202.5" y="15" width="157.5" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="tintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                     <state key="normal" title="消息" image="message_icon" backgroundImage="attention_no_select"/>
                     <state key="selected" title="消息" image="message_icon" backgroundImage="attention_select">
@@ -64,7 +65,6 @@
     <resources>
         <image name="attention_no_select" width="160" height="40"/>
         <image name="attention_select" width="160" height="40"/>
-        <image name="check_yes" width="14" height="9"/>
         <image name="message_icon" width="13" height="10"/>
     </resources>
 </document>

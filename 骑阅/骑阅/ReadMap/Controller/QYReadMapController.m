@@ -20,6 +20,11 @@
 #import "QYAnnotationView.h"
 #import "QYAnimationSign.h"
 #import "QYSignAnnotion.h"
+#import "QYMapScaleApiManagerTool.h"
+#import "QYPersonAnnotion.h"
+#import "QYCustomAnnotionView.h"
+#import "QYNavigationController.h"
+#import "QYDetailCycleByPresentedController.h"
 
 @interface QYReadMapController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYMapSearchViewDelegate,AMapSearchDelegate,MAMapViewDelegate>
 @property (nonatomic, strong) MAMapView *mapView;
@@ -29,6 +34,10 @@
 @property (nonatomic, strong) QYMapSearchView *searchView;
 @property (nonatomic, strong) AMapSearchAPI *searchApi;
 @property (nonatomic, strong) QYAnnotionModel *sendAnnotion;
+@property (nonatomic, assign) float preScale;
+@property (nonatomic, getter=isLoaRecently) BOOL loadRecently;
+@property (nonatomic, strong) QYMapScaleApiManagerTool *scaleTool;
+@property (nonatomic, strong) NSArray *preAnnotions;
 
 @end
 
@@ -117,7 +126,7 @@
         return;
     }
     
-    self.mapView.zoomLevel = 12;
+    self.mapView.zoomLevel = 8;
     AMapPOI *poi = response.pois[0];
     CLLocationCoordinate2D loc;
     loc.latitude = poi.location.latitude;
@@ -128,6 +137,33 @@
 
 #pragma mark - mapViewDelegate
 
+- (void)mapView:(MAMapView *)mapView mapWillZoomByUser:(BOOL)wasUserAction {
+    
+    MyLog(@"map scale will change we should get new message");
+}
+
+- (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction {
+    
+    
+    if (self.isLoaRecently) {
+        
+        [self.serialQueue addOperationWithBlock:^{
+            
+            [self.scaleTool dataWithScale:self.mapView.zoomLevel location:self.location block:^(NSArray *array, NSError *error) {
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    
+                    if (self.preAnnotions.count > 0) {
+                        
+                        [self.mapView removeAnnotations:self.preAnnotions];
+                    }
+                    [self.mapView addAnnotations:array];
+                    self.preAnnotions = array;
+                }];
+            }];
+        }];
+    }
+}
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     
     self.location = userLocation.location;
@@ -135,11 +171,29 @@
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
     
-    if ([annotation isKindOfClass:[QYAnnotionModel class]]) {
+    if ([annotation isKindOfClass:[QYAnimationSign class]]) {
         
         QYAnnotationView *view = [QYAnnotationView annotionViewMapView:mapView];
         view.annotation = annotation;
         return view;
+        
+    }
+    
+    if ([annotation isKindOfClass:[QYPersonAnnotion class]]) {
+        
+        
+        static NSString *customReuseIndetifier = @"customReuseIndetifier";
+        
+        QYCustomAnnotionView *annotationView = (QYCustomAnnotionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        if (!annotationView) {
+            
+            annotationView = [[QYCustomAnnotionView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+        } else {
+        
+            annotationView.annotation = annotation;
+            
+        }
+        return annotationView;
         
     }
     return nil;
@@ -177,6 +231,20 @@
     }
 }
 
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
+    
+    MyLog(@"hello click");
+    QYPersonAnnotion *anno = view.annotation;
+    NSDictionary *info = anno.info;
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    NSMutableDictionary *data = @{kuid:uid,kmid:info[kmid]}.mutableCopy;
+    QYCycleDetailViewController *detail = [[QYDetailCycleByPresentedController alloc] init];
+    detail.user = data;
+    detail.type = 3;
+    QYNavigationController *navc = [[QYNavigationController alloc] initWithRootViewController:detail];
+    [self presentViewController:navc animated:YES completion:nil];
+
+}
 #pragma mark - CTApiManagerParmSource
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
@@ -263,9 +331,21 @@
     
     if (index == 2) {
      
+        self.loadRecently = YES;
         [self.serialQueue addOperationWithBlock:^{
            
-            [self.recentApi loadData];
+            [self.scaleTool dataWithScale:self.mapView.zoomLevel location:self.location block:^(NSArray *array, NSError *error) {
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                   
+                    if (self.preAnnotions.count > 0) {
+                    
+                        [self.mapView removeAnnotations:self.preAnnotions];
+                    }
+                    [self.mapView addAnnotations:array];
+                    self.preAnnotions = array;
+                }];
+            }];
         }];
     }
 }
@@ -320,6 +400,15 @@
         _searchApi.delegate = self;
     }
     return _searchApi;
+}
+
+- (QYMapScaleApiManagerTool *)scaleTool {
+    
+    if (!_scaleTool) {
+        
+        _scaleTool = [[QYMapScaleApiManagerTool alloc] init];
+    }
+    return _scaleTool;
 }
 /*
 #pragma mark - Navigation

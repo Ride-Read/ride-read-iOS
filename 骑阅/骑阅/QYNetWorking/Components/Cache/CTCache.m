@@ -9,7 +9,7 @@
 #import "CTCache.h"
 #import "NSDictionary+AXNetworkingMethods.h"
 #import "CTNetworkingConfiguration.h"
-
+#import "define.h"
 
 @interface CTCache ()
 
@@ -106,9 +106,13 @@
         [params removeObjectForKey:@"timestamp"];
         [params removeObjectForKey:@"sign"];
         [params removeObjectForKey:@"token"];
+        [params removeObjectForKey:@"latitude"];
+        [params removeObjectForKey:@"longitude"];
     }
-    return [NSString stringWithFormat:@"%@%@%@",serviceIdentifier,methodName,[params CT_urlParamsStringSignature:NO]];
+    NSString *key = [NSString stringWithFormat:@"%@%@%@",serviceIdentifier,methodName,[params CT_urlParamsStringSignature:NO]];
+    MyLog(@"cache key:%@",key);
     
+    return key;
 }
 
 #pragma mark - private method

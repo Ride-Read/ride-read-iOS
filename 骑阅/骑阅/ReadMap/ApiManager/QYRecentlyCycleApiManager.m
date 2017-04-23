@@ -23,7 +23,7 @@
 
 - (NSString *)methodName {
     
-    return @"map/show_near_map";
+    return @"map/show_map_number";
 }
 
 - (NSString *)serviceType {
@@ -34,6 +34,11 @@
 - (CTAPIManagerRequestType)requestType {
     
     return CTAPIBaseManagerRequestTypePost;
+}
+
+- (BOOL)shouldCache {
+    
+    return YES;
 }
 
 #pragma mark - CTAPIManagerValidator

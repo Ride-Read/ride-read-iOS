@@ -8,11 +8,12 @@
 
 #import "QYCustomAnnotionView.h"
 #import "define.h"
+#import "UIButton+QYTitleButton.h"
 
 @interface QYCustomAnnotionView ()
 @property (nonatomic, strong) UIImageView *bg;
 @property (nonatomic, strong) UIImageView *icon;
-@property (nonatomic, strong) UILabel *number;
+@property (nonatomic, strong) UIButton *number;
 
 @end
 @implementation QYCustomAnnotionView
@@ -42,6 +43,13 @@
         [self addSubview:self.number];
         self.bg.frame = CGRectMake(0, 0,cl_caculation_3x(91),cl_caculation_3y(123));
         self.icon.frame = CGRectMake(5, 5, cl_caculation_3x(71), cl_caculation_3x(71));
+        [self.number mas_makeConstraints:^(MASConstraintMaker *make) {
+           
+            make.right.mas_equalTo(5);
+            make.top.mas_equalTo(-5);
+            make.width.mas_equalTo(cl_caculation_3x(40));
+            make.height.mas_equalTo(cl_caculation_3x(40));
+        }];
         self.frame = self.bg.bounds;
         
     }
@@ -52,6 +60,7 @@
     [super setAnnotation:annotation];
     QYAnnotionModel *annot = (QYAnnotionModel *)annotation;
     NSString *url = annot.info[kcover];
+    [self.number setTitle:annot.info[kcount] forState:UIControlStateNormal];
     [self.icon sd_setImageWithURL:[NSURL URLWithString:url]];
 
 }
@@ -85,17 +94,20 @@
         _icon = [[UIImageView alloc ] init];
         _icon.layer.masksToBounds = YES;
         _icon.layer.cornerRadius = cl_caculation_3x(71)/2;
+        _icon.backgroundColor = [UIColor colorWithRed:0.00 green:0.82 blue:0.77 alpha:1.00];
        
     }
     return _icon;
 }
 
-- (UILabel *)number {
+- (UIButton *)number {
     
     if (!_number) {
         
-        _number = [[UILabel alloc] init];
-    }
+        _number = [UIButton buttonTitle:@"0" font:8 colco:[UIColor whiteColor]];
+        _number.backgroundColor = [UIColor colorWithRed:0.00 green:0.82 blue:0.77 alpha:1.00];
+        _number.layer.cornerRadius = cl_caculation_3x(20);
+        }
     return _number;
 }
 @end

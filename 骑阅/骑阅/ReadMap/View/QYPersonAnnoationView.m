@@ -33,6 +33,7 @@
 - (void)setAnnotation:(id<MAAnnotation>)annotation {
     
     [super setAnnotation:annotation];
+
    
 }
 

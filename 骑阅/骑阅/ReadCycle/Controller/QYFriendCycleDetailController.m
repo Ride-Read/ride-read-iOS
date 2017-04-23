@@ -46,8 +46,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     
     [super viewDidDisappear:animated];
-    [self removeNotifation];
-    
+    [self removeNotifation];    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
