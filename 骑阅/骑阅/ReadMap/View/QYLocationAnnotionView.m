@@ -14,14 +14,15 @@
 - (void)awakeFromNib {
     
     [super awakeFromNib];
+    self.frame = CGRectMake(0, 0,cl_caculation_3x(91),cl_caculation_3y(123));
+    self.backgroundColor = [UIColor clearColor];
+    self.currentIcon.layer.masksToBounds = YES;
+    self.currentIcon.layer.cornerRadius = cl_caculation_3x(71)/2;
+    
 }
 + (instancetype)locaView {
     
     QYLocationAnnotionView *locView = [[NSBundle mainBundle] loadNibNamed:@"QYLocationAnnotionView" owner:nil options:nil].firstObject;
-    locView.frame = CGRectMake(0, 0,cl_caculation_3x(91),cl_caculation_3y(123));
-    locView.backgroundColor = [UIColor clearColor];
-    locView.currentIcon.layer.masksToBounds = YES;
-    locView.currentIcon.layer.cornerRadius = cl_caculation_3x(71)/2;
     return locView;
 }
 

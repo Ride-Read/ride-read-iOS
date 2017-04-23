@@ -76,14 +76,14 @@
         for (NSDictionary *att in followed) {
             
             NSMutableDictionary *at = att.mutableCopy;
-            at[kusername] = att[@"follower_username"];
-            NSString *sigature = att[@"follower_signature"];
+            at[kusername] = att[@"followed_username"];
+            NSString *sigature = att[@"followed_signature"];
             if ([sigature isKindOfClass:[NSNull class]]) {
                 
                 sigature = @"";
             }
             at[ksignature] = sigature;
-            NSString *avater = att[@"follower_face_url"];
+            NSString *avater = att[@"followed_face_url"];
             at[kface_url] = avater;
             at[ktime] = @"关注";
             at[kuid] = att[@"tid"];

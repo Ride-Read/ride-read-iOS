@@ -11,11 +11,12 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "QYPersonAnnotion.h"
-#import "QYAnnotationView.h"
+#import "QYCustomAnnotionView.h"
 #import "define.h"
-#import "QYCycleDetailViewController.h"
+#import "QYDetailCycleByPresentedController.h"
+#import "QYNavigationController.h"
 
-@interface QYPersonMapController ()<MAMapViewDelegate>
+@interface QYPersonMapController ()<MAMapViewDelegate, QYCustomAnnotionViewDelegate>
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) UIButton *backButton;
 
@@ -52,9 +53,16 @@
     
     if ([annotation isKindOfClass:[QYPersonAnnotion class]]) {
         
-        QYAnnotationView *annoView = [QYAnnotationView annotionViewMapView:mapView];
-        annoView.annotation = annotation;
-        return annoView;
+        
+        static NSString *customReuseIndetifier = @"customReuseIndetifier";
+        
+        QYCustomAnnotionView *annotationView = (QYCustomAnnotionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        if (!annotationView) {
+            
+            annotationView = [[QYCustomAnnotionView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+        }
+        
+        return annotationView;
         
     }
     return nil;
@@ -62,16 +70,22 @@
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
     
+    MyLog(@"hello click");
     QYPersonAnnotion *anno = view.annotation;
     NSDictionary *info = anno.info;
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     NSMutableDictionary *data = @{kuid:uid,kmid:info[kmid]}.mutableCopy;
-    QYCycleDetailViewController *detail = [[QYCycleDetailViewController alloc] init];
+    QYCycleDetailViewController *detail = [[QYDetailCycleByPresentedController alloc] init];
     detail.user = data;
-    [self.navigationController pushViewController:detail animated:YES];
-    
+    QYNavigationController *navc = [[QYNavigationController alloc] initWithRootViewController:detail];
+    [self presentViewController:navc animated:YES completion:nil];
 }
 
+#pragma mark - customAnnotionView delegate
+- (void)clickCustomAnnotion:(QYCustomAnnotionView *)view info:(NSDictionary *)info {
+    
+    MyLog(@"fuck you");
+}
 
 #pragma mark - private method
 
@@ -115,6 +129,7 @@
     
     if (!_mapView) {
         _mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+        _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.delegate = self;
     }
     return _mapView;

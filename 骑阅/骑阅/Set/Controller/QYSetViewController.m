@@ -22,6 +22,7 @@
 @property (nonatomic, strong) QYSetFooterView *footerView;
 @property (nonatomic, weak) UILabel *ramLabel;
 @property (nonatomic, strong) QYLogoutApiManager *logOutApi;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation QYSetViewController
@@ -57,21 +58,34 @@
 
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
-    [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
+    if (manager == self.logOutApi) {
         
-        MyLog(@"登出成功");
-        QYLoginOrRegisterFatherController *login = [[QYLoginOrRegisterFatherController alloc] init];
-        [UIApplication sharedApplication].keyWindow.rootViewController = login;
-        
-    } failed:^(NSError *error) {
-        
-        MyLog(@"登出失败");
-    }];
+        [self.hud hide:YES];
+        [MBProgressHUD showMessageAutoHide:@"退出成功" view:nil];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
+            
+            MyLog(@"登出成功");
+            QYLoginOrRegisterFatherController *login = [[QYLoginOrRegisterFatherController alloc] init];
+            [UIApplication sharedApplication].keyWindow.rootViewController = login;
+            
+        } failed:^(NSError *error) {
+            
+            MyLog(@"登出失败");
+        }];
+
+    }
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
     
+    if (manager == self.logOutApi) {
+        
+        [self.hud hide:YES];
+        [MBProgressHUD showMessageAutoHide:@"退出失败" view:nil];
+    }
 }
 
 #pragma mark - private method
@@ -106,10 +120,8 @@
     }];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
         [self.logOutApi loadData];
+        self.hud = [MBProgressHUD showMessage:@"登出中..." toView:nil];
     }];
     
     UIAlertController *al = [UIAlertController alertControllerWithTitle:nil message:@"您确定要退出账号?" preferredStyle:UIAlertControllerStyleAlert];

@@ -88,6 +88,7 @@
     
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
+   
 }
 
 #pragma mark - serchDelegate

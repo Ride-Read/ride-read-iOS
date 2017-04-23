@@ -22,8 +22,8 @@
 @end
 @implementation QYChatkExample
 
-static NSString *const LCCKAPPID = @"dYRQ8YfHRiILshUnfFJu2eQM-gzGzoHsz";
-static NSString *const LCCKAPPKEY = @"ye24iIK6ys8IvaISMC4Bs5WK";
+static NSString *const LCCKAPPID = @"oHGfemDQX4jaHgn9Rzmn10YE-gzGzoHsz";
+static NSString *const LCCKAPPKEY = @"qJDqp18BOykwgwNsFXJ8YxEn";
 NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
 
 + (instancetype)sharedInstance {

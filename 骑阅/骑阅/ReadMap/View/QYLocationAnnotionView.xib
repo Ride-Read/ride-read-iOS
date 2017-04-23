@@ -16,10 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="48" height="68"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sgin_no_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-SH-1Hk">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sgin_no_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-SH-1Hk">
                     <rect key="frame" x="0.0" y="0.0" width="48" height="68"/>
                 </imageView>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aS8-3c-UqQ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aS8-3c-UqQ">
                     <rect key="frame" x="5" y="5" width="38" height="38"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="aS8-3c-UqQ" secondAttribute="height" multiplier="1:1" id="h2L-s6-lde"/>
