@@ -12,7 +12,10 @@
 
 /** title */
 @property(nonatomic,strong) NSString * title;
+@property (nonatomic, weak) QYUser *usr;
 
 + (instancetype)creatView;
+
++ (instancetype)tagView:(void(^)(UIView *view))clickCustom clickConfirm:(void(^)(NSString *tags))handler;
 
 @end

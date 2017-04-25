@@ -390,9 +390,9 @@
         }
         if (!pre) {
             
-            button.frame = CGRectMake(0, 0, 40, cl_caculation_3y(35));
+            button.frame = CGRectMake(0, 0, 12 * SizeScale3x * tag.length + 8, cl_caculation_3y(35));
         } else {
-            button.frame = CGRectOffset(pre.frame, 50, 0);
+            button.frame = CGRectMake(CGRectGetMaxX(pre.frame), 0,12 * SizeScale3x * tag.length + 8, cl_caculation_3y(35));
         }
         pre = button;
     }

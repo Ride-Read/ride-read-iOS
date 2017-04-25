@@ -363,7 +363,7 @@
 - (UIImagePickerController *)pickerController{
     if (!_pickerController) {
         _pickerController = [[UIImagePickerController alloc] init];
-        _pickerController.allowsEditing = YES; // 允许编辑
+        _pickerController.allowsEditing = NO; // 允许编辑
         _pickerController.delegate = self; //设置代理，检测操作
     }
     return _pickerController;

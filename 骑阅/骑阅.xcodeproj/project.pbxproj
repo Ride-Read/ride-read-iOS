@@ -264,6 +264,11 @@
 		BAD7286F1EAA60730073BC48 /* QYCustomAnnotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD7286E1EAA60730073BC48 /* QYCustomAnnotionView.m */; };
 		BAD841461E969A5400DACB35 /* QYFollowApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD841451E969A5400DACB35 /* QYFollowApiManager.m */; };
 		BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD841481E969A6500DACB35 /* QYUnfollowApiManager.m */; };
+		BAD9385B1EAE29EC00DFEF2C /* QYPersonSginureEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD9385A1EAE29EC00DFEF2C /* QYPersonSginureEditView.m */; };
+		BAD9385F1EAE2A2400DFEF2C /* QYPersonSginureEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD9385E1EAE2A2400DFEF2C /* QYPersonSginureEditView.xib */; };
+		BAD938611EAE2E1900DFEF2C /* QYPersonTagCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD938601EAE2E1900DFEF2C /* QYPersonTagCellView.xib */; };
+		BAD938651EAE2E6900DFEF2C /* QYTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD938631EAE2E6900DFEF2C /* QYTagCell.m */; };
+		BAD938661EAE2E6900DFEF2C /* QYTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD938641EAE2E6900DFEF2C /* QYTagCell.xib */; };
 		BADA254E1EA63D11003406DA /* QYNotifationList.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA254D1EA63D11003406DA /* QYNotifationList.m */; };
 		BADA25541EA650A8003406DA /* QYPersonAnnotion.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA25531EA650A8003406DA /* QYPersonAnnotion.m */; };
 		BADA25571EA66F87003406DA /* QYMomentReform.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA25561EA66F87003406DA /* QYMomentReform.m */; };
@@ -825,6 +830,13 @@
 		BAD841451E969A5400DACB35 /* QYFollowApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYFollowApiManager.m; sourceTree = "<group>"; };
 		BAD841471E969A6500DACB35 /* QYUnfollowApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYUnfollowApiManager.h; sourceTree = "<group>"; };
 		BAD841481E969A6500DACB35 /* QYUnfollowApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUnfollowApiManager.m; sourceTree = "<group>"; };
+		BAD938591EAE29EC00DFEF2C /* QYPersonSginureEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonSginureEditView.h; sourceTree = "<group>"; };
+		BAD9385A1EAE29EC00DFEF2C /* QYPersonSginureEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonSginureEditView.m; sourceTree = "<group>"; };
+		BAD9385E1EAE2A2400DFEF2C /* QYPersonSginureEditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYPersonSginureEditView.xib; sourceTree = "<group>"; };
+		BAD938601EAE2E1900DFEF2C /* QYPersonTagCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYPersonTagCellView.xib; sourceTree = "<group>"; };
+		BAD938621EAE2E6900DFEF2C /* QYTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTagCell.h; sourceTree = "<group>"; };
+		BAD938631EAE2E6900DFEF2C /* QYTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTagCell.m; sourceTree = "<group>"; };
+		BAD938641EAE2E6900DFEF2C /* QYTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYTagCell.xib; sourceTree = "<group>"; };
 		BADA254C1EA63D11003406DA /* QYNotifationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYNotifationList.h; sourceTree = "<group>"; };
 		BADA254D1EA63D11003406DA /* QYNotifationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYNotifationList.m; sourceTree = "<group>"; };
 		BADA25521EA650A8003406DA /* QYPersonAnnotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonAnnotion.h; sourceTree = "<group>"; };
@@ -1067,10 +1079,17 @@
 				2BCF72451E79026900E9B3CE /* QYTextPromptView.m */,
 				2BB71EB51E7946AA00187565 /* QYTagPromptView.h */,
 				2BB71EB61E7946AA00187565 /* QYTagPromptView.m */,
+				BAD938621EAE2E6900DFEF2C /* QYTagCell.h */,
+				BAD938631EAE2E6900DFEF2C /* QYTagCell.m */,
+				BAD938641EAE2E6900DFEF2C /* QYTagCell.xib */,
+				BAD938601EAE2E1900DFEF2C /* QYPersonTagCellView.xib */,
 				BA074B501E801AB800E5DE0D /* QYReadMeHeaderView.h */,
 				BA074B511E801AB800E5DE0D /* QYReadMeHeaderView.m */,
 				BA05A80A1EA5145000D89210 /* QYAttentionViewCell.h */,
 				BA05A80B1EA5145000D89210 /* QYAttentionViewCell.m */,
+				BAD938591EAE29EC00DFEF2C /* QYPersonSginureEditView.h */,
+				BAD9385A1EAE29EC00DFEF2C /* QYPersonSginureEditView.m */,
+				BAD9385E1EAE2A2400DFEF2C /* QYPersonSginureEditView.xib */,
 				BA6FC6131E994B5500CF4ECC /* QYAttentionAndMessageView.h */,
 				BA6FC6141E994B5500CF4ECC /* QYAttentionAndMessageView.m */,
 				BA6FC6161E994B6400CF4ECC /* QYAttentionAndMessageView.xib */,
@@ -2559,6 +2578,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAD938661EAE2E6900DFEF2C /* QYTagCell.xib in Resources */,
 				BA6FC6121E99447600CF4ECC /* QYCommentNumberView.xib in Resources */,
 				BAF572DE1EA30D4D00129E49 /* QYPictureLookController.xib in Resources */,
 				BAA0018D1E50725B0067A894 /* CTNetworkingConfiguration.plist in Resources */,
@@ -2570,10 +2590,12 @@
 				BA05A8251EA522FF00D89210 /* QYMapSearchView.xib in Resources */,
 				BAC02A641E9E7B12007F6760 /* AMap.bundle in Resources */,
 				BA995D0C1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.xib in Resources */,
+				BAD938611EAE2E1900DFEF2C /* QYPersonTagCellView.xib in Resources */,
 				BA05A8291EA522FF00D89210 /* QYSendCycleView.xib in Resources */,
 				BA12CCA01E8687B900DDB8CF /* QYSetStoryboard.storyboard in Resources */,
 				BA6FC6171E994B6400CF4ECC /* QYAttentionAndMessageView.xib in Resources */,
 				BA8059531E8D59260009A4D7 /* QYRecentConversaionCell.xib in Resources */,
+				BAD9385F1EAE2A2400DFEF2C /* QYPersonSginureEditView.xib in Resources */,
 				BA1542B51E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard in Resources */,
 				BAE7838F1EA7B76600D169DC /* QYCustomPersonView.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
@@ -2662,6 +2684,7 @@
 				BAC959081E7576AB007E171E /* QYCommentViewCell.m in Sources */,
 				2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */,
 				BA354D381E6BE12A00EE8189 /* QNSessionManager.m in Sources */,
+				BAD9385B1EAE29EC00DFEF2C /* QYPersonSginureEditView.m in Sources */,
 				BA99376B1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m in Sources */,
 				BAC871651E7961EF00C5F800 /* QYQiuniuUploadCommand.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
@@ -2885,6 +2908,7 @@
 				BA354D3E1E6BE12A00EE8189 /* QNUploadManager.m in Sources */,
 				BA354D7A1E6BE20000EE8189 /* QNResolver.m in Sources */,
 				BAC36FB91E818035007D1FF4 /* QYCycleMessageReform.m in Sources */,
+				BAD938651EAE2E6900DFEF2C /* QYTagCell.m in Sources */,
 				BAA001921E50725B0067A894 /* YYWeiXinServce.m in Sources */,
 				BAE7838D1EA7B74F00D169DC /* QYCustomPersonView.m in Sources */,
 				BA354D741E6BE20000EE8189 /* QNNetworkInfo.m in Sources */,

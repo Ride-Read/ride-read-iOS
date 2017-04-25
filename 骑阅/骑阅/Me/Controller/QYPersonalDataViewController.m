@@ -84,6 +84,21 @@
 }
 
 
+#pragma mark - private method
+- (void)crateCustomTag:(NSString *)title plcaeHodel:(NSString *)placeHodel {
+    
+    QYTextPromptView * nameView = [QYTextPromptView creatView];
+    nameView.placeHolder = placeHodel;
+    nameView.title = title;
+    [nameView show];
+    [nameView ConfigClickWithBlock:^(NSString * targetString) {
+        
+        self.user.signature = targetString;
+        [self.tableView reloadData];
+    }];
+}
+
+
 #pragma -- <UITableViewDataSource>
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -162,6 +177,7 @@
 #pragma -- <UITaleViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    QYPersonalDataCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             QYTextPromptView * nameView = [QYTextPromptView creatView];
@@ -185,25 +201,29 @@
         
         if (indexPath.row == 1) {
             
-            QYTagPromptView * tagView = [QYTagPromptView creatView];
+            QYTagPromptView * tagView = [QYTagPromptView tagView:^(UIView *view){
+                
+               __weak QYTagPromptView *prom = (QYTagPromptView *)view;
+                [prom closeView];
+                [self crateCustomTag:@"个性标签" plcaeHodel:@"不要超过五个字哦!"];
+                
+            } clickConfirm:^(NSString *tags) {
+                
+                cell.subLabel.text = tags;
+                self.user.tagString = tags;
+            }];
+            tagView.usr = self.user;
             tagView.title = @"标签";
             [tagView show];
             
         } else if (indexPath.row == 2) {
             
-            QYTextPromptView * nameView = [QYTextPromptView creatView];
-            nameView.placeHolder = @"编辑个性签名";
-            nameView.title = @"个性签名";
-            [nameView show];
-            [nameView ConfigClickWithBlock:^(NSString * targetString) {
-                
-                self.user.signature = targetString;
-                [self.tableView reloadData];
-            }];
-
+           
+            [self crateCustomTag:@"个性签名" plcaeHodel:@"我的个性签名"];
         }
     }
 }
+
 
 #pragma -- <CTAPIManagerParamSource>
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {

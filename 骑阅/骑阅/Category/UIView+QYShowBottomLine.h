@@ -11,4 +11,8 @@
 @interface UIView (QYShowBottomLine)
 
 - (void)showBottomLine;
+
+- (void)showTopLine;
+
+- (void)showRightLine;
 @end
