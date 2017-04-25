@@ -91,6 +91,7 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
         self.complete = completionHandler;
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
         self.params = @{kuser_ids:[userIds componentsJoinedByString:@","],kuid:uid};
+        
         [self.usersApi loadData];
         self.isLoading = YES;
    

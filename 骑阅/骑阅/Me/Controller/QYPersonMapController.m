@@ -11,7 +11,7 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "QYPersonAnnotion.h"
-#import "QYCustomAnnotionView.h"
+#import "QYPersonAnnotionView.h"
 #import "define.h"
 #import "QYDetailCycleByPresentedController.h"
 #import "QYNavigationController.h"
@@ -56,10 +56,10 @@
         
         static NSString *customReuseIndetifier = @"customReuseIndetifier";
         
-        QYCustomAnnotionView *annotationView = (QYCustomAnnotionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        QYPersonAnnotionView *annotationView = (QYPersonAnnotionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
         if (!annotationView) {
             
-            annotationView = [[QYCustomAnnotionView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+            annotationView = [[QYPersonAnnotionView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
         }
         
         return annotationView;

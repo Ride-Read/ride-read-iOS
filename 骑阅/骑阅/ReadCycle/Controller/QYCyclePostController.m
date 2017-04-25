@@ -20,6 +20,7 @@
 #import "NSString+QYRegular.h"
 #import "UIButton+QYTitleButton.h"
 #import "QYLocationViewController.h"
+#import "QYRecentlyCycleReform.h"
 
 @interface QYCyclePostController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,CLCommandDataSource,CLCommandDelegate>
 @property (nonatomic, strong) QYCylePostMonentApiManager *postApiManager;
@@ -36,6 +37,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic, weak) QYLocationViewController *locCtr;
+@property (nonatomic, weak) CLLocation *selecLocation;
+@property (nonatomic, strong) QYRecentlyCycleReform *reform;
 
 
 @end
@@ -146,7 +149,7 @@
     }];
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     NSString *msg = self.messageView.lasteString;
-    self.params = @{kmoment_location:self.check_button.selected?@"":self.locationLabel.text,kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.location.coordinate.latitude),klongitude:@(self.location.coordinate.longitude)};
+    self.params = @{kmoment_location:self.check_button.selected?@"":self.locationLabel.text,kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.selecLocation.coordinate.latitude),klongitude:@(self.selecLocation.coordinate.longitude)};
     
     return self.params;
 }
@@ -154,19 +157,14 @@
 - (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
     
     [self.hud hide:YES];
-    if (self.postResult) {
-    
-        NSMutableDictionary *info = @{}.mutableCopy;
-        NSArray *pics = self.params[kpictures_url];
-        NSInteger type = 0;
-        if (pics.count > 0) {
+
+    if (manager == self.postApiManager) {
+        
+        QYSignAnnotion *annot = [self.postApiManager fetchDataWithReformer:self.reform];
+        if (self.postResult) {
             
-            type = 1;
-            info[kcover] = pics[0];
+            self.postResult(annot,nil);
         }
-        info[ktype] = @(type);
-        self.postResult(info,nil);
-        self.postResult = nil;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kPostCycleSuccessNotifation object:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -174,9 +172,9 @@
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
-    
-    [MBProgressHUD showMessageAutoHide:@"发表失败" view:nil];
+ 
     [self.hud hide:YES];
+    [MBProgressHUD showMessageAutoHide:@"发表失败" view:nil];
 }
 
 #pragma mark - target action
@@ -383,7 +381,17 @@
 - (void)setLocation:(CLLocation *)location {
     
     [super setLocation:location];
+    self.selecLocation = location;
     self.locCtr.location = location;
+}
+
+- (QYRecentlyCycleReform *)reform {
+    
+    if (!_reform) {
+        
+        _reform = [[QYRecentlyCycleReform alloc] init];
+    }
+    return _reform;
 }
 
 
@@ -395,16 +403,18 @@
     QYLocationViewController *location = [segue destinationViewController];
     self.locCtr = location;
     location.location = self.location;
-    location.handler = ^(NSInteger index,NSString *title) {
+    location.handler = ^(NSInteger index,NSString *title,CLLocation *loc) {
         
         if ([title isEqualToString:@""]) {
             
             self.locationLabel.text = @"不显示位置";
             self.check_button.selected = YES;
+            self.selecLocation = self.location;
             return ;
         }
         self.locationLabel.text = title;
         self.check_button.selected = NO;
+        self.selecLocation = loc;
     };
 }
 

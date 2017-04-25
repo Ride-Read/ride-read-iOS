@@ -156,7 +156,7 @@
             
         } else if (indexPath.row == 1) {
 
-            cell.subLabel.text = @"标签";
+            cell.subLabel.text = self.user.tagString;
             
         } else {
             

@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "QYUser.h"
+#import "QYBasicViewController.h"
 
 FOUNDATION_EXTERN NSString * const KReciveMessagNotiFation;
 @interface QYChatkExample : NSObject
+@property (nonatomic, weak) QYBasicViewController *ctr;
 
 + (instancetype)sharedInstance;
 /*!

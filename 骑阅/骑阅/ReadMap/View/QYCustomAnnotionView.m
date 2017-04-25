@@ -11,9 +11,6 @@
 #import "UIButton+QYTitleButton.h"
 
 @interface QYCustomAnnotionView ()
-@property (nonatomic, strong) UIImageView *bg;
-@property (nonatomic, strong) UIImageView *icon;
-@property (nonatomic, strong) UIButton *number;
 
 @end
 @implementation QYCustomAnnotionView

@@ -39,15 +39,10 @@ static NSString * const kAXApiProxyDispatchItemKeyCallbackFail = @"kAXApiProxyDi
 
 -(AFHTTPSessionManager *)sessionManager {
     
-    
-    if (!_sessionManager) {
-        
-        _sessionManager = [AFHTTPSessionManager manager];
-        _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        _sessionManager.securityPolicy.allowInvalidCertificates = YES;
-        _sessionManager.securityPolicy.validatesDomainName = NO;
-    }
-    
+    _sessionManager = [AFHTTPSessionManager manager];
+    _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    _sessionManager.securityPolicy.allowInvalidCertificates = YES;
+    _sessionManager.securityPolicy.validatesDomainName = NO;
     return _sessionManager;
 }
 

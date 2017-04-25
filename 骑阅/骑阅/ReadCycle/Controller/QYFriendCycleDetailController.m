@@ -183,9 +183,10 @@
 
 - (void)clcikRightItem:(UIBarButtonItem *)sender {
     
-    QYButtonSheetPromptView *prompt = [QYButtonSheetPromptView promptWithButtonTitles:@[@"分享",@"收藏"] action:^(UIButton *button) {
+    QYButtonSheetPromptView *prompt = [QYButtonSheetPromptView promptWithButtonTitles:@[@"取消",@"收藏"] action:^(UIButton *button) {
         
-        [self loadData];
+        if (button.tag == 1)
+            [self loadData];
 //        QYCyclePostController *post = [[QYCyclePostController alloc] init];
 //        [self.navigationController pushViewController:post animated:YES];
     }];

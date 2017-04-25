@@ -25,6 +25,8 @@
 #import "QYCustomAnnotionView.h"
 #import "QYNavigationController.h"
 #import "QYDetailCycleByPresentedController.h"
+#import "QYSigeAnnotionView.h"
+#import "QYRecentlyAnnotion.h"
 
 @interface QYReadMapController ()<QYViewClickProtocol,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYMapSearchViewDelegate,AMapSearchDelegate,MAMapViewDelegate>
 @property (nonatomic, strong) MAMapView *mapView;
@@ -126,7 +128,7 @@
         return;
     }
     
-    self.mapView.zoomLevel = 8;
+    self.mapView.zoomLevel = 11.5;
     AMapPOI *poi = response.pois[0];
     CLLocationCoordinate2D loc;
     loc.latitude = poi.location.latitude;
@@ -171,15 +173,31 @@
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
     
-    if ([annotation isKindOfClass:[QYAnimationSign class]]) {
+    if ([annotation isKindOfClass:[QYSignAnnotion class]]) {
         
-        QYAnnotationView *view = [QYAnnotationView annotionViewMapView:mapView];
-        view.annotation = annotation;
-        return view;
+        static NSString *customReuseIndetifier = @"signeReuseIndetifier";
+        
+        QYSigeAnnotionView *signeAnnoView = (QYSigeAnnotionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        if (!signeAnnoView) {
+            
+            signeAnnoView = [[QYSigeAnnotionView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+        } else {
+            
+            signeAnnoView.annotation = annotation;
+            
+        }
+        return signeAnnoView;
         
     }
     
-    if ([annotation isKindOfClass:[QYPersonAnnotion class]]) {
+    if ([annotation isKindOfClass:[QYAnimationSign class]]) {
+        
+        QYAnnotationView *annoView = [QYAnnotationView annotionViewMapView:mapView];
+        return annoView;
+        
+    }
+    
+    if ([annotation isKindOfClass:[QYRecentlyAnnotion class]]) {
         
         
         static NSString *customReuseIndetifier = @"customReuseIndetifier";
@@ -234,7 +252,7 @@
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
     
     MyLog(@"hello click");
-    QYPersonAnnotion *anno = view.annotation;
+    QYRecentlyAnnotion *anno = view.annotation;
     NSDictionary *info = anno.info;
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     NSMutableDictionary *data = @{kuid:uid,kmid:info[kmid]}.mutableCopy;
@@ -279,7 +297,6 @@
         QYAnnotionModel *annotion = [[QYAnimationSign alloc] init];
         annotion.coordinate = self.location.coordinate;
         [self.mapView addAnnotation:annotion];
-        self.sendAnnotion = annotion;
         QYSendCycleView *send = [QYSendCycleView sendCycle:^(QYSendCycleView *cycle, NSInteger index) {
             
             if (index == 1) {
@@ -287,25 +304,15 @@
                 UIStoryboard *post = [UIStoryboard storyboardWithName:@"QYPostCycleStoryboard" bundle:nil];
                 UINavigationController *navc = [post instantiateViewControllerWithIdentifier:@"postCntr"];
                 QYCyclePostController * postCtr = (QYCyclePostController *)navc.topViewController;
-                postCtr.postResult = ^(NSDictionary *info,NSError *error) {
+                postCtr.postResult = ^(QYSignAnnotion *anno,NSError *error) {
                 
-                    if (info) {
+                    if (anno) {
                         
-                        QYSignAnnotion *sigin = [[QYSignAnnotion alloc] init];
-                        sigin.info = info;
-                        sigin.coordinate = self.sendAnnotion.coordinate;
-                        self.sendAnnotion = nil;
-                        [self.mapView addAnnotation:sigin];
-                        
-                    } else {
-                        
-                        self.sendAnnotion = nil;
+                        [self.mapView addAnnotation:anno];
                     }
                 };
                 [self presentViewController:navc animated:YES completion:nil];
             } else {
-                
-                self.sendAnnotion = nil;
                 
             }
             self.showSendCycleView = NO;

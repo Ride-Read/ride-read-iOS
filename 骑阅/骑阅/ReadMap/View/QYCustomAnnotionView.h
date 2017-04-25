@@ -12,6 +12,7 @@
 @class QYCustomAnnotionView;
 @protocol QYCustomAnnotionViewDelegate <NSObject>
 
+
 @optional;
 
 - (void)clickCustomAnnotion:(QYCustomAnnotionView *)view info:(NSDictionary *)info;
@@ -19,5 +20,9 @@
 @end
 @interface QYCustomAnnotionView : MAAnnotationView
 @property (nonatomic, weak) id <QYCustomAnnotionViewDelegate> delegate;
+@property (nonatomic, strong) UIImageView *bg;
+@property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, strong) UIButton *number;
+
 
 @end

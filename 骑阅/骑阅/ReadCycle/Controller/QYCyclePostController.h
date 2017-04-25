@@ -7,8 +7,9 @@
 //
 
 #import "QYNeedSiteViewController.h"
+#import "QYSignAnnotion.h"
 
-typedef void(^sendCycleReuslt)(NSDictionary *info,NSError *error);
+typedef void(^sendCycleReuslt)(QYSignAnnotion *anno,NSError *error);
 @interface QYCyclePostController : QYBasicNeedLocationController
 @property (nonatomic, copy) sendCycleReuslt postResult;
 @end

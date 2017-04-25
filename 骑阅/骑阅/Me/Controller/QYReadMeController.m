@@ -178,7 +178,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 5;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -188,35 +188,35 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [cell showBottomLine];
     switch (indexPath.row) {
+//        case 0:
+//        {
+//            
+//            cell.imageView.image = [UIImage imageNamed:@"ride_me_send"];
+//            cell.textLabel.text = @"发个阅圈";
+//        }
+//            break;
         case 0:
-        {
-            
-            cell.imageView.image = [UIImage imageNamed:@"ride_me_send"];
-            cell.textLabel.text = @"发个阅圈";
-        }
-            break;
-        case 1:
         {
             
             cell.imageView.image = [UIImage imageNamed:@"ride_me_mycycle"];
             cell.textLabel.text = @"我的阅圈";
         }
             break;
-        case 2:
+        case 1:
         {
             
             cell.imageView.image = [UIImage imageNamed:@"ride_me_collect"];
             cell.textLabel.text = @"我的收藏";
         }
             break;
-        case 3:
-        {
-            
-            cell.imageView.image = [UIImage imageNamed:@"ride_me_request"];
-            cell.textLabel.text = @"邀请好友";
-        }
-            break;
-        case 4:
+//        case 2:
+//        {
+//            
+//            cell.imageView.image = [UIImage imageNamed:@"ride_me_request"];
+//            cell.textLabel.text = @"邀请好友";
+//        }
+//            break;
+        case 2:
         {
             
             cell.imageView.image = [UIImage imageNamed:@"ride_me_set"];
@@ -240,15 +240,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     switch (indexPath.row) {
-            case 0:
-        {
-            
-            UIStoryboard *post = [UIStoryboard storyboardWithName:@"QYPostCycleStoryboard" bundle:nil];
-            QYCyclePostController *postCtr = [post instantiateViewControllerWithIdentifier:@"postCntr"];;
-            [self presentViewController:postCtr animated:YES completion:nil];
-            break;
-        }
-        case 1:
+//            case 0:
+//        {
+//            
+//            UIStoryboard *post = [UIStoryboard storyboardWithName:@"QYPostCycleStoryboard" bundle:nil];
+//            QYCyclePostController *postCtr = [post instantiateViewControllerWithIdentifier:@"postCntr"];;
+//            [self presentViewController:postCtr animated:YES completion:nil];
+//            break;
+//        }
+        case 0:
         {
             QYRideMyCycleController *myCycle = [[QYRideMyCycleController alloc] init];
             myCycle.hidesBottomBarWhenPushed = YES;
@@ -256,7 +256,7 @@
             
         }
             break;
-            case 2:
+            case 1:
         {
             QYCycleCollectViewController *collect = [[QYCycleCollectViewController alloc] init];
             collect.hidesBottomBarWhenPushed = YES;
@@ -264,15 +264,15 @@
             break;
             
         }
-            case 3:
-        {
-            
-            QYRequstFrindViewController *request = [[QYRequstFrindViewController alloc] init];
-            request.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:request animated:YES];
-            break;
-        }
-            case 4:
+//            case 2:
+//        {
+//            
+//            QYRequstFrindViewController *request = [[QYRequstFrindViewController alloc] init];
+//            request.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:request animated:YES];
+//            break;
+//        }
+            case 2:
         {
             
             QYSetViewController *set = [[QYSetViewController alloc] init];

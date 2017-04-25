@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-typedef void(^clickBlock)(NSInteger index,NSString *location);
+typedef void(^clickBlock)(NSInteger index,NSString *location,CLLocation *loc);
 @interface QYLocationViewController : UITableViewController
-@property (nonatomic, weak) CLLocation *location;
+@property (nonatomic, copy) CLLocation *location;
 @property (nonatomic, copy) clickBlock handler;
 
 @end

@@ -14,6 +14,11 @@
 
 @interface QYLocationViewController ()
 @property (nonatomic, strong) NSMutableArray *array;
+@property (nonatomic, strong) NSMutableArray *locations;
+@property (nonatomic, strong) CLLocation *one;
+@property (nonatomic, strong) CLLocation *two;
+@property (nonatomic, strong) CLLocation *three;
+@property (nonatomic, strong) CLLocation *foure;
 
 @end
 
@@ -81,7 +86,7 @@
         
         if (self.handler) {
             
-            self.handler(0,@"");
+            self.handler(0,@"",nil);
         }
         
     } else {
@@ -90,7 +95,8 @@
         NSString *sub = info[@"sub"];
         NSArray *array = [sub componentsSeparatedByString:@"."];
         NSString *location = [NSString stringWithFormat:@"%@.%@",array[1],array[3]];
-        self.handler(indexPath.row,location);
+        CLLocation *loc = self.locations[indexPath.row];
+        self.handler(indexPath.row,location,loc);
         
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -102,35 +108,42 @@
     
     _location = location;
     [self.array removeAllObjects];
-    CLGeocoder *geo = [[CLGeocoder alloc] init];
-    [geo reverseGeocodeLocation:_location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+    [self.locations removeAllObjects];
+    
+    self.one =  [[CLLocation alloc] initWithLatitude:location.coordinate.latitude+0.00009 longitude:location.coordinate.longitude];
+    self.two = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude-0.00009];
+    self.three = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude+0.00001 longitude:location.coordinate.longitude];
+    self.foure = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude-0.00001];
+    NSArray *locations = @[_location,_one,_three,_two,_foure];
+    for (int  i = 0; i < locations.count ; i ++) {
         
-        if (placemarks.count > 0) {
+        CLLocation *loc = locations[i];
+        CLGeocoder *geo = [[CLGeocoder alloc] init];
+        [geo reverseGeocodeLocation:loc completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
             
-            for (CLPlacemark *plcace in placemarks) {
+            if (placemarks.count > 0) {
                 
-                MyLog(@"plcate:%@",plcace);
-                MyLog(@"name:%@,%@,%@,%@,%@",plcace.name,plcace.administrativeArea,plcace.subAdministrativeArea,plcace.locality,plcace.subLocality);
+                CLPlacemark *plcace = placemarks[0];
                 NSString *site = [NSString stringWithFormat:@"%@.%@.%@.%@"
-                                  ,plcace.administrativeArea?:plcace.subAdministrativeArea,
-                                  plcace.locality,
-                                  plcace.subLocality,
-                                  plcace.name];
+                                      ,plcace.administrativeArea?:plcace.subAdministrativeArea,
+                                      plcace.locality,
+                                      plcace.subLocality,
+                                      plcace.name];
                 NSDictionary *info = @{@"name":plcace.name,@"sub":site};
                 [self.array addObject:info];
+                [self.locations addObject:plcace.location];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self.tableView reloadData];
-                    
                 });
                 
+            } else {
+             
+                MyLog(@"rego error");
             }
-        } else {
-            
-            [MBProgressHUD showMessageAutoHide:@"定位失败" view:nil];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+        }];
+    }
+   
 }
 
 - (NSMutableArray *)array {
@@ -140,6 +153,15 @@
         _array = [NSMutableArray array];
     }
     return _array;
+}
+
+- (NSMutableArray *)locations {
+    
+    if (!_locations) {
+        
+        _locations = @[].mutableCopy;
+    }
+    return _locations;
 }
 
 @end
