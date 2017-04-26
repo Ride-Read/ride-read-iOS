@@ -130,6 +130,7 @@
         coor.longitude = longti.doubleValue;
         annotion.info = cycle;
         annotion.coordinate = coor;
+        return annotion;
         
     }
 

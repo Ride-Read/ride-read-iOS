@@ -91,8 +91,6 @@
         _icon = [[UIImageView alloc ] init];
         _icon.layer.masksToBounds = YES;
         _icon.layer.cornerRadius = cl_caculation_3x(71)/2;
-        _icon.backgroundColor = [UIColor colorWithRed:0.00 green:0.82 blue:0.77 alpha:1.00];
-       
     }
     return _icon;
 }

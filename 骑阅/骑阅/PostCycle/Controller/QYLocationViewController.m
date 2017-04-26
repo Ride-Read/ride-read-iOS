@@ -95,7 +95,7 @@
         NSString *sub = info[@"sub"];
         NSArray *array = [sub componentsSeparatedByString:@"."];
         NSString *location = [NSString stringWithFormat:@"%@.%@",array[1],array[3]];
-        CLLocation *loc = self.locations[indexPath.row];
+        CLLocation *loc = self.locations[indexPath.row-1];
         self.handler(indexPath.row,location,loc);
         
     }

@@ -430,8 +430,6 @@
                 }
             }
             pre = pic;
-            pic.backgroundColor = [UIColor blueColor];
-
         }
         for (UIImageView *imageView in set) {
             

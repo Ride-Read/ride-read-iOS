@@ -365,6 +365,9 @@
     WEAKSELF(_self);
     NSData *data = UIImageJPEGRepresentation(image, 0.3);
     self.hud = [MBProgressHUD showMessage:@"上传中" toView:nil];
+    _commad = [[QYQiuniuTokenCommand alloc] init];
+    _commad.dataSource = self;
+    _commad.delegate = self;
     self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
         
         [_self.hud hide:YES];
@@ -561,16 +564,6 @@
     return _verifyInviteCodeApiManager;
 }
 
-- (QYQiuniuTokenCommand *)commad {
-    
-    if (!_commad) {
-        
-        _commad = [[QYQiuniuTokenCommand alloc] init];
-        _commad.dataSource = self;
-        _commad.delegate = self;
-    }
-    return _commad;
-}
 - (QYRegisterLogic *)registerLogic {
  
     if (!_registerLogic) {

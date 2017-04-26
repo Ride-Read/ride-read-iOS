@@ -43,6 +43,7 @@
     [self.preViews addObject:self.forgertView];
     self.currentView = self.forgertView;
     [self addPanGesture];
+    [MBProgressHUD showMessageAutoHide:@"右滑返回哦！" view:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -231,7 +232,7 @@
         
         NSString *username = self.forgertView.phoneTextField.text;
         NSString *pwd = self.resetView.pwd.text;
-        return @{kusername:username?:@"",knew_password:pwd?:@""};
+        return @{kphonenumber:username?:@"",knew_password:pwd?:@""};
     }
     if (manager == self.phoneApi) {
         
@@ -254,6 +255,7 @@
         self.correctSMSCode = YES;
         return;
     }
+    [self dismissViewControllerAnimated:NO completion:nil];
     [MBProgressHUD showMessageAutoHide:@"修改成功" view:self.view];
 }
 

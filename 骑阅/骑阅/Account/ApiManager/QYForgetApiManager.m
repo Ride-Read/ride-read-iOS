@@ -8,6 +8,7 @@
 
 #import "QYForgetApiManager.h"
 #import "define.h"
+#import "NSString+QYMD5.h"
 
 @interface QYForgetApiManager ()<CTAPIManagerValidator>
 
@@ -39,6 +40,14 @@
     return CTAPIBaseManagerRequestTypePost;
 }
 
+- (NSDictionary *)reformParams:(NSDictionary *)params {
+    
+    NSString *username = params[kphonenumber];
+    NSString *pwd = params[knew_password];
+    pwd = [pwd sha1];
+    return @{kphonenumber:username,knew_password:pwd};
+    
+}
 - (BOOL)shouldCache {
     
     return NO;
@@ -47,7 +56,7 @@
 #pragma mark - CTAPIValidtor
 - (BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
     
-    NSString *username = data[kusername];
+    NSString *username = data[kphonenumber];
     NSString *pwd = data[knew_password];
     if (username.length <= 0 || pwd.length < 6) {
         

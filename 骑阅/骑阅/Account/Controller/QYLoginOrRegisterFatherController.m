@@ -227,6 +227,7 @@
         
         _otherLoginView = [[QYOtherLoginView alloc] init];
         _otherLoginView.delegate = self;
+        _otherLoginView.hidden = YES;
     }
     return _otherLoginView;
 }

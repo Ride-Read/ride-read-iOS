@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sgin_no_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Wrc-gv-jw1">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person_map_an" translatesAutoresizingMaskIntoConstraints="NO" id="Wrc-gv-jw1">
                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                 </imageView>
             </subviews>
@@ -30,6 +30,6 @@
         </view>
     </objects>
     <resources>
-        <image name="sgin_no_icon" width="45" height="62"/>
+        <image name="person_map_an" width="8" height="15"/>
     </resources>
 </document>
