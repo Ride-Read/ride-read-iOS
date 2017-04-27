@@ -30,6 +30,7 @@
 
 @synthesize userInfo = _userInfo;
 @synthesize userID = _userID;
+@synthesize timestamp = _timestamp;
 
 
 #pragma mark - public methods
@@ -135,6 +136,21 @@
         _qiuniu_token = [[NSUserDefaults standardUserDefaults] objectForKey:@"qiuniu_token"];
     }
     return _qiuniu_token;
+}
+
+- (NSNumber *)timestamp {
+    
+    if (!_timestamp) {
+        
+        _timestamp = [[NSUserDefaults standardUserDefaults] objectForKey:@"timestamp"];
+    }
+    return _timestamp;
+}
+
+- (void)setTimestamp:(NSNumber *)timestamp {
+    
+    _timestamp = timestamp;
+    [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:@"timestamp"];
 }
 - (void)configQiuniuToken:(NSString *)qiuniu {
     

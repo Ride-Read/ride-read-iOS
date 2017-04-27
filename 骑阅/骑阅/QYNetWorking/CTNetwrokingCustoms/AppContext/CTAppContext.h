@@ -48,6 +48,7 @@
 @property (nonatomic, readonly) BOOL isLoggedIn;
 @property (nonatomic, strong) QYUser *currentUser;
 @property (nonatomic, strong) NSString *qiuniu_token;
+@property (nonatomic, strong) NSNumber *timestamp;
 
 // app信息
 @property (nonatomic, copy, readonly) NSString *sessionId; // 每次启动App时都会新生成

@@ -36,10 +36,5 @@
 @property (nonatomic, copy) NSString *ride_read_id;
 
 
-
-
-
-
-
 + (instancetype)userWithDict:(NSDictionary *)dict;
 @end

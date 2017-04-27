@@ -198,30 +198,6 @@
 
     } error:nil];
     return request;
-    {
-   
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//    [param setObject:params[@"uuid"] forKey:@"uuid"];
-//    //
-//    //    [self.manager POST:string parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//    //        NSData *data = UIImagePNGRepresentation(avatar);
-//    //        //NSData *data = UIImageJPEGRepresentation(avatar, 0.5);
-//    //        [formData appendPartWithFileData:data name:@"avatar" fileName:@"youyueyizu" mimeType:@"image/png"];
-//    //    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-//    //        block(responseObject, nil);
-//    //    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//    //        block(nil, error);
-//    //    }];
-//    
-//    [self.manager POST:string parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//        NSData *data = UIImagePNGRepresentation(avatar);
-//        [formData appendPartWithFileData:data name:@"avatar" fileName:@"youyueyizu" mimeType:@"image/png"];
-//    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        block(responseObject, nil);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        block(nil, error);
-//    }];
-    }
 
 }
 
@@ -230,28 +206,10 @@
 -(NSDictionary *)setRequetAuthenticaion:(NSDictionary *)params{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
-//    static NSDateFormatter *formatter;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        
-//        formatter = [[NSDateFormatter alloc] init];
-//        NSTimeZone *zone =  [[NSTimeZone alloc] init];
-//        //NSArray *array = zone.knownTimeZoneNames;
-//        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-//    });
-//    NSDate *date = [formatter defaultDate];
-//    NSTimeInterval interval = date.timeIntervalSince1970;
-  
-//    int rand = arc4random();
-    NSString *timetamp = [NSString stringWithFormat:@"%lf",TimeStamp * 1000];
-
+    NSNumber *timetamp = [CTAppContext sharedInstance].timestamp;
     NSString *token = [CTAppContext sharedInstance].currentUser.token;
-    //NSString *sign = [NSString stringWithFormat:@"%@%@%@",timetamp,token,SALT];
-   // sign = [NSString getMD5String:sign];
-    //[dic setObject:timetamp?:@"error" forKey:@"timestamp"];
     [dic setObject:token?:@"error" forKey:@"token"];
     [dic setObject:@(timetamp.integerValue) forKey:@"timestamp"];
-    //[dic setObject:sign?:@"error" forKey:@"sign"];
     return dic;
     
 }

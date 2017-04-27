@@ -58,6 +58,11 @@
     [self setNavc];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    //[self customUserRepresention];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -100,6 +105,13 @@
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
    
+}
+
+- (void)customUserRepresention {
+    
+    MAUserLocationRepresentation *r = [[MAUserLocationRepresentation alloc] init];
+    r.image = [UIImage imageNamed:@"map_use_compass"];
+    [self.mapView updateUserLocationRepresentation:r];
 }
 
 #pragma mark - serchDelegate

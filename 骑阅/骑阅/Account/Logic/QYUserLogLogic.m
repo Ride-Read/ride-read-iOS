@@ -23,6 +23,7 @@
     NSDictionary *user_data = data[kdata];
     //QYUser *user = [QYUser userWithDict:user_data];
     [[CTAppContext sharedInstance] setUserInfo:user_data];
+    [[CTAppContext sharedInstance] setTimestamp:data[@"timestamp"]];
     return user_data;
 }
 
