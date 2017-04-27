@@ -12,5 +12,7 @@
 @interface QYTakePhotoViewController : QYBasicViewController
 
 /** User */
-@property(nonatomic,strong) QYUser * user;
+@property (nonatomic,strong) QYUser * user;
+@property (nonatomic, copy) void(^callBackIcon)(UIImage *image,NSString *url);
+
 @end

@@ -16,6 +16,7 @@
     
     self = [super init];
     self.layer.cornerRadius = 8;
+    self.layer.masksToBounds = YES;
     return self;
 }
 - (void)dealloc {

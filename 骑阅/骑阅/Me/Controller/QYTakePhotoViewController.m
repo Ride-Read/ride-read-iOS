@@ -26,6 +26,7 @@
 @property (nonatomic, strong) QYQiuniuTokenCommand * commad;
 /** filename */
 @property(nonatomic,strong) NSString * filename;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -53,8 +54,6 @@
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.user.face_url] placeholderImage:[UIImage imageNamed:@"meizi2.png"]];
     [self.view addSubview:self.headImageView];
     self.headImageView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewClick:)];
-//    [self.headImageView addGestureRecognizer:tap];
     [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.width.mas_equalTo(self.view.mas_width);
@@ -99,21 +98,16 @@
             return ;
         }
         
-//        QYNavigationController * navc = [[QYNavigationController alloc]initWithRootViewController:self.pickerController];
         [self presentViewController:self.pickerController animated:YES completion:nil];
-//        [self.navigationController pushViewController:navc animated:YES];
     }];
 
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-//    NSString * mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-//    NSLog(@"--->%@",mediaType);
     
     UIImage * image;
     if (self.pickerController.allowsEditing) {//如果是拍照
-//        NSLog(@"%s",__func__);
         image = [info objectForKey:UIImagePickerControllerEditedImage];
     } else {
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
@@ -124,19 +118,24 @@
 
     WEAKSELF(_self);
     NSData *data = UIImageJPEGRepresentation(image, 0.3);
-    
+    _commad = [[QYQiuniuTokenCommand alloc] init];
+    _commad.dataSource = self;
+    _commad.delegate = self;
+    self.hud = [MBProgressHUD showMessage:@"上传中..." toView:nil];
     self.commad.complete = ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
-    
+        [_self.hud hide:YES];
         if (info.isOK) {
             
-            NSLog(@"++++++>>上传成功%@",key);
-            
+            if (_self.callBackIcon) {
+                NSString *url = [Basic_Qiniu_URL stringByAppendingString:key];
+                _self.callBackIcon(image,url);
+                [_self.navigationController popViewControllerAnimated:YES];
+            }
         } else {
             
             [MBProgressHUD showMessageAutoHide:@"上传失败" view:nil];
             
         }
-        MyLog(@"%@",info);
     };
 
     self.filename = [NSString uploadFilename];
@@ -149,6 +148,19 @@
 - (NSDictionary *)paramsForcommand:(CLCommands *)command {
     
     return @{kfilename:self.filename,ktoken:@"jsonsnow",@"uid":@(1)};
+}
+
+#pragma mark - CLCommandDelegate
+- (void)command:(CLCommands *)commands didSuccess:(CTAPIBaseManager *)apiManager {
+    
+    
+    [self.hud hide:YES];
+}
+
+- (void)command:(CLCommands *)commands didFaildWith:(CTAPIBaseManager *)apiManager {
+    
+    [self.hud hide:YES];
+    [MBProgressHUD showMessageAutoHide:@"图片上传失败" view:nil];
 }
 
 
@@ -168,17 +180,6 @@
         _headImageView = [[UIImageView alloc]init];
     }
     return _headImageView;
-}
-
-- (QYQiuniuTokenCommand *)commad {
-    
-    if (!_commad) {
-        
-        _commad = [[QYQiuniuTokenCommand alloc] init];
-        _commad.dataSource = self;
-        _commad.delegate = self;
-    }
-    return _commad;
 }
 
 

@@ -111,6 +111,10 @@
 		BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA55BFF21E4F37D600F1027B /* LaunchScreen.storyboard */; };
 		BA55BFFF1E4F37D600F1027B /* __Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55BFFE1E4F37D600F1027B /* __Tests.m */; };
 		BA55C00A1E4F37D600F1027B /* __UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA55C0091E4F37D600F1027B /* __UITests.m */; };
+		BA5F3B561EB231EB00D1FF52 /* QYPersonSexSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5F3B551EB231EB00D1FF52 /* QYPersonSexSelectView.m */; };
+		BA5F3B581EB231FB00D1FF52 /* QYPersonSexSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA5F3B571EB231FB00D1FF52 /* QYPersonSexSelectView.xib */; };
+		BA5F3B5C1EB2553500D1FF52 /* QYCylePostMonentApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5F3B5B1EB2553500D1FF52 /* QYCylePostMonentApiManager.m */; };
+		BA5F3B5F1EB2588400D1FF52 /* YYPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5F3B5E1EB2588400D1FF52 /* YYPopView.m */; };
 		BA6FC6041E97F6B800CF4ECC /* QYAddCommnetApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */; };
 		BA6FC6071E97F9D300CF4ECC /* QYAddThumbApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6061E97F9D300CF4ECC /* QYAddThumbApiManager.m */; };
 		BA6FC60A1E9922E600CF4ECC /* QYFansApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6FC6091E9922E600CF4ECC /* QYFansApiManager.m */; };
@@ -166,7 +170,6 @@
 		BA9AAAB31E692C7000D7A5BB /* YYLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA991E692C7000D7A5BB /* YYLabel.m */; };
 		BA9AAAB41E692C7000D7A5BB /* YYTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9AAA9C1E692C7000D7A5BB /* YYTextView.m */; };
 		BA9D1D781E7CE18100276E76 /* QYShowUserCycleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */; };
-		BA9D1D7B1E7CE45C00276E76 /* QYCylePostMonentApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */; };
 		BA9D1D811E7D356B00276E76 /* QYCyclePostController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */; };
 		BA9D1D841E7D44E400276E76 /* YYJsonService.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D831E7D44E400276E76 /* YYJsonService.m */; };
 		BA9D1D871E7D92A500276E76 /* QYPictureLookView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1D861E7D92A500276E76 /* QYPictureLookView.m */; };
@@ -546,6 +549,13 @@
 		BA55C0051E4F37D600F1027B /* 骑阅UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "骑阅UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA55C0091E4F37D600F1027B /* __UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = __UITests.m; sourceTree = "<group>"; };
 		BA55C00B1E4F37D600F1027B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA5F3B541EB231EB00D1FF52 /* QYPersonSexSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPersonSexSelectView.h; sourceTree = "<group>"; };
+		BA5F3B551EB231EB00D1FF52 /* QYPersonSexSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonSexSelectView.m; sourceTree = "<group>"; };
+		BA5F3B571EB231FB00D1FF52 /* QYPersonSexSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QYPersonSexSelectView.xib; sourceTree = "<group>"; };
+		BA5F3B5A1EB2553500D1FF52 /* QYCylePostMonentApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCylePostMonentApiManager.h; sourceTree = "<group>"; };
+		BA5F3B5B1EB2553500D1FF52 /* QYCylePostMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCylePostMonentApiManager.m; sourceTree = "<group>"; };
+		BA5F3B5D1EB2588400D1FF52 /* YYPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPopView.h; sourceTree = "<group>"; };
+		BA5F3B5E1EB2588400D1FF52 /* YYPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPopView.m; sourceTree = "<group>"; };
 		BA6FC6021E97F6B800CF4ECC /* QYAddCommnetApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAddCommnetApiManager.h; sourceTree = "<group>"; };
 		BA6FC6031E97F6B800CF4ECC /* QYAddCommnetApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYAddCommnetApiManager.m; sourceTree = "<group>"; };
 		BA6FC6051E97F9D300CF4ECC /* QYAddThumbApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYAddThumbApiManager.h; sourceTree = "<group>"; };
@@ -646,8 +656,6 @@
 		BA9AAA9C1E692C7000D7A5BB /* YYTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextView.m; sourceTree = "<group>"; };
 		BA9D1D761E7CE18100276E76 /* QYShowUserCycleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYShowUserCycleApiManager.h; sourceTree = "<group>"; };
 		BA9D1D771E7CE18100276E76 /* QYShowUserCycleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYShowUserCycleApiManager.m; sourceTree = "<group>"; };
-		BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYCylePostMonentApiManager.h; path = ../../ReadCycle/ApiManager/QYCylePostMonentApiManager.h; sourceTree = "<group>"; };
-		BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYCylePostMonentApiManager.m; path = ../../ReadCycle/ApiManager/QYCylePostMonentApiManager.m; sourceTree = "<group>"; };
 		BA9D1D7F1E7D356B00276E76 /* QYCyclePostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYCyclePostController.h; path = ../../ReadCycle/Controller/QYCyclePostController.h; sourceTree = "<group>"; };
 		BA9D1D801E7D356B00276E76 /* QYCyclePostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYCyclePostController.m; path = ../../ReadCycle/Controller/QYCyclePostController.m; sourceTree = "<group>"; };
 		BA9D1D821E7D44E400276E76 /* YYJsonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYJsonService.h; sourceTree = "<group>"; };
@@ -1081,6 +1089,8 @@
 		2BBD52FB1E6EFCD6007313E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BA5F3B5D1EB2588400D1FF52 /* YYPopView.h */,
+				BA5F3B5E1EB2588400D1FF52 /* YYPopView.m */,
 				2BBD52FC1E6EFCD6007313E7 /* QYPersonalDataCell.h */,
 				2BBD52FD1E6EFCD6007313E7 /* QYPersonalDataCell.m */,
 				2BB344361E8BB69A00BB8C40 /* meizi2.png */,
@@ -1088,6 +1098,9 @@
 				2BCF72451E79026900E9B3CE /* QYTextPromptView.m */,
 				2BB71EB51E7946AA00187565 /* QYTagPromptView.h */,
 				2BB71EB61E7946AA00187565 /* QYTagPromptView.m */,
+				BA5F3B541EB231EB00D1FF52 /* QYPersonSexSelectView.h */,
+				BA5F3B551EB231EB00D1FF52 /* QYPersonSexSelectView.m */,
+				BA5F3B571EB231FB00D1FF52 /* QYPersonSexSelectView.xib */,
 				BAD938621EAE2E6900DFEF2C /* QYTagCell.h */,
 				BAD938631EAE2E6900DFEF2C /* QYTagCell.m */,
 				BAD938641EAE2E6900DFEF2C /* QYTagCell.xib */,
@@ -1330,21 +1343,12 @@
 		BA1542AF1E9A65EC00F7CBF5 /* PostCycle */ = {
 			isa = PBXGroup;
 			children = (
-				BA1542B01E9A65EC00F7CBF5 /* ApiManager */,
+				BA5F3B591EB2552300D1FF52 /* ApiManager */,
 				BA1542B11E9A65EC00F7CBF5 /* Controller */,
 				BA1542B21E9A65EC00F7CBF5 /* Model */,
 				BA1542B31E9A65EC00F7CBF5 /* View */,
 			);
 			path = PostCycle;
-			sourceTree = "<group>";
-		};
-		BA1542B01E9A65EC00F7CBF5 /* ApiManager */ = {
-			isa = PBXGroup;
-			children = (
-				BA9D1D791E7CE45C00276E76 /* QYCylePostMonentApiManager.h */,
-				BA9D1D7A1E7CE45C00276E76 /* QYCylePostMonentApiManager.m */,
-			);
-			path = ApiManager;
 			sourceTree = "<group>";
 		};
 		BA1542B11E9A65EC00F7CBF5 /* Controller */ = {
@@ -1698,6 +1702,15 @@
 				BA55C00B1E4F37D600F1027B /* Info.plist */,
 			);
 			path = "骑阅UITests";
+			sourceTree = "<group>";
+		};
+		BA5F3B591EB2552300D1FF52 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				BA5F3B5A1EB2553500D1FF52 /* QYCylePostMonentApiManager.h */,
+				BA5F3B5B1EB2553500D1FF52 /* QYCylePostMonentApiManager.m */,
+			);
+			path = ApiManager;
 			sourceTree = "<group>";
 		};
 		BA8056A01E8D4E310009A4D7 /* Message */ = {
@@ -2613,6 +2626,7 @@
 				BAD9385F1EAE2A2400DFEF2C /* QYPersonSginureEditView.xib in Resources */,
 				BA1542B51E9A678200F7CBF5 /* QYPostCycleStoryboard.storyboard in Resources */,
 				BAE7838F1EA7B76600D169DC /* QYCustomPersonView.xib in Resources */,
+				BA5F3B581EB231FB00D1FF52 /* QYPersonSexSelectView.xib in Resources */,
 				2BB344371E8BB69A00BB8C40 /* meizi2.png in Resources */,
 				BA05A8321EA5249200D89210 /* QYLocationAnnotionView.xib in Resources */,
 			);
@@ -2761,7 +2775,6 @@
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
 				BAE461A21EAFB4BD00C1B8A5 /* QYPersonAnnotionView.m in Sources */,
-				BA9D1D7B1E7CE45C00276E76 /* QYCylePostMonentApiManager.m in Sources */,
 				BAA0018E1E50725B0067A894 /* GDMapService.m in Sources */,
 				BADA25541EA650A8003406DA /* QYPersonAnnotion.m in Sources */,
 				BACBA8571E50780F00D2E848 /* YYBaiscTableViewCell.m in Sources */,
@@ -2793,6 +2806,7 @@
 				BA354D301E6BE12A00EE8189 /* QNCrc32.m in Sources */,
 				BAC36FB31E81653B007D1FF4 /* QYReadLookUserController.m in Sources */,
 				BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */,
+				BA5F3B561EB231EB00D1FF52 /* QYPersonSexSelectView.m in Sources */,
 				EC94C2651E51EF4000F2454F /* QYCustomPresentAnimationDelegate.m in Sources */,
 				BA6FC6151E994B5500CF4ECC /* QYAttentionAndMessageView.m in Sources */,
 				BAA001811E50725B0067A894 /* NSString+AXNetworkingMethods.m in Sources */,
@@ -2879,6 +2893,7 @@
 				BA12CCA31E868A3B00DDB8CF /* QYSetFooterView.m in Sources */,
 				BA354D341E6BE12A00EE8189 /* QNPHAssetResource.m in Sources */,
 				BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */,
+				BA5F3B5F1EB2588400D1FF52 /* YYPopView.m in Sources */,
 				BAF572E41EA323AF00129E49 /* QYLookPictureTransionDelegate.m in Sources */,
 				BAA001821E50725B0067A894 /* NSURLRequest+CTNetWorkingMethods.m in Sources */,
 				EC7AA1321E5C3C0500EA54AA /* QYVerifyCodeApiManager.m in Sources */,
@@ -2921,6 +2936,7 @@
 				BA354D721E6BE20000EE8189 /* QNDomain.m in Sources */,
 				BA995D011E84264D002FA3B2 /* QYRideMyCycleController.m in Sources */,
 				2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */,
+				BA5F3B5C1EB2553500D1FF52 /* QYCylePostMonentApiManager.m in Sources */,
 				EC2026071E5E75F100AE2528 /* QYSliderTabBarIntercativeTransiton.m in Sources */,
 				BACA3F7C1EA53DA5009A2153 /* QYSignAnnotion.m in Sources */,
 				BA354D3E1E6BE12A00EE8189 /* QNUploadManager.m in Sources */,

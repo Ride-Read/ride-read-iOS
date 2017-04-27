@@ -8,6 +8,8 @@
 
 #import "QYBasicViewController.h"
 #import "define.h"
+#import "UIAlertController+QYQuickAlert.h"
+#import "QYLoginOrRegisterFatherController.h"
 
 @interface QYBasicViewController ()
 
@@ -38,6 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authfailed) name:kBSUserTokenInvalidNotifation object:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -50,10 +53,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - private method
+
+- (void)authfailed {
+    
+    if ([self isvaisbal]) {
+        
+        MyLog(@"the count for handle this message");
+        [UIAlertController alertControler:@"提示" message:@"认证失败，请重新登录" leftTitle:nil rightTitle:@"确定" from:self action:^(NSUInteger index) {
+           
+            QYLoginOrRegisterFatherController *ctr = [[QYLoginOrRegisterFatherController alloc] init];
+            [CTAppContext sharedInstance].currentUser = nil;
+            [UIApplication sharedApplication].keyWindow.rootViewController = ctr;
+        }];
+    }
+}
+
+- (BOOL)isvaisbal {
+    
+    BOOL isvisibel = NO;
+    if (self.isViewLoaded && self.view.window) {
+        
+        isvisibel = YES;
+    }
+    return isvisibel;
+}
+
 #pragma mark - notifaction
 
 - (void)locationError {
-    
+ 
     
 }
 

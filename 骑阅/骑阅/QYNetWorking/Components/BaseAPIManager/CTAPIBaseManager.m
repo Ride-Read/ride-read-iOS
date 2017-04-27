@@ -367,7 +367,7 @@ NSString * const kBSUserTokenNotificationUserInfoKeyManagerToContinue = @"kBSUse
     
     self.isLoading = NO;
     self.response = response;
-    if ([response.content[@"code"] isEqualToString:@"500"]) {
+    if ([response.content[@"status"] isEqualToString:@"9999"]) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kBSUserTokenInvalidNotifation
                                                             object:nil

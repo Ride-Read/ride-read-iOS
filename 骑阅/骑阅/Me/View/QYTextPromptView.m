@@ -12,7 +12,7 @@
 #import "UIColor+QYHexStringColor.h"
 #import "QYLoginTextField.h"
 
-@interface QYTextPromptView ()
+@interface QYTextPromptView ()<UITextFieldDelegate>
 
 /** titleLabel */
 @property(nonatomic,strong) YYLabel * titleLabel;
@@ -72,7 +72,7 @@
     [self.cancleBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.cancleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [self.cancleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.cancleBtn setTitleColor:[UIColor colorWithHexString:@"#555555"] forState:UIControlStateNormal];
     [self addSubview:self.cancleBtn];
     
     self.configBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -87,6 +87,7 @@
     [self addSubview:self.subCutLine];
     
     self.inputTextField = [[UITextField alloc]init];
+    self.inputTextField.delegate = self;
     [self addSubview:self.inputTextField];
     
 }
@@ -166,8 +167,11 @@
 
 - (void)buttonClick:(UIButton *)sender {
     
-    if (configClickBlock) {
-        configClickBlock(self.inputTextField.text);
+    if (sender.tag == 2) {
+     
+        if (configClickBlock) {
+            configClickBlock(self.inputTextField.text);
+        }
     }
     [self closeView];
     
@@ -178,6 +182,27 @@
     
     if (block) {
         configClickBlock = block;
+    }
+}
+
+#pragma mark - textfiled delegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    
+    if (self.maxLength == 0) {
+        
+        return YES;
+    }
+    if (string.length == 0) {
+        
+        return YES;
+    }
+    if (self.inputTextField.text.length >= self.maxLength) {
+        
+        return NO;
+    } else {
+        
+        return YES;
     }
 }
 /*

@@ -22,6 +22,8 @@ typedef void(^ConfigClickBlock)(NSString * targetString);
 /** inputTextField */
 @property(nonatomic,strong) UITextField * inputTextField;
 
+@property (nonatomic, assign) NSInteger maxLength;
+
 + (instancetype)creatView;
 
 //定义点击按钮block

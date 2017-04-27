@@ -64,4 +64,19 @@
     return filename;
 }
 
++ (NSString *)dataFormatteryyyymmdd:(NSDate *)date {
+    
+    NSString *resutl;
+    static NSDateFormatter *formatterFullDate;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatterFullDate = [NSDateFormatter new];
+        [formatterFullDate setDateFormat:@"yyyy-MM-dd"];
+        [formatterFullDate setLocale:[NSLocale currentLocale]];
+        
+    });
+    resutl = [formatterFullDate stringFromDate:date];
+    return resutl;
+}
+
 @end

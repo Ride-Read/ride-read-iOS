@@ -64,6 +64,7 @@
         [MBProgressHUD showMessageAutoHide:@"退出成功" view:nil];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [CTAppContext sharedInstance].currentUser = nil;
         [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
             
             MyLog(@"登出成功");

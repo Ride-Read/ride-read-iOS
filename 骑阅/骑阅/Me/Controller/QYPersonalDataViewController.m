@@ -15,7 +15,9 @@
 #import "QYTagPromptView.h"
 #import "QYUpdateAPIManager.h"
 #import "QYTakePhotoViewController.h"
-
+#import "QYPersonSexSelectView.h"
+#import "YYPopView.h"
+#import "NSString+QYDateString.h"
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 
@@ -85,16 +87,37 @@
 
 
 #pragma mark - private method
-- (void)crateCustomTag:(NSString *)title plcaeHodel:(NSString *)placeHodel {
+- (void)crateCustomTag:(NSString *)title plcaeHodel:(NSString *)placeHodel maxLength:(NSInteger)maxLength cell:(QYPersonalDataCell *)cell{
     
     QYTextPromptView * nameView = [QYTextPromptView creatView];
     nameView.placeHolder = placeHodel;
     nameView.title = title;
+    nameView.maxLength = maxLength;
     [nameView show];
     [nameView ConfigClickWithBlock:^(NSString * targetString) {
         
-        self.user.signature = targetString;
-        [self.tableView reloadData];
+        if ([placeHodel isEqualToString:@"我的个性签名"]) {
+         
+            self.user.signature = targetString;
+        }
+        
+        if ([placeHodel isEqualToString:@"不要超过五个字哦!"]) {
+            
+            self.user.tagString = targetString;
+        }
+        
+        if ([placeHodel isEqualToString:@"建议使用真实姓名"]) {
+            
+            self.user.username = targetString;
+            
+        }
+        if ([placeHodel isEqualToString:@"学校"]) {
+            
+            self.user.school = targetString;
+            
+        }
+        cell.subLabel.text = targetString;
+       
     }];
 }
 
@@ -111,7 +134,7 @@
     } else if (section == 1) {
         return 3;
     } else if (section == 2) {
-        return 5;
+        return 7;
     } else {
         return 0;
     }
@@ -152,7 +175,12 @@
         cell.mainTitleLabel.text = data[indexPath.row];
         if (indexPath.row == 0) {
 
-            cell.subLabel.text = [NSString stringWithFormat:@"%@",self.user.sex];
+            NSString *sexStr = @"女";
+            if (self.user.sex.integerValue == 1) {
+                
+                sexStr = @"男";
+            }
+            cell.subLabel.text = [NSString stringWithFormat:@"%@",sexStr];
             
         } else if (indexPath.row == 1) {
 
@@ -166,8 +194,43 @@
     } else if (indexPath.section == 2) {
         
         cell.cellType = QYPersonalDataCellLabel;
-        NSArray * data = @[@"手机号",@"毕业/在读学校",@"所在地",@"家乡",@"职业"];
+        NSArray * data = @[@"生日",@"手机号",@"毕业/在读学校",@"所在地",@"家乡",@"职业",@"骑阅号"];
         cell.mainTitleLabel.text = data[indexPath.row];
+        
+        if (indexPath.row == 0) {
+            
+            NSString *ageStr = [NSString dataFormatteryyyymmdd:[NSDate dateWithTimeIntervalSince1970:self.user.birthday.doubleValue/1000]];
+            cell.subLabel.text = ageStr;
+        }
+        if (indexPath.row == 1) {
+            
+            cell.subLabel.text = self.user.phonenumber;
+        }
+        
+        if (indexPath.row == 2) {
+            
+            cell.subLabel.text = self.user.school;
+        }
+        
+        if (indexPath.row == 3) {
+            
+            cell.subLabel.text = self.user.location;
+        }
+        
+        if (indexPath.row == 4) {
+            
+            cell.subLabel.text = self.user.hometown;
+        }
+        
+        if (indexPath.row == 5) {
+            
+            cell.subLabel.text = self.user.career;
+        }
+        
+        if (indexPath.row == 6) {
+            
+            cell.subLabel.text = self.user.ride_read_id;
+        }
         
     } else  {
         return nil;
@@ -180,24 +243,33 @@
     QYPersonalDataCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
-            QYTextPromptView * nameView = [QYTextPromptView creatView];
-            nameView.placeHolder = @"建议使用真实姓名";
-            nameView.title = @"昵称";
-            [nameView show];
-            [nameView ConfigClickWithBlock:^(NSString * targetString) {
-                
-                self.user.username = targetString;
-                [self.tableView reloadData];
-            }];
+            
+            [self crateCustomTag:@"昵称" plcaeHodel:@"建议使用真实姓名" maxLength:0 cell:cell] ;
+            
         } else {
             
             QYTakePhotoViewController * takeVC = [[QYTakePhotoViewController alloc]init];
             takeVC.user = self.user;
+            takeVC.callBackIcon = ^(UIImage *icon,NSString *url) {
+              
+                self.user.face_url = url;
+                cell.subImageView.image = icon;
+            };
             [self.navigationController pushViewController:takeVC animated:YES];
             
         }
         
     } else if (indexPath.section == 1) {
+        
+        if (indexPath.row == 0) {
+            
+            QYPersonSexSelectView *sexView = [QYPersonSexSelectView loadPersonSexView:self.user block:^(NSString *sex){
+                
+                cell.subLabel.text = sex;
+            }];
+            [sexView show];
+            
+        }
         
         if (indexPath.row == 1) {
             
@@ -205,7 +277,7 @@
                 
                __weak QYTagPromptView *prom = (QYTagPromptView *)view;
                 [prom closeView];
-                [self crateCustomTag:@"个性标签" plcaeHodel:@"不要超过五个字哦!"];
+                [self crateCustomTag:@"个性标签" plcaeHodel:@"不要超过五个字哦!" maxLength:5 cell:cell] ;
                 
             } clickConfirm:^(NSString *tags) {
                 
@@ -218,9 +290,25 @@
             
         } else if (indexPath.row == 2) {
             
-           
-            [self crateCustomTag:@"个性签名" plcaeHodel:@"我的个性签名"];
+            [self crateCustomTag:@"个性签名" plcaeHodel:@"我的个性签名" maxLength:0 cell:cell];
         }
+    } else {
+        
+        if (indexPath.row == 0) {
+            
+            YYPopView *ageView = [YYPopView popViewUser:self.user handler:^(NSString *age) {
+               
+                cell.subLabel.text = age;
+            }];
+            [ageView show];
+        }
+        if (indexPath.row == 2) {
+            
+            [self crateCustomTag:@"毕业/在读学校" plcaeHodel:@"学校" maxLength:0 cell:cell];
+
+        }
+        
+        
     }
 }
 

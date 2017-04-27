@@ -14,4 +14,6 @@
 
 + (NSString *)uploadFilename;
 
++ (NSString *)dataFormatteryyyymmdd:(NSDate *)date;
+
 @end
