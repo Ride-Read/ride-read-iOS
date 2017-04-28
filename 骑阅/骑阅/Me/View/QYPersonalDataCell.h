@@ -12,7 +12,7 @@ typedef NS_ENUM(NSInteger, QYPersonalDataCellType) {
    
     QYPersonalDataCellDefault,    //* 没有子视图，
     QYPersonalDataCellImageView,  //* 子视图是UIImageView
-    QYPersonalDataCellLabel      //* 子视图是UIlabel
+    QYPersonalDataCellLabel       //* 子视图是UIlabel
 };
 
 

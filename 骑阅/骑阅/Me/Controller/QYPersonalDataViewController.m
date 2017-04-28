@@ -19,8 +19,9 @@
 #import "YYPopView.h"
 #import "NSString+QYDateString.h"
 #import "QYSelecteLocationViewController.h"
+#import "QYProfessionViewController.h"
 
-@interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYSelectedLoactionDelegate>
+@interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYSelectedLoactionDelegate,QYProfessionDelegate>
 
 /** tableView */
 @property(nonatomic,strong) UITableView * tableView;
@@ -122,12 +123,25 @@
     }];
 }
 
-#pragma -- <QYSelectedLoactionDelegate>
+#pragma mark -- QYSelectedLoactionDelegate
 - (void)viewController:(QYSelecteLocationViewController *)controller didFinishedSelectedAddress:(NSString *)address {
-    self.user.location = address;
+    
+    MyLog(@"%zd",controller.type);
+    if (controller.type == 3) {
+        self.user.location = address;
+    }
+    if (controller.type == 4) {
+        self.user.hometown = address;
+    }
     [self.tableView reloadData];
 }
 
+#pragma mark -- QYProfessionDelegate 
+- (void)viewController:(QYProfessionViewController *)viewController didFinishSelectedProfession:(NSString *)profession {
+    
+    self.user.career = profession;
+    [self.tableView reloadData];
+}
 
 
 #pragma -- <UITableViewDataSource>
@@ -317,10 +331,14 @@
         }  if (indexPath.row == 3 || indexPath.row == 4) {
             QYSelecteLocationViewController * selecteLocation = [[QYSelecteLocationViewController alloc]init];
             selecteLocation.delegate = self;
+            selecteLocation.type = indexPath.row;
             [self.navigationController pushViewController:selecteLocation animated:YES];
+        } else {
+            
+            QYProfessionViewController * proVC = [[QYProfessionViewController alloc]init];
+            proVC.delegate = self;
+            [self.navigationController pushViewController:proVC animated:YES];
         }
-        
-        
     }
 }
 

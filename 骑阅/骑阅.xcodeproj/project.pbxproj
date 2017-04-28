@@ -28,6 +28,7 @@
 		2BC7D3161EB2B9BC00F3B243 /* QYProvince.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7D3141EB2B9BC00F3B243 /* QYProvince.m */; };
 		2BC7D3191EB2B9FC00F3B243 /* QYSelecteLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7D3181EB2B9FC00F3B243 /* QYSelecteLocationViewController.m */; };
 		2BCF72461E79026900E9B3CE /* QYTextPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYTextPromptView.m */; };
+		2BEAE7C81EB3294100F50621 /* QYProfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE7C71EB3294100F50621 /* QYProfessionViewController.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA05A8061EA513E600D89210 /* QYThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA05A8051EA513E600D89210 /* QYThumbsViewController.m */; };
 		BA05A8091EA5141B00D89210 /* QYShowThumbsApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA05A8081EA5141B00D89210 /* QYShowThumbsApiManager.m */; };
@@ -384,6 +385,8 @@
 		2BC7D3181EB2B9FC00F3B243 /* QYSelecteLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSelecteLocationViewController.m; sourceTree = "<group>"; };
 		2BCF72441E79026900E9B3CE /* QYTextPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTextPromptView.h; sourceTree = "<group>"; };
 		2BCF72451E79026900E9B3CE /* QYTextPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTextPromptView.m; sourceTree = "<group>"; };
+		2BEAE7C61EB3294100F50621 /* QYProfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYProfessionViewController.h; sourceTree = "<group>"; };
+		2BEAE7C71EB3294100F50621 /* QYProfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYProfessionViewController.m; sourceTree = "<group>"; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
 		BA05A8041EA513E600D89210 /* QYThumbsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYThumbsViewController.h; sourceTree = "<group>"; };
 		BA05A8051EA513E600D89210 /* QYThumbsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYThumbsViewController.m; sourceTree = "<group>"; };
@@ -2396,6 +2399,8 @@
 				BAE783911EA7C64E00D169DC /* QYPersonMapController.m */,
 				2BC7D3171EB2B9FC00F3B243 /* QYSelecteLocationViewController.h */,
 				2BC7D3181EB2B9FC00F3B243 /* QYSelecteLocationViewController.m */,
+				2BEAE7C61EB3294100F50621 /* QYProfessionViewController.h */,
+				2BEAE7C71EB3294100F50621 /* QYProfessionViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2827,6 +2832,7 @@
 				2B3191A31E938C4E0004F4E9 /* QYUpdateAPIManager.m in Sources */,
 				BA354D361E6BE12A00EE8189 /* QNUrlSafeBase64.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
+				2BEAE7C81EB3294100F50621 /* QYProfessionViewController.m in Sources */,
 				BA354D301E6BE12A00EE8189 /* QNCrc32.m in Sources */,
 				2BC7D3191EB2B9FC00F3B243 /* QYSelecteLocationViewController.m in Sources */,
 				BAC36FB31E81653B007D1FF4 /* QYReadLookUserController.m in Sources */,

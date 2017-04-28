@@ -20,4 +20,6 @@
 
 /** delegate */
 @property(nonatomic,weak) id<QYSelectedLoactionDelegate> delegate;
+/** type */
+@property(nonatomic,assign) NSInteger type;
 @end

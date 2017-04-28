@@ -10,6 +10,7 @@
 #import "define.h"
 #import "YYBasicTableView.h"
 #import "QYProvince.h"
+#import "QYPersonalDataCell.h"
 
 @interface QYSelecteLocationViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** provinceView */
@@ -55,30 +56,32 @@
     self.provinceView = [[UITableView alloc]init];
     self.provinceView.delegate = self;
     self.provinceView.dataSource = self;
+    self.provinceView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.provinceView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
     [self.view addSubview:self.provinceView];
     [self.provinceView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(0);
         make.bottom.mas_equalTo(0);
-        make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.5);
+        make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.3);
     }];
     
-//    [self tableView:self.provinceView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-//    [self.provinceView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.provinceView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     self.cityView = [[UITableView alloc]init];
     self.cityView.delegate = self;
     self.cityView.dataSource = self;
+    self.cityView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.cityView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
     [self.view addSubview:self.cityView];
     
     [self.cityView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.right.mas_equalTo(0);
         make.bottom.mas_equalTo(0);
-        make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.5);
+        make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.7);
     }];
     
-    [self tableView:self.provinceView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -86,7 +89,9 @@
     if (tableView == self.provinceView) {
         
         return self.provinces.count;
+        
     } else {
+        
         return self.cities.count;
     }
 }
@@ -94,35 +99,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (tableView == self.provinceView) {
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        }
+        
+        QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:@"QYPersonalDataCell"];
         QYProvince * province = self.provinces[indexPath.row];
+        cell.cellType = QYPersonalDataCellDefault;
         self.cities = province.cities;
-        cell.textLabel.text = province.name;
+        cell.mainTitleLabel.text = province.name;
+        [cell showRightLine];
         return cell;
-
     } else {
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        }
+        QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:@"QYPersonalDataCell"];
+        cell.cellType = QYPersonalDataCellDefault;
         NSDictionary * dict = self.cities[indexPath.row];
-        cell.textLabel.text = dict[@"city"];
+        cell.mainTitleLabel.text = dict[@"city"];
         return cell;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (tableView == self.provinceView) {
-        
+    
         QYProvince * province = self.provinces[indexPath.row];
         self.provinceName = province.name;
         self.cities = province.cities;
         [self.cityView reloadData];
-        [self.cityView scrollsToTop];
+
         
     } else {
         
@@ -133,7 +135,6 @@
             [self.delegate viewController:self didFinishedSelectedAddress:self.resultAddress];
         }
         [self.navigationController popViewControllerAnimated:YES];
-        
     }
 }
 
