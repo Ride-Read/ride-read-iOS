@@ -22,6 +22,11 @@
 		2BBD530B1E6EFDEE007313E7 /* QYTest1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD530A1E6EFDEE007313E7 /* QYTest1.m */; };
 		2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53101E6EFE2E007313E7 /* QYtest3.m */; };
 		2BBD53141E6EFE41007313E7 /* QYtest4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD53131E6EFE41007313E7 /* QYtest4.m */; };
+		2BC7D30D1EB2B98100F3B243 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7D30C1EB2B98100F3B243 /* Foundation+Log.m */; };
+		2BC7D30F1EB2B99800F3B243 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BC7D30E1EB2B99800F3B243 /* address.plist */; };
+		2BC7D3151EB2B9BC00F3B243 /* QYCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7D3121EB2B9BC00F3B243 /* QYCity.m */; };
+		2BC7D3161EB2B9BC00F3B243 /* QYProvince.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7D3141EB2B9BC00F3B243 /* QYProvince.m */; };
+		2BC7D3191EB2B9FC00F3B243 /* QYSelecteLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7D3181EB2B9FC00F3B243 /* QYSelecteLocationViewController.m */; };
 		2BCF72461E79026900E9B3CE /* QYTextPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF72451E79026900E9B3CE /* QYTextPromptView.m */; };
 		980F9041807DDD43B994C04A /* Pods___.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA4C64DD7E17CB3EBD34E48 /* Pods___.framework */; };
 		BA05A8061EA513E600D89210 /* QYThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA05A8051EA513E600D89210 /* QYThumbsViewController.m */; };
@@ -369,6 +374,14 @@
 		2BBD53101E6EFE2E007313E7 /* QYtest3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest3.m; sourceTree = "<group>"; };
 		2BBD53121E6EFE41007313E7 /* QYtest4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYtest4.h; sourceTree = "<group>"; };
 		2BBD53131E6EFE41007313E7 /* QYtest4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYtest4.m; sourceTree = "<group>"; };
+		2BC7D30C1EB2B98100F3B243 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		2BC7D30E1EB2B99800F3B243 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
+		2BC7D3111EB2B9BC00F3B243 /* QYCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCity.h; sourceTree = "<group>"; };
+		2BC7D3121EB2B9BC00F3B243 /* QYCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCity.m; sourceTree = "<group>"; };
+		2BC7D3131EB2B9BC00F3B243 /* QYProvince.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYProvince.h; sourceTree = "<group>"; };
+		2BC7D3141EB2B9BC00F3B243 /* QYProvince.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYProvince.m; sourceTree = "<group>"; };
+		2BC7D3171EB2B9FC00F3B243 /* QYSelecteLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSelecteLocationViewController.h; sourceTree = "<group>"; };
+		2BC7D3181EB2B9FC00F3B243 /* QYSelecteLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSelecteLocationViewController.m; sourceTree = "<group>"; };
 		2BCF72441E79026900E9B3CE /* QYTextPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTextPromptView.h; sourceTree = "<group>"; };
 		2BCF72451E79026900E9B3CE /* QYTextPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTextPromptView.m; sourceTree = "<group>"; };
 		9D688E74DC227FD7B14EF8DD /* Pods-骑阅.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-骑阅.release.xcconfig"; path = "Pods/Target Support Files/Pods-骑阅/Pods-骑阅.release.xcconfig"; sourceTree = "<group>"; };
@@ -1072,13 +1085,6 @@
 			path = Command;
 			sourceTree = "<group>";
 		};
-		2BBD52F91E6EFCD6007313E7 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		2BBD52FA1E6EFCD6007313E7 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -1175,6 +1181,17 @@
 			children = (
 				BAC8714B1E783A8100C5F800 /* QYUser.h */,
 				BAC8714C1E783A8100C5F800 /* QYUser.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2BC7D3101EB2B9BC00F3B243 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2BC7D3111EB2B9BC00F3B243 /* QYCity.h */,
+				2BC7D3121EB2B9BC00F3B243 /* QYCity.m */,
+				2BC7D3131EB2B9BC00F3B243 /* QYProvince.h */,
+				2BC7D3141EB2B9BC00F3B243 /* QYProvince.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1682,6 +1699,8 @@
 				BA55BFF51E4F37D600F1027B /* Info.plist */,
 				BA55BFF01E4F37D600F1027B /* Assets.xcassets */,
 				BA55BFE51E4F37D600F1027B /* main.m */,
+				2BC7D30C1EB2B98100F3B243 /* Foundation+Log.m */,
+				2BC7D30E1EB2B99800F3B243 /* address.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2337,7 +2356,7 @@
 				BAC36FAA1E815DAE007D1FF4 /* ApiManager */,
 				2BBD52F81E6EFCC4007313E7 /* Command */,
 				EC7AA1451E5C8B4200EA54AA /* Controller */,
-				2BBD52F91E6EFCD6007313E7 /* Model */,
+				2BC7D3101EB2B9BC00F3B243 /* Model */,
 				2BBD52FA1E6EFCD6007313E7 /* Tool */,
 				2BBD52FB1E6EFCD6007313E7 /* View */,
 			);
@@ -2375,6 +2394,8 @@
 				BA995D061E842F71002FA3B2 /* QYCycleCollectViewController.m */,
 				BAE783901EA7C64E00D169DC /* QYPersonMapController.h */,
 				BAE783911EA7C64E00D169DC /* QYPersonMapController.m */,
+				2BC7D3171EB2B9FC00F3B243 /* QYSelecteLocationViewController.h */,
+				2BC7D3181EB2B9FC00F3B243 /* QYSelecteLocationViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2611,6 +2632,7 @@
 				BAF572DE1EA30D4D00129E49 /* QYPictureLookController.xib in Resources */,
 				BAA0018D1E50725B0067A894 /* CTNetworkingConfiguration.plist in Resources */,
 				2BAE5D881E9537310089ECF1 /* QYTableViewCell.xib in Resources */,
+				2BC7D30F1EB2B99800F3B243 /* address.plist in Resources */,
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
 				BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */,
 				BA05A8271EA522FF00D89210 /* QYMapSignView.xib in Resources */,
@@ -2742,6 +2764,7 @@
 				EC20260A1E5E856B00AE2528 /* QYTabBarSliderTransitionAnimation.m in Sources */,
 				BAC36FA91E815D63007D1FF4 /* QYFansUserViewController.m in Sources */,
 				BA05A8281EA522FF00D89210 /* QYSendCycleView.m in Sources */,
+				2BC7D30D1EB2B98100F3B243 /* Foundation+Log.m in Sources */,
 				BAC8716B1E798F2B00C5F800 /* QYRegisterLogic.m in Sources */,
 				BA05A8241EA522FF00D89210 /* QYMapSearchView.m in Sources */,
 				BAC871681E797DBC00C5F800 /* QYUserRegisterApiManager.m in Sources */,
@@ -2771,6 +2794,7 @@
 				BA05A8061EA513E600D89210 /* QYThumbsViewController.m in Sources */,
 				BA995D071E842F71002FA3B2 /* QYCycleCollectViewController.m in Sources */,
 				BA6FC60A1E9922E600CF4ECC /* QYFansApiManager.m in Sources */,
+				2BC7D3151EB2B9BC00F3B243 /* QYCity.m in Sources */,
 				BAC36FC31E82BBF0007D1FF4 /* QYUserReform.m in Sources */,
 				BAA001901E50725B0067A894 /* YYService.m in Sources */,
 				BAA001911E50725B0067A894 /* YYWeiBoServce.m in Sources */,
@@ -2804,6 +2828,7 @@
 				BA354D361E6BE12A00EE8189 /* QNUrlSafeBase64.m in Sources */,
 				BAA0018F1E50725B0067A894 /* YYAuthenticationService.m in Sources */,
 				BA354D301E6BE12A00EE8189 /* QNCrc32.m in Sources */,
+				2BC7D3191EB2B9FC00F3B243 /* QYSelecteLocationViewController.m in Sources */,
 				BAC36FB31E81653B007D1FF4 /* QYReadLookUserController.m in Sources */,
 				BA354CF91E6BC73600EE8189 /* UIBarButtonItem+CreatUIBarButtonItem.m in Sources */,
 				BA5F3B561EB231EB00D1FF52 /* QYPersonSexSelectView.m in Sources */,
@@ -2962,6 +2987,7 @@
 				BAC36FB01E816281007D1FF4 /* QYAttentionReform.m in Sources */,
 				BA05A8191EA522F700D89210 /* QYRecentlyCycleApiManager.m in Sources */,
 				BAA001881E50725B0067A894 /* CTLocationManager.m in Sources */,
+				2BC7D3161EB2B9BC00F3B243 /* QYProvince.m in Sources */,
 				BA354D3F1E6BE12A00EE8189 /* QNUploadOption.m in Sources */,
 				BAA001861E50725B0067A894 /* CTService.m in Sources */,
 				BAD3144B1E954B7F004CF67F /* QYNeedSiteViewController.m in Sources */,

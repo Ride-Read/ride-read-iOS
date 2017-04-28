@@ -18,8 +18,9 @@
 #import "QYPersonSexSelectView.h"
 #import "YYPopView.h"
 #import "NSString+QYDateString.h"
+#import "QYSelecteLocationViewController.h"
 
-@interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYSelectedLoactionDelegate>
 
 /** tableView */
 @property(nonatomic,strong) UITableView * tableView;
@@ -120,6 +121,13 @@
        
     }];
 }
+
+#pragma -- <QYSelectedLoactionDelegate>
+- (void)viewController:(QYSelecteLocationViewController *)controller didFinishedSelectedAddress:(NSString *)address {
+    self.user.location = address;
+    [self.tableView reloadData];
+}
+
 
 
 #pragma -- <UITableViewDataSource>
@@ -306,6 +314,10 @@
             
             [self crateCustomTag:@"毕业/在读学校" plcaeHodel:@"学校" maxLength:0 cell:cell];
 
+        }  if (indexPath.row == 3 || indexPath.row == 4) {
+            QYSelecteLocationViewController * selecteLocation = [[QYSelecteLocationViewController alloc]init];
+            selecteLocation.delegate = self;
+            [self.navigationController pushViewController:selecteLocation animated:YES];
         }
         
         
