@@ -369,6 +369,7 @@ NSString * const kBSUserTokenNotificationUserInfoKeyManagerToContinue = @"kBSUse
     self.response = response;
     if ([response.content[@"status"] isEqualToString:@"9999"]) {
         
+        [self cancelAllRequests];
         [[NSNotificationCenter defaultCenter] postNotificationName:kBSUserTokenInvalidNotifation
                                                             object:nil
                                                           userInfo:@{kBSUserTokenNotificationUserTnfoKeyRequestToContinue:[response.request mutableCopy]

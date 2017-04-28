@@ -65,14 +65,11 @@
         make.bottom.mas_equalTo(0);
         make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.3);
     }];
-    
-    [self tableView:self.provinceView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    
     self.cityView = [[UITableView alloc]init];
     self.cityView.delegate = self;
     self.cityView.dataSource = self;
     self.cityView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.cityView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
+    [self.cityView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYSubPersonalDataCell"];
     [self.view addSubview:self.cityView];
     
     [self.cityView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,6 +79,8 @@
         make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.7);
     }];
     
+//    [self tableView:self.provinceView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+//    
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -90,10 +89,13 @@
         
         return self.provinces.count;
         
-    } else {
-        
+    }
+    
+    if (tableView == self.cityView) {
+    
         return self.cities.count;
     }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,10 +108,18 @@
         self.cities = province.cities;
         cell.mainTitleLabel.text = province.name;
         [cell showRightLine];
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            
+            if (indexPath.row == 0) {
+                
+                cell.selected = YES;
+            }
+        });
         return cell;
     } else {
         
-        QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:@"QYPersonalDataCell"];
+        QYPersonalDataCell * cell = [tableView dequeueReusableCellWithIdentifier:@"QYSubPersonalDataCell"];
         cell.cellType = QYPersonalDataCellDefault;
         NSDictionary * dict = self.cities[indexPath.row];
         cell.mainTitleLabel.text = dict[@"city"];
@@ -130,7 +140,7 @@
         
         NSDictionary * dict = self.cities[indexPath.row];
         NSString * cityName = dict[@"city"];
-        self.resultAddress = [NSString stringWithFormat:@"%@ %@",self.provinceName,cityName];
+        self.resultAddress = [NSString stringWithFormat:@"%@",cityName];
         if (self.delegate && [self.delegate respondsToSelector:@selector(viewController:didFinishedSelectedAddress:)]) {
             [self.delegate viewController:self didFinishedSelectedAddress:self.resultAddress];
         }

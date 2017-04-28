@@ -20,6 +20,7 @@
 #import "NSString+QYDateString.h"
 #import "QYSelecteLocationViewController.h"
 #import "QYProfessionViewController.h"
+#import "NSString+QYDateString.h"
 
 @interface QYPersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate,QYSelectedLoactionDelegate,QYProfessionDelegate>
 
@@ -29,6 +30,7 @@
 @property(nonatomic,strong) QYUpdateAPIManager * updateAPIManager;
 /** headImage */
 @property(nonatomic,strong) UIImage * headImage;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -53,7 +55,7 @@
 }
 - (void) clickSaveButton:(UIButton *) sender {
     
-    NSLog(@"%s",__func__);
+    self.hud = [MBProgressHUD showMessage:@"更改中..." toView:nil];
     [self.updateAPIManager loadData];
     
     
@@ -71,20 +73,6 @@
     self.tableView.sectionFooterHeight = 2;
     [self.tableView registerClass:[QYPersonalDataCell class] forCellReuseIdentifier:@"QYPersonalDataCell"];
     [self.view addSubview:self.tableView];
-}
-
-- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
-    
-    if (manager == self.updateAPIManager) {
-        MyLog(@"failed");
-    }
-}
-- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
-    
-    if (manager == self.updateAPIManager) {
-        MyLog(@"success");
-    }
-
 }
 
 
@@ -328,17 +316,22 @@
             
             [self crateCustomTag:@"毕业/在读学校" plcaeHodel:@"学校" maxLength:0 cell:cell];
 
-        }  if (indexPath.row == 3 || indexPath.row == 4) {
+        }
+        if (indexPath.row == 3 || indexPath.row == 4) {
             QYSelecteLocationViewController * selecteLocation = [[QYSelecteLocationViewController alloc]init];
             selecteLocation.delegate = self;
             selecteLocation.type = indexPath.row;
             [self.navigationController pushViewController:selecteLocation animated:YES];
-        } else {
-            
+        }
+        
+        if (indexPath.row == 5) {
+                        
             QYProfessionViewController * proVC = [[QYProfessionViewController alloc]init];
             proVC.delegate = self;
             [self.navigationController pushViewController:proVC animated:YES];
+
         }
+        
     }
 }
 
@@ -348,36 +341,55 @@
     
     if (manager == self.updateAPIManager) {
         
-        NSArray  * tags = @[@"学生",@"代码大神",@"月薪过万"];
-        NSString * hometown = @"阳春";
-        NSString * birthday = @"1992.02.18";
+        NSString  * tags = self.user.tagString;
+        NSString * hometown = self.user.hometown?:@"";
+        NSString * birthday = [NSString dataFormatteryyyymmdd:[NSDate dateWithTimeIntervalSince1970:self.user.birthday.doubleValue/1000]];
         NSNumber * uid = self.user.uid;
-        NSString * school = @"关公";
-        NSString * signature = @"个性其阿明";
+        NSString * school = self.user.school?:@"";
+        NSString * signature = self.user.signature?:@"";
         NSString * phonenumber = self.user.phonenumber;
         NSNumber * sex = self.user.sex;
-        NSString * career = @"学生";
-        NSString * location = @"广州";
-        NSString * nickname = @"升阳";
-        NSString * face_url = @"http://attach.bbs.miui.com/forum/201703/30/154935wkwmkllupipzwmuz.jpg";
-        
-        return @{khometown:hometown?:@"",
-                 kbirthday:birthday?:@"",
+        NSString * career = self.user.career?:@"";
+        NSString * location = self.user.location?:@"";
+        NSString * nickname = self.user.username?:@"";
+        NSString * face_url = self.user.face_url?:@"";
+        return @{khometown:hometown,
+                 kbirthday:birthday,
                  klatitude:@(self.location.coordinate.latitude),
                  klongitude:@(self.location.coordinate.longitude),
-                 kuid:uid?:@"",
-                 kschool:school?:@"",
-                 ksignature:signature?:@"",
-                 ksex:sex?:@(0),
-                 kphonenumber:phonenumber?:@"",
-                 kcareer:career?:@"",
-                 ktags:tags?:@[],
-                 knickname:nickname?:@"",
-                 kface_url:face_url?:@"",
-                 klocation:location?:@""};
+                 kuid:uid,
+                 kschool:school,
+                 ksignature:signature,
+                 ksex:sex,
+                 kphonenumber:phonenumber,
+                 kcareer:career,
+                 ktags:tags,
+                 kusername:nickname,
+                 kface_url:face_url,
+                 klocation:location};
         
     }
     return nil;
+}
+
+#pragma mark - CTApiManagerDelegate
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.updateAPIManager) {
+        
+        [self.hud hide:YES];
+        [MBProgressHUD showMessageAutoHide:@"更改失败" view:nil];
+    }
+}
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    if (manager == self.updateAPIManager) {
+        
+        [self.hud hide:YES];
+        [MBProgressHUD showMessageAutoHide:@"更改成功" view:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 
