@@ -312,7 +312,7 @@
     
     if (!_headerView) {
         
-        _headerView = [[QYReadMeHeaderView alloc] init];
+        _headerView = [[QYOtherMapHeaderView alloc] init];
         _headerView.delegate = self;
         _headerView.frame = CGRectMake(0, 0, kScreenWidth, cl_caculation_3y(560));
         

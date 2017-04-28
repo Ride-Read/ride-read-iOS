@@ -8,7 +8,7 @@
 
 #import "QYBasicNeedLocationController.h"
 #import "QYUser.h"
-#import "QYReadMeHeaderView.h"
+#import "QYOtherMapHeaderView.h"
 #import "CTAPIBaseManager.h"
 #import "QYAttentionAndMessageView.h"
 #import "YYBasicTableView.h"

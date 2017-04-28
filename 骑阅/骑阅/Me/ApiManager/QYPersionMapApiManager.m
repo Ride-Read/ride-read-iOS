@@ -35,6 +35,11 @@
     
     return CTAPIBaseManagerRequestTypePost;
 }
+- (BOOL)shouldCache {
+    
+    return YES;
+}
+
 
 #pragma mark - CTAPIManagerValidator
 - (BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {

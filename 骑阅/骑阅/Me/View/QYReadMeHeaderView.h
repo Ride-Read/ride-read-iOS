@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "QYUser.h"
+#import "QYPersionMapApiManager.h"
+#import "define.h"
+
 @class QYReadMeHeaderView;
 @protocol QYReadMeHeaderViewDelegate <NSObject>
 
@@ -18,12 +21,15 @@
 - (void)clickAttentionButton:(QYReadMeHeaderView *)headerView;
 - (void)clickFansButton:(QYReadMeHeaderView *)headerView;
 @end
-@interface QYReadMeHeaderView : UIView
+@interface QYReadMeHeaderView : UIView<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, weak) id <QYReadMeHeaderViewDelegate> delegate;
 @property (nonatomic, weak) QYUser *user;
 @property (nonatomic, strong) UIButton *messageButton;
 @property (nonatomic, strong) NSArray *annotions;
+@property (nonatomic, strong) QYPersionMapApiManager  *personApi;
+
 
 - (void)anlayseData;
+- (void)clickPersonMap;
 
 @end

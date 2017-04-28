@@ -9,17 +9,15 @@
 #import "QYReadMeHeaderView.h"
 #import "UIColor+QYHexStringColor.h"
 #import "UIButton+QYTitleButton.h"
-#import "define.h"
 #import "UIView+YYAdd.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "QYPersonAnnotion.h"
-#import "QYPersionMapApiManager.h"
 #import "QYRecentlyCycleReform.h"
 #import "QYPersonAnnoationView.h"
 #import "QYPersonMapController.h"
 
-@interface QYReadMeHeaderView ()<MAMapViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
+@interface QYReadMeHeaderView ()<MAMapViewDelegate>
 @property (nonatomic, strong) UIButton *icon;
 @property (nonatomic, strong) UILabel *username;
 @property (nonatomic, strong) UIImageView *sexIcon;
@@ -31,7 +29,6 @@
 @property (nonatomic, strong) UIView *grayView;
 @property (nonatomic, strong) UIView *tagsView;
 @property (nonatomic, strong) MAMapView *mapView;
-@property (nonatomic, strong) QYPersionMapApiManager  *personApi;
 @property (nonatomic, strong) QYRecentlyCycleReform *personReform;
 
 @end
@@ -146,6 +143,15 @@
     self.fansButton.frame = CGRectOffset(self.attentionButton.frame, kScreenWidth/3, 0);
 
 }
+
+- (void)clickPersonMap {
+    
+    QYPersonMapController *perMap = [[QYPersonMapController alloc] init];
+    perMap.annos = self.annotions;
+    perMap.user = self.user;
+    UIViewController *ctr = (UIViewController *)self.delegate;
+    [ctr presentViewController:perMap animated:YES completion:nil];
+}
 #pragma mark - target action
 - (void)clickButton:(UIButton *)sender {
     
@@ -162,11 +168,7 @@
             case 1:
         {
             
-            QYPersonMapController *perMap = [[QYPersonMapController alloc] init];
-            perMap.annos = self.annotions;
-            perMap.user = self.user;
-            UIViewController *ctr = (UIViewController *)self.delegate;
-            [ctr presentViewController:perMap animated:YES completion:nil];
+            [self clickPersonMap];
             break;
 
         }
@@ -372,34 +374,54 @@
 
 - (void)initialTagsView {
     
+    [self.tagsView removeAllSubviews];
     NSArray *array = [self.user.tagString componentsSeparatedByString:@","];
-    UIButton *pre;
-    NSMutableSet *set = [NSMutableSet setWithArray:self.tagsView.subviews];
-    for (NSString *tag in array) {
+    NSString *tagString = @"";
+    UIButton *careerBtn;
+    UIButton *locationBtn;
+    UIButton *tagButton;
+    float locMargin = 0;
+    float tagMargin = 0;
+    NSString *career = self.user.career;
+    NSString *location = self.user.location;
+
+    if (array.count > 0) {
         
-        UIButton *button = [set anyObject];
-        if (!button) {
-            
-            button = [UIButton buttonTitle:tag font:12 * SizeScale3x colco:[UIColor whiteColor]];
-            button.layer.cornerRadius = 4;
-            button.backgroundColor = [UIColor colorWithHexString:@"#52cac1"];
-            [self.tagsView addSubview:button];
-        } else {
-            [button setTitle:tag forState:UIControlStateNormal];
-            [set removeObject:button];
-        }
-        if (!pre) {
-            
-            button.frame = CGRectMake(0, 0, 12 * SizeScale3x * tag.length + 8, cl_caculation_3y(35));
-        } else {
-            button.frame = CGRectMake(CGRectGetMaxX(pre.frame), 0,12 * SizeScale3x * tag.length + 8, cl_caculation_3y(35));
-        }
-        pre = button;
+        tagString = array[0];
     }
-    for (UIButton *button in set) {
+    if (career.length > 0) {
         
-        button.frame = CGRectZero;
+        careerBtn = [UIButton buttonTitle:career font:12 * SizeScale3x colco:[UIColor whiteColor]];
+        careerBtn.layer.cornerRadius = 4;
+        NSString *temp = [career stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        careerBtn.backgroundColor = [UIColor colorWithHexString:@"#52cac1"];
+        careerBtn.frame = CGRectMake(0, 0, 12 * SizeScale3x * temp.length + 8, cl_caculation_3y(35));
+        locMargin = CGRectGetMaxX(careerBtn.frame) + 12;
+        tagMargin = locMargin;
+        [self.tagsView addSubview:careerBtn];
     }
+    
+    if (location.length > 0) {
+        
+        locationBtn = [UIButton buttonTitle:location font:12 * SizeScale3x colco:[UIColor whiteColor]];
+        locationBtn.layer.cornerRadius = 4;
+        locationBtn.backgroundColor = [UIColor colorWithHexString:@"#52cac1"];
+        locationBtn.frame = CGRectMake(locMargin, 0, 12 * SizeScale3x * location.length + 8, cl_caculation_3y(35));
+        tagMargin = CGRectGetMaxX(locationBtn.frame) + 12;
+        [self.tagsView addSubview:locationBtn];
+
+    }
+    
+    if (tagString.length > 0) {
+        
+        tagButton = [UIButton buttonTitle:tagString font:12 * SizeScale3x colco:[UIColor whiteColor]];
+        tagButton.layer.cornerRadius = 4;
+        tagButton.backgroundColor = [UIColor colorWithHexString:@"#52cac1"];
+        tagButton.frame = CGRectMake(tagMargin, 0, 12 * SizeScale3x * tagString.length + 8, cl_caculation_3y(35));
+        [self.tagsView addSubview:tagButton];
+
+    }
+    
 }
 
 - (void)layoutMessage {
@@ -420,7 +442,7 @@
 - (void)layoutFans {
     
     NSNumber *follower = _user.follower;
-    NSString *string = [NSString stringWithFormat:@"粉丝 %@",follower];
+    NSString *string = [NSString stringWithFormat:@"阅粉 %@",follower];
     NSRange range = NSMakeRange(3, string.length - 3);
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
     [text addAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#000000"]} range:range];
