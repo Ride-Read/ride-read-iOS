@@ -336,8 +336,8 @@
     if (!_mapView) {
         
         _mapView= [[MAMapView alloc] init];
-        _mapView.zoomEnabled = YES;
         _mapView.zoomLevel = 5;
+        _mapView.zoomEnabled = NO;
         _mapView.delegate = self;
     }
     return _mapView;

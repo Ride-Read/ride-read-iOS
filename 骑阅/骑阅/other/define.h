@@ -126,7 +126,8 @@ static NSString * const kcareer = @"career";
 static NSString * const klocation = @"location";
 static NSString * const kfid = @"fid";
 
-
+static NSString * const kversion = @"version";
+static NSString * const klink = @"url";
 
 
 

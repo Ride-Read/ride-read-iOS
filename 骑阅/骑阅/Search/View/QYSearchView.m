@@ -9,10 +9,11 @@
 #import "QYSearchView.h"
 #import "UIButton+QYTitleButton.h"
 #import "define.h"
+#import "QYSearchTextView.h"
 
 @interface QYSearchView ()<UITextFieldDelegate>
 
-@property (nonatomic, strong) UITextField *searchBar;
+@property (nonatomic, strong) QYSearchTextView *searchBar;
 @property (nonatomic, strong) UIButton *confirm;
 @property (nonatomic, strong) UIImageView *bg;
 @end
@@ -32,7 +33,7 @@
 
 - (void)setupUI {
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor colorWithRed:0.00 green:0.81 blue:0.77 alpha:1.00];
     [self addSubview:self.bg];
     [self addSubview:self.searchBar];
     [self addSubview:self.confirm];
@@ -40,7 +41,7 @@
        
         make.left.mas_equalTo(23);
         make.bottom.mas_equalTo(-5);
-        make.top.mas_equalTo(3);
+        make.top.mas_equalTo(5);
         make.right.equalTo(self.confirm.mas_left).offset(-17);
     }];
     [self.confirm mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,7 +56,7 @@
         
         make.left.mas_equalTo(15);
         make.bottom.mas_equalTo(-5);
-        make.top.mas_equalTo(3);
+        make.top.mas_equalTo(5);
         make.right.equalTo(self.confirm.mas_left).offset(-10);
 
     }];
@@ -65,7 +66,7 @@
     
     if (!_searchBar) {
         
-        _searchBar = [[UITextField alloc] init];
+        _searchBar = [[QYSearchTextView alloc] init];
         _searchBar.borderStyle = UITextBorderStyleNone;
         _searchBar.delegate = self;
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"  输入您想搜索的关键字"];

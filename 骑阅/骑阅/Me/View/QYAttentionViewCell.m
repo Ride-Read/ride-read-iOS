@@ -268,6 +268,10 @@
     self.personSiguare.text = info[ksignature];
     self.timelabel.text = info[ktime];
     NSString *attention = info[kstatus];
+    if (!attention||attention.length == 0) {
+        
+        self.attenion.hidden = YES;
+    }
     [self.attenion setBackgroundImage:[UIImage imageNamed:attention] forState:UIControlStateNormal];
     
     

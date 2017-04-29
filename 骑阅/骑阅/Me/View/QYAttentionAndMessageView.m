@@ -68,7 +68,7 @@
         [contr.navigationController pushViewController:conver animated:YES];
         return;
     }
-    [MBProgressHUD showMessageAutoHide:@"还未关注该用户，无法操作" view:nil];
+    [MBProgressHUD showMessageAutoHide:@"未关注该用户，无法操作" view:nil];
    
 }
 

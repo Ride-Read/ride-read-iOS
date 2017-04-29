@@ -11,6 +11,7 @@
 #import "define.h"
 #import "QYUserReform.h"
 #import "QYGetUsersInfoApiManager.h"
+#import <ChatKit/LCCKSoundManager.h>
 
 @interface QYChatkExample ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYGetUsersInfoApiManager *usersApi;
@@ -21,6 +22,8 @@
 
 @end
 @implementation QYChatkExample
+@synthesize needAudio = _needAudio;
+@synthesize needShake = _needShake;
 
 static NSString *const LCCKAPPID = @"oHGfemDQX4jaHgn9Rzmn10YE-gzGzoHsz";
 static NSString *const LCCKAPPKEY = @"qJDqp18BOykwgwNsFXJ8YxEn";
@@ -165,5 +168,33 @@ NSString * const KReciveMessagNotiFation = @"KReciveMessagNotiFation";
         _reform = [[QYUserReform alloc] init];
     }
     return _reform;
+}
+
+- (BOOL)needAudio {
+    
+    LCCKSoundManager *manager = [LCCKSoundManager defaultManager];
+    return manager.needPlaySoundWhenNotChatting;
+}
+
+- (void)setNeedAudio:(BOOL)needAudio {
+    
+    _needAudio = needAudio;
+    LCCKSoundManager *manager = [LCCKSoundManager defaultManager];
+    manager.needPlaySoundWhenChatting = needAudio;
+    manager.needPlaySoundWhenNotChatting = needAudio;
+}
+
+- (BOOL)needShake {
+
+    LCCKSoundManager *manager = [LCCKSoundManager defaultManager];
+     return manager.needVibrateWhenNotChatting;
+}
+
+- (void)setNeedShake:(BOOL)needShake {
+    
+    _needShake = needShake;
+    LCCKSoundManager *manager = [LCCKSoundManager defaultManager];
+    manager.needVibrateWhenNotChatting = needShake;
+   
 }
 @end

@@ -45,8 +45,20 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    
+    return UIStatusBarStyleDefault;
 }
 #pragma mark - click custom 
 
@@ -133,7 +145,7 @@
 
     } else {
         
-        NSArray *ats = self.searResult[kfolloweds];
+        NSArray *ats = self.searResult[kfollowers];
         NSDictionary *info = ats[indexPath.row];
         QYLoodFansViewController *look = [[QYLoodFansViewController alloc] init];
         look.user = info.mutableCopy;

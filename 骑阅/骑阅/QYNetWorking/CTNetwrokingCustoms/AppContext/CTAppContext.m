@@ -152,6 +152,17 @@
     _timestamp = timestamp;
     [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:@"timestamp"];
 }
+
+- (NSString *)version {
+    
+    if (!_version) {
+        
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"version" ofType:@"plist"];
+        NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile:file];
+        _version = info[@"version"];
+    }
+    return _version;
+}
 - (void)configQiuniuToken:(NSString *)qiuniu {
     
     [[NSUserDefaults standardUserDefaults] setObject:qiuniu forKey:@"qiuniu_token"];

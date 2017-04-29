@@ -8,7 +8,7 @@
 
 #import "QYConversationViewController.h"
 #import "QYChatBar.h"
-#import "QYReadLookUserController.h"
+#import "QYFromIconLickViewController.h"
 #import "define.h"
 
 @interface QYConversationViewController ()
@@ -31,29 +31,30 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    
+    [self configRightItem];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    [self configLeftItem];
 }
 
 #pragma mark - private method
-- (void)configLeftItem {
+- (void)configRightItem {
     
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Placeholder_Avatar"] style:UIBarButtonItemStyleDone target:self action:@selector(clickRightItem:)];
-    //self.navigationItem.rightBarButtonItem = right;
+        [self configureBarButtonItemStyle:LCCKBarButtonItemStyleSingleProfile action:^(__kindof LCCKBaseViewController *viewController, UIBarButtonItem *sender, UIEvent *event) {
+           
+            QYFromIconLickViewController *look = [[QYFromIconLickViewController alloc] init];
+            look.user = @{kuid:@(self.peerId.integerValue)}.mutableCopy;
+            [self.navigationController pushViewController:look animated:YES];
+
+        }];
 }
 
 #pragma mark - target action
 
 - (void)clickRightItem:(UIBarButtonItem *)sender {
     
-    QYReadLookUserController *look = [[QYReadLookUserController alloc] init];
-    look.user = @{kuid:@(self.peerId.integerValue)}.mutableCopy;
-    [self.navigationController pushViewController:look animated:YES];
 }
 #pragma mark - getter
 - (LCCKChatBar *)chatBar {

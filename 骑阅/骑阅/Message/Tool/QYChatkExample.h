@@ -13,6 +13,8 @@
 FOUNDATION_EXTERN NSString * const KReciveMessagNotiFation;
 @interface QYChatkExample : NSObject
 @property (nonatomic, weak) QYBasicViewController *ctr;
+@property (nonatomic, assign) BOOL needAudio;
+@property (nonatomic, assign) BOOL needShake;
 
 + (instancetype)sharedInstance;
 /*!
@@ -39,5 +41,7 @@ FOUNDATION_EXTERN NSString * const KReciveMessagNotiFation;
 + (void)fetchUnreadMessageNumber:(void(^)(NSUInteger unread))unreadBlock;
 
 + (void)test;
+
+
 
 @end

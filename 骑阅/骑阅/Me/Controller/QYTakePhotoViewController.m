@@ -70,9 +70,6 @@
     NSArray *array = @[
                        [QYSelectModel QYSelectModelWithTitle:@"拍照" titleColor:nil],
                        [QYSelectModel QYSelectModelWithTitle:@"相册" titleColor:nil],
-                       [QYSelectModel QYSelectModelWithTitle:@"录像" titleColor:nil],
-                       [QYSelectModel QYSelectModelWithTitle:@"保存图片" titleColor:nil],
-                       
                        ];
     
     

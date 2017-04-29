@@ -18,6 +18,7 @@
 #import "QYChatkExample.h"
 #import "QYLoginOrRegisterFatherController.h"
 #import "QYLogoutApiManager.h"
+#import "QYBasicWebviewController.h"
 @interface QYSetViewController ()<UIAlertViewDelegate,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYSetFooterView *footerView;
 @property (nonatomic, weak) UILabel *ramLabel;
@@ -60,14 +61,14 @@
     
     if (manager == self.logOutApi) {
         
-        [self.hud hide:YES];
-        [MBProgressHUD showMessageAutoHide:@"退出成功" view:nil];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [CTAppContext sharedInstance].currentUser = nil;
         [QYChatkExample invokeThisMethodBeforeLogoutSuccess:^{
             
             MyLog(@"登出成功");
+            [self.hud hide:YES];
+            [MBProgressHUD showMessageAutoHide:@"退出成功" view:nil];
             QYLoginOrRegisterFatherController *login = [[QYLoginOrRegisterFatherController alloc] init];
             [UIApplication sharedApplication].keyWindow.rootViewController = login;
             
@@ -107,11 +108,25 @@
     [sch addTarget:self action:@selector(clickSwitch:) forControlEvents:UIControlEventTouchUpInside];
     return sch;
 }
+- (void)clickUserGuiderAction {
+    
+    QYBasicWebviewController *web = [[QYBasicWebviewController alloc] init];
+    web.title = @"使用指南";
+    [self.navigationController pushViewController:web animated:YES];
+}
 #pragma mark - target action
 
 - (void)clickSwitch:(UISwitch *)sender {
     
+    if (sender.tag == 0) {
+        
+        [[QYChatkExample sharedInstance] setNeedAudio:sender.on];
+    }
     
+    if (sender.tag == 1) {
+        
+        [[QYChatkExample sharedInstance] setNeedShake:sender.on];
+    }
 }
 
 - (void)clicklogOut:(UIButton *)sender {
@@ -149,7 +164,7 @@
             cell.textLabel.text = @"声音";
             UISwitch *audoi = [self creaeSwithView];
             audoi.tag = 0;
-            audoi.selected = YES;
+            audoi.on = [QYChatkExample sharedInstance].needAudio;
             [cell.contentView addSubview:audoi];
             [audoi mas_makeConstraints:^(MASConstraintMaker *make) {
                
@@ -164,6 +179,7 @@
             cell.textLabel.text = @"震动";
             UISwitch *audoi = [self creaeSwithView];
             audoi.tag = 1;
+            audoi.on = [QYChatkExample sharedInstance].needShake;
             [cell.contentView addSubview:audoi];
             [audoi mas_makeConstraints:^(MASConstraintMaker *make) {
                 
@@ -248,8 +264,15 @@
             UIStoryboard *set = [UIStoryboard storyboardWithName:@"QYSetStoryboard" bundle:nil];
             QYAboutRideViewController *aboutRide =    [set instantiateViewControllerWithIdentifier:@"aboutRide"];
             [self.navigationController pushViewController:aboutRide animated:YES];
+            break;
             
         }
+            case 4:
+        {
+            
+            [self clickUserGuiderAction];
+        }
+            
             break;
             
         default:
