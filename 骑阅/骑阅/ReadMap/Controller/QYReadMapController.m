@@ -50,6 +50,7 @@
     [super viewDidLoad];
     [self setContentView];
     [self locationUser];
+    [MBProgressHUD showMessageAutoHide:@"长按签到签到哦！" view:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
