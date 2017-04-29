@@ -104,6 +104,7 @@
         
         self.update = YES;
     }
+    self.link = info[klink];
 }
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {

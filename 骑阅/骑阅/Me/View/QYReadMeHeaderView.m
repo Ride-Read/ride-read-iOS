@@ -38,7 +38,6 @@
     
     self = [super init];
     self.backgroundColor = [UIColor clearColor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPersonData) name:kPostCycleSuccessNotifation object:nil];
     [self setupUI];
     return self;
 }

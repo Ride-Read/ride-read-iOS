@@ -81,7 +81,7 @@
     
     if (!_up) {
         
-        QNZone *httpsZone = [[QNAutoZone alloc] initWithHttps:YES dns:nil];
+        QNZone *httpsZone = [[QNAutoZone alloc] initWithHttps:NO dns:nil];
         QNConfiguration *cfg = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
            
             builder.zone = httpsZone;

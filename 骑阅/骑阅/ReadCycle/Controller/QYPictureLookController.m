@@ -47,7 +47,8 @@
     [self.view addSubview:self.numberIndicator];
     [self.scrollView addSubview:self.icon];
     self.numberIndicator.text = [NSString stringWithFormat:@"%ld/%lu",(self.currentIndex+1),(unsigned long)(self.imageArray.count)];
-    self.icon.image = self.imageArray[self.currentIndex];
+//    self.icon.image = self.imageArray[self.currentIndex];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentIndex]]];
     self.scrollView.contentSize = CGSizeMake(kScreenWidth * self.imageArray.count, kScreenHeight);
     
 }
@@ -94,7 +95,7 @@
     int left = rint(offest.x/kScreenWidth);
     self.currentIndex = left;
     self.icon.frame = CGRectMake(left * kScreenWidth, 100, kScreenWidth, kScreenHeight - 200);
-    self.icon.image = self.imageArray[left];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentIndex]]];
     self.numberIndicator.text = [NSString stringWithFormat:@"%d/%lu",(left+1),(unsigned long)(self.imageArray.count)];
     QYLookPictureTransionDelegate *delegate = self.transitioningDelegate;
     delegate.from = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
@@ -113,7 +114,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    MyLog(@"-----");
+   
 }
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     

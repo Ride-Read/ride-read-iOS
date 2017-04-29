@@ -468,7 +468,6 @@
         
         if ([imageView isKindOfClass:[UIImageView class]]) {
             
-            [imageArray addObject:imageView.image];
             CGRect rect = [self convertRect:imageView.frame toView:ctr.view];
             rect = CGRectOffset(rect, 0, 64);
             NSValue *value = [NSValue valueWithCGRect:rect];
@@ -482,7 +481,7 @@
     self.tranasion.to = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     look.transitioningDelegate = self.tranasion;
     look.modalTransitionStyle = UIModalPresentationCustom;
-    look.imageArray = imageArray;
+    look.imageArray = self.cell.layout.status[kthumbs];
     look.rectFrame = rectArray;
     [ctr presentViewController:look animated:YES completion:nil];
     

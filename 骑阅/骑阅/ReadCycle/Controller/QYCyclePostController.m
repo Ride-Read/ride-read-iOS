@@ -148,7 +148,7 @@
         }
     }];
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
-    NSString *msg = self.messageView.lasteString;
+    NSString *msg = self.messageView.lasteString?:@"";
     self.params = @{kmoment_location:self.check_button.selected?@"":self.locationLabel.text,kuid:uid,kmsg:msg,kpictures_url:urls,klatitude:@(self.selecLocation.coordinate.latitude),klongitude:@(self.selecLocation.coordinate.longitude)};
     
     return self.params;
@@ -186,10 +186,12 @@
 - (IBAction)clickImageView:(id)sender {
     
     [self.view endEditing:YES];
-    if (self.iamgeView.count == 8) {
-        
+    NSArray *pictures = self.scrollView.subviews;
+    if (pictures.count >= 9) {
+       
         [MBProgressHUD showMessageAutoHide:@"已经查过最大限制" view:nil];
         return;
+        
     }
     NSArray *array = @[
                        [QYSelectModel QYSelectModelWithTitle:@"拍照" titleColor:nil],
