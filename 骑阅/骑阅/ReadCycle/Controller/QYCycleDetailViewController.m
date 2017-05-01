@@ -9,6 +9,7 @@
 #import "QYCycleDetailViewController.h"
 #import "QYShowOneMonentApiManager.h"
 #import "QYMomentReform.h"
+#import "define.h"
 
 @interface QYCycleDetailViewController ()
 @property (nonatomic, strong) QYShowOneMonentApiManager *showOne;

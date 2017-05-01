@@ -7,7 +7,6 @@
 //
 
 #import "QYFriendCycleDetailController.h"
-
 @interface QYCycleDetailViewController : QYFriendCycleDetailController
 @property (nonatomic, strong) NSDictionary *user;
 

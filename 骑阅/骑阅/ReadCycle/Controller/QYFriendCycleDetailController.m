@@ -7,7 +7,6 @@
 //
 
 #import "QYFriendCycleDetailController.h"
-#import "define.h"
 #import "QYCommpentCellLayout.h"
 #import "QYCommentViewCell.h"
 #import "QYCommentSectionView.h"
