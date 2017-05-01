@@ -23,6 +23,7 @@
 @property (nonatomic, strong) QYAddCommnetApiManager *addComment;
 @property (nonatomic, strong) NSDictionary *paramSource;
 @property (nonatomic, strong) QYUserReform *reform;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation QYSendCommentView
@@ -114,8 +115,8 @@
     
     
     if (manager == self.addThump) {
-        
-        [MBProgressHUD showMessageAutoHide:@"点赞失败" view:nil];
+        [self.hud hide:YES];
+        [MBProgressHUD showMessageAutoHide:@"操作失败" view:nil];
     }
     if (manager == self.addComment) {
         
@@ -128,11 +129,13 @@
     
     if (manager == self.addThump) {
         
+        [self.hud hide:YES];
         NSArray *thumbs = self.status[kpraise];
         NSMutableArray *thums = thumbs.mutableCopy;
         NSDictionary *info = [self.addThump fetchDataWithReformer:self.reform];
         if (!info) {
         
+            [MBProgressHUD showMessageAutoHide:@"取消点赞成功" view:nil];
             NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
             [thumbs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                
@@ -147,6 +150,7 @@
             
         } else {
         
+            [MBProgressHUD showMessageAutoHide:@"点赞成功" view:nil];
             [thums insertObject:info atIndex:0];
             
         }
@@ -188,6 +192,7 @@
         NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
         self.paramSource = @{kuid:uid,kmid:self.status[kmid]};
         [self.addThump loadData];
+        self.hud = [MBProgressHUD showMessage:@"操作中" toView:nil];
         return;
     }
     
