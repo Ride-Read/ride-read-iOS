@@ -17,6 +17,7 @@
 @end
 
 @implementation QYRideMyCycleController
+@synthesize cycleApiManager = _cycleApiManager;
 
 #pragma mark -life cycle
 - (void)viewDidLoad {
@@ -145,6 +146,17 @@
         _deleteApi.delegate = self;
     }
     return _deleteApi;
+}
+
+- (QYShowUserCycleApiManager *)cycleApiManager {
+    
+    if (!_cycleApiManager) {
+        
+        _cycleApiManager = [[QYShowMycircleApiManager alloc] init];
+        _cycleApiManager.delegate = self;
+        _cycleApiManager.paramSource = self;
+    }
+    return _cycleApiManager;
 }
 /*
 #pragma mark - Navigation

@@ -7,6 +7,7 @@
 //
 
 #import "QYReadLookUserController.h"
+#import "QYShowMycircleApiManager.h"
 
 @interface QYRideMyCycleController : QYReadLookUserController
 
