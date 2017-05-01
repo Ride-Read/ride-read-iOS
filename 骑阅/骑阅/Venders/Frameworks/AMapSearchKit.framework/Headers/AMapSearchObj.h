@@ -140,14 +140,16 @@ typedef NS_ENUM(NSInteger, AMapNearbySearchType)
 ///类型，多个类型用“|”分割 可选值:文本分类、分类代码
 @property (nonatomic, copy)   NSString *types; 
 ///强制城市限制功能，例如：在上海搜索天安门，如果citylimit为true，将不返回北京的天安门相关的POI
-@property (nonatomic, assign) BOOL cityLimit; 
+@property (nonatomic, assign) BOOL cityLimit;
+///格式形如：@"116.481488,39.990464",(经度,纬度)，不可以包含空格。如果设置，在此location附近优先返回搜索关键词信息, since 5.0.0
+@property (nonatomic, copy) NSString *location;
 @end
 
 ///搜索提示返回
 @interface AMapInputTipsSearchResponse : AMapSearchObject
 ///返回数目
 @property (nonatomic, assign) NSInteger  count; 
-///提示列表 AMapTip 数组
+///提示列表 AMapTip 数组， AMapTip 有多种属性，可根据该对象的返回信息，配合其他搜索服务使用，完善您应用的功能。如：\n 1）uid为空，location为空，该提示语为品牌词，可根据该品牌词进行POI关键词搜索。\n 2）uid不为空，location为空，为公交线路，根据uid进行公交线路查询。\n 3）uid不为空，location也不为空，是一个真实存在的POI，可直接显示在地图上。
 @property (nonatomic, strong) NSArray<AMapTip *> *tips; 
 @end
 
@@ -306,7 +308,7 @@ typedef NS_ENUM(NSInteger, AMapNearbySearchType)
 ///步行路径规划
 @interface AMapWalkingRouteSearchRequest : AMapRouteSearchBaseRequest
 ///是否提供备选步行方案([default = 0])0-只提供一条步行方案; 1-提供备选步行方案(有可能无备选方案)
-@property (nonatomic, assign) NSInteger multipath; 
+@property (nonatomic, assign) NSInteger multipath __attribute__((deprecated("已废弃, from 5.0.0")));
 @end
 
 #pragma mark - AMapTransitRouteSearchRequest
@@ -330,7 +332,7 @@ typedef NS_ENUM(NSInteger, AMapNearbySearchType)
 ///骑行路径规划
 @interface AMapRidingRouteSearchRequest : AMapRouteSearchBaseRequest
 ///路径方案类型([default = 0])\n 0-推荐路线及最快路线综合\n 1-推荐路线\n 2-最快路线
-@property (nonatomic, assign) NSInteger type; 
+@property (nonatomic, assign) NSInteger type __attribute__((deprecated("已废弃, from 5.0.0")));
 @end
 
 ///路径规划返回

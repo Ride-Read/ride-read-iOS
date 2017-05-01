@@ -181,7 +181,10 @@
 }
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     
-    self.location = userLocation.location;
+    if (updatingLocation) {
+
+        self.location = userLocation.location;
+    }
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
@@ -231,8 +234,7 @@
 }
 - (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     
-    
-    //获取到mapview的frame
+   //获取到mapview的frame
     CGRect visibleRect = [mapView annotationVisibleRect];
     
     for (QYAnnotationView *view in views) {

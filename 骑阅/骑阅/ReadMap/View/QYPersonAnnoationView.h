@@ -11,6 +11,5 @@
 
 @interface QYPersonAnnoationView : MAAnnotationView
 @property (nonatomic, strong) QYCustomPersonView *locaView;
-+ (instancetype)personAnnotionViewMapView:(MAMapView *)mapView;
 
 @end

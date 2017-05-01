@@ -6,13 +6,15 @@
 //  Copyright © 2016 Amap. All rights reserved.
 //
 
+#import "MAConfig.h"
 #import <AMapFoundationKit/AMapFoundationVersion.h>
 
 #ifndef MAMapVersion_h
 #define MAMapVersion_h
 
-#define MAMapVersionNumber                40600
-#define MAMapMinRequiredFoundationVersion 10200
+#define MAMapVersionNumber                50000
+
+#define MAMapMinRequiredFoundationVersion 10301
 
 // 依赖库版本检测
 #if AMapFoundationVersionNumber < MAMapMinRequiredFoundationVersion

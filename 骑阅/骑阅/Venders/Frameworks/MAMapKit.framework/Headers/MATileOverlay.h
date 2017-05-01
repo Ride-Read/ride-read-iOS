@@ -1,30 +1,24 @@
 //
 //  MATileOverlay.h
-//  MAMapKitNew
+//  MapKit_static
 //
-//  Created by xiaoming han on 14-1-24.
-//  Copyright (c) 2014年 Amap. All rights reserved.
+//  Created by Li Fei on 11/22/13.
+//  Copyright © 2016 Amap. All rights reserved.
 //
 
+#import "MAConfig.h"
 #import "MAOverlay.h"
 
 ///该类是覆盖在球面墨卡托投影上的图片tiles的数据源
-@interface MATileOverlay : NSObject<MAOverlay>
-
-/**
- * @brief 根据指定的URLTemplate生成tileOverlay
- * @param URLTemplate URLTemplate是一个包含"{x}","{y}","{z}","{scale}"的字符串,"{x}","{y}","{z}","{scale}"会被tile path的值所替换，并生成用来加载tile图片数据的URL 。例如 http://server/path?x={x}&y={y}&z={z}&scale={scale}
- * @return 以指定的URLTemplate字符串生成tileOverlay
- */
-- (instancetype)initWithURLTemplate:(NSString *)URLTemplate;
+@interface MATileOverlay : NSObject <MAOverlay>
 
 ///默认tileSize 256x256
-@property CGSize tileSize;
+@property (readonly) CGSize tileSize;
 
-///overlay可以渲染的最小缩放级别。当0级时，一个tile覆盖整个世界范围，1级时覆盖 1/4th 世界，2级时1/16th，以此类推。
+///tileOverlay的可见最小Zoom值
 @property NSInteger minimumZ;
 
-///overlay可以渲染的最大缩放级别。
+///tileOverlay的可见最大Zoom值
 @property NSInteger maximumZ;
 
 ///同initWithURLTemplate:中的URLTemplate
@@ -36,9 +30,16 @@
 ///区域外接矩形，可用来设定tileOverlay的可渲染区域
 @property (nonatomic) MAMapRect boundingMapRect;
 
+/**
+ * @brief 根据指定的URLTemplate生成tileOverlay
+ * @param URLTemplate URLTemplate是一个包含"{x}","{y}","{z}","{scale}"的字符串,"{x}","{y}","{z}","{scale}"会被tile path的值所替换，并生成用来加载tile图片数据的URL 。例如 http://server/path?x={x}&y={y}&z={z}&scale={scale}
+ * @return 以指定的URLTemplate字符串生成tileOverlay
+ */
+- (id)initWithURLTemplate:(NSString *)URLTemplate;
+
 @end
 
-///记录某特定tile的据结构。contentScaleFactor根据设备的ScrennScale而定, 为1.0或2.0。
+///MATileOverlayPath
 struct MATileOverlayPath{
     NSInteger x; ///< x坐标
     NSInteger y; ///< y坐标

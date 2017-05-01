@@ -5,9 +5,12 @@
 //  Created by AutoNavi.
 //  Copyright (c) 2013年 Amap. All rights reserved.
 //
+
+#import "MAConfig.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,7 +84,7 @@ extern "C" {
     {
         return (MACoordinateRegion){centerCoordinate, span};
     }
-    
+
     /**
      * @brief 生成一个新的MACoordinateRegion
      * @param centerCoordinate   中心点坐标
@@ -132,7 +135,7 @@ extern "C" {
      * @return 1米对应的投影
      */
     extern double MAMapPointsPerMeterAtLatitude(CLLocationDegrees latitude);
-    
+
     /**
      * @brief 投影两点之间的距离
      * @param a a点
@@ -224,7 +227,7 @@ extern "C" {
      * @return 判断结果
      */
     extern BOOL MAPolygonContainsPoint(MAMapPoint point, MAMapPoint *polygon, NSUInteger count);
-    
+
     /**
      * @brief 判断经纬度点是否在多边形内
      * @param point   经纬度点

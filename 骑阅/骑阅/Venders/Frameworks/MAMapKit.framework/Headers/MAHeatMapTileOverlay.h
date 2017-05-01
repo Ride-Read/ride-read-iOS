@@ -6,6 +6,12 @@
 //  Copyright (c) 2015年 Amap. All rights reserved.
 //
 
+
+
+#import "MAConfig.h"
+
+#if MA_INCLUDE_OVERLAY_HEATMAP
+
 #import "MATileOverlay.h"
 
 ///热力图节点
@@ -25,12 +31,12 @@
 ///颜色 default [blue,green,red]
 @property (nonatomic, readonly) NSArray *colors;
 
-///default [@(0.2),@(0.5),@(0,9)]
+///default[@(0.2),@(0.5),@(0,9)]
 @property (nonatomic, readonly) NSArray *startPoints;
 
 /**
  * @brief 重新设置gradient的时候，需要执行 MATileOverlayView 中的 reloadData 方法
- * @param colors 颜色
+ * @param colors      颜色
  * @param startPoints startPoints
  * @return instance
  */
@@ -41,7 +47,7 @@
 ///热力图tileOverlay
 @interface MAHeatMapTileOverlay : MATileOverlay
 
-///热力图节点Array
+///MAHeatMapNode array
 @property (nonatomic, strong) NSArray *data;
 
 ///热力图半径，默认为12，范围:0-100 screen point
@@ -58,5 +64,6 @@
 
 @end
 
+#endif
 
 

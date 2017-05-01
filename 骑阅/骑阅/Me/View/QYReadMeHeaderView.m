@@ -335,8 +335,11 @@
     if (!_mapView) {
         
         _mapView= [[MAMapView alloc] init];
-        _mapView.zoomLevel = 5;
-        _mapView.zoomEnabled = NO;
+        _mapView.zoomLevel = 3.5;
+        _mapView.zoomEnabled = YES;
+        _mapView.showsScale = NO;
+        _mapView.showsCompass = NO;
+        [self setCenterData];
         _mapView.delegate = self;
     }
     return _mapView;
@@ -347,6 +350,12 @@
     _user = user;
     [self.personApi loadData];
     [self anlayseData];
+}
+
+- (void)setCenterData {
+    
+    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(36.0,103.4);
+    [self.mapView setCenterCoordinate:coor animated:NO];
 }
 
 - (void)setAnnotions:(NSArray *)annotions {
@@ -523,12 +532,21 @@
     
     if ([annotation isKindOfClass:[QYPersonAnnotion class]]) {
         
-        QYPersonAnnoationView *annoView = [QYPersonAnnoationView personAnnotionViewMapView:mapView];
-        annoView.annotation = annotation;
+        QYPersonAnnoationView *annoView = (QYPersonAnnoationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"meidentifier"];
+        if (!annoView) {
+            
+            annoView = [[QYPersonAnnoationView alloc] initWithAnnotation:annotation reuseIdentifier:@"meidentifier"];
+        }
         return annoView;
         
     }
     return nil;
+}
+
+- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    
+    MyLog(@"did add annotation View");
+    
 }
 
 

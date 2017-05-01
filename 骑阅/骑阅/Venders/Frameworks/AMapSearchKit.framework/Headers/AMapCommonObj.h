@@ -593,7 +593,7 @@
 @end
 
 
-///公交换乘路段
+///公交换乘路段，如果walking和buslines同时有值，则是先walking后buslines
 @interface AMapSegment : AMapSearchObject
 ///此路段步行导航信息
 @property (nonatomic, strong) AMapWalking  *walking; 

@@ -10,31 +10,23 @@
 
 @implementation QYPersonAnnoationView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (id)initWithAnnotation:(id<MAAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
     
-    self = [super initWithFrame:frame];
-    self.locaView = [QYCustomPersonView loadPersonAnnoCus];
-    self.bounds = self.locaView.bounds;
-    [self addSubview:self.locaView];
+    self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+        self.annotation = annotation;
+        self.locaView = [QYCustomPersonView loadPersonAnnoCus];
+        self.bounds = self.locaView.bounds;
+        [self addSubview:self.locaView];
+    }
     return self;
 }
-+ (instancetype)personAnnotionViewMapView:(MAMapView *)mapView {
-    
-    static NSString *ID = @"personAnno";
-    QYPersonAnnoationView *anno = (QYPersonAnnoationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:ID];
-    if (!anno) {
-        
-        anno = [[QYPersonAnnoationView alloc] initWithAnnotation:nil reuseIdentifier:ID];
-    }
-    return anno;
-    
-}
+
 
 - (void)setAnnotation:(id<MAAnnotation>)annotation {
     
     [super setAnnotation:annotation];
-
-   
 }
 
 /*

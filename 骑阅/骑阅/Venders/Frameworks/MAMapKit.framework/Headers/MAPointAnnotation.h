@@ -1,12 +1,14 @@
 //
 //  MAPointAnnotation.h
-//  MAMapKit
+//  MAMapKitDemo
 //
-//  Created by AutoNavi.
-//  Copyright (c) 2013年 Amap. All rights reserved.
+//  Created by songjian on 13-1-7.
+//  Copyright © 2016 Amap. All rights reserved.
 //
 
+#import "MAConfig.h"
 #import "MAShape.h"
+#import <CoreLocation/CLLocation.h>
 
 ///点标注数据
 @interface MAPointAnnotation : MAShape

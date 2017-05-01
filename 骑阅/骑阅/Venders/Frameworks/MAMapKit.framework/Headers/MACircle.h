@@ -2,30 +2,33 @@
 //  MACircle.h
 //  MAMapKit
 //
-//  Created by AutoNavi.
-//  Copyright (c) 2013年 Amap. All rights reserved.
 //
+//  Copyright (c) 2011年 Amap. All rights reserved.
 
+#import "MAConfig.h"
 #import "MAShape.h"
 #import "MAOverlay.h"
 #import "MAGeometry.h"
 
-///该类用于定义一个圆, 通常MACircle是MACircleRenderer的model
-@interface MACircle : MAShape <MAOverlay>
+///该类用于定义一个圆, 通常MACircle是MACircleView的model
+@interface MACircle : MAShape <MAOverlay> {
+    @package
+    MAMapRect _boundingMapRect;
+}
 
-///中心点经纬度坐标
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+///中心点经纬度坐标，无效坐标按照{0，0}处理
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
-///半径，单位：米
-@property (nonatomic, readonly) CLLocationDistance radius;
+///半径，单位：米 负数按照0处理
+@property (nonatomic, assign) CLLocationDistance radius;
 
 ///该圆的外接map rect
 @property (nonatomic, readonly) MAMapRect boundingMapRect;
 
 /**
  * @brief 根据中心点和半径生成圆
- * @param coord 中心点的经纬度坐标
- * @param radius 半径，单位：米
+ * @param coord  中心点的经纬度坐标，无效坐标按照{0，0}处理
+ * @param radius 半径，单位：米, 负数按照0处理
  * @return 新生成的圆
  */
 + (instancetype)circleWithCenterCoordinate:(CLLocationCoordinate2D)coord
@@ -33,9 +36,17 @@
 
 /**
  * @brief 根据map rect生成圆
- * @param mapRect 生成的圆的直径为MAX(width, height)
+ * @param mapRect mapRect 圆的最小外界矩形
  * @return 新生成的圆
  */
 + (instancetype)circleWithMapRect:(MAMapRect)mapRect;
+
+/**
+ * @brief 设置圆的中心点和半径. since 5.0.0
+ * @param coord 中心点的经纬度坐标，无效坐标按照{0，0}处理
+ * @param radius 半径，单位：米 负数按照0处理
+ * @return 是否设置成功
+ */
+- (BOOL)setCircleWithCenterCoordinate:(CLLocationCoordinate2D)coord radius:(CLLocationDistance)radius;
 
 @end
