@@ -156,7 +156,6 @@
     if (!_icon) {
         
         _icon = [[UIImageView alloc] init];
-        _icon.backgroundColor = [UIColor blueColor];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIcon:)];
         [_icon addGestureRecognizer:tap];
         _icon.userInteractionEnabled = YES;
