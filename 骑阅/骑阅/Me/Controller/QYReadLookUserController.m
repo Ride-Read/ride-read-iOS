@@ -14,14 +14,12 @@
 #import "QYCycleMessageReform.h"
 #import "QYFansUserViewController.h"
 #import "QYAttentionViewController.h"
-#import "QYDetailCycleLayout.h"
 #import "MBProgressHUD+LLHud.h"
 
 
 @interface QYReadLookUserController ()<YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate,QYFriendCycleDelegate>
 @property (nonatomic, strong) QYCommentSectionView *sectionView;
 @property (nonatomic, strong) QYCycleMessageReform *cycleReform;
-@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 

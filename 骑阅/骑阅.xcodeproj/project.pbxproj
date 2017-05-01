@@ -298,6 +298,7 @@
 		BAF450051EB70AD1002B17C0 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF44FFD1EB70A15002B17C0 /* AMapSearchKit.framework */; };
 		BAF450061EB70AE0002B17C0 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF44FFE1EB70A15002B17C0 /* MAMapKit.framework */; };
 		BAF450081EB70BA4002B17C0 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BAF450071EB70BA4002B17C0 /* AMap.bundle */; };
+		BAF4500B1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF4500A1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m */; };
 		BAF572CF1EA121CF00129E49 /* QYLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */; };
 		BAF572D91EA12F3F00129E49 /* QYLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572D81EA12F3F00129E49 /* QYLocationCell.m */; };
 		BAF572DD1EA30D4D00129E49 /* QYPictureLookController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572DB1EA30D4D00129E49 /* QYPictureLookController.m */; };
@@ -911,6 +912,8 @@
 		BAF44FFE1EB70A15002B17C0 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		BAF450021EB70A36002B17C0 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		BAF450071EB70BA4002B17C0 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = Venders/Frameworks/MAMapKit.framework/AMap.bundle; sourceTree = "<group>"; };
+		BAF450091EB72FF0002B17C0 /* QYDeleteCirleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYDeleteCirleApiManager.h; sourceTree = "<group>"; };
+		BAF4500A1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYDeleteCirleApiManager.m; sourceTree = "<group>"; };
 		BAF572CD1EA121CF00129E49 /* QYLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLocationViewController.h; sourceTree = "<group>"; };
 		BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLocationViewController.m; sourceTree = "<group>"; };
 		BAF572D01EA126BF00129E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -2199,6 +2202,8 @@
 				BAE783941EA7CF9400D169DC /* QYLogoutApiManager.m */,
 				BA5F3B601EB3A87600D1FF52 /* QYOtherPersonMapApiManager.h */,
 				BA5F3B611EB3A87600D1FF52 /* QYOtherPersonMapApiManager.m */,
+				BAF450091EB72FF0002B17C0 /* QYDeleteCirleApiManager.h */,
+				BAF4500A1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -2972,6 +2977,7 @@
 				BA354D8F1E6C407B00EE8189 /* QYCycleSelectView.m in Sources */,
 				BA12CCAC1E869C3D00DDB8CF /* QYSetViewController.m in Sources */,
 				BA12CCA31E868A3B00DDB8CF /* QYSetFooterView.m in Sources */,
+				BAF4500B1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m in Sources */,
 				BA354D341E6BE12A00EE8189 /* QNPHAssetResource.m in Sources */,
 				BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */,
 				BA5F3B5F1EB2588400D1FF52 /* YYPopView.m in Sources */,

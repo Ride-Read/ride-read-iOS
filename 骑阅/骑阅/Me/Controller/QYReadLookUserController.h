@@ -17,6 +17,8 @@
 #import "QYUserReform.h"
 #import "define.h"
 #import "QYCommentNumberView.h"
+#import "QYDetailCycleLayout.h"
+
 
 @interface QYReadLookUserController : QYBasicNeedLocationController<UITableViewDelegate,UITableViewDataSource,CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) NSMutableDictionary *user;
@@ -31,6 +33,8 @@
 @property (nonatomic, strong) QYUser *user_info;
 @property (nonatomic, strong) NSMutableArray *layoutArray;
 @property (nonatomic, copy) void(^attentionHandle)(NSInteger tag);
+@property (nonatomic, strong) MBProgressHUD *hud;
+
 
 
 

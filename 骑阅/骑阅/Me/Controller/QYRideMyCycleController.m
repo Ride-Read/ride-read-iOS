@@ -8,8 +8,11 @@
 
 #import "QYRideMyCycleController.h"
 #import "define.h"
+#import "QYDeleteCirleApiManager.h"
 
 @interface QYRideMyCycleController ()
+@property (nonatomic, strong) NSIndexPath *deletePath;
+@property (nonatomic, strong) QYDeleteCirleApiManager *deleteApi;
 
 @end
 
@@ -33,6 +36,70 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
+    
+    
+    if (manager == self.deleteApi) {
+   
+        QYFriendCycleCellLayout *layout = self.layoutArray[self.deletePath.row];
+        NSNumber *mid = layout.status[kmid];
+        NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+        return @{kmid:mid?:@(-1),kuid:uid?:@(-1)};
+        
+    } else {
+        
+        return [super paramsForApi:manager];
+    }
+}
+
+
+- (void)managerCallAPIDidSuccess:(CTAPIBaseManager *)manager {
+    
+    [super managerCallAPIDidSuccess:manager];
+    
+    if (manager == self.deleteApi) {
+      
+        [MBProgressHUD showMessageAutoHide:@"删除成功" view:nil];
+        [self.layoutArray removeObjectAtIndex:self.deletePath.row];
+        self.numberView.data = self.layoutArray;
+        [self.tableView deleteRowsAtIndexPaths:@[self.deletePath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
+- (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
+    
+    [super managerCallAPIDidFailed:manager];
+    
+    if (manager == self.deleteApi) {
+        
+        [MBProgressHUD showMessageAutoHide:@"删除失败" view:nil];
+    }
+}
+#pragma mark - tableView delegate
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return @"删除";
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+        self.hud = [MBProgressHUD showMessage:@"删除中..." toView:nil];
+        self.tableView.editing = NO;
+        self.deletePath = indexPath;
+        [self.deleteApi loadData];
+
+    }
+}
 
 #pragma mark - publice method
 
@@ -69,6 +136,16 @@
     return @{kuid:uid}.mutableCopy;
 }
 
+- (QYDeleteCirleApiManager *)deleteApi {
+    
+    if (!_deleteApi) {
+        
+        _deleteApi = [[QYDeleteCirleApiManager alloc] init];
+        _deleteApi.paramSource = self;
+        _deleteApi.delegate = self;
+    }
+    return _deleteApi;
+}
 /*
 #pragma mark - Navigation
 
