@@ -263,7 +263,7 @@
     
     _info = info;
     MyLog(@"%@",info[kface_url]);
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:info[kface_url]] placeholderImage:nil];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:info[kface_url]] placeholderImage:[UIImage imageNamed:kdefault_icon]];
     self.username.text = info[kusername];
     self.personSiguare.text = info[ksignature];
     self.timelabel.text = info[ktime];

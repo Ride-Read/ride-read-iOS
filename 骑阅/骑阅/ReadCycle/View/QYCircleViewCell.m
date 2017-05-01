@@ -410,7 +410,7 @@
                 [self addSubview:pic];
                 [self addTapAction:pic];
             }
-            [pic sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+            [pic sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"defalut_circle_icon"]];
             [set removeObject:pic];
             if (!pre) {
                 
@@ -754,7 +754,6 @@
         for (NSDictionary *dict in array) {
             
             UIButton *button = [UIButton new];
-            button.backgroundColor = [UIColor greenColor];
             if (!pre) {
                 
                 button.frame = CGRectOffset(self.praiseNumber.frame, -34, 0);

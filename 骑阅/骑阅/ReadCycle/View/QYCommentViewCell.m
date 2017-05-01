@@ -37,7 +37,7 @@
     self.icon.top = 11;
     self.icon.size = CGSizeMake(30, 30);
     NSString *urlString = _layout.status[kface_url];
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@""]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:kdefault_icon]];
 }
 
 - (void)layoutNikeName {

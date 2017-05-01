@@ -65,7 +65,7 @@ static float cl_caculation_3y(float x)  {
 #define Basic_Qiniu_URL @"http://om1ccbp21.bkt.clouddn.com/"
 
 #pragma mark - custom keys
-static NSString * const kdefault_icon = @"default_icon";
+static NSString * const kdefault_icon = @"defalut_avatar";
 static NSString * const kdata = @"data";
 static NSString * const kusername = @"username";
 static NSString * const kpassword = @"password";
