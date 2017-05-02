@@ -16,6 +16,7 @@
 #import "QYRecentlyCycleReform.h"
 #import "QYPersonAnnoationView.h"
 #import "QYPersonMapController.h"
+#import "QYSignAnnotion.h"
 
 @interface QYReadMeHeaderView ()<MAMapViewDelegate>
 @property (nonatomic, strong) UIButton *icon;
@@ -38,9 +39,12 @@
     
     self = [super init];
     self.backgroundColor = [UIColor clearColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCirleMessage:) name:kPostCycleSuccessNotifation object:nil];
     [self setupUI];
     return self;
 }
+
+
 
 - (void)setupUI {
     
@@ -152,6 +156,32 @@
     [ctr presentViewController:perMap animated:YES completion:nil];
 }
 #pragma mark - target action
+
+- (void)updateCirleMessage:(NSNotification *)info {
+    
+    
+    NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
+    if (uid.integerValue == self.user.uid.integerValue) {
+        
+        QYSignAnnotion *sign = info.userInfo[@"signAnnotation"];
+        QYPersonAnnotion *per = [[QYPersonAnnotion alloc] init];
+        per.coordinate = sign.coordinate;
+        per.info = sign.info;
+        NSMutableArray *arr = @[].mutableCopy;
+        if (self.annotions.count > 0) {
+         
+            [arr addObjectsFromArray:self.annotions];
+            [arr addObject:per];
+            
+        } else {
+            [arr addObject:per];
+        }
+        [self.mapView addAnnotation:per];
+        self.annotions = arr;
+    
+    }
+    
+}
 - (void)clickButton:(UIButton *)sender {
     
     switch (sender.tag) {

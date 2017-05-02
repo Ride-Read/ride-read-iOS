@@ -164,9 +164,10 @@
         if (self.postResult) {
             
             self.postResult(annot,nil);
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPostCycleSuccessNotifation object:nil userInfo:@{@"signAnnotation":annot}];
+            
         }
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPostCycleSuccessNotifation object:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
