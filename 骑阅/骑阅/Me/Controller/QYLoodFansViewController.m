@@ -98,6 +98,7 @@
     [self.layoutArray removeAllObjects];
     self.height = 0;
     [self.tableView reloadData];
+    self.tableView.startFooter = NO;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

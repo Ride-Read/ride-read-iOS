@@ -85,9 +85,18 @@
 }
 
 -(void)setStartFooter:(BOOL)startFooter {
-    
+   
     _startFooter = startFooter;
-    self.mj_footer = self.cl_footer;
+    if (self.startFooter) {
+      
+        self.cl_footer  = [self setRefeshFooter];
+        self.mj_footer = self.cl_footer;
+
+    } else {
+        
+        [self.mj_footer removeFromSuperview];
+        self.mj_footer = nil;
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

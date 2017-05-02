@@ -295,7 +295,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.refesh = self;
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 45, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 64, 0);
         _tableView.tableHeaderView = self.headerView;
         _tableView.tableFooterView = [UIView new];
     }
