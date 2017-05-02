@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIView *tagsView;
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) QYRecentlyCycleReform *personReform;
+@property (nonatomic, strong) NSMutableArray *postArray;
 
 @end
 @implementation QYReadMeHeaderView
@@ -167,17 +168,8 @@
         QYPersonAnnotion *per = [[QYPersonAnnotion alloc] init];
         per.coordinate = sign.coordinate;
         per.info = sign.info;
-        NSMutableArray *arr = @[].mutableCopy;
-        if (self.annotions.count > 0) {
-         
-            [arr addObjectsFromArray:self.annotions];
-            [arr addObject:per];
-            
-        } else {
-            [arr addObject:per];
-        }
-        [self.mapView addAnnotation:per];
-        self.annotions = arr;
+        [self.postArray addObject:sign];
+        [self.mapView addAnnotations:self.postArray];
     
     }
     
@@ -243,6 +235,15 @@
     [self.personApi loadData];
 }
 #pragma mark setter and getter
+
+- (NSMutableArray *)postArray {
+    
+    if (!_postArray) {
+        
+        _postArray = @[].mutableCopy;
+    }
+    return _postArray;
+}
 - (UIButton *)icon {
     
     if (!_icon) {
@@ -366,7 +367,7 @@
         
         _mapView= [[MAMapView alloc] init];
         _mapView.zoomLevel = 3.5;
-        _mapView.zoomEnabled = YES;
+        _mapView.zoomEnabled = NO;
         _mapView.showsScale = NO;
         _mapView.showsCompass = NO;
         [self setCenterData];
