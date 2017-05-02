@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2B3191A31E938C4E0004F4E9 /* QYUpdateAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */; };
 		2B4D4FF81E704612003FD8BD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D4FF71E704612003FD8BD /* UIView+Frame.m */; };
+		2BABB27D1EB84C61006A45CC /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BABB27A1EB84C61006A45CC /* AMapFoundationKit.framework */; };
+		2BABB27E1EB84C61006A45CC /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BABB27B1EB84C61006A45CC /* AMapSearchKit.framework */; };
+		2BABB27F1EB84C61006A45CC /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BABB27C1EB84C61006A45CC /* MAMapKit.framework */; };
 		2BAE5D7C1E951A820089ECF1 /* QYTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D7B1E951A820089ECF1 /* QYTakePhotoViewController.m */; };
 		2BAE5D851E9537310089ECF1 /* QYSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D7F1E9537310089ECF1 /* QYSelectModel.m */; };
 		2BAE5D861E9537310089ECF1 /* QYSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE5D811E9537310089ECF1 /* QYSelectView.m */; };
@@ -295,9 +298,6 @@
 		BAE783921EA7C64E00D169DC /* QYPersonMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE783911EA7C64E00D169DC /* QYPersonMapController.m */; };
 		BAE783951EA7CF9400D169DC /* QYLogoutApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE783941EA7CF9400D169DC /* QYLogoutApiManager.m */; };
 		BAF450031EB70A36002B17C0 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF450021EB70A36002B17C0 /* GLKit.framework */; };
-		BAF450041EB70ABD002B17C0 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF44FFC1EB70A15002B17C0 /* AMapFoundationKit.framework */; };
-		BAF450051EB70AD1002B17C0 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF44FFD1EB70A15002B17C0 /* AMapSearchKit.framework */; };
-		BAF450061EB70AE0002B17C0 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF44FFE1EB70A15002B17C0 /* MAMapKit.framework */; };
 		BAF450081EB70BA4002B17C0 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BAF450071EB70BA4002B17C0 /* AMap.bundle */; };
 		BAF4500B1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF4500A1EB72FF0002B17C0 /* QYDeleteCirleApiManager.m */; };
 		BAF572CF1EA121CF00129E49 /* QYLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF572CE1EA121CF00129E49 /* QYLocationViewController.m */; };
@@ -362,6 +362,9 @@
 		2B3191A21E938C4E0004F4E9 /* QYUpdateAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYUpdateAPIManager.m; sourceTree = "<group>"; };
 		2B4D4FF61E704612003FD8BD /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		2B4D4FF71E704612003FD8BD /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		2BABB27A1EB84C61006A45CC /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		2BABB27B1EB84C61006A45CC /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		2BABB27C1EB84C61006A45CC /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		2BAE5D7A1E951A820089ECF1 /* QYTakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTakePhotoViewController.h; sourceTree = "<group>"; };
 		2BAE5D7B1E951A820089ECF1 /* QYTakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTakePhotoViewController.m; sourceTree = "<group>"; };
 		2BAE5D7E1E9537310089ECF1 /* QYSelectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSelectModel.h; sourceTree = "<group>"; };
@@ -910,9 +913,6 @@
 		BAE783911EA7C64E00D169DC /* QYPersonMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYPersonMapController.m; sourceTree = "<group>"; };
 		BAE783931EA7CF9400D169DC /* QYLogoutApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLogoutApiManager.h; sourceTree = "<group>"; };
 		BAE783941EA7CF9400D169DC /* QYLogoutApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLogoutApiManager.m; sourceTree = "<group>"; };
-		BAF44FFC1EB70A15002B17C0 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
-		BAF44FFD1EB70A15002B17C0 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
-		BAF44FFE1EB70A15002B17C0 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		BAF450021EB70A36002B17C0 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		BAF450071EB70BA4002B17C0 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = Venders/Frameworks/MAMapKit.framework/AMap.bundle; sourceTree = "<group>"; };
 		BAF450091EB72FF0002B17C0 /* QYDeleteCirleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYDeleteCirleApiManager.h; sourceTree = "<group>"; };
@@ -1002,21 +1002,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAF450061EB70AE0002B17C0 /* MAMapKit.framework in Frameworks */,
-				BAF450051EB70AD1002B17C0 /* AMapSearchKit.framework in Frameworks */,
-				BAF450041EB70ABD002B17C0 /* AMapFoundationKit.framework in Frameworks */,
 				BAF450031EB70A36002B17C0 /* GLKit.framework in Frameworks */,
+				2BABB27D1EB84C61006A45CC /* AMapFoundationKit.framework in Frameworks */,
 				BAC02A701E9E8564007F6760 /* OpenGLES.framework in Frameworks */,
 				BAC02A6E1E9E7BD0007F6760 /* libstdc++.6.0.9.tbd in Frameworks */,
 				BA354D851E6BE4BC00EE8189 /* libz.tbd in Frameworks */,
 				BAC02A6C1E9E7BB4007F6760 /* JavaScriptCore.framework in Frameworks */,
 				BAC02A6A1E9E7BAD007F6760 /* AdSupport.framework in Frameworks */,
 				BAC02A681E9E7BA1007F6760 /* Security.framework in Frameworks */,
+				2BABB27E1EB84C61006A45CC /* AMapSearchKit.framework in Frameworks */,
 				BA80554D1E896A160009A4D7 /* CoreLocation.framework in Frameworks */,
 				BAC02A661E9E7B82007F6760 /* QuartzCore.framework in Frameworks */,
 				BA80554B1E896A090009A4D7 /* CoreTelephony.framework in Frameworks */,
 				BA8055491E8969FF0009A4D7 /* MobileCoreServices.framework in Frameworks */,
 				BA8055471E8969F30009A4D7 /* SystemConfiguration.framework in Frameworks */,
+				2BABB27F1EB84C61006A45CC /* MAMapKit.framework in Frameworks */,
 				BA8055451E8969E60009A4D7 /* libsqlite3.tbd in Frameworks */,
 				BA8055431E8969D30009A4D7 /* libc++.tbd in Frameworks */,
 				BA354D871E6BE4CE00EE8189 /* libresolv.9.tbd in Frameworks */,
@@ -2346,9 +2346,9 @@
 		BAF44FFB1EB70A15002B17C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BAF44FFC1EB70A15002B17C0 /* AMapFoundationKit.framework */,
-				BAF44FFD1EB70A15002B17C0 /* AMapSearchKit.framework */,
-				BAF44FFE1EB70A15002B17C0 /* MAMapKit.framework */,
+				2BABB27A1EB84C61006A45CC /* AMapFoundationKit.framework */,
+				2BABB27B1EB84C61006A45CC /* AMapSearchKit.framework */,
+				2BABB27C1EB84C61006A45CC /* MAMapKit.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
