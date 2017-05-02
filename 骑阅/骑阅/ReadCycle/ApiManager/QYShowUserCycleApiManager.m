@@ -62,16 +62,24 @@
 }
 #pragma mark - public method
 
+- (NSInteger)loadData {
+    
+    self.pages = 0;
+    self.isLoadMore = NO;
+    self.isRefesh = NO;
+    return [super loadData];
+}
+
 - (void)loadNext {
     
     self.isLoadMore = YES;
-    [self loadData];
+    [super loadData];
 }
 
 - (void)loadLaste {
     
     self.isRefesh = YES;
-    [self loadData];
+    [super loadData];
 }
 #pragma mark -CTAPIManagerValidator
 - (BOOL)manager:(CTAPIBaseManager *)manager isCorrectWithParamData:(NSDictionary *)data {
@@ -95,7 +103,7 @@
     [super afterPerformFailWithResponse:response];
     if (self.pages != 0 && self.isLoadMore) {
         
-        self.pages = self.pages - 10;
+        self.pages = self.pages - 1;
     }
 }
 @end

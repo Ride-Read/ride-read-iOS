@@ -143,6 +143,13 @@
 }
 
 
+#pragma mark - tableview refresh
+
+- (void)tableViewFooterRefesh:(YYBasicTableView *)tableView {
+    
+    [self.cycleApiManager loadNext];
+}
+
 
 #pragma mark - CTApiManagerParamSource
 
@@ -173,7 +180,6 @@
         if (!self.tableView.startFooter) {
             
             NSArray *cycles = [self.cycleApiManager fetchDataWithReformer:self.cycleReform];
-            self.attentionAndMessageView.info = cycles[0];
             [self.serialQueue addOperationWithBlock:^{
                
                 for (NSDictionary *info in cycles) {
@@ -184,6 +190,10 @@
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
 
+                    if (cycles.count == 20) {
+                        
+                        self.tableView.startFooter = YES;
+                    }
                     [self.tableView reloadData];
                     self.numberView.data = cycles;
                      
@@ -195,6 +205,7 @@
         
         if (self.cycleApiManager.isLoadMore) {
             
+            NSUInteger originCount = self.layoutArray.count;
             NSArray *cycles = [self.cycleApiManager fetchDataWithReformer:self.cycleReform];
             [self.serialQueue addOperationWithBlock:^{
                
@@ -202,15 +213,14 @@
                 QYUserCycleLayout *layout;
                 for (int i = 0; i < cycles.count; i++) {
                     
-                    NSIndexPath *index = [NSIndexPath indexPathForRow:self.layoutArray.count + i inSection:0];
+                    NSIndexPath *index = [NSIndexPath indexPathForRow:originCount + i inSection:0];
                     [indexPaths addObject:index];
                     layout = [QYUserCycleLayout friendStatusCellLayout:cycles[i]];
+                    [self.layoutArray addObject:layout];
                 }
-                
-                [self.layoutArray addObject:layout];
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                
-                    if (cycles.count < 10) {
+                    if (cycles.count < 20) {
                     
                         [self.tableView.mj_footer endRefreshingWithNoMoreData];
                     } else {
@@ -219,6 +229,8 @@
                     }
                     
                     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+                    self.numberView.data = self.layoutArray;
+
                 }];
                 
             }];
@@ -239,6 +251,10 @@
     
     if (manager == self.cycleApiManager) {
 
+        if (self.tableView.startFooter) {
+            
+            [self.tableView.mj_footer endRefreshing];
+        }
         [MBProgressHUD showMessageAutoHide:@"列表加载失败" view:nil];
         return;
     }
@@ -275,7 +291,7 @@
     
     if (!_tableView) {
         
-        _tableView = [[YYBasicTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView = [[YYBasicTableView alloc] initWithRefeshSytle:YYTableViewRefeshStyleFooter];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.refesh = self;

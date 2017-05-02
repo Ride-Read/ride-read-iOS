@@ -52,6 +52,13 @@
 
 #pragma mark - public method
 
+- (NSInteger)loadData {
+    
+    self.pages = 0;
+    self.isLoadMore = NO;
+    self.isRefesh = NO;
+    return [super loadData];
+}
 - (void)loadNext {
     
     self.isLoadMore = YES;
@@ -85,7 +92,7 @@
     [super afterPerformFailWithResponse:response];
     if (self.pages != 0 && self.isLoadMore) {
         
-        self.pages = self.pages - 10;
+        self.pages = self.pages - 1;
     }
 }
 
