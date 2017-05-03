@@ -160,6 +160,8 @@
     person.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:person animated:YES];
 }
+
+
 - (void)clickAttentionButton:(QYReadMeHeaderView *)headerView {
     
     QYAttentionViewController *attention = [[QYAttentionViewController alloc] init];

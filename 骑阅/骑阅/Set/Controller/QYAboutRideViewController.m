@@ -89,7 +89,6 @@
 
 - (NSDictionary *)paramsForApi:(CTAPIBaseManager *)manager {
     
-
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     return @{kuid:uid?:@(0),@"version_type":@(2)};
 }
@@ -109,7 +108,7 @@
 
 - (void)managerCallAPIDidFailed:(CTAPIBaseManager *)manager {
     
-    [MBProgressHUD showMessageAutoHide:@"版本信息加载失败" view:nil];
+//    [MBProgressHUD showMessageAutoHide:@"版本信息加载失败" view:nil];
 }
 
 #pragma mark - getter and setter
