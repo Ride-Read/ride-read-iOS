@@ -8,6 +8,23 @@
 
 #import "QYPersonAnnotion.h"
 
+@interface QYPersonAnnotion ()
+@property (nonatomic, strong) CLLocation *location;
+
+@end
 @implementation QYPersonAnnotion
 
+- (instancetype)init {
+    
+    self = [super init];
+    return self;
+}
+- (CLLocation *)locationForAnnotion {
+    
+    if (!_location) {
+        
+        _location = [[CLLocation alloc] initWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude];
+    }
+    return _location;
+}
 @end

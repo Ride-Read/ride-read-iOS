@@ -37,7 +37,7 @@
 
 - (BOOL)shouldCache {
     
-    return YES;
+    return NO;
 }
 
 #pragma mark - CTAPIManagerValidator

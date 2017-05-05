@@ -14,7 +14,6 @@
 - (id)initWithAnnotation:(id<MAAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
     
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
-    self.number.hidden = YES;
     return self;
 }
 /*

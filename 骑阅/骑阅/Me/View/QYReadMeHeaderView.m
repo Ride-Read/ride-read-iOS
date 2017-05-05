@@ -32,6 +32,7 @@
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) QYRecentlyCycleReform *personReform;
 @property (nonatomic, strong) NSMutableArray *postArray;
+@property (nonatomic, assign) BOOL isload;
 
 @end
 @implementation QYReadMeHeaderView
@@ -164,13 +165,15 @@
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;
     if (uid.integerValue == self.user.uid.integerValue) {
         
-        QYSignAnnotion *sign = info.userInfo[@"signAnnotation"];
-        QYPersonAnnotion *per = [[QYPersonAnnotion alloc] init];
-        per.coordinate = sign.coordinate;
-        per.info = sign.info;
-        [self.postArray addObject:sign];
-        [self.mapView addAnnotations:self.postArray];
-    
+        [self.personApi loadData];
+        
+//        QYSignAnnotion *sign = info.userInfo[@"signAnnotation"];
+//        QYPersonAnnotion *per = [[QYPersonAnnotion alloc] init];
+//        per.coordinate = sign.coordinate;
+//        per.info = sign.info;
+//        [self.postArray addObject:sign];
+//        [self.mapView addAnnotations:self.postArray];
+//    
     }
     
 }
@@ -379,7 +382,11 @@
 - (void)setUser:(QYUser *)user {
     
     _user = user;
-    [self.personApi loadData];
+    if (!self.isload) {
+
+        [self.personApi loadData];
+        self.isload = YES;
+    }
     [self anlayseData];
 }
 
@@ -522,7 +529,8 @@
     
     
     if (manager == self.personApi) {
-        
+    
+        self.isload = YES;
         NSArray *array = [self.personApi fetchDataWithReformer:self.personReform];
         self.annotions = array;
     }
@@ -533,7 +541,7 @@
     
     if (manager == self.personApi) {
         
-        
+        self.isload = NO;
     }
 }
 

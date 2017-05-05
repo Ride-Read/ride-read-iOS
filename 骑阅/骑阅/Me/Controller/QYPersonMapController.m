@@ -15,10 +15,13 @@
 #import "define.h"
 #import "QYDetailCycleByPresentedController.h"
 #import "QYNavigationController.h"
+#import "CLBasicIterator.h"
 
 @interface QYPersonMapController ()<MAMapViewDelegate, QYCustomAnnotionViewDelegate>
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) UIButton *backButton;
+@property (nonatomic, strong) CLBasicIterator *iterator;
+@property (nonatomic, strong) NSArray *pres;
 
 @end
 
@@ -81,6 +84,28 @@
     [self presentViewController:navc animated:YES completion:nil];
 }
 
+- (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction {
+    
+    [self.iterator loadDataByScale:self.mapView.zoomLevel result:^(NSArray *array) {
+        
+        NSMutableArray *result = @[].mutableCopy;
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            NSArray *temp = obj;
+            if (temp.count > 0) {
+                
+                QYPersonAnnotion *ann = temp[0];
+                ann.info[kcount] = [NSString stringWithFormat:@"%lu",(unsigned long)temp.count];
+                [result addObject:ann];
+            }
+        }];
+        [self.mapView removeAnnotations:self.pres];
+        [self.mapView addAnnotations:result];
+        self.pres = result;
+    }];
+    
+}
+
 #pragma mark - customAnnotionView delegate
 - (void)clickCustomAnnotion:(QYCustomAnnotionView *)view info:(NSDictionary *)info {
     
@@ -101,7 +126,24 @@
 }
 - (void)loadData {
     
-    [self.mapView addAnnotations:self.annos];
+    [self.iterator loadDataByScale:self.mapView.zoomLevel result:^(NSArray *array) {
+        
+        NSMutableArray *result = @[].mutableCopy;
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+           
+            NSArray *temp = obj;
+            if (temp.count > 0) {
+                
+                QYPersonAnnotion *ann = temp[0];
+                ann.info[kcount] = [NSString stringWithFormat:@"%lu",(unsigned long)temp.count];
+                [result addObject:ann];
+            }
+        }];
+    
+        self.pres = result;
+        [self.mapView addAnnotations:result];
+    }];
+    
 }
 - (void)setContentView {
     
@@ -125,6 +167,14 @@
 }
 
 #pragma mark - getter and setter
+
+- (void)setAnnos:(NSArray *)annos {
+    
+    _annos = annos;
+    self.iterator = [[CLBasicIterator alloc] init];
+    self.iterator.array = annos;
+    
+}
 - (MAMapView *)mapView {
     
     if (!_mapView) {

@@ -11,6 +11,6 @@
 
 @interface QYAnnotionModel : NSObject<MAAnnotation>
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (nonatomic, strong) NSDictionary *info;
+@property (nonatomic, strong) NSMutableDictionary *info;
 
 @end

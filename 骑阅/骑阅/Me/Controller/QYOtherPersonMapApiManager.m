@@ -14,5 +14,9 @@
     
     return @"map/show_other_user_map";
 }
+- (BOOL)shouldCache {
+    
+    return YES;
+}
 
 @end

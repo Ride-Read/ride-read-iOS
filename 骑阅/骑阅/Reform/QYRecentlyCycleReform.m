@@ -40,7 +40,7 @@
             }
             NSNumber *mid = info[kmid];
             NSNumber *uid = info[kuid];
-            NSDictionary *cycle = @{klatitude:latitude,klongitude:longti,kmsg:msg?:@"",kcover:cover?:@"",kmid:mid,kuid:uid};
+            NSMutableDictionary *cycle = @{klatitude:latitude,klongitude:longti,kmsg:msg?:@"",kcover:cover?:@"",kmid:mid,kuid:uid}.mutableCopy;
             coor.latitude = latitude.doubleValue;
             coor.longitude = longti.doubleValue;
             annotion.info = cycle;
@@ -92,7 +92,7 @@
                     countText = [NSString stringWithFormat:@"%@",count];
                 }
             }
-            NSDictionary *cycle = @{klatitude:latitude,klongitude:longti,kmsg:msg?:@"",kcover:cover?:@"",kmid:mid,kuid:uid,kcount:countText};
+            NSMutableDictionary *cycle = @{klatitude:latitude,klongitude:longti,kmsg:msg?:@"",kcover:cover?:@"",kmid:mid,kuid:uid,kcount:countText}.mutableCopy;
             coor.latitude = latitude.doubleValue;
             coor.longitude = longti.doubleValue;
             annotion.info = cycle;
@@ -125,7 +125,7 @@
         }
         NSNumber *mid = info[kmid];
         NSNumber *uid = info[kuid];
-        NSDictionary *cycle = @{klatitude:latitude,klongitude:longti,kmsg:msg?:@"",kcover:cover?:@"",kmid:mid,kuid:uid};
+        NSMutableDictionary *cycle = @{klatitude:latitude,klongitude:longti,kmsg:msg?:@"",kcover:cover?:@"",kmid:mid,kuid:uid}.mutableCopy;
         coor.latitude = latitude.doubleValue;
         coor.longitude = longti.doubleValue;
         annotion.info = cycle;

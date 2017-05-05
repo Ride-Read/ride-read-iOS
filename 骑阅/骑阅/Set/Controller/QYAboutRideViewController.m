@@ -11,6 +11,7 @@
 #import "define.h"
 #import "QYVsersionReform.h"
 #import "QYBasicWebviewController.h"
+#import "YYUpdateVersionView.h"
 
 @interface QYAboutRideViewController ()<CTAPIManagerParamSource,CTAPIManagerCallBackDelegate>
 @property (nonatomic, strong) QYVersionUpdateApiManager *versionApi;
@@ -69,7 +70,7 @@
     switch (indexPath.row) {
         case 0:
         {
-            [self clickUpdateAction];
+            //[self clickUpdateAction];
             
         }
             break;

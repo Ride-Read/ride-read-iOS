@@ -271,7 +271,10 @@
 		BAD314451E9400F2004CF67F /* QYLookAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314441E9400F2004CF67F /* QYLookAttentionViewController.m */; };
 		BAD314481E940107004CF67F /* QYLoodFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD314471E940107004CF67F /* QYLoodFansViewController.m */; };
 		BAD3144B1E954B7F004CF67F /* QYNeedSiteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */; };
+		BAD5D44E1EBB84CA00AED9F6 /* CLBasicIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD5D44D1EBB84CA00AED9F6 /* CLBasicIterator.m */; };
 		BAD66ED81EB79B8C00F919C5 /* QYShowMycircleApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD66ED71EB79B8C00F919C5 /* QYShowMycircleApiManager.m */; };
+		BAD693AE1EBC11C100A39C4C /* YYUpdateVersionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD693AC1EBC11C000A39C4C /* YYUpdateVersionView.m */; };
+		BAD693AF1EBC11C100A39C4C /* YYUpdateVersionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD693AD1EBC11C000A39C4C /* YYUpdateVersionView.xib */; };
 		BAD7286F1EAA60730073BC48 /* QYCustomAnnotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD7286E1EAA60730073BC48 /* QYCustomAnnotionView.m */; };
 		BAD841461E969A5400DACB35 /* QYFollowApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD841451E969A5400DACB35 /* QYFollowApiManager.m */; };
 		BAD841491E969A6500DACB35 /* QYUnfollowApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD841481E969A6500DACB35 /* QYUnfollowApiManager.m */; };
@@ -865,8 +868,14 @@
 		BAD314471E940107004CF67F /* QYLoodFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYLoodFansViewController.m; sourceTree = "<group>"; };
 		BAD314491E954B7F004CF67F /* QYNeedSiteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QYNeedSiteViewController.h; path = "骑阅/Compoents/controolers/QYNeedSiteViewController.h"; sourceTree = SOURCE_ROOT; };
 		BAD3144A1E954B7F004CF67F /* QYNeedSiteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QYNeedSiteViewController.m; path = "骑阅/Compoents/controolers/QYNeedSiteViewController.m"; sourceTree = SOURCE_ROOT; };
+		BAD5D44C1EBB84CA00AED9F6 /* CLBasicIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLBasicIterator.h; sourceTree = "<group>"; };
+		BAD5D44D1EBB84CA00AED9F6 /* CLBasicIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLBasicIterator.m; sourceTree = "<group>"; };
+		BAD5D44F1EBB858B00AED9F6 /* QYLocationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYLocationProtocol.h; sourceTree = "<group>"; };
 		BAD66ED61EB79B8C00F919C5 /* QYShowMycircleApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYShowMycircleApiManager.h; sourceTree = "<group>"; };
 		BAD66ED71EB79B8C00F919C5 /* QYShowMycircleApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYShowMycircleApiManager.m; sourceTree = "<group>"; };
+		BAD693AB1EBC11C000A39C4C /* YYUpdateVersionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYUpdateVersionView.h; sourceTree = "<group>"; };
+		BAD693AC1EBC11C000A39C4C /* YYUpdateVersionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYUpdateVersionView.m; sourceTree = "<group>"; };
+		BAD693AD1EBC11C000A39C4C /* YYUpdateVersionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYUpdateVersionView.xib; sourceTree = "<group>"; };
 		BAD7286D1EAA60730073BC48 /* QYCustomAnnotionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYCustomAnnotionView.h; sourceTree = "<group>"; };
 		BAD7286E1EAA60730073BC48 /* QYCustomAnnotionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYCustomAnnotionView.m; sourceTree = "<group>"; };
 		BAD841441E969A5400DACB35 /* QYFollowApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYFollowApiManager.h; sourceTree = "<group>"; };
@@ -1122,13 +1131,6 @@
 			path = Command;
 			sourceTree = "<group>";
 		};
-		2BBD52FA1E6EFCD6007313E7 /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
 		2BBD52FB1E6EFCD6007313E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1328,6 +1330,9 @@
 		BA12CC8A1E867CE900DDB8CF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAD693AB1EBC11C000A39C4C /* YYUpdateVersionView.h */,
+				BAD693AC1EBC11C000A39C4C /* YYUpdateVersionView.m */,
+				BAD693AD1EBC11C000A39C4C /* YYUpdateVersionView.xib */,
 				BA12CCA11E868A3B00DDB8CF /* QYSetFooterView.h */,
 				BA12CCA21E868A3B00DDB8CF /* QYSetFooterView.m */,
 			);
@@ -2343,6 +2348,16 @@
 			path = "骑阅/Compoents/Protocol";
 			sourceTree = SOURCE_ROOT;
 		};
+		BAD5D44B1EBB842D00AED9F6 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				BAD5D44C1EBB84CA00AED9F6 /* CLBasicIterator.h */,
+				BAD5D44D1EBB84CA00AED9F6 /* CLBasicIterator.m */,
+				BAD5D44F1EBB858B00AED9F6 /* QYLocationProtocol.h */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		BAF44FFB1EB70A15002B17C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2410,12 +2425,12 @@
 		EC7AA1421E5C8B4200EA54AA /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				BAD5D44B1EBB842D00AED9F6 /* Tool */,
 				BAC36FBD1E82AC71007D1FF4 /* Logic */,
 				BAC36FAA1E815DAE007D1FF4 /* ApiManager */,
 				2BBD52F81E6EFCC4007313E7 /* Command */,
 				EC7AA1451E5C8B4200EA54AA /* Controller */,
 				2BC7D3101EB2B9BC00F3B243 /* Model */,
-				2BBD52FA1E6EFCD6007313E7 /* Tool */,
 				2BBD52FB1E6EFCD6007313E7 /* View */,
 			);
 			path = Me;
@@ -2695,6 +2710,7 @@
 				2BC7D30F1EB2B99800F3B243 /* address.plist in Resources */,
 				BA55BFF41E4F37D600F1027B /* LaunchScreen.storyboard in Resources */,
 				BAF92C701EB47B8F00FBC50F /* version.plist in Resources */,
+				BAD693AF1EBC11C100A39C4C /* YYUpdateVersionView.xib in Resources */,
 				BA8DE1BD1E9BDEEC0032FC88 /* QYSearchSectionView.xib in Resources */,
 				BA05A8271EA522FF00D89210 /* QYMapSignView.xib in Resources */,
 				BAF450081EB70BA4002B17C0 /* AMap.bundle in Resources */,
@@ -2792,6 +2808,7 @@
 				BA05A8261EA522FF00D89210 /* QYMapSignView.m in Sources */,
 				BA9AAAA71E692C7000D7A5BB /* YYTextAttribute.m in Sources */,
 				BAA0017A1E50725B0067A894 /* CTAPIBaseManager.m in Sources */,
+				BAD693AE1EBC11C100A39C4C /* YYUpdateVersionView.m in Sources */,
 				BA074B491E7EEBC100E5DE0D /* QYCycleBasicLayout.m in Sources */,
 				BAC959081E7576AB007E171E /* QYCommentViewCell.m in Sources */,
 				2BBD53111E6EFE2E007313E7 /* QYtest3.m in Sources */,
@@ -2800,6 +2817,7 @@
 				BA99376B1EACB7CF00C0EDBD /* QYScaleApiManagerTool.m in Sources */,
 				BAC871651E7961EF00C5F800 /* QYQiuniuUploadCommand.m in Sources */,
 				BAA001841E50725B0067A894 /* CLAppLogic.mm in Sources */,
+				BAD5D44E1EBB84CA00AED9F6 /* CLBasicIterator.m in Sources */,
 				BA354D2E1E6BE12A00EE8189 /* QNALAssetFile.m in Sources */,
 				BA9AAAAF1E692C7000D7A5BB /* YYTextAsyncLayer.m in Sources */,
 				BA995D0B1E842FB7002FA3B2 /* QYCycleCollectCellTableViewCell.m in Sources */,
@@ -3223,7 +3241,7 @@
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.ursb.ride-read";
+				PRODUCT_BUNDLE_IDENTIFIER = me.ursb.rideread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -3245,7 +3263,7 @@
 				INFOPLIST_FILE = "骑阅/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.ursb.ride-read";
+				PRODUCT_BUNDLE_IDENTIFIER = me.ursb.rideread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

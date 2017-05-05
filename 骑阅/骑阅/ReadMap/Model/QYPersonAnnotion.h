@@ -8,6 +8,12 @@
 
 #import "QYAnnotionModel.h"
 
-@interface QYPersonAnnotion : QYAnnotionModel
+@protocol QYLocationDelegate <NSObject>
+
+- (CLLocation *)locationForAnnotion;
+
+@end
+
+@interface QYPersonAnnotion : QYAnnotionModel<QYLocationDelegate>
 
 @end
