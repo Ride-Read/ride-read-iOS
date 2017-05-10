@@ -19,7 +19,6 @@
 #import "QYSignAnnotion.h"
 
 @interface QYReadMeHeaderView ()<MAMapViewDelegate>
-@property (nonatomic, strong) UIButton *icon;
 @property (nonatomic, strong) UILabel *username;
 @property (nonatomic, strong) UIImageView *sexIcon;
 @property (nonatomic, strong) UIButton *personMap;

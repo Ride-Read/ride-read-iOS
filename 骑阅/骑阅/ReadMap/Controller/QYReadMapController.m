@@ -267,6 +267,7 @@
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
     
     MyLog(@"hello click");
+    if ([view.annotation isKindOfClass:[MAUserLocationRepresentation class]])      return;
     QYRecentlyAnnotion *anno = view.annotation;
     NSDictionary *info = anno.info;
     NSNumber *uid = [CTAppContext sharedInstance].currentUser.uid;

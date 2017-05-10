@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UIButton *messageButton;
 @property (nonatomic, strong) NSArray *annotions;
 @property (nonatomic, strong) QYPersionMapApiManager  *personApi;
+@property (nonatomic, strong) UIButton *icon;
 
 
 - (void)anlayseData;

@@ -27,7 +27,7 @@
 #pragma mark - AnimationDelegate
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     
-    return 0.5;
+    return 0.3;
 }
 
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -48,14 +48,14 @@
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     toVC.view.frame = self.from;
     QYPictureLookController *ctr = (QYPictureLookController *)toVC;
-    ctr.scrollView.frame = toVC.view.bounds;
+    ctr.collectionView.frame = toVC.view.bounds;
     ctr.icon.frame = toVC.view.bounds;
     [UIView animateWithDuration:duration animations:^{
         
         toVC.view.frame = self.to;
-        ctr.scrollView.frame = toVC.view.bounds;
-        ctr.icon.frame = CGRectMake(kScreenWidth * ctr.currentIndex, 100, kScreenWidth, kScreenHeight-200);
-        ctr.scrollView.contentOffset = CGPointMake(kScreenWidth * ctr.currentIndex, 0);
+        ctr.collectionView.frame = toVC.view.bounds;
+//        ctr.icon.frame = CGRectMake(kScreenWidth * ctr.currentIndex, 100, kScreenWidth, kScreenHeight-200);
+//        ctr.scrollView.contentOffset = CGPointMake(kScreenWidth * ctr.currentIndex, 0);
         [ctr.numberIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
            
             make.top.mas_equalTo(20);
@@ -74,14 +74,10 @@
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     QYPictureLookController *ctr = (QYPictureLookController *)fromVC;
     ctr.view.frame = ctr.icon.bounds;
-    ctr.scrollView.frame = ctr.icon.bounds;
-    CGRect to = self.to;
-    ctr.numberIndicator.hidden = YES;
     [UIView animateWithDuration:duration animations:^{
         
         fromVC.view.frame = self.to;
-        ctr.scrollView.frame = CGRectMake(0, 0, to.size.width, to.size.height);
-        ctr.icon.frame = ctr.scrollView.bounds;
+        ctr.icon.frame = ctr.view.bounds;
         
     }completion:^(BOOL finished) {
         

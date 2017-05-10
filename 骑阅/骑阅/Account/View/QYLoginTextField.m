@@ -14,7 +14,7 @@
 @interface QYLoginTextField ()
 
 @property (nonatomic, strong) CAShapeLayer *bottomLine;
-@property (nonatomic, strong,readwrite) UITextField *textField;
+@property (nonatomic, strong,readwrite) QYAcountTextFiled *textField;
 
 @end
 @implementation QYLoginTextField
@@ -55,10 +55,10 @@
 }
 
 #pragma mark - setters and getters
--(UITextField *)textField {
+-(QYAcountTextFiled *)textField {
     
     if (!_textField) {
-        _textField = [[UITextField alloc] init];
+        _textField = [[QYAcountTextFiled alloc] init];
         [_textField setTintColor:[UIColor colorWithHexString:@"#52CAC1"]];
         _textField.font = [UIFont systemFontOfSize:15.4];
         

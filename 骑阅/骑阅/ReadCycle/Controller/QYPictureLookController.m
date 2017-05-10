@@ -10,7 +10,10 @@
 #import "define.h"
 #import <math.h>
 #import "QYLookPictureTransionDelegate.h"
-@interface QYPictureLookController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
+#import "QYPictureCollectionLayout.h"
+#import "QYPictureLookCollectionCell.h"
+@interface QYPictureLookController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,QYViewClickProtocol>
+@property (nonatomic, strong) QYPictureCollectionLayout *layout;
 
 
 @end
@@ -23,8 +26,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     [self setContentView];
-    [self addGesture];
-//    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,6 +34,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)prefersStatusBarHidden {
+    
+    return YES;
+}
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
@@ -41,126 +47,93 @@
     
 }
 
-- (void)setContentView {
-    
-    [self.view addSubview:self.scrollView];
-    [self.view addSubview:self.numberIndicator];
-    [self.scrollView addSubview:self.icon];
-    self.numberIndicator.text = [NSString stringWithFormat:@"%ld/%lu",(self.currentIndex+1),(unsigned long)(self.imageArray.count)];
-//    self.icon.image = self.imageArray[self.currentIndex];
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentIndex]]];
-    self.scrollView.contentSize = CGSizeMake(kScreenWidth * self.imageArray.count, kScreenHeight);
-    
-}
 
-
-#pragma mark - target action 
-
-- (void)clickTap:(UIGestureRecognizer *)tap {
-    
-    if ([tap isKindOfClass:[UITapGestureRecognizer class]]) {
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    }
-    
-    if ([tap isKindOfClass:[UILongPressGestureRecognizer class]]) {
-        
-        
-    }
-    
-}
+#pragma mark - target action
 
 #pragma mark - gestrue
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    
-    return YES;
-}
 #pragma mark - private method
 
-- (void)addGesture {
+- (void)setContentView {
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickTap:)];
-    tap.delegate = self;
-    [self.view addGestureRecognizer:tap];
-    UILongPressGestureRecognizer *pres = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickTap:)];
-    [self.view addGestureRecognizer:pres];
-    
+    [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.numberIndicator];
+    self.numberIndicator.text = [NSString stringWithFormat:@"%ld/%lu",(self.currentIndex+1),(unsigned long)(self.imageArray.count)];
+    self.layout.offsetpoint = CGPointMake(self.currentIndex * kScreenWidth, 0);
 }
 
-
-- (void)analyze {
+- (void)analyzeWith:(UIScrollView *)scrollView {
     
-    CGPoint offest = self.scrollView.contentOffset;
-    int left = rint(offest.x/kScreenWidth);
-    self.currentIndex = left;
-    self.icon.frame = CGRectMake(left * kScreenWidth, 100, kScreenWidth, kScreenHeight - 200);
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentIndex]]];
-    self.numberIndicator.text = [NSString stringWithFormat:@"%d/%lu",(left+1),(unsigned long)(self.imageArray.count)];
+    NSIndexPath *index = [self.collectionView indexPathForItemAtPoint:scrollView.contentOffset];
+    self.numberIndicator.text = [NSString stringWithFormat:@"%lu/%lu",index.row + 1,self.imageArray.count];
+    self.cell = [self.collectionView cellForItemAtIndexPath:index];
     QYLookPictureTransionDelegate *delegate = self.transitioningDelegate;
     delegate.from = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-    NSValue *to = self.rectFrame[left];
+    NSValue *to = self.rectFrame[index.row];
     CGRect toFrame = to.CGRectValue;
     delegate.to = toFrame;
-    
+
 }
-#pragma mark - scrollview delegate
+
+#pragma mark - clickCustom delegate
+
+- (void)clickCustomView:(UIView *)customView index:(NSInteger)index {
+    
+    CGRect rect = [self.cell convertRect:self.icon.frame toView:self.view];
+    [self.icon removeFromSuperview];
+    self.icon.frame = rect;
+    [self.view addSubview:self.icon];
+    self.collectionView.hidden = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
+#pragma mark - collectionView dataSource
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return self.imageArray.count;
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MyLog(@"++++++++++++");
+    QYPictureLookCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"picture" forIndexPath:indexPath];
+    NSString *urlStr = self.imageArray[indexPath.row];
+    [cell.activity startAnimating];
+    cell.zoomView.delegate = self;
+    [cell.zoomView.imageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [cell.zoomView setImageViewWithImg:image];
+        [cell.activity stopAnimating];
+        
+    }];
+    self.icon = cell.zoomView.imageView;
+    self.cell = cell;
+    return cell;
+}
+
+
+#pragma mark - collcetion delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+   
+    [self analyzeWith:scrollView];
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
-    [self analyze];
-    
+
+    [self analyzeWith:scrollView];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-   
-}
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    
-    return self.icon;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-    
-    self.scrollView.scrollEnabled = NO;
-}
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
-    
-    self.scrollView.contentOffset = CGPointMake(self.currentIndex * kScreenWidth, 0);
-}
 
 #pragma mark - getter and setter
 
-- (UIImageView *)icon {
-    
-    if (!_icon) {
-        
-        _icon = [[UIImageView alloc] init];
-        _icon.contentMode = UIViewContentModeScaleAspectFill;
-        _icon.layer.masksToBounds = YES;
-        _icon.userInteractionEnabled = YES;
-
-    }
-    return _icon;
-}
-
-- (UIScrollView *)scrollView {
-    
-    if (!_scrollView) {
-        
-        _scrollView = [[UIScrollView alloc] init];
-        _scrollView.delegate = self;
-        _scrollView.userInteractionEnabled = YES;
-        _scrollView.pagingEnabled = YES;
-        _scrollView.backgroundColor = [UIColor blackColor];
-        _scrollView.scrollEnabled = YES;
-        _scrollView.pagingEnabled = YES;
-        
-    }
-    
-    return _scrollView;
-}
 - (UILabel *)numberIndicator {
     
     if (!_numberIndicator) {
@@ -169,6 +142,28 @@
         _numberIndicator.font = [UIFont systemFontOfSize:14*SizeScale3x];
     }
     return _numberIndicator;
+}
+
+- (UICollectionView *)collectionView {
+    
+    if (!_collectionView) {
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) collectionViewLayout:self.layout];
+        _collectionView.pagingEnabled = YES;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        [_collectionView registerClass:[QYPictureLookCollectionCell class] forCellWithReuseIdentifier:@"picture"];
+    }
+    
+    return _collectionView;
+}
+
+- (QYPictureCollectionLayout *)layout {
+    
+    if (!_layout) {
+        
+        _layout = [[QYPictureCollectionLayout alloc] init];
+    }
+    return _layout;
 }
 
 /*

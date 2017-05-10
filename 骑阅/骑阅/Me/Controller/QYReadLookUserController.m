@@ -15,6 +15,7 @@
 #import "QYFansUserViewController.h"
 #import "QYAttentionViewController.h"
 #import "MBProgressHUD+LLHud.h"
+#import "QYPictureLookController.h"
 
 
 @interface QYReadLookUserController ()<YYBaseicTableViewRefeshDelegate,QYReadMeHeaderViewDelegate,QYFriendCycleDelegate>
@@ -83,6 +84,13 @@
     }];
 }
 
+
+#pragma mark - headerView delegate
+
+- (void)clickIcon:(QYReadMeHeaderView *)headerView {
+    
+    
+}
 
 #pragma mark - tableView datasource
 

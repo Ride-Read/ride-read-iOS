@@ -128,10 +128,13 @@
         [self iteratorData:cateArray limit:2000 length:length.intValue result:^(NSArray *array) {
         
             [self.cache setObject:array forKey:@(zoom)];
-            [self.mainQueue addOperationWithBlock:^{
-                
-                result(array);
-            }];
+            if (scale == self.curScale) {
+             
+                [self.mainQueue addOperationWithBlock:^{
+                    
+                    result(array);
+                }];
+            }
         }];
       
     }];

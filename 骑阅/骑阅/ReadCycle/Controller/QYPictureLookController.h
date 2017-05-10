@@ -12,9 +12,11 @@
 @property (nonatomic, strong) NSArray *imageArray;
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, strong) NSArray *rectFrame;
-@property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic)  UILabel *numberIndicator;
 @property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, weak) UICollectionViewCell *cell;
+@property (nonatomic, strong) UICollectionView *collectionView;
+
 
 
 @end

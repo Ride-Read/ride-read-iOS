@@ -127,7 +127,8 @@
         _confirmPwd = [[QYLoginTextField alloc] init];
         _confirmPwd.placeHolder = @"确认密码";
         _confirmPwd.textField.secureTextEntry = YES;
-        _confirmPwd.textFieldCenterLeft = 15 * 2;
+        _confirmPwd.textFieldCenterLeft = 15 * 2.5;
+        _confirmPwd.textField.leftMargin = 7.5;
         if (kScreenHeight < 560) {
             
             _confirmPwd.textFieldBottom = 6;
